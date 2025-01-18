@@ -1,6 +1,7 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 type ProjectCardProps = {
   img: string;
   title: string;
@@ -8,10 +9,11 @@ type ProjectCardProps = {
 const ProjectCard = ({ img, title }: ProjectCardProps) => {
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
+  const pathName = usePathname();
   return (
     <Link
       href={`/project/${title}`}
-      className="relative w-full group flex items-center gap-2 truncate hover:bg-primaryHover p-2 rounded-md cursor-pointer shrink-0"
+      className={`relative w-full group flex items-center gap-2 truncate hover:bg-primaryHover p-2 rounded-md cursor-pointer shrink-0`}
     >
       <img src={img} className="w-6 h-6 rounded-md shrink-0 object-cover" />
       <p className="text-sm text-primaryText truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5">

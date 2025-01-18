@@ -22,6 +22,15 @@ const config: Config = {
         primaryText: "#4c5156",
         primaryHover: "#e7e6f3",
       },
+      keyframes: {
+        popupGrow: {
+          "0%": { transform: "scale(0.2)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+      },
+      animation: {
+        popupGrow: "popupGrow 2s ease-in-out alternate",
+      },
     },
   },
   darkMode: "class",

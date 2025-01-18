@@ -10,9 +10,12 @@ import PlusIcon from "../icons/PlusIcon";
 import ArrowDownIcon from "../icons/ArrowDownIcon";
 import ArrowRightIcon from "../icons/ArrowRightIcon";
 import CloseIcon from "../icons/CloseIcon";
+import { usePathname } from "next/navigation";
+import PopupCreateboard from "../popup/PopupCreateboard";
 const ProjectSidebar = () => {
   const [show, setShow] = useState(true);
   const [showSidebar, setShowSidebar] = useState(true);
+  const [showCreateboard, setShowCreateboard] = useState(false);
   let projectList = [
     {
       img: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
@@ -69,15 +72,29 @@ const ProjectSidebar = () => {
   const handleOpenAndCloseSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+  const handleOpenAndClosePopupCreateboard = () => {
+    setShowCreateboard(!showCreateboard);
+  };
+
+  const pathName = usePathname();
   return (
     <>
       {showSidebar ? (
         <div className={`relative p-4 pl-2 shrink-0 w-[260px]`}>
+          <PopupCreateboard
+            show={showCreateboard}
+            onClose={handleOpenAndClosePopupCreateboard}
+          ></PopupCreateboard>
+          {/* {pathName} */}
           <div className="flex items-center justify-between">
             <HeaderLogo></HeaderLogo>
-            <CloseIcon onClick={handleOpenAndCloseSidebar}></CloseIcon>
+            <CloseIcon onClick={() => setShowCreateboard(false)}></CloseIcon>
           </div>
-          <ButtonCreate className="!w-full my-2" styles="primary">
+          <ButtonCreate
+            className="!w-full my-2"
+            styles="primary"
+            onClick={() => setShowCreateboard(true)}
+          >
             <PlusIcon />
             Create a project
           </ButtonCreate>

@@ -7,11 +7,14 @@ type ButtonCreateProps = {
   className?: string;
   styles: "primary" | "secondary";
   disable?: boolean;
+  onClick?: () => void;
 };
 
 const ButtonCreate = (props: ButtonCreateProps) => {
+  const { styles, children, href, className, disable, onClick, ...rest } =
+    props;
   let newStyles = "";
-  switch (props.styles) {
+  switch (styles) {
     case "primary":
       newStyles =
         "bg-opacity-85 bg-primaryColor hover:bg-opacity-100 text-white";
@@ -27,19 +30,21 @@ const ButtonCreate = (props: ButtonCreateProps) => {
     return (
       <button
         className={`rounded-lg text-center flex items-center justify-center gap-2 py-2 text-sm font-semibold transition-all ${newStyles} ${
-          props.disable
+          disable
             ? "cursor-wait brightness-75 text-opacity-25 bg-opacity-100"
             : ""
         }
-          ${props.className}`}
+          ${className}`}
+        onClick={onClick}
+        {...rest}
       >
-        {props.children}
+        {children}
       </button>
     );
   };
-  if (props.href) {
+  if (href) {
     return (
-      <Link href={props.href}>
+      <Link href={href}>
         <Main />
       </Link>
     );
