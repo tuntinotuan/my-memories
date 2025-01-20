@@ -17,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`fixed inset-0 ${inter.className}`}>{children}</body>
+      <body className={`fixed inset-0 ${inter.className}`}>
+        <div id="myportal" />
+        {children}
+      </body>
     </html>
   );
 }

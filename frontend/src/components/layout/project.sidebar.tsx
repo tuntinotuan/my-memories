@@ -4,7 +4,7 @@ import ButtonCreate from "../button/ButtonCreate";
 import Button from "../button/Button";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ProjectCard from "../project/ProjectCard";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CrownIcon from "../icons/CrownIcon";
 import PlusIcon from "../icons/PlusIcon";
 import ArrowDownIcon from "../icons/ArrowDownIcon";
@@ -75,7 +75,6 @@ const ProjectSidebar = () => {
   const handleOpenAndClosePopupCreateboard = () => {
     setShowCreateboard(!showCreateboard);
   };
-
   const pathName = usePathname();
   return (
     <>
@@ -88,7 +87,7 @@ const ProjectSidebar = () => {
           {/* {pathName} */}
           <div className="flex items-center justify-between">
             <HeaderLogo></HeaderLogo>
-            <CloseIcon onClick={() => setShowCreateboard(false)}></CloseIcon>
+            <CloseIcon onClick={() => handleOpenAndCloseSidebar()}></CloseIcon>
           </div>
           <ButtonCreate
             className="!w-full my-2"
