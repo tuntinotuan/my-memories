@@ -58,3 +58,7 @@ body {
   font-family: "NVN Motherland Signature";
   font-weight: 200;
 }
+
+.home-sidebar:hover .homesidebar-close-icon {
+  opacity: 100;
+}

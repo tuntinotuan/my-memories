@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import HomeMenu from "@/components/layout/home.menu";
 import CloseIcon from "@/components/icons/CloseIcon";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import ButtonCreate from "@/components/button/ButtonCreate";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 import Image from "next/image";
-import { createPortal } from "react-dom";
 import PopupOverlay from "./popup.overlay";
 
 type ColorCode = { from: string; to: string; url?: string };
@@ -43,8 +41,6 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
     console.log("url", item);
     console.log("result", item === currentGradient);
   };
-
-  // animate-[popupGrow_2s_ease-in-out]
   return (
     <PopupOverlay show={show} selector="myportal" width={400}>
       <div className="flex items-center justify-between w-full text-sm font-bold p-4">

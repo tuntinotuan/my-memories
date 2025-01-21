@@ -1,4 +1,4 @@
-import HomeMenu from "@/components/layout/home.menu";
+import HomeMenuSidebar from "@/components/layout/home.menu.sidebar";
 
 export default function HomeLayout({
   children,
@@ -7,7 +7,7 @@ export default function HomeLayout({
 }>) {
   return (
     <div className="flex h-full w-full bg-f2Color">
-      <HomeMenu></HomeMenu>
+      <HomeMenuSidebar></HomeMenuSidebar>
       {children}
     </div>
   );

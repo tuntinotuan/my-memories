@@ -8,7 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import FolderRoundedIcon from "@mui/icons-material/FolderRounded";
 import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomizeOutlined";
-const HomeMenu = () => {
+const HomeMenuSidebar = () => {
   const menuLists = [
     {
       iconNormal: <HomeOutlinedIcon fontSize="large" />,
@@ -31,12 +31,12 @@ const HomeMenu = () => {
   ];
   return (
     <ul className="home-menu-ul h-auto border-r-d7Color">
-      <MenuItem lists={menuLists}></MenuItem>
+      <MenuListItems lists={menuLists}></MenuListItems>
     </ul>
   );
 };
 
-type MenuItem = {
+type MenuListItems = {
   lists: {
     iconNormal: React.ReactNode;
     iconActive: React.ReactNode;
@@ -45,7 +45,7 @@ type MenuItem = {
   }[];
 };
 
-const MenuItem = ({ lists }: MenuItem) => {
+const MenuListItems = ({ lists }: MenuListItems) => {
   const pathname = usePathname();
   return (
     <>
@@ -71,4 +71,4 @@ const MenuItem = ({ lists }: MenuItem) => {
   );
 };
 
-export default HomeMenu;
+export default HomeMenuSidebar;

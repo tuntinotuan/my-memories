@@ -1,4 +1,4 @@
-import HomeMenu from "@/components/layout/home.menu";
+import HomeMenu from "@/components/layout/home.menu.header";
 
 export default function CardLayout({
   children,

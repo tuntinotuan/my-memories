@@ -12,7 +12,8 @@ import ArrowRightIcon from "../icons/ArrowRightIcon";
 import CloseIcon from "../icons/CloseIcon";
 import { usePathname } from "next/navigation";
 import PopupCreateboard from "../popup/PopupCreateboard";
-const ProjectSidebar = () => {
+import { Tooltip } from "@nextui-org/tooltip";
+const HomeSidebar = () => {
   const [show, setShow] = useState(true);
   const [showSidebar, setShowSidebar] = useState(true);
   const [showCreateboard, setShowCreateboard] = useState(false);
@@ -78,16 +79,34 @@ const ProjectSidebar = () => {
   const pathName = usePathname();
   return (
     <>
+      {/* Popup */}
+      <PopupCreateboard
+        show={showCreateboard}
+        onClose={handleOpenAndClosePopupCreateboard}
+      ></PopupCreateboard>
+      {/* Popup ^ */}
       {showSidebar ? (
-        <div className={`relative p-4 pl-2 shrink-0 w-[260px]`}>
-          <PopupCreateboard
-            show={showCreateboard}
-            onClose={handleOpenAndClosePopupCreateboard}
-          ></PopupCreateboard>
-          {/* {pathName} */}
+        <div className={`home-sidebar relative p-4 pl-2 shrink-0 w-[260px]`}>
           <div className="flex items-center justify-between">
             <HeaderLogo></HeaderLogo>
-            <CloseIcon onClick={() => handleOpenAndCloseSidebar()}></CloseIcon>
+            <Tooltip
+              showArrow
+              content="Close menu"
+              placement="bottom"
+              radius="sm"
+              delay={200}
+              closeDelay={200}
+              className="!px-2 !py-[2px]"
+              shadow="sm"
+            >
+              <div>
+                <CloseIcon
+                  onClick={() => handleOpenAndCloseSidebar()}
+                  className="homesidebar-close-icon opacity-0"
+                  border
+                ></CloseIcon>
+              </div>
+            </Tooltip>
           </div>
           <ButtonCreate
             className="!w-full my-2"
@@ -112,7 +131,7 @@ const ProjectSidebar = () => {
             </Button>
             {show && (
               <>
-                <div className="flex flex-col items-center gap-1 overflow-auto max-h-[62vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
+                <div className="flex flex-col items-center gap-1 overflow-auto max-h-[62vh] px-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
                   {projectList.map((item, index) => (
                     <ProjectCard
                       key={index}
@@ -137,13 +156,24 @@ const ProjectSidebar = () => {
           </div>
         </div>
       ) : (
-        <ArrowRightIcon
-          onClick={handleOpenAndCloseSidebar}
-          className="fixed top-6 -translate-x-5 hover:-translate-x-4 w-6 h-6 flex items-center justify-center bg-white shadow-md rounded-full border border-gray-100 z-50 transition-all"
-        />
+        <Tooltip
+          showArrow
+          content="Open menu"
+          placement="bottom"
+          radius="sm"
+          delay={200}
+          closeDelay={200}
+          className="!px-2 !py-[2px]"
+          shadow="sm"
+        >
+          <ArrowRightIcon
+            onClick={handleOpenAndCloseSidebar}
+            className=" top-6 -translate-x-5 hover:-translate-x-4 w-6 h-6 flex items-center justify-center bg-white shadow-md rounded-full border border-gray-100 z-50 transition-all"
+          />
+        </Tooltip>
       )}
     </>
   );
 };
 
-export default ProjectSidebar;
+export default HomeSidebar;

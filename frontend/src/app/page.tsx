@@ -1,12 +1,12 @@
 import AppHeader from "@/components/layout/app.header";
 import Image from "next/image";
 import { NextUIProvider } from "@nextui-org/system";
-import HomeMenu from "@/components/layout/home.menu";
+import HomeMenuSidebar from "@/components/layout/home.menu.sidebar";
 
 export default function Home() {
   return (
     <div className="flex h-full bg-f2Color">
-      <HomeMenu></HomeMenu>
+      <HomeMenuSidebar></HomeMenuSidebar>
       <NextUIProvider>
         <AppHeader></AppHeader>
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
