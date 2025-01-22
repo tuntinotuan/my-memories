@@ -1,12 +1,12 @@
 import React from "react";
 import Button from "@/components/button/Button";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import Image from "next/image";
 import { Tooltip } from "@nextui-org/tooltip";
 import { scrollTypes } from "@/app/(home)/project/layout";
-import SearchMenuHeader from "../search/SearchMenuHeader";
+import SearchMenuHeader from "../../search/SearchMenuHeader";
+import SettingIcon from "@/components/icons/SettingIcon";
+import NotificationIcon from "@/components/icons/NotificationIcon";
 
 const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
   return (
@@ -29,12 +29,12 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
       >
         <div>
           <Button disable>
-            <SettingsOutlinedIcon></SettingsOutlinedIcon>
+            <SettingIcon fontSize="small" />
           </Button>
         </div>
       </Tooltip>
       <Button disable>
-        <NotificationsNoneOutlinedIcon></NotificationsNoneOutlinedIcon>
+        <NotificationIcon fontSize="small" />
       </Button>
       <Button className="py-1" disable>
         <Image

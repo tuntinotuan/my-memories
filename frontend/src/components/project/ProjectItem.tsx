@@ -3,11 +3,15 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Tooltip } from "@nextui-org/tooltip";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-type ProjectCardProps = {
-  img: string;
+import ThreeDotsIcon from "../icons/ThreeDotsIcon";
+import ProjectImgOrGradient from "./ProjectImgOrGradient";
+import { ColorCode, ProjectImgOrGradientProps, UrlCode } from "./types";
+
+type ProjectItemProps = {
+  img: ColorCode | UrlCode;
   title: string;
 };
-const ProjectCard = ({ img, title }: ProjectCardProps) => {
+const ProjectItem = ({ img, title }: ProjectItemProps) => {
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
   const pathName = usePathname();
@@ -16,7 +20,7 @@ const ProjectCard = ({ img, title }: ProjectCardProps) => {
       className={`relative w-full group flex items-center gap-2 truncate hover:bg-primaryHover p-2 rounded-md cursor-pointer shrink-0`}
     >
       <Link href={`/project/${title}`} className="absolute inset-0"></Link>
-      <img src={img} className="w-6 h-6 rounded-md shrink-0 object-cover" />
+      <ProjectImgOrGradient values={img}></ProjectImgOrGradient>
       <p className="text-sm text-primaryText truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5">
         {title}
       </p>
@@ -40,12 +44,13 @@ const ProjectCard = ({ img, title }: ProjectCardProps) => {
             <OpenInNewIcon fontSize="inherit"></OpenInNewIcon>{" "}
           </Link>
         </Tooltip>
-        <div className={controlClass}>
-          <MoreHorizIcon fontSize="inherit"></MoreHorizIcon>
-        </div>
+        <ThreeDotsIcon
+          fontSize="inherit"
+          className={controlClass}
+        ></ThreeDotsIcon>
       </div>
     </div>
   );
 };
 
-export default ProjectCard;
+export default ProjectItem;

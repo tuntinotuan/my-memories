@@ -1,8 +1,8 @@
 import React from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 type CloseIconProps = {
-  className: string;
-  onClick: () => void;
+  className?: string;
+  onClick?: () => void;
   fontSize?: "small" | "inherit" | "large" | "medium";
   border?: boolean;
 };

@@ -108,7 +108,7 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
             <div
               className={`flex items-center justify-center w-full h-10 bg-primaryHover text-primaryText hover:text-black hover:shadow-md hover:-translate-y-[1px] rounded shadow-sm cursor-pointer transition-all`}
             >
-              <ThreeDotsIcon></ThreeDotsIcon>
+              <ThreeDotsIcon fontSize="medium"></ThreeDotsIcon>
             </div>
           </div>
         </div>

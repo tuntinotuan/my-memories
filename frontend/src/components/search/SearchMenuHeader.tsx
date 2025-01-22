@@ -5,10 +5,10 @@ const SearchMenuHeader = () => {
   return (
     <label
       htmlFor="searchInputId"
-      className={`flex items-center gap-2 border border-gray-200 rounded-lg px-2 py-1 text-sm hover:border-gray-500 transition-all cursor-text w-[450px]`}
+      className={`flex items-center gap-2 border border-gray-200 rounded-lg px-2 py-1 text-sm hover:border-gray-500 transition-all cursor-text w-[350px]`}
     >
       <SearchIcon
-        fontSize="large"
+        fontSize="medium"
         className="text-gray-500 hover:border-gray-500"
       ></SearchIcon>
       <input

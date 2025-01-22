@@ -1,4 +1,4 @@
-import HomeMenuSidebar from "@/components/layout/home.menu.sidebar";
+import HomeMenuSidebar from "@/components/layout/home/home.menu.sidebar";
 
 export default function HomeLayout({
   children,

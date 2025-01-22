@@ -1,17 +1,17 @@
 "use client";
-import HeaderLogo from "../logo/header.logo";
-import ButtonCreate from "../button/ButtonCreate";
-import Button from "../button/Button";
+import HeaderLogo from "../../logo/header.logo";
+import ButtonCreate from "../../button/ButtonCreate";
+import Button from "../../button/Button";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import ProjectCard from "../project/ProjectCard";
+import ProjectItem from "../../project/ProjectItem";
 import { useRef, useState } from "react";
-import CrownIcon from "../icons/CrownIcon";
-import PlusIcon from "../icons/PlusIcon";
-import ArrowDownIcon from "../icons/ArrowDownIcon";
-import ArrowRightIcon from "../icons/ArrowRightIcon";
-import CloseIcon from "../icons/CloseIcon";
+import CrownIcon from "../../icons/CrownIcon";
+import PlusIcon from "../../icons/PlusIcon";
+import ArrowDownIcon from "../../icons/ArrowDownIcon";
+import ArrowRightIcon from "../../icons/ArrowRightIcon";
+import CloseIcon from "../../icons/CloseIcon";
 import { usePathname } from "next/navigation";
-import PopupCreateboard from "../popup/PopupCreateboard";
+import PopupCreateboard from "../../popup/PopupCreateboard";
 import { Tooltip } from "@nextui-org/tooltip";
 const HomeSidebar = () => {
   const [show, setShow] = useState(true);
@@ -19,51 +19,25 @@ const HomeSidebar = () => {
   const [showCreateboard, setShowCreateboard] = useState(false);
   let projectList = [
     {
-      img: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
+      img: {
+        url: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
+        alt: "anything",
+      },
       title: "Online course presentation",
     },
     {
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
+      img: {
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
+        alt: "anything",
+      },
       title: "Green and Yellow Playful Illustrative Finance Presentation ",
     },
     {
-      img: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
+      img: { from: "#7731d8", to: "#01C4CD" },
       title: "Online course presentation",
     },
     {
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
-      title: "Green and Yellow Playful Illustrative Finance Presentation ",
-    },
-    {
-      img: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
-      title: "Online course presentation",
-    },
-    {
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
-      title: "Green and Yellow Playful Illustrative Finance Presentation ",
-    },
-    {
-      img: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
-      title: "Online course presentation",
-    },
-    {
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
-      title: "Green and Yellow Playful Illustrative Finance Presentation ",
-    },
-    {
-      img: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
-      title: "Online course presentation",
-    },
-    {
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
-      title: "Green and Yellow Playful Illustrative Finance Presentation ",
-    },
-    {
-      img: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
-      title: "Online course presentation",
-    },
-    {
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
+      img: { from: "#09326c", to: "#c7509b" },
       title: "Green and Yellow Playful Illustrative Finance Presentation ",
     },
   ];
@@ -133,11 +107,11 @@ const HomeSidebar = () => {
               <>
                 <div className="flex flex-col items-center gap-1 overflow-auto max-h-[62vh] px-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
                   {projectList.map((item, index) => (
-                    <ProjectCard
+                    <ProjectItem
                       key={index}
                       img={item.img}
                       title={item.title}
-                    ></ProjectCard>
+                    ></ProjectItem>
                   ))}
                 </div>
                 {projectList.length <= 6 && (
@@ -168,7 +142,7 @@ const HomeSidebar = () => {
         >
           <ArrowRightIcon
             onClick={handleOpenAndCloseSidebar}
-            className=" top-6 -translate-x-5 hover:-translate-x-4 w-6 h-6 flex items-center justify-center bg-white shadow-md rounded-full border border-gray-100 z-50 transition-all"
+            className="fixed top-6 -translate-x-5 hover:-translate-x-4 w-6 h-6 flex items-center justify-center bg-white shadow-md rounded-full border border-gray-100 z-50 transition-all"
           />
         </Tooltip>
       )}

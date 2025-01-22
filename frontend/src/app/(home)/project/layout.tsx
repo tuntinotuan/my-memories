@@ -1,6 +1,6 @@
 "use client";
-import HomeMenu from "@/components/layout/home.menu.header";
-import HomeSidebar from "@/components/layout/home.sidebar";
+import HomeMenu from "@/components/layout/home/home.menu.header";
+import HomeSidebar from "@/components/layout/home/home.sidebar";
 import { useRef, useState } from "react";
 export type scrollTypes = {
   scrollTop: number;
@@ -24,11 +24,7 @@ export default function ProjectLayout({
       <HomeSidebar></HomeSidebar>
       <div className="relative bg-white rounded-t-xl shadow-xl w-full">
         <HomeMenu scroll={scroll}></HomeMenu>
-        <div
-          className="w-full h-full overflow-auto"
-          ref={ref}
-          onScroll={handleScroll}
-        >
+        <div className="w-full h-full flex" ref={ref} onScroll={handleScroll}>
           {children}
         </div>
       </div>
