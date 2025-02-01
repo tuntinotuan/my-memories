@@ -1,4 +1,7 @@
 "use client";
+import Button from "@/components/button/Button";
+import CloseIcon from "@/components/icons/CloseIcon";
+import PlusIcon from "@/components/icons/PlusIcon";
 import BoardMenu from "@/components/layout/board/board.menu";
 import BoardSidebar from "@/components/layout/board/board.sidebar";
 
@@ -22,7 +25,23 @@ export default function Page() {
         }
       >
         <BoardMenu />
-        <div className="child p-2">
+        <div className="child p-2 flex flex-col gap-2">
+          <Button className="!justify-start w-[250px] hover:bg-opacity-15 bg-white bg-opacity-30">
+            <PlusIcon></PlusIcon>Add a list
+          </Button>
+          <div className="flex flex-col gap-2 w-[250px] bg-white text-primaryText rounded p-2">
+            <input
+              type="text"
+              placeholder="Enter list name..."
+              className="border-2 border-transparent focus:border-2 focus:border-secondaryColor rounded transition-all p-2"
+            />
+            <div className="flex items-center gap-2">
+              <Button className="bg-primaryColor text-white hover:bg-primaryColor hover:brightness-110">
+                Add list
+              </Button>
+              <CloseIcon></CloseIcon>
+            </div>
+          </div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit
             expedita, quia harum nobis reiciendis a aliquam esse itaque

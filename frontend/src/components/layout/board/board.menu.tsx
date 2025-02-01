@@ -16,33 +16,20 @@ const BoardMenu = () => {
       <input
         type={boardName ? "text" : "button"}
         defaultValue={pathname}
-        className={`w-auto p-2 rounded border-2 border-transparent focus:border-2 focus:border-secondaryColor focus:bg-white ${
-          boardName ? "text-primaryText" : ""
+        className={`w-[${
+          pathname.length
+        }] p-2 rounded border-2 border-transparent focus:border-2 focus:border-secondaryColor focus:bg-white focus:text-primaryText ${
+          boardName ? "" : ""
         }`}
         ref={ref}
-        onClick={() => {
+        onClick={async () => {
           handleSetBoardName(true);
-          ref.current.focus();
+          if (boardName) {
+            ref.current.focus();
+            ref.current.select();
+          }
         }}
       />
-      {/* {boardName ? (
-        <input
-          type="text"
-          defaultValue={pathname}
-          className="w-auto text-primaryText p-2 rounded focus:border-2 focus:border-secondaryColor focus:bg-white"
-          ref={ref}
-        />
-      ) : (
-        <Button
-          className="hover:bg-opacity-20 !rounded"
-          onClick={() => {
-            handleSetBoardName(true);
-            ref.current.focus();
-          }}
-        >
-          {pathname.slice(-12)}
-        </Button>
-      )} */}
       {!showMenuboard && (
         <Tooltip
           showArrow
