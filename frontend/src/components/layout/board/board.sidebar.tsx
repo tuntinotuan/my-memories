@@ -4,19 +4,13 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 import ProjectImgOrGradient from "@/components/project/ProjectImgOrGradient";
 import SettingIcon from "@/components/icons/SettingIcon";
 import NotificationIcon from "@/components/icons/NotificationIcon";
-type BoardSidebarProps = {
-  icon: React.ReactNode;
-  title: string;
-};
+import { BoardSidebarProps } from "./type";
+import DoDisturbOnRoundedIcon from "@mui/icons-material/DoDisturbOnRounded";
+import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 const BoardSidebar = () => {
   const { showMenuboard, handleShowMenuboard } = useLayoutStates();
   const lists = [
-    {
-      icon: (
-        <ProjectImgOrGradient values={{ from: "#e34935", to: "#f9a13d" }} />
-      ),
-      title: "Change background",
-    },
     {
       icon: (
         <LocalIconOverlay>
@@ -27,11 +21,43 @@ const BoardSidebar = () => {
     },
     {
       icon: (
+        <ProjectImgOrGradient values={{ from: "#e34935", to: "#f9a13d" }} />
+      ),
+      title: "Change background",
+    },
+    {
+      icon: (
         <LocalIconOverlay>
           <NotificationIcon fontSize="small" />
         </LocalIconOverlay>
       ),
       title: "Notification",
+    },
+  ];
+  const list2 = [
+    {
+      icon: (
+        <LocalIconOverlay>
+          <ContentCopyOutlinedIcon fontSize="small" />
+        </LocalIconOverlay>
+      ),
+      title: "Copy board",
+    },
+    {
+      icon: (
+        <LocalIconOverlay>
+          <ReplyRoundedIcon fontSize="small" />
+        </LocalIconOverlay>
+      ),
+      title: "Share",
+    },
+    {
+      icon: (
+        <LocalIconOverlay>
+          <DoDisturbOnRoundedIcon fontSize="small" />
+        </LocalIconOverlay>
+      ),
+      title: "Turn off the board",
     },
   ];
   return (
@@ -51,9 +77,7 @@ const BoardSidebar = () => {
       </div>
       <div className="h-full overflow-auto pb-24">
         <BoardList values={lists}></BoardList>
-        <BoardList values={lists}></BoardList>
-        <BoardList values={lists}></BoardList>
-        <BoardList values={lists}></BoardList>
+        <BoardList values={list2}></BoardList>
         {/* <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
           adipisci accusantium iste. Dolores obcaecati alias a dicta vel
@@ -135,7 +159,7 @@ const BoardList = ({ values }: { values: BoardSidebarProps[] }) => {
 
 const BoardItem = ({ icon, title }: BoardSidebarProps) => {
   return (
-    <div className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-primaryHover transition-all cursor-pointer">
+    <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-primaryHover transition-all cursor-pointer">
       {icon}
       <p>{title}</p>
     </div>

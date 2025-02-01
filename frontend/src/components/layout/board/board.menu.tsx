@@ -1,17 +1,48 @@
 import Button from "@/components/button/Button";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { Tooltip } from "@nextui-org/tooltip";
 import { usePathname } from "next/navigation";
+import { useRef } from "react";
 
 const BoardMenu = () => {
   const pathname = usePathname();
   const { showMenuboard, handleShowMenuboard } = useLayoutStates();
+  const { boardName, handleSetBoardName } = useCreateBoardStates();
+  const ref = useRef<HTMLInputElement>(null!);
   return (
     <div className="flex items-center justify-between bg-black bg-opacity-20 p-2">
-      <Button className="hover:bg-opacity-20 !rounded">
-        {pathname.slice(-12)}
-      </Button>
+      <input
+        type={boardName ? "text" : "button"}
+        defaultValue={pathname}
+        className={`w-auto p-2 rounded border-2 border-transparent focus:border-2 focus:border-secondaryColor focus:bg-white ${
+          boardName ? "text-primaryText" : ""
+        }`}
+        ref={ref}
+        onClick={() => {
+          handleSetBoardName(true);
+          ref.current.focus();
+        }}
+      />
+      {/* {boardName ? (
+        <input
+          type="text"
+          defaultValue={pathname}
+          className="w-auto text-primaryText p-2 rounded focus:border-2 focus:border-secondaryColor focus:bg-white"
+          ref={ref}
+        />
+      ) : (
+        <Button
+          className="hover:bg-opacity-20 !rounded"
+          onClick={() => {
+            handleSetBoardName(true);
+            ref.current.focus();
+          }}
+        >
+          {pathname.slice(-12)}
+        </Button>
+      )} */}
       {!showMenuboard && (
         <Tooltip
           showArrow

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../styles/_reset-css.css";
 import "./globals.css";
 import { LayoutProvider } from "@/contexts/layoutStates";
+import { CreateBoardProvider } from "@/contexts/createBoardStates";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`fixed inset-0 ${inter.className}`}>
-        <LayoutProvider>
-          <div id="myportal" />
-          {children}
-        </LayoutProvider>
+        <CreateBoardProvider>
+          <LayoutProvider>
+            <div id="myportal" />
+            {children}
+          </LayoutProvider>
+        </CreateBoardProvider>
       </body>
     </html>
   );
