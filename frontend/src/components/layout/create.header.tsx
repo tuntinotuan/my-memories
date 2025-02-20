@@ -13,13 +13,9 @@ const CreateHeader = () => {
         <p className="text-sm font-bold">Untitled</p>
       </div>
       <div className="flex gap-4">
-        <Button bgBtn="secondary" textColor="text-blue-500">
-          Sign up
-        </Button>
-        <Button bgBtn="secondary" textColor="text-gray-500">
-          Preview
-        </Button>
-        <Button bgBtn="primary">Publish</Button>
+        <Button>Sign up</Button>
+        <Button>Preview</Button>
+        <Button>Publish</Button>
       </div>
     </section>
   );

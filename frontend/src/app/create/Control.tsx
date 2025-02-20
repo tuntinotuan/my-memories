@@ -26,10 +26,10 @@ const Control = (props: ControlProps) => {
         <div>
           <Button
             className="font-normal !p-[2px]"
-            hoverBg="hover:bg-gray-100 hover:text-black"
-            textColor="text-gray-500"
-            icon={<DeleteOutlinedIcon></DeleteOutlinedIcon>}
-          ></Button>
+            hover="hover:bg-gray-100 hover:text-black"
+          >
+            a
+          </Button>
         </div>
       </Tooltip>
       <Tooltip
@@ -41,8 +41,7 @@ const Control = (props: ControlProps) => {
         <p>
           <Button
             className="font-normal !p-[2px]"
-            hoverBg="hover:bg-gray-100 hover:text-black"
-            textColor="text-gray-500"
+            hover="hover:bg-gray-100 hover:text-black"
           >
             <AddOutlinedIcon></AddOutlinedIcon>
           </Button>
@@ -68,8 +67,7 @@ const Control = (props: ControlProps) => {
         <p>
           <Button
             className="font-normal !p-[2px]"
-            hoverBg="hover:bg-gray-100 hover:text-black"
-            textColor="text-gray-500"
+            hover="hover:bg-gray-100 hover:text-black"
           >
             <DragIndicatorOutlinedIcon></DragIndicatorOutlinedIcon>
           </Button>

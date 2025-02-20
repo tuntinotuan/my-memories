@@ -33,16 +33,7 @@ export default function CreatePage() {
           content="Cannot submit from the form builder. Use a published form to submit a response."
         >
           <div className="mx-auto">
-            <Button
-              className="bg-black px-4 py-2"
-              textColor="text-white"
-              icon={
-                <ArrowForwardRoundedIcon fontSize="small"></ArrowForwardRoundedIcon>
-              }
-              iconRightPosition
-            >
-              {false || "Submit"}
-            </Button>
+            <Button className="bg-black px-4 py-2">{false || "Submit"}</Button>
           </div>
         </Tooltip>
       </div>

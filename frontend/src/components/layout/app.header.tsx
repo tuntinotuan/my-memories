@@ -8,15 +8,9 @@ const AppHeader = () => {
     <section className="flex items-center justify-between p-6">
       <HeaderLogo />
       <div className="flex gap-4">
-        <Button href="/login" bgBtn="secondary">
-          Log in
-        </Button>
-        <Button href="signup" bgBtn="secondary">
-          Sign up
-        </Button>
-        <Button href="create" bgBtn="primary">
-          Create form
-        </Button>
+        <Button href="/login">Log in</Button>
+        <Button href="signup">Sign up</Button>
+        <Button href="create">Create form</Button>
       </div>
     </section>
   );

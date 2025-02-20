@@ -18,9 +18,7 @@ export default function Page() {
         id="password"
         className="border border-gray-200 rounded px-3 py-2 focus:outline-blue-200"
       />
-      <Button bgBtn="primary" height={40}>
-        Continue
-      </Button>
+      <Button>Continue</Button>
     </section>
   );
 }

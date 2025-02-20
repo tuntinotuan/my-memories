@@ -14,7 +14,7 @@ const Title = () => {
       onMouseOver={() => setShow(true)}
     >
       <div className={`flex gap-1 mb-2 ${show ? "opacity-100" : "opacity-0"}`}>
-        <Button
+        {/* <Button
           className="font-normal"
           hoverBg="hover:bg-gray-50 hover:text-black"
           textColor="text-gray-500"
@@ -39,7 +39,7 @@ const Title = () => {
           }
         >
           Design
-        </Button>
+        </Button> */}
       </div>
       <Textarea placeholder="Form title" minRows={1} radius="sm"></Textarea>
     </div>
