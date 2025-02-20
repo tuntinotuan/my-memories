@@ -23,7 +23,7 @@ const PopupOverlay = ({
     <LocalOverlay show={show} width={width}>
       {children}
     </LocalOverlay>,
-    document.getElementById(selector) || document.body
+    document?.getElementById(selector) || document?.body
   );
 };
 
