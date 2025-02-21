@@ -2,6 +2,7 @@ import AppHeader from "@/components/layout/app.header";
 import Image from "next/image";
 import { NextUIProvider } from "@nextui-org/system";
 import HomeMenuSidebar from "@/components/layout/home/home.menu.sidebar";
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
