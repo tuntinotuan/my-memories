@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/components/button/Button";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";

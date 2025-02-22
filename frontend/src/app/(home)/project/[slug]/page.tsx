@@ -7,9 +7,22 @@ import BoardSidebar from "@/components/layout/board/board.sidebar";
 // export async function generateStaticParams() {
 //   return [{ slug: 'post-1' }, { slug: 'post-2' }];
 // }
-function generateStaticParams() {
-  return [{ slug: "post-1" }, { slug: "post-2" }];
-}
+// function generateStaticParams() {
+//   return [{ slug: "post-1" }, { slug: "post-2" }];
+// }
+
+// export async function generateStaticParams() {
+//   // Fetch all possible slugs (e.g., from an API or CMS)
+//   // const res = await fetch("https://example.com/api/posts");
+//   // const posts = await res.json();
+
+//   // // Map slugs to params
+//   // return posts.map((post: any) => ({
+//   //   slug: post.slug,
+//   // }));
+//   return [{ slug: "post-1" }, { slug: "post-2" }];
+// }
+
 type ColorCode = { from: string; to: string; url?: string };
 type UrlCode = { from?: string; to?: string; url: string; alt: string };
 type GradientTypes = ColorCode | UrlCode;
