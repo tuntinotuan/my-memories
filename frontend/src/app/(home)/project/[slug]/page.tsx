@@ -4,12 +4,16 @@ import CloseIcon from "@/components/icons/CloseIcon";
 import PlusIcon from "@/components/icons/PlusIcon";
 import BoardMenu from "@/components/layout/board/board.menu";
 import BoardSidebar from "@/components/layout/board/board.sidebar";
-
-function generateStaticParams() {}
+// export async function generateStaticParams() {
+//   return [{ slug: 'post-1' }, { slug: 'post-2' }];
+// }
+function generateStaticParams() {
+  return [{ slug: "post-1" }, { slug: "post-2" }];
+}
 type ColorCode = { from: string; to: string; url?: string };
 type UrlCode = { from?: string; to?: string; url: string; alt: string };
 type GradientTypes = ColorCode | UrlCode;
-export default function Page() {
+export default function Page({ params }: any) {
   // let defaultGradient: GradientTypes = { url: "/moment.png", alt: "moment" };
   let defaultGradient: GradientTypes = { from: "#6f5dc6", to: "#e374bc" };
   return (
@@ -24,7 +28,7 @@ export default function Page() {
               }
         }
       >
-        <BoardMenu />
+        <BoardMenu slug={params.slug} />
         <div className="child p-2 flex flex-col gap-2">
           <Button className="!justify-start w-[250px] hover:bg-opacity-15 bg-white bg-opacity-30">
             <PlusIcon></PlusIcon>Add a list

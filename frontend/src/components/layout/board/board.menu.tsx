@@ -6,7 +6,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
 
-const BoardMenu = () => {
+const BoardMenu = ({ slug }: any) => {
   const pathname = usePathname();
   const { showMenuboard, handleShowMenuboard } = useLayoutStates();
   const { boardName, handleSetBoardName } = useCreateBoardStates();
@@ -15,20 +15,17 @@ const BoardMenu = () => {
     <div className="flex items-center justify-between bg-black bg-opacity-20 p-2">
       <input
         type={boardName ? "text" : "button"}
-        defaultValue={pathname}
+        // type="text"
+        defaultValue={slug}
         className={`w-[${
           pathname.length
         }] p-2 rounded border-2 border-transparent focus:border-2 focus:border-secondaryColor focus:bg-white focus:text-primaryText ${
           boardName ? "" : ""
         }`}
         ref={ref}
-        onClick={async () => {
-          handleSetBoardName(true);
-          if (boardName) {
-            ref.current.focus();
-            ref.current.select();
-          }
-        }}
+        onBlur={() => handleSetBoardName(false)}
+        onFocus={(event) => event.target.select()}
+        onClick={() => handleSetBoardName(true)}
       />
       {!showMenuboard && (
         <Tooltip
