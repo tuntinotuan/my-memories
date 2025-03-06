@@ -53,10 +53,10 @@ const MenuListItems = ({ lists }: MenuListItems) => {
         <Link
           href={item.href}
           key={index}
-          className="home-menu-items flex flex-col gap-0 items-center text-primaryColor py-4 px-2"
+          className="home-menu-items flex flex-col gap-1 items-center text-primaryColor py-4 px-2"
         >
           <div
-            className={`p-1 rounded-lg hover:bg-opacity-10 transition-all ${
+            className={`p-[3px] rounded-lg hover:bg-opacity-10 transition-all ${
               pathname === item.href
                 ? "bg-primaryColor bg-opacity-10"
                 : "hover:bg-primaryColor"
