@@ -64,6 +64,7 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
             alt="at layout"
             width={2000}
             height={200}
+            unoptimized
           ></Image>
         </div>
         <p className="font-bold">Background</p>
@@ -82,6 +83,7 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
                 }`}
                 key={index}
                 onClick={() => handleChangeBg(item)}
+                unoptimized
               />
             ))}
           </div>

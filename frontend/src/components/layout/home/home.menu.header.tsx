@@ -44,6 +44,7 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
           height={30}
           priority
           className="border border-secondaryColor rounded-full"
+          unoptimized
         />
         <div className="text-xs flex flex-col items-start">
           <p>Personal</p>

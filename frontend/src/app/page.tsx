@@ -30,6 +30,7 @@ export default function Home() {
                   width={100}
                   height={24}
                   priority
+                  unoptimized
                 />
               </a>
             </div>
@@ -43,6 +44,7 @@ export default function Home() {
               width={180}
               height={37}
               priority
+              unoptimized
             />
           </div>
 
