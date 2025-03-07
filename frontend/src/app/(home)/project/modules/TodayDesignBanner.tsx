@@ -11,6 +11,7 @@ const TodayDesignBanner = () => {
         height={250}
         priority
         className="rounded-xl"
+        unoptimized
       ></Image>
       <p className="text-3xl text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-semibold w-full text-center">
         What will you design to day?
