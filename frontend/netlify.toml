@@ -3,3 +3,7 @@
   publish = ".next"
   functions = "netlify/functions"
 
+[[redirects]]
+  from = "/frontend"
+  to = "/index.html"
+  status = 200
