@@ -3,7 +3,7 @@ import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRigh
 
 const ArrowRightIcon = ({ className, ...rest }: any) => {
   return (
-    <div className={`cursor-pointer ${className}`} {...rest}>
+    <div className={`cursor-move ${className}`} {...rest}>
       <KeyboardArrowRightRoundedIcon fontSize="inherit" />
     </div>
   );
