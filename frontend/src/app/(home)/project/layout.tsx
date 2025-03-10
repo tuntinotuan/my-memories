@@ -20,9 +20,9 @@ export default function ProjectLayout({
     }
   };
   return (
-    <div className="flex w-full mt-2 mx-2">
+    <div className="flex w-full mt-2 mx-2 overflow-hidden">
       <HomeSidebar></HomeSidebar>
-      <div className="relative bg-white rounded-t-xl shadow-xl w-full">
+      <div className="relative bg-white rounded-t-xl shadow-xl w-full overflow-hidden">
         <HomeMenu scroll={scroll}></HomeMenu>
         <div className="w-full h-full flex" ref={ref} onScroll={handleScroll}>
           {children}

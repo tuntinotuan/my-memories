@@ -13,7 +13,7 @@ const BoardMenu = ({ slug }: any) => {
   const { boardName, handleSetBoardName } = useCreateBoardStates();
   const ref = useRef<HTMLInputElement>(null!);
   return (
-    <div className="flex items-center justify-between bg-black bg-opacity-20 p-2">
+    <div className="flex items-center justify-between h-[8%] w-auto  bg-black bg-opacity-20 p-2 backdrop-blur-sm">
       <input
         type={boardName ? "text" : "button"}
         // type="text"

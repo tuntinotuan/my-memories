@@ -62,10 +62,10 @@ const BoardSidebar = () => {
   ];
   return (
     <div
-      className={`relative shadow-md text-sm transition-all ${
+      className={`relative shadow-md text-sm transition-all shrink-0 ${
         showMenuboard
-          ? "h-full w-[400px] border border-gray-200 opacity-100 px-2 py-3 "
-          : "w-0 h-0 overflow-hidden translate-x-[400px]"
+          ? "h-full w-[300px] border border-gray-200 opacity-100 px-2 py-3 "
+          : "w-0 h-0 overflow-hidden translate-x-[300px]"
       }`}
     >
       <div className="flex items-center justify-center pb-3 border border-transparent border-b-gray-200">
