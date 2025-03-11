@@ -64,7 +64,7 @@ export default function Page({ params }: any) {
     }
   };
   return (
-    <>
+    <div className="flex overflow-hidden">
       <div
         className={`overflow-hidden w-full h-full text-white bg-gradient-to-br from-[${defaultGradient.from}] to-[${defaultGradient.to}] bg-no-repeat bg-cover`}
         style={
@@ -76,7 +76,7 @@ export default function Page({ params }: any) {
         }
       >
         <BoardMenu slug={params.slug} />
-        <div className="flex gap-2 h-[83%] w-full p-2 overflow-x-auto">
+        <div className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden">
           <DndContext onDragEnd={handleDragEnd}>
             <SortableContext items={listData}>
               {listData.map((list) => (
@@ -95,6 +95,6 @@ export default function Page({ params }: any) {
         </div>
       </div>
       <BoardSidebar />
-    </>
+    </div>
   );
 }

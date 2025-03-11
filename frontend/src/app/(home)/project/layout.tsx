@@ -18,13 +18,20 @@ export default function ProjectLayout({
       const { scrollTop, scrollLeft } = ref.current;
       setScroll({ scrollTop, scrollLeft });
     }
+    console.log("is scroll", ref.current);
   };
+  console.log("is scroll", ref.current);
+  console.log("is scroll", scroll);
   return (
     <div className="flex w-full mt-2 mx-2 overflow-hidden">
       <HomeSidebar></HomeSidebar>
       <div className="relative bg-white rounded-t-xl shadow-xl w-full overflow-hidden">
         <HomeMenu scroll={scroll}></HomeMenu>
-        <div className="w-full h-full flex" ref={ref} onScroll={handleScroll}>
+        <div
+          className="w-full h-[92%] flex overflow-auto"
+          ref={ref}
+          onScroll={handleScroll}
+        >
           {children}
         </div>
       </div>

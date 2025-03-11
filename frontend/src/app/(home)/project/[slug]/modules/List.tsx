@@ -35,21 +35,33 @@ const List = ({ id, listTitle }: { id: number; listTitle: string }) => {
       });
     }
   };
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: id });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
   return (
     <div
-      className="child flex flex-col w-[250px] gap-2 shrink-0"
+      className={`child flex flex-col w-[250px] h-auto gap-2 shrink-0 ${
+        isDragging ? "blur-[0.5px]" : ""
+      }`}
       ref={setNodeRef}
       style={style}
       {...attributes}
       {...listeners}
     >
-      <div className="flex flex-col gap-2 bg-white text-primaryText rounded p-2">
+      <div
+        className={`flex flex-col gap-2 bg-white text-primaryText rounded p-2 ${
+          isDragging ? "bg-opacity-80" : ""
+        }`}
+      >
         <div className="flex items-center justify-between pl-3 py-1">
           <p>{listTitle}</p>
           <DragIcon></DragIcon>
