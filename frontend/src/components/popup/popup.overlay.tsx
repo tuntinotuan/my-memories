@@ -1,5 +1,6 @@
+"use client";
 import useClickOutSide from "@/hooks/useClickOutSide";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 type PopupOverlayInterface = {
@@ -19,12 +20,19 @@ const PopupOverlay = ({
   // useEffect(() => {
   //   ref.current = document.getElementById(selector);
   // }, [selector]);
-  return createPortal(
-    <LocalOverlay show={show} width={width}>
-      {children}
-    </LocalOverlay>,
-    document && (document?.getElementById(selector) || document?.body)
-  );
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+  return mounted
+    ? createPortal(
+        <LocalOverlay show={show} width={width}>
+          {children}
+        </LocalOverlay>,
+        document.body
+      )
+    : null;
 };
 
 const LocalOverlay = ({

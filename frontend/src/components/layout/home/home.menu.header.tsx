@@ -11,7 +11,7 @@ import NotificationIcon from "@/components/icons/NotificationIcon";
 const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
   return (
     <div
-      className={`flex items-center justify-end w-full h-[8%] gap-2 sticky top-0 left-0 right-0 py-2 bg-white rounded-t-xl px-6 z-10 ${
+      className={`flex items-center justify-end w-full h-[8%] gap-2 py-2 bg-white bg-opacity-50 backdrop-blur-sm will-change-transform rounded-t-xl px-6 z-10 ${
         scroll?.scrollTop > 0 ? "shadow-lg" : ""
       }`}
     >

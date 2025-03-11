@@ -54,10 +54,10 @@ const HomeSidebar = () => {
   return (
     <>
       {/* Popup */}
-      {/* <PopupCreateboard
+      <PopupCreateboard
         show={showCreateboard}
         onClose={handleOpenAndClosePopupCreateboard}
-      ></PopupCreateboard> */}
+      ></PopupCreateboard>
       {/* Popup ^ */}
       {showSidebar ? (
         <div className={`home-sidebar relative p-4 pl-2 shrink-0 w-[260px]`}>

@@ -64,7 +64,7 @@ export default function Page({ params }: any) {
     }
   };
   return (
-    <div className="flex overflow-hidden">
+    <div className="flex w-full overflow-hidden">
       <div
         className={`overflow-hidden w-full h-full text-white bg-gradient-to-br from-[${defaultGradient.from}] to-[${defaultGradient.to}] bg-no-repeat bg-cover`}
         style={
