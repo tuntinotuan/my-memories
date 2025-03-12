@@ -35,6 +35,7 @@ const List = ({ id, listTitle }: { id: number; listTitle: string }) => {
       });
     }
   };
+  console.log("itemData", itemData);
   const {
     attributes,
     listeners,

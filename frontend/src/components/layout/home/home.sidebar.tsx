@@ -13,9 +13,11 @@ import CloseIcon from "../../icons/CloseIcon";
 import { usePathname } from "next/navigation";
 import PopupCreateboard from "../../popup/PopupCreateboard";
 import { Tooltip } from "@nextui-org/tooltip";
+import { useLayoutStates } from "@/contexts/layoutStates";
 const HomeSidebar = () => {
   const [show, setShow] = useState(true);
   const [showSidebar, setShowSidebar] = useState(true);
+  const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
   const [showCreateboard, setShowCreateboard] = useState(false);
   let projectList = [
     {
@@ -59,8 +61,8 @@ const HomeSidebar = () => {
         onClose={handleOpenAndClosePopupCreateboard}
       ></PopupCreateboard>
       {/* Popup ^ */}
-      {showSidebar ? (
-        <div className={`home-sidebar relative p-4 pl-2 shrink-0 w-[260px]`}>
+      {showHomeSidebar && (
+        <div className={`home-sidebar relative p-4 shrink-0 w-[260px]`}>
           <div className="flex items-center justify-between">
             <HeaderLogo></HeaderLogo>
             <Tooltip
@@ -75,7 +77,7 @@ const HomeSidebar = () => {
             >
               <div>
                 <CloseIcon
-                  onClick={() => handleOpenAndCloseSidebar()}
+                  onClick={() => handleShowHomeSidebar()}
                   className="homesidebar-close-icon opacity-0"
                   border
                 ></CloseIcon>
@@ -129,22 +131,6 @@ const HomeSidebar = () => {
             </div>
           </div>
         </div>
-      ) : (
-        <Tooltip
-          showArrow
-          content="Open menu"
-          placement="bottom"
-          radius="sm"
-          delay={200}
-          closeDelay={200}
-          className="!px-2 !py-[2px]"
-          shadow="sm"
-        >
-          <ArrowRightIcon
-            onClick={handleOpenAndCloseSidebar}
-            className="fixed top-6 -translate-x-5 hover:-translate-x-4 w-6 h-6 flex items-center justify-center bg-white shadow-md rounded-full border border-gray-100 z-50 transition-all"
-          />
-        </Tooltip>
       )}
     </>
   );

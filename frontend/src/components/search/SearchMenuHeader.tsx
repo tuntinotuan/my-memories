@@ -1,11 +1,13 @@
 import React from "react";
 import SearchIcon from "../icons/SearchIcon";
 
-const SearchMenuHeader = () => {
+const SearchMenuHeader = ({ disable }: { disable?: boolean }) => {
   return (
     <label
       htmlFor="searchInputId"
-      className={`flex items-center gap-2 border border-gray-200 rounded-lg px-2 py-1 text-sm hover:border-gray-500 transition-all cursor-text w-[350px]`}
+      className={`flex items-center gap-2 border border-gray-200 rounded-lg px-2 py-1 text-sm hover:border-gray-500 transition-all cursor-text w-[350px] ${
+        disable ? "cursor-wait" : ""
+      }`}
     >
       <SearchIcon
         fontSize="medium"
@@ -15,7 +17,9 @@ const SearchMenuHeader = () => {
         type="search"
         id="searchInputId"
         placeholder="Search your content and Canvas's"
-        className="w-full placeholder:font-light placeholder:text-gray-500"
+        className={`w-full placeholder:font-light placeholder:text-gray-500 ${
+          disable ? "cursor-wait" : ""
+        }`}
       ></input>
     </label>
   );

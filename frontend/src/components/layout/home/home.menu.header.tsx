@@ -15,7 +15,7 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
         scroll?.scrollTop > 0 ? "shadow-lg" : ""
       }`}
     >
-      <SearchMenuHeader />
+      <SearchMenuHeader disable />
       {/* {scroll.scrollTop} | {scroll.scrollLeft} */}
       <Tooltip
         showArrow
@@ -29,12 +29,12 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
       >
         <div>
           <Button disable>
-            <SettingIcon fontSize="small" />
+            <SettingIcon fontSize="small" className="cursor-wait" />
           </Button>
         </div>
       </Tooltip>
       <Button disable>
-        <NotificationIcon fontSize="small" />
+        <NotificationIcon fontSize="small" className="cursor-wait" />
       </Button>
       <Button className="py-1" disable>
         <Image
