@@ -77,7 +77,13 @@ const MenuListItems = ({ lists }: MenuListItems) => {
           {pathname === item.href ? item.iconActive : item.iconNormal}
         </div>
         {item.text && (
-          <p className="text-[11px] tracking-widest">{item.text}</p>
+          <p
+            className={`text-[11px] tracking-widest ${
+              pathname === item.href ? "font-medium" : "font-normal"
+            }`}
+          >
+            {item.text}
+          </p>
         )}
       </div>
     );

@@ -117,14 +117,20 @@ const HomeSidebar = () => {
                   ))}
                 </div>
                 {projectList.length <= 6 && (
-                  <Button className="w-full hover:bg-primaryHover text-primaryColor">
+                  <Button
+                    className="w-full hover:bg-primaryHover text-primaryColor"
+                    disable
+                  >
                     See all
                   </Button>
                 )}
               </>
             )}
             <div className="bg-f2Color absolute bottom-0 left-0 right-0">
-              <Button className="!justify-start gap-3 w-full hover:bg-primaryHover text-primaryText">
+              <Button
+                className="!justify-start gap-3 w-full hover:bg-primaryHover text-primaryText"
+                disable
+              >
                 <DeleteForeverOutlinedIcon fontSize="medium" />
                 Trash
               </Button>

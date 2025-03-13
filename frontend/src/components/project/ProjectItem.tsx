@@ -46,7 +46,7 @@ const ProjectItem = ({ img, title }: ProjectItemProps) => {
         </Tooltip>
         <ThreeDotsIcon
           fontSize="inherit"
-          className={controlClass}
+          className={`${controlClass} cursor-wait`}
         ></ThreeDotsIcon>
       </div>
     </div>

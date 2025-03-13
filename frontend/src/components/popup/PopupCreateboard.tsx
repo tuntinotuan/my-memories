@@ -11,7 +11,7 @@ type UrlCode = { from?: string; to?: string; url: string; alt: string };
 type GradientTypes = ColorCode | UrlCode;
 type PopupCreateboardProps = {
   show: boolean;
-  onClose?: () => void;
+  onClose: () => void;
 };
 const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
   const imageList = [
@@ -42,7 +42,7 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
     console.log("result", item === currentGradient);
   };
   return (
-    <PopupOverlay show={show} selector="myportal" width={400}>
+    <PopupOverlay show={show} selector="myportal" width={400} onClick={onClose}>
       <div className="flex items-center justify-between w-full text-sm font-bold p-4">
         <ArrowLeftIcon fontSize="inherit"></ArrowLeftIcon>
         Create board

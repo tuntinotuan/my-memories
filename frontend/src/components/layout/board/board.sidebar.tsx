@@ -18,12 +18,14 @@ const BoardSidebar = () => {
         </LocalIconOverlay>
       ),
       title: "Settings",
+      disable: true,
     },
     {
       icon: (
         <ProjectImgOrGradient values={{ from: "#e34935", to: "#f9a13d" }} />
       ),
       title: "Change background",
+      disable: true,
     },
     {
       icon: (
@@ -32,6 +34,7 @@ const BoardSidebar = () => {
         </LocalIconOverlay>
       ),
       title: "Notification",
+      disable: true,
     },
   ];
   const list2 = [
@@ -42,6 +45,7 @@ const BoardSidebar = () => {
         </LocalIconOverlay>
       ),
       title: "Copy board",
+      disable: true,
     },
     {
       icon: (
@@ -50,6 +54,7 @@ const BoardSidebar = () => {
         </LocalIconOverlay>
       ),
       title: "Share",
+      disable: true,
     },
     {
       icon: (
@@ -58,6 +63,7 @@ const BoardSidebar = () => {
         </LocalIconOverlay>
       ),
       title: "Turn off the board",
+      disable: true,
     },
   ];
   return (
@@ -150,6 +156,7 @@ const BoardList = ({ values }: { values: BoardSidebarProps[] }) => {
         <BoardItem
           icon={value.icon}
           title={value.title}
+          disable={value.disable}
           key={index}
         ></BoardItem>
       ))}
@@ -157,9 +164,13 @@ const BoardList = ({ values }: { values: BoardSidebarProps[] }) => {
   );
 };
 
-const BoardItem = ({ icon, title }: BoardSidebarProps) => {
+const BoardItem = ({ icon, title, disable }: BoardSidebarProps) => {
   return (
-    <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-primaryHover transition-all cursor-pointer">
+    <div
+      className={`flex items-center gap-2 p-2 rounded-lg hover:bg-primaryHover transition-all cursor-pointer ${
+        disable ? "cursor-wait" : ""
+      }`}
+    >
       {icon}
       <p>{title}</p>
     </div>
