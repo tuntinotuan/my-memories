@@ -15,7 +15,7 @@ const useClickOutSide = <T extends HTMLElement>(callback?: () => void) => {
         setOutside(false);
       }
     };
-
+    console.log("click");
     window.addEventListener("click", globalClick);
 
     return () => {

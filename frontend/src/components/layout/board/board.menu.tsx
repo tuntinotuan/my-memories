@@ -25,7 +25,7 @@ const BoardMenu = ({ slug }: any) => {
         }`}
         ref={ref}
         onBlur={() => handleSetBoardName(false)}
-        onFocus={(event) => event.target.select()}
+        // onFocus={(event) => event.target.select()}
         onClick={() => handleSetBoardName(true)}
       />
       {!showMenuboard && (

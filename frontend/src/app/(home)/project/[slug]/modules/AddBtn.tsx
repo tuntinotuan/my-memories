@@ -1,20 +1,24 @@
 import Button from "@/components/button/Button";
 import PlusIcon from "@/components/icons/PlusIcon";
-import React from "react";
+import React, { forwardRef } from "react";
 
 type AddBtnProps = {
   text: string;
   className?: string;
+  onClick?: () => void;
 };
 
-const AddBtn = ({ text, className }: AddBtnProps) => {
+const AddBtn = ({ text, className, onClick }: AddBtnProps) => {
   return (
-    <Button
-      className={`!justify-start bg-white bg-opacity-30 hover:bg-opacity-25 ${className}`}
-    >
-      <PlusIcon></PlusIcon>
-      {text}
-    </Button>
+    <div>
+      <Button
+        className={`w-full !justify-start bg-white bg-opacity-30 hover:bg-opacity-25 ${className}`}
+        onClick={onClick}
+      >
+        <PlusIcon></PlusIcon>
+        {text}
+      </Button>
+    </div>
   );
 };
 
