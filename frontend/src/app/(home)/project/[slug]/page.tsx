@@ -130,3 +130,110 @@ function LocalBody({ params }: any) {
     </div>
   );
 }
+import { closestCenter } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+interface Item {
+  id: string;
+  name: string;
+}
+
+// ✅ Draggable Item Component
+const DraggableItem = ({ id, name }: Item) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    padding: "10px",
+    marginBottom: "5px",
+    backgroundColor: "#4CAF50",
+    color: "white",
+    borderRadius: "5px",
+    cursor: "grab",
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      {name}
+    </div>
+  );
+};
+
+export function DragDropLists() {
+  const [groupA, setGroupA] = useState<Item[]>([
+    { id: "1", name: "Apple" },
+    { id: "2", name: "Banana" },
+    { id: "3", name: "Cherry" },
+  ]);
+
+  const [groupB, setGroupB] = useState<Item[]>([
+    { id: "4", name: "Orange" },
+    { id: "5", name: "Pineapple" },
+    { id: "6", name: "Mango" },
+  ]);
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (!over) return;
+
+    const fromList = groupA.some((item) => item.id === active.id) ? "A" : "B";
+    const toList = groupA.some((item) => item.id === over.id) ? "A" : "B";
+
+    if (fromList === toList) {
+      // ✅ Dragging inside the same list → Reorder
+      if (fromList === "A") {
+        const oldIndex = groupA.findIndex((item) => item.id === active.id);
+        const newIndex = groupA.findIndex((item) => item.id === over.id);
+        setGroupA(arrayMove(groupA, oldIndex, newIndex));
+      } else {
+        const oldIndex = groupB.findIndex((item) => item.id === active.id);
+        const newIndex = groupB.findIndex((item) => item.id === over.id);
+        setGroupB(arrayMove(groupB, oldIndex, newIndex));
+      }
+    } else {
+      // ✅ Moving Between Lists
+      if (fromList === "A") {
+        const item = groupA.find((i) => i.id === active.id);
+        if (!item) return;
+        setGroupA(groupA.filter((i) => i.id !== active.id));
+        setGroupB([...groupB, item]);
+      } else {
+        const item = groupB.find((i) => i.id === active.id);
+        if (!item) return;
+        setGroupB(groupB.filter((i) => i.id !== active.id));
+        setGroupA([...groupA, item]);
+      }
+    }
+  };
+
+  return (
+    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <div style={{ display: "flex", gap: "20px" }}>
+        {/* ✅ Group A */}
+        <div
+          style={{ border: "1px solid gray", padding: "10px", width: "200px" }}
+        >
+          <h3>Group A</h3>
+          <SortableContext items={groupA}>
+            {groupA.map((item) => (
+              <DraggableItem key={item.id} id={item.id} name={item.name} />
+            ))}
+          </SortableContext>
+        </div>
+
+        {/* ✅ Group B */}
+        <div
+          style={{ border: "1px solid gray", padding: "10px", width: "200px" }}
+        >
+          <h3>Group B</h3>
+          <SortableContext items={groupB}>
+            {groupB.map((item) => (
+              <DraggableItem key={item.id} id={item.id} name={item.name} />
+            ))}
+          </SortableContext>
+        </div>
+      </div>
+    </DndContext>
+  );
+}
