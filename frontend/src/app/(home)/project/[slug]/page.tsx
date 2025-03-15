@@ -3,7 +3,7 @@ import BoardMenu from "@/components/layout/board/board.menu";
 import BoardSidebar from "@/components/layout/board/board.sidebar";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
-import { useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import AddBtn from "./modules/AddBtn";
 import AddBox from "./modules/AddBox";
 import ListContainer from "./modules/ListContainer";
@@ -59,9 +59,34 @@ function LocalBody({ params }: any) {
   };
   const ref = useRef(null);
   useOnClickOutside(ref, handleCloseBoxAddList);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const scrollPosition = useRef(0);
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      scrollPosition.current = scrollRef.current.scrollLeft;
+    }
+  };
+  // Restore scroll position after `listData` update
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollPosition.current;
+    }
+  }, [listData]); // Runs when `listData` update
+  // Restore scroll position after `AddBox UI` update
+  useEffect(() => {
+    const scrollCur = scrollRef.current;
+    if (scrollCur) {
+      const maxScrollLeft = scrollCur.scrollWidth - scrollCur.clientWidth;
+      scrollCur.scrollLeft = maxScrollLeft;
+    }
+  }, [showBoxAddList]); // Runs when `AddBox UI` update
   const Content = () => {
     return (
-      <div className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden">
+      <div
+        ref={scrollRef}
+        className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden"
+        onScroll={handleScroll}
+      >
         <DndContext onDragEnd={handleDragEnd}>
           <SortableContext items={listData}>
             {listData.map((list) => (
