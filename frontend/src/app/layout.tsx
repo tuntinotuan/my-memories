@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`fixed inset-0 ${inter.className}`}>
+      <body className={`fixed inset-0 text-primaryBlack ${inter.className}`}>
         <CreateBoardProvider>
           <LayoutProvider>
             <div id="myportal" />

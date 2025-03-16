@@ -22,7 +22,11 @@ const BoardSidebar = () => {
     },
     {
       icon: (
-        <ProjectImgOrGradient values={{ from: "#e34935", to: "#f9a13d" }} />
+        <ProjectImgOrGradient
+          img={{ type: "linearGradient", from: "#e34935", to: "#f9a13d" }}
+          width={24}
+          height={24}
+        />
       ),
       title: "Change background",
       disable: true,

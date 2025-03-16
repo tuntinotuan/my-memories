@@ -1,15 +1,11 @@
-export type ColorCode = {
-  from: string;
-  to: string;
-  url?: null;
-  alt?: null;
-};
+type Linear = { type: "linearGradient"; from: string; to: string };
+type Url = { type: "imageUrl"; url: string; alt: string };
 
-export type UrlCode = {
-  url: string;
-  alt: string;
-  from?: null;
-  to?: null;
-};
+export type LinearOrUrl = Linear | Url;
 
-export type ProjectImgOrGradientProps = { values: ColorCode | UrlCode };
+export type ProjectImgOrGradientProps = {
+  img: LinearOrUrl;
+  className?: string;
+  width?: number;
+  height?: number;
+};

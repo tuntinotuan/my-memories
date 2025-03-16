@@ -112,9 +112,9 @@ const MenuListItems = ({ lists }: MenuListItems) => {
             shadow="sm"
             key={index}
           >
-            <p>
+            <div>
               <MainComponent item={item} />
-            </p>
+            </div>
           </Tooltip>
         )
       )}

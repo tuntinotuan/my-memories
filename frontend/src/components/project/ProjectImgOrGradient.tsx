@@ -1,21 +1,25 @@
 import React from "react";
 import { ProjectImgOrGradientProps } from "./types";
 
-const ProjectImgOrGradient = ({ values }: ProjectImgOrGradientProps) => {
+const ProjectImgOrGradient = ({
+  img,
+  className,
+  width,
+  height,
+}: ProjectImgOrGradientProps) => {
+  const extra = { width: width, height: height };
+  const bgImageStyles =
+    img.type === "imageUrl"
+      ? { backgroundImage: `url(${img.url})` }
+      : {
+          backgroundImage: `linear-gradient(to bottom right, ${img.from}, ${img.to})`,
+        };
+  const styleInline = { ...bgImageStyles, ...extra };
   return (
-    <>
-      <div
-        className={`w-6 h-6 rounded-md shrink-0 bg-cover`}
-        style={
-          !values.from
-            ? { backgroundImage: `url(${values.url})` }
-            : {
-                backgroundImage: `linear-gradient(to bottom right, ${values.from}, ${values.to})`,
-              }
-        }
-      />
-    </>
+    <div
+      className={`w-full h-full rounded-md shrink-0 bg-cover bg-no-repeat ${className}`}
+      style={styleInline}
+    />
   );
 };
-
 export default ProjectImgOrGradient;

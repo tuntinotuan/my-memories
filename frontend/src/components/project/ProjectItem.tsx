@@ -5,13 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThreeDotsIcon from "../icons/ThreeDotsIcon";
 import ProjectImgOrGradient from "./ProjectImgOrGradient";
-import { ColorCode, ProjectImgOrGradientProps, UrlCode } from "./types";
+import { LinearOrUrl } from "./types";
 
-type ProjectItemProps = {
-  img: ColorCode | UrlCode;
-  title: string;
-};
-const ProjectItem = ({ img, title }: ProjectItemProps) => {
+const ProjectItem = ({ img, title }: { img: LinearOrUrl; title: string }) => {
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
   const pathName = usePathname();
@@ -20,7 +16,11 @@ const ProjectItem = ({ img, title }: ProjectItemProps) => {
       className={`relative w-full group flex items-center gap-2 truncate hover:bg-primaryHover p-2 rounded-md cursor-pointer shrink-0`}
     >
       <Link href={`/project/${title}`} className="absolute inset-0"></Link>
-      <ProjectImgOrGradient values={img}></ProjectImgOrGradient>
+      <ProjectImgOrGradient
+        img={img}
+        width={24}
+        height={24}
+      ></ProjectImgOrGradient>
       <p className="text-sm text-primaryText truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5">
         {title}
       </p>

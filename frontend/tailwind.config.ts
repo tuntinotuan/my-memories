@@ -17,10 +17,11 @@ const config: Config = {
       colors: {
         primaryColor: "#7731d8",
         secondaryColor: "#01C4CD",
-        f2Color: "#f2f3f5",
+        efColor: "#EFF5FD",
         d7Color: "#D7D7EA",
         primaryText: "#4c5156",
         primaryHover: "#e7e6f3",
+        primaryBlack: "#0d1216",
       },
       keyframes: {
         popupGrow: {

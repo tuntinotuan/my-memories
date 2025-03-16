@@ -23,8 +23,16 @@ export default function Page({ params }: any) {
 }
 
 function LocalBody({ params }: any) {
-  let defaultGradient: GradientTypes = { url: "/moment.png", alt: "moment" };
-  // let defaultGradient: GradientTypes = { from: "#6f5dc6", to: "#e374bc" };
+  let defaultGradient: any = {
+    type: "imageUrl",
+    url: "/moment.png",
+    alt: "moment",
+  };
+  // let defaultGradient: any = {
+  //   type: "linearGradient",
+  //   from: "#6f5dc6",
+  //   to: "#e374bc",
+  // };
   const lists = [
     {
       id: 1,
@@ -66,6 +74,11 @@ function LocalBody({ params }: any) {
       scrollPosition.current = scrollRef.current.scrollLeft;
     }
   };
+  const handleWheel = (event: React.WheelEvent) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += event.deltaY; // Moves horizontally instead of vertically
+    }
+  };
   // Restore scroll position after `listData` update
   useEffect(() => {
     if (scrollRef.current) {
@@ -86,6 +99,7 @@ function LocalBody({ params }: any) {
         ref={scrollRef}
         className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden"
         onScroll={handleScroll}
+        onWheel={handleWheel}
       >
         <DndContext onDragEnd={handleDragEnd}>
           <SortableContext items={listData}>
@@ -116,9 +130,9 @@ function LocalBody({ params }: any) {
   };
   return (
     <div
-      className={`overflow-hidden w-full h-full text-white bg-gradient-to-br from-[${defaultGradient.from}] to-[${defaultGradient.to}] bg-no-repeat bg-cover`}
+      className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover`}
       style={
-        !defaultGradient.from
+        defaultGradient.type === "imageUrl"
           ? { backgroundImage: `url(${defaultGradient.url})` }
           : {
               backgroundImage: `linear-gradient(to bottom right, ${defaultGradient.from}, ${defaultGradient.to})`,
@@ -132,6 +146,7 @@ function LocalBody({ params }: any) {
 }
 import { closestCenter } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+import { LinearOrUrl } from "@/components/project/types";
 interface Item {
   id: string;
   name: string;

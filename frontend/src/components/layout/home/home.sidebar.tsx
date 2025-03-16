@@ -14,35 +14,12 @@ import { usePathname } from "next/navigation";
 import PopupCreateboard from "../../popup/PopupCreateboard";
 import { Tooltip } from "@nextui-org/tooltip";
 import { useLayoutStates } from "@/contexts/layoutStates";
+import { projectList } from "@/api/board/mock.data";
 const HomeSidebar = () => {
   const [show, setShow] = useState(true);
   const [showSidebar, setShowSidebar] = useState(true);
   const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
   const [showCreateboard, setShowCreateboard] = useState(false);
-  let projectList = [
-    {
-      img: {
-        url: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
-        alt: "anything",
-      },
-      title: "Online course presentation",
-    },
-    {
-      img: {
-        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
-        alt: "anything",
-      },
-      title: "Green and Yellow Playful Illustrative Finance Presentation ",
-    },
-    {
-      img: { from: "#7731d8", to: "#01C4CD" },
-      title: "Online course presentation",
-    },
-    {
-      img: { from: "#09326c", to: "#c7509b" },
-      title: "Green and Yellow Playful Illustrative Finance Presentation ",
-    },
-  ];
   const handleClickButton = () => {
     show ? setShow(false) : setShow(true);
   };
