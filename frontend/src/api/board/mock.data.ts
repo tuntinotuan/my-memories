@@ -22,7 +22,51 @@ export const projectList: { img: LinearOrUrl; title: string }[] = [
     title: "Learn basic typescript only 2 hours",
   },
   {
+    img: {
+      type: "imageUrl",
+      url: "/moment.png",
+      alt: "anything",
+    },
+    title: "Beautiful mountain in the world",
+  },
+  {
+    img: {
+      type: "imageUrl",
+      url: "/imtung.png",
+      alt: "anything",
+    },
+    title: "Prepare for presentation",
+  },
+  {
     img: { type: "linearGradient", from: "#09326c", to: "#c7509b" },
     title: "My tasks never forget",
+  },
+  {
+    img: {
+      type: "imageUrl",
+      url: "/pinksky.jpg",
+      alt: "anything",
+    },
+    title: "My memories is longer than my life",
+  },
+  {
+    img: {
+      type: "imageUrl",
+      url: "/purple.png",
+      alt: "anything",
+    },
+    title: "I'm Tuan currently a frontend developer",
+  },
+  {
+    img: { type: "linearGradient", from: "#0c66e3", to: "#09336f" },
+    title: "My tasks never forget",
+  },
+  {
+    img: {
+      type: "imageUrl",
+      url: "/sunset.png",
+      alt: "anything",
+    },
+    title: "Before I never love sunset, now, maybe",
   },
 ];

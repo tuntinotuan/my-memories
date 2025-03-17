@@ -17,7 +17,7 @@ const ProjectImgOrGradient = ({
   const styleInline = { ...bgImageStyles, ...extra };
   return (
     <div
-      className={`w-full h-full rounded-md shrink-0 bg-cover bg-no-repeat ${className}`}
+      className={`w-full h-full rounded-md shrink-0 bg-cover bg-center bg-no-repeat ${className}`}
       style={styleInline}
     />
   );

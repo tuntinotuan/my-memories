@@ -28,20 +28,13 @@ const OriginalBanner = ({
       break;
   }
   return (
-    <div className="relative w-full">
-      {/* "/banner-design-today.jpg" - example src string */}
-      {/* "Design to day banner" - example alt string */}
-      {/* 'What will you design to day? - example a title */}
-      <Image
-        src={src}
-        alt={alt || "image alt"}
-        width={1500}
-        height={250}
-        priority
-        className="rounded-lg flex-1 shrink-0"
-        style={{ height: "160px", objectFit: "cover" }}
-        unoptimized
-      ></Image>
+    <div
+      className="relative w-full rounded-lg bg-no-repeat bg-cover bg-center shrink-0"
+      style={{
+        backgroundImage: `url(${src})`,
+        height: 160,
+      }}
+    >
       <p
         className={`text-[32px] text-white font-semibold w-full absolute ${newPosition}`}
       >

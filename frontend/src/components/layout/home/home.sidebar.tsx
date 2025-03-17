@@ -103,7 +103,7 @@ const HomeSidebar = () => {
                 )}
               </>
             )}
-            <div className="bg-f2Color absolute bottom-0 left-0 right-0">
+            <div className="bg-f2Color absolute bottom-0 left-0 right-0 px-4">
               <Button
                 className="!justify-start gap-3 w-full hover:bg-primaryHover text-primaryText"
                 disable

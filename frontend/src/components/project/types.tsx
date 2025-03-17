@@ -9,3 +9,7 @@ export type ProjectImgOrGradientProps = {
   width?: number;
   height?: number;
 };
+export type ProjectCardItemProps = {
+  title: string;
+  img: LinearOrUrl;
+};

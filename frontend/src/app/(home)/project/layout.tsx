@@ -1,5 +1,6 @@
 "use client";
 import HomeContentCover from "@/components/layout/home/home.content.cover";
+import HomeMenuSidebar from "@/components/layout/home/home.menu.sidebar";
 import HomeSidebar from "@/components/layout/home/home.sidebar";
 import HomeSidebarCover from "@/components/layout/home/home.sidebar.cover";
 export type scrollTypes = {
@@ -12,9 +13,12 @@ export default function ProjectLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <HomeSidebarCover>
-      <HomeSidebar></HomeSidebar>
-      <HomeContentCover>{children}</HomeContentCover>
-    </HomeSidebarCover>
+    <>
+      <HomeMenuSidebar></HomeMenuSidebar>
+      <HomeSidebarCover>
+        <HomeSidebar></HomeSidebar>
+        <HomeContentCover>{children}</HomeContentCover>
+      </HomeSidebarCover>
+    </>
   );
 }

@@ -4,11 +4,12 @@ import React from "react";
 
 const HomeSidebarCover = ({ children }: { children: React.ReactNode }) => {
   const { showHomeSidebar } = useLayoutStates();
-  // const showHomeSidebar = false;
   return (
     <div
-      className={`flex w-full mt-2 mr-2 rounded-t-xl overflow-hidden ${
-        showHomeSidebar ? "" : "shadow-2xl"
+      className={`flex w-full  rounded-t-xl overflow-hidden ${
+        showHomeSidebar
+          ? "pt-2 pr-2"
+          : "mt-2 mr-2 shadow-[0_0_10px_5px_rgba(0,0,0,0.1)]"
       }`}
     >
       {children}
