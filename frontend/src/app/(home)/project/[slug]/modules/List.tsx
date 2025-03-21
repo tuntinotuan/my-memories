@@ -64,7 +64,7 @@ const List = ({
   };
   return (
     <div
-      className={`child flex flex-col w-[250px] h-auto gap-2 shrink-0 ${
+      className={`child flex flex-col w-[250px] h-auto gap-2 shrink-0 cursor-grab ${
         isDragging ? "blur-[0.5px]" : ""
       }`}
       ref={setNodeRef}
@@ -73,7 +73,7 @@ const List = ({
       {...listeners}
     >
       <div
-        className={`flex flex-col gap-2 bg-white text-primaryText rounded p-2 ${
+        className={`flex flex-col gap-2 h-[300px] bg-white text-primaryText rounded p-2 ${
           isDragging ? "bg-opacity-60 border-2 border-secondaryColor" : ""
         }`}
       >

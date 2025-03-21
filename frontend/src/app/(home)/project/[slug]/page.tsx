@@ -83,8 +83,9 @@ function LocalBody({ params }: any) {
   }, [boards]); // Runs when `listData` update
   console.log("boards", boards);
   console.log("tasks", tasks);
-  const [activeBoard, setActiveBoard] = useState<Board | null>();
+  const [activeBoard, setActiveBoard] = useState<Board | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+  console.log("2 - active", activeBoard, activeTask);
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -93,8 +94,107 @@ function LocalBody({ params }: any) {
     })
   );
   const [newTitle, setNewTitle] = useState<string>("");
-  const Content = () => {
-    return (
+  function createNewBoard(title: string) {
+    const boardToAdd: Board = {
+      id: generateId(),
+      title: title,
+    };
+    setBoards([...boards, boardToAdd]);
+  }
+  function updateBoard(id: Id, title: string) {
+    const newBoards = boards.map((item) => {
+      if (item.id !== id) return item;
+      return { ...item, title };
+    });
+    setBoards(newBoards);
+  }
+  function createNewTask(boardId: Id, content: string) {
+    const newTask = {
+      id: generateId(),
+      boardId: boardId,
+      content: content,
+    };
+    setTasks([...tasks, newTask]);
+  }
+  function generateId() {
+    return Math.floor(Math.random() * 10001);
+  }
+  function handleDragStart(event: DragStartEvent) {
+    if (event.active.data.current?.type === "Board") {
+      setActiveBoard(event.active.data.current.board);
+      return;
+    }
+    if (event.active.data.current?.type === "Task") {
+      setActiveTask(event.active.data.current.task);
+      return;
+    }
+  }
+  function handleDragEnd(event: DragEndEvent) {
+    setActiveBoard(null);
+    setActiveTask(null);
+    const { active, over } = event;
+    if (!over) return;
+
+    const activeBoardId = active.id;
+    const overBoardId = over.id;
+    if (activeBoardId === overBoardId) return;
+    setBoards((board) => {
+      const activeBoardIndex = board.findIndex(
+        (item) => item.id === activeBoardId
+      );
+      const overBoardIndex = board.findIndex((item) => item.id === overBoardId);
+      return arrayMove(boards, activeBoardIndex, overBoardIndex);
+    });
+  }
+  function handleDragOver(event: DragOverEvent) {
+    const { active, over } = event;
+    if (!over) return;
+
+    const activeId = active.id;
+    const overId = over.id;
+    if (activeId === overId) return;
+
+    const isActiveTask = active.data.current?.type === "Task";
+    const isOverTask = over.data.current?.type === "Task";
+
+    if (!isActiveTask) return;
+    // I'm dropping a Task over another Task
+    if (isActiveTask && isOverTask) {
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        const overIndex = tasks.findIndex((t) => t.id === overId);
+        tasks[activeIndex].boardId = tasks[overIndex].boardId;
+        return arrayMove(tasks, activeIndex, overIndex);
+      });
+    }
+
+    const isOverABoard = over.data.current?.type === "Column";
+
+    // I'm dropping a Task over a column
+    if (isActiveTask && isOverABoard) {
+      const activeIndex = tasks.findIndex((t) => t.id === activeId);
+      tasks[activeIndex].boardId === overId;
+      return arrayMove(tasks, activeIndex, activeIndex);
+    }
+  }
+  // const Content = () => {
+  //   return (
+
+  //   );
+  // };
+  return (
+    <div
+      className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover`}
+      style={
+        defaultGradient.type === "imageUrl"
+          ? { backgroundImage: `url(${defaultGradient.url})` }
+          : {
+              backgroundImage: `linear-gradient(to bottom right, ${defaultGradient.from}, ${defaultGradient.to})`,
+            }
+      }
+    >
+      <BoardMenu slug={params.slug} />
+      {/* <Content /> */}
       <div
         ref={scrollRef}
         className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden"
@@ -104,8 +204,8 @@ function LocalBody({ params }: any) {
         <DndContext
           sensors={sensors}
           onDragEnd={handleDragEnd}
-          onDragStart={onDragStart}
-          onDragOver={onDragOver}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
         >
           <SortableContext items={boardsId}>
             {boards.map((board) => (
@@ -164,104 +264,6 @@ function LocalBody({ params }: any) {
           )}
         </ListContainer>
       </div>
-    );
-  };
-  return (
-    <div
-      className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover`}
-      style={
-        defaultGradient.type === "imageUrl"
-          ? { backgroundImage: `url(${defaultGradient.url})` }
-          : {
-              backgroundImage: `linear-gradient(to bottom right, ${defaultGradient.from}, ${defaultGradient.to})`,
-            }
-      }
-    >
-      <BoardMenu slug={params.slug} />
-      <Content />
     </div>
   );
-  function createNewBoard(title: string) {
-    const boardToAdd: Board = {
-      id: generateId(),
-      title: title,
-    };
-    setBoards([...boards, boardToAdd]);
-  }
-  function updateBoard(id: Id, title: string) {
-    const newBoards = boards.map((item) => {
-      if (item.id !== id) return item;
-      return { ...item, title };
-    });
-    setBoards(newBoards);
-  }
-  function createNewTask(boardId: Id, content: string) {
-    const newTask = {
-      id: generateId(),
-      boardId: boardId,
-      content: content,
-    };
-    setTasks([...tasks, newTask]);
-  }
-  function generateId() {
-    return Math.floor(Math.random() * 10001);
-  }
-  function onDragStart(event: DragStartEvent) {
-    if (event.active.data.current?.type === "Board") {
-      setActiveBoard(event.active.data.current.board);
-      return;
-    }
-    if (event.active.data.current?.type === "Task") {
-      setActiveTask(event.active.data.current.task);
-      return;
-    }
-  }
-  function handleDragEnd(event: DragEndEvent) {
-    setActiveBoard(null);
-    setActiveTask(null);
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeBoardId = active.id;
-    const overBoardId = over.id;
-    if (activeBoardId === overBoardId) return;
-    setBoards((board) => {
-      const activeBoardIndex = board.findIndex(
-        (item) => item.id === activeBoardId
-      );
-      const overBoardIndex = board.findIndex((item) => item.id === overBoardId);
-      return arrayMove(boards, activeBoardIndex, overBoardIndex);
-    });
-  }
-  function onDragOver(event: DragOverEvent) {
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeId = active.id;
-    const overId = over.id;
-    if (activeId === overId) return;
-
-    const isActiveTask = active.data.current?.type === "Task";
-    const isOverTask = over.data.current?.type === "Task";
-
-    if (!isActiveTask) return;
-    // I'm dropping a Task over another Task
-    if (isActiveTask && isOverTask) {
-      setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        const overIndex = tasks.findIndex((t) => t.id === overId);
-        tasks[activeIndex].boardId = tasks[overIndex].boardId;
-        return arrayMove(tasks, activeIndex, overIndex);
-      });
-    }
-
-    const isOverABoard = over.data.current?.type === "Column";
-
-    // I'm dropping a Task over a column
-    if (isActiveTask && isOverABoard) {
-      const activeIndex = tasks.findIndex((t) => t.id === activeId);
-      tasks[activeIndex].boardId === overId;
-      return arrayMove(tasks, activeIndex, activeIndex);
-    }
-  }
 }
