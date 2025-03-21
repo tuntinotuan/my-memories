@@ -1,6 +1,6 @@
 import Button from "@/components/button/Button";
 import PlusIcon from "@/components/icons/PlusIcon";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import ListContainer from "./ListContainer";
 import DragIcon from "@/components/icons/DragIcon";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
@@ -8,43 +8,22 @@ import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import CardItem from "./CardItem";
 import AddBtn from "./AddBtn";
 import { CSS } from "@dnd-kit/utilities";
-import { Board, Id } from "./types";
+import { Board, Id, Task } from "./types";
+import AddBox from "./AddBox";
 
 const List = ({
   board,
   updateBoard,
+  createNewTask,
+  tasks,
 }: {
   board: Board;
   updateBoard: (id: Id, title: string) => void;
+  createNewTask: (id: Id, content: string) => void;
+  tasks: Task[];
 }) => {
-  const itemLists = [
-    {
-      id: 1,
-      title: "Hello",
-    },
-    {
-      id: 2,
-      title: "Hi",
-    },
-    {
-      id: 3,
-      title: "Talking about this",
-    },
-  ];
-  const [itemData, setItemData] = useState(itemLists);
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (over && active.id !== over.id) {
-      setItemData((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over.id);
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
-  };
-  // console.log("itemData", itemData);
   const [editTitle, setEditTitle] = useState(false);
-  console.log("editTitle", editTitle);
+  const tasksId = useMemo(() => tasks.map((task) => task.id), [tasks]);
   const {
     attributes,
     listeners,
@@ -75,10 +54,14 @@ const List = ({
   //   );
   // }
   const [newTitle, setNewTitle] = useState(board.title);
+  const [newTask, setNewTask] = useState("");
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
   };
-  console.log("newTitle", newTitle);
+  const [showBoxAddTask, setShowBoxAddTask] = useState(false);
+  const handleCloseBoxAddTask = () => {
+    setShowBoxAddTask(false);
+  };
   return (
     <div
       className={`child flex flex-col w-[250px] h-auto gap-2 shrink-0 ${
@@ -122,17 +105,41 @@ const List = ({
           )}
           <DragIcon></DragIcon>
         </div>
-        <DndContext onDragEnd={handleDragEnd}>
-          <SortableContext items={itemData}>
-            {itemData.map((item) => (
-              <CardItem text={item.title} id={item.id} key={item.id} />
-            ))}
-          </SortableContext>
-        </DndContext>
-        <AddBtn
-          text="Add a card"
-          className="hover:!bg-gray-500 hover:!bg-opacity-30"
-        ></AddBtn>
+        <SortableContext items={tasksId}>
+          {tasks.map((task) => (
+            <CardItem task={task} key={task.id} />
+          ))}
+        </SortableContext>
+        {!showBoxAddTask && (
+          <AddBtn
+            text="Add a card"
+            className="hover:!bg-gray-500 hover:!bg-opacity-30"
+            onClick={() => setShowBoxAddTask(true)}
+          ></AddBtn>
+        )}
+        {showBoxAddTask && (
+          <AddBox
+            placeholder="Please enter your task"
+            btnText="Add task"
+            onClose={handleCloseBoxAddTask}
+            onKeyDown={(e) => {
+              if (e.key !== "Enter") return;
+              if (newTask) {
+                createNewTask(board.id, newTask);
+                setNewTask("");
+              }
+            }}
+            onChange={(e) => setNewTask(e.target.value)}
+            onClickBtnAdd={() => {
+              if (newTask) {
+                createNewTask(board.id, newTask);
+                handleCloseBoxAddTask();
+                setNewTask("");
+              }
+            }}
+            value={newTask}
+          ></AddBox>
+        )}
       </div>
     </div>
   );

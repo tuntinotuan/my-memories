@@ -4,30 +4,23 @@ import BoardSidebar from "@/components/layout/board/board.sidebar";
 import {
   DndContext,
   DragEndEvent,
+  DragOverEvent,
   DragOverlay,
   DragStartEvent,
   PointerSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  useSortable,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { useEffect, useMemo, useRef, useState } from "react";
 import AddBtn from "./modules/AddBtn";
 import AddBox from "./modules/AddBox";
 import ListContainer from "./modules/ListContainer";
 import List from "./modules/List";
-import { useOnClickOutside } from "usehooks-ts";
-import { Board, Id } from "./modules/types";
+import { Board, Id, Task } from "./modules/types";
 import { createPortal } from "react-dom";
+import CardItem from "./modules/CardItem";
 
-type ColorCode = { from: string; to: string; url?: string };
-type UrlCode = { from?: string; to?: string; url: string; alt: string };
-type GradientTypes = ColorCode | UrlCode;
 export default function Page({ params }: any) {
   return (
     <div className="flex w-full overflow-hidden">
@@ -48,54 +41,20 @@ function LocalBody({ params }: any) {
   //   from: "#6f5dc6",
   //   to: "#e374bc",
   // };
-  const lists = [
-    {
-      id: 1,
-      listTitle: "Tasks",
-    },
-    {
-      id: 2,
-      listTitle: "To do",
-    },
-    {
-      id: 3,
-      listTitle: "Done",
-    },
-  ];
-  const [listData, setItemData] = useState(lists);
   const [showBoxAddList, setShowBoxAddList] = useState(false);
-  const [boards, setBoards] = useState<Board[]>([]);
+  const [boards, setBoards] = useState<Board[]>([
+    { id: 1, title: "Todo" },
+    { id: 2, title: "Done" },
+  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const boardsId = useMemo(() => boards.map((item) => item.id), [boards]);
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeBoardId = active.id;
-    const overBoardId = over.id;
-    if (activeBoardId === overBoardId) return;
-    setBoards((board) => {
-      const activeBoardIndex = board.findIndex(
-        (item) => item.id === activeBoardId
-      );
-      const overBoardIndex = board.findIndex((item) => item.id === overBoardId);
-      return arrayMove(boards, activeBoardIndex, overBoardIndex);
-    });
-    // if (over && active.id !== over.id) {
-    //   setItemData((lists) => {
-    //     const oldIndex = lists.findIndex((list) => list.id === active.id);
-    //     const newIndex = lists.findIndex((list) => list.id === over.id);
-    //     return arrayMove(lists, oldIndex, newIndex);
-    //   });
-    // }
-  };
   const handleOpenBoxAddList = () => {
     setShowBoxAddList(true);
   };
   const handleCloseBoxAddList = () => {
     setShowBoxAddList(false);
   };
-  const ref = useRef(null);
-  useOnClickOutside(ref, handleCloseBoxAddList);
+
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const scrollPosition = useRef(0);
   const handleScroll = () => {
@@ -123,14 +82,17 @@ function LocalBody({ params }: any) {
     }
   }, [boards]); // Runs when `listData` update
   console.log("boards", boards);
-  const [activeBoard, setActiveBoard] = useState<Board | null>(null);
+  console.log("tasks", tasks);
+  const [activeBoard, setActiveBoard] = useState<Board | null>();
+  const [activeTask, setActiveTask] = useState<Task | null>(null);
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 3,
+        distance: 0,
       },
     })
   );
+  const [newTitle, setNewTitle] = useState<string>("");
   const Content = () => {
     return (
       <div
@@ -143,6 +105,7 @@ function LocalBody({ params }: any) {
           sensors={sensors}
           onDragEnd={handleDragEnd}
           onDragStart={onDragStart}
+          onDragOver={onDragOver}
         >
           <SortableContext items={boardsId}>
             {boards.map((board) => (
@@ -150,14 +113,24 @@ function LocalBody({ params }: any) {
                 board={board}
                 key={board.id}
                 updateBoard={updateBoard}
+                createNewTask={createNewTask}
+                tasks={tasks.filter((task) => task.boardId === board.id)}
               ></List>
             ))}
           </SortableContext>
           {createPortal(
             <DragOverlay>
               {activeBoard && (
-                <List board={activeBoard} updateBoard={updateBoard}></List>
+                <List
+                  board={activeBoard}
+                  updateBoard={updateBoard}
+                  createNewTask={createNewTask}
+                  tasks={tasks.filter(
+                    (task) => task.boardId === activeBoard.id
+                  )}
+                ></List>
               )}
+              {activeTask && <CardItem task={activeTask}></CardItem>}
             </DragOverlay>,
             document.body
           )}
@@ -171,8 +144,22 @@ function LocalBody({ params }: any) {
               placeholder="Enter list name..."
               btnText="Add list"
               onClose={handleCloseBoxAddList}
-              createNewBoard={createNewBoard}
-              ref={ref}
+              onKeyDown={(e) => {
+                if (e.key !== "Enter") return;
+                if (newTitle) {
+                  createNewBoard(newTitle);
+                  setNewTitle("");
+                }
+              }}
+              onChange={(e) => setNewTitle(e.target.value)}
+              onClickBtnAdd={() => {
+                if (newTitle) {
+                  createNewBoard(newTitle);
+                  handleCloseBoxAddList();
+                  setNewTitle("");
+                }
+              }}
+              value={newTitle}
             />
           )}
         </ListContainer>
@@ -208,6 +195,14 @@ function LocalBody({ params }: any) {
     });
     setBoards(newBoards);
   }
+  function createNewTask(boardId: Id, content: string) {
+    const newTask = {
+      id: generateId(),
+      boardId: boardId,
+      content: content,
+    };
+    setTasks([...tasks, newTask]);
+  }
   function generateId() {
     return Math.floor(Math.random() * 10001);
   }
@@ -215,6 +210,58 @@ function LocalBody({ params }: any) {
     if (event.active.data.current?.type === "Board") {
       setActiveBoard(event.active.data.current.board);
       return;
+    }
+    if (event.active.data.current?.type === "Task") {
+      setActiveTask(event.active.data.current.task);
+      return;
+    }
+  }
+  function handleDragEnd(event: DragEndEvent) {
+    setActiveBoard(null);
+    setActiveTask(null);
+    const { active, over } = event;
+    if (!over) return;
+
+    const activeBoardId = active.id;
+    const overBoardId = over.id;
+    if (activeBoardId === overBoardId) return;
+    setBoards((board) => {
+      const activeBoardIndex = board.findIndex(
+        (item) => item.id === activeBoardId
+      );
+      const overBoardIndex = board.findIndex((item) => item.id === overBoardId);
+      return arrayMove(boards, activeBoardIndex, overBoardIndex);
+    });
+  }
+  function onDragOver(event: DragOverEvent) {
+    const { active, over } = event;
+    if (!over) return;
+
+    const activeId = active.id;
+    const overId = over.id;
+    if (activeId === overId) return;
+
+    const isActiveTask = active.data.current?.type === "Task";
+    const isOverTask = over.data.current?.type === "Task";
+
+    if (!isActiveTask) return;
+    // I'm dropping a Task over another Task
+    if (isActiveTask && isOverTask) {
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        const overIndex = tasks.findIndex((t) => t.id === overId);
+        tasks[activeIndex].boardId = tasks[overIndex].boardId;
+        return arrayMove(tasks, activeIndex, overIndex);
+      });
+    }
+
+    const isOverABoard = over.data.current?.type === "Column";
+
+    // I'm dropping a Task over a column
+    if (isActiveTask && isOverABoard) {
+      const activeIndex = tasks.findIndex((t) => t.id === activeId);
+      tasks[activeIndex].boardId === overId;
+      return arrayMove(tasks, activeIndex, activeIndex);
     }
   }
 }
