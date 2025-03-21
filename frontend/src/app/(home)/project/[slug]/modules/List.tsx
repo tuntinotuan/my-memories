@@ -8,8 +8,15 @@ import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import CardItem from "./CardItem";
 import AddBtn from "./AddBtn";
 import { CSS } from "@dnd-kit/utilities";
+import { Board, Id } from "./types";
 
-const List = ({ id, listTitle }: { id: number; listTitle: string }) => {
+const List = ({
+  board,
+  updateBoard,
+}: {
+  board: Board;
+  updateBoard: (id: Id, title: string) => void;
+}) => {
   const itemLists = [
     {
       id: 1,
@@ -36,6 +43,8 @@ const List = ({ id, listTitle }: { id: number; listTitle: string }) => {
     }
   };
   // console.log("itemData", itemData);
+  const [editTitle, setEditTitle] = useState(false);
+  console.log("editTitle", editTitle);
   const {
     attributes,
     listeners,
@@ -43,11 +52,33 @@ const List = ({ id, listTitle }: { id: number; listTitle: string }) => {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: id });
+  } = useSortable({
+    id: board.id,
+    data: { type: "Board", board },
+    disabled: editTitle,
+  });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+  // if (isDragging) {
+  //   return (
+  //     <div
+  //       className={`child flex flex-col w-[250px] gap-2 bg-white border border-secondaryColor shrink-0 ${
+  //         isDragging ? "blur-[0.5px]" : ""
+  //       }`}
+  //       ref={setNodeRef}
+  //       style={style}
+  //       {...attributes}
+  //       {...listeners}
+  //     ></div>
+  //   );
+  // }
+  const [newTitle, setNewTitle] = useState(board.title);
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(e.target.value);
+  };
+  console.log("newTitle", newTitle);
   return (
     <div
       className={`child flex flex-col w-[250px] h-auto gap-2 shrink-0 ${
@@ -60,11 +91,35 @@ const List = ({ id, listTitle }: { id: number; listTitle: string }) => {
     >
       <div
         className={`flex flex-col gap-2 bg-white text-primaryText rounded p-2 ${
-          isDragging ? "bg-opacity-80" : ""
+          isDragging ? "bg-opacity-60 border-2 border-secondaryColor" : ""
         }`}
       >
         <div className="flex items-center justify-between pl-3 py-1">
-          <p>{listTitle}</p>
+          {!editTitle && (
+            <p onClick={() => setEditTitle(true)}>
+              {board.title + " - " + board.id}
+            </p>
+          )}
+          {editTitle && (
+            <input
+              type="text"
+              defaultValue={board.title}
+              onChange={handleChangeTitle}
+              autoFocus
+              onBlur={() => {
+                setEditTitle(false);
+                if (board.title === newTitle) return;
+                updateBoard(board.id, newTitle);
+              }}
+              onKeyDown={(e) => {
+                if (e.key !== "Enter") return;
+                setEditTitle(false);
+                if (board.title === newTitle) return;
+                updateBoard(board.id, newTitle);
+              }}
+              className="w-auto border focus:border-secondaryColor"
+            />
+          )}
           <DragIcon></DragIcon>
         </div>
         <DndContext onDragEnd={handleDragEnd}>

@@ -1,14 +1,29 @@
 "use client";
 import BoardMenu from "@/components/layout/board/board.menu";
 import BoardSidebar from "@/components/layout/board/board.sidebar";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { useEffect, useMemo, useRef, useState } from "react";
 import AddBtn from "./modules/AddBtn";
 import AddBox from "./modules/AddBox";
 import ListContainer from "./modules/ListContainer";
 import List from "./modules/List";
 import { useOnClickOutside } from "usehooks-ts";
+import { Board, Id } from "./modules/types";
+import { createPortal } from "react-dom";
 
 type ColorCode = { from: string; to: string; url?: string };
 type UrlCode = { from?: string; to?: string; url: string; alt: string };
@@ -49,15 +64,29 @@ function LocalBody({ params }: any) {
   ];
   const [listData, setItemData] = useState(lists);
   const [showBoxAddList, setShowBoxAddList] = useState(false);
+  const [boards, setBoards] = useState<Board[]>([]);
+  const boardsId = useMemo(() => boards.map((item) => item.id), [boards]);
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (over && active.id !== over.id) {
-      setItemData((lists) => {
-        const oldIndex = lists.findIndex((list) => list.id === active.id);
-        const newIndex = lists.findIndex((list) => list.id === over.id);
-        return arrayMove(lists, oldIndex, newIndex);
-      });
-    }
+    if (!over) return;
+
+    const activeBoardId = active.id;
+    const overBoardId = over.id;
+    if (activeBoardId === overBoardId) return;
+    setBoards((board) => {
+      const activeBoardIndex = board.findIndex(
+        (item) => item.id === activeBoardId
+      );
+      const overBoardIndex = board.findIndex((item) => item.id === overBoardId);
+      return arrayMove(boards, activeBoardIndex, overBoardIndex);
+    });
+    // if (over && active.id !== over.id) {
+    //   setItemData((lists) => {
+    //     const oldIndex = lists.findIndex((list) => list.id === active.id);
+    //     const newIndex = lists.findIndex((list) => list.id === over.id);
+    //     return arrayMove(lists, oldIndex, newIndex);
+    //   });
+    // }
   };
   const handleOpenBoxAddList = () => {
     setShowBoxAddList(true);
@@ -79,12 +108,6 @@ function LocalBody({ params }: any) {
       scrollRef.current.scrollLeft += event.deltaY; // Moves horizontally instead of vertically
     }
   };
-  // Restore scroll position after `listData` update
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollPosition.current;
-    }
-  }, [listData]); // Runs when `listData` update
   // Restore scroll position after `AddBox UI` update
   useEffect(() => {
     const scrollCur = scrollRef.current;
@@ -93,6 +116,21 @@ function LocalBody({ params }: any) {
       scrollCur.scrollLeft = maxScrollLeft;
     }
   }, [showBoxAddList]); // Runs when `AddBox UI` update
+  // Restore scroll position after `listData` update
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollPosition.current;
+    }
+  }, [boards]); // Runs when `listData` update
+  console.log("boards", boards);
+  const [activeBoard, setActiveBoard] = useState<Board | null>(null);
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 3,
+      },
+    })
+  );
   const Content = () => {
     return (
       <div
@@ -101,16 +139,28 @@ function LocalBody({ params }: any) {
         onScroll={handleScroll}
         onWheel={handleWheel}
       >
-        <DndContext onDragEnd={handleDragEnd}>
-          <SortableContext items={listData}>
-            {listData.map((list) => (
+        <DndContext
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+          onDragStart={onDragStart}
+        >
+          <SortableContext items={boardsId}>
+            {boards.map((board) => (
               <List
-                id={list.id}
-                listTitle={list.listTitle}
-                key={list.id}
+                board={board}
+                key={board.id}
+                updateBoard={updateBoard}
               ></List>
             ))}
           </SortableContext>
+          {createPortal(
+            <DragOverlay>
+              {activeBoard && (
+                <List board={activeBoard} updateBoard={updateBoard}></List>
+              )}
+            </DragOverlay>,
+            document.body
+          )}
         </DndContext>
         <ListContainer>
           {!showBoxAddList && (
@@ -121,6 +171,7 @@ function LocalBody({ params }: any) {
               placeholder="Enter list name..."
               btnText="Add list"
               onClose={handleCloseBoxAddList}
+              createNewBoard={createNewBoard}
               ref={ref}
             />
           )}
@@ -143,112 +194,27 @@ function LocalBody({ params }: any) {
       <Content />
     </div>
   );
-}
-import { closestCenter } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
-import { LinearOrUrl } from "@/components/project/types";
-interface Item {
-  id: string;
-  name: string;
-}
-
-// ✅ Draggable Item Component
-const DraggableItem = ({ id, name }: Item) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    padding: "10px",
-    marginBottom: "5px",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    borderRadius: "5px",
-    cursor: "grab",
-  };
-
-  return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {name}
-    </div>
-  );
-};
-
-export function DragDropLists() {
-  const [groupA, setGroupA] = useState<Item[]>([
-    { id: "1", name: "Apple" },
-    { id: "2", name: "Banana" },
-    { id: "3", name: "Cherry" },
-  ]);
-
-  const [groupB, setGroupB] = useState<Item[]>([
-    { id: "4", name: "Orange" },
-    { id: "5", name: "Pineapple" },
-    { id: "6", name: "Mango" },
-  ]);
-
-  const handleDragEnd = (event: any) => {
-    const { active, over } = event;
-    if (!over) return;
-
-    const fromList = groupA.some((item) => item.id === active.id) ? "A" : "B";
-    const toList = groupA.some((item) => item.id === over.id) ? "A" : "B";
-
-    if (fromList === toList) {
-      // ✅ Dragging inside the same list → Reorder
-      if (fromList === "A") {
-        const oldIndex = groupA.findIndex((item) => item.id === active.id);
-        const newIndex = groupA.findIndex((item) => item.id === over.id);
-        setGroupA(arrayMove(groupA, oldIndex, newIndex));
-      } else {
-        const oldIndex = groupB.findIndex((item) => item.id === active.id);
-        const newIndex = groupB.findIndex((item) => item.id === over.id);
-        setGroupB(arrayMove(groupB, oldIndex, newIndex));
-      }
-    } else {
-      // ✅ Moving Between Lists
-      if (fromList === "A") {
-        const item = groupA.find((i) => i.id === active.id);
-        if (!item) return;
-        setGroupA(groupA.filter((i) => i.id !== active.id));
-        setGroupB([...groupB, item]);
-      } else {
-        const item = groupB.find((i) => i.id === active.id);
-        if (!item) return;
-        setGroupB(groupB.filter((i) => i.id !== active.id));
-        setGroupA([...groupA, item]);
-      }
+  function createNewBoard(title: string) {
+    const boardToAdd: Board = {
+      id: generateId(),
+      title: title,
+    };
+    setBoards([...boards, boardToAdd]);
+  }
+  function updateBoard(id: Id, title: string) {
+    const newBoards = boards.map((item) => {
+      if (item.id !== id) return item;
+      return { ...item, title };
+    });
+    setBoards(newBoards);
+  }
+  function generateId() {
+    return Math.floor(Math.random() * 10001);
+  }
+  function onDragStart(event: DragStartEvent) {
+    if (event.active.data.current?.type === "Board") {
+      setActiveBoard(event.active.data.current.board);
+      return;
     }
-  };
-
-  return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <div style={{ display: "flex", gap: "20px" }}>
-        {/* ✅ Group A */}
-        <div
-          style={{ border: "1px solid gray", padding: "10px", width: "200px" }}
-        >
-          <h3>Group A</h3>
-          <SortableContext items={groupA}>
-            {groupA.map((item) => (
-              <DraggableItem key={item.id} id={item.id} name={item.name} />
-            ))}
-          </SortableContext>
-        </div>
-
-        {/* ✅ Group B */}
-        <div
-          style={{ border: "1px solid gray", padding: "10px", width: "200px" }}
-        >
-          <h3>Group B</h3>
-          <SortableContext items={groupB}>
-            {groupB.map((item) => (
-              <DraggableItem key={item.id} id={item.id} name={item.name} />
-            ))}
-          </SortableContext>
-        </div>
-      </div>
-    </DndContext>
-  );
+  }
 }

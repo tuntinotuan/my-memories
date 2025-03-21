@@ -1,13 +1,9 @@
 "use client";
 import HomeMenuSidebar from "@/components/layout/home/home.menu.sidebar";
-import { DragDropLists } from "./(home)/project/[slug]/page";
 import HomeContentCover from "@/components/layout/home/home.content.cover";
 import HomeSidebar from "@/components/layout/home/home.sidebar";
 import HomeSidebarCover from "@/components/layout/home/home.sidebar.cover";
 import OriginalBanner from "@/components/banner/OriginalBanner";
-import { projectList } from "@/api/board/mock.data";
-import ProjectImgOrGradient from "@/components/project/ProjectImgOrGradient";
-import Link from "next/link";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import { useState } from "react";
@@ -69,7 +65,6 @@ const MainContent = () => {
       {listOrGrid === "grid" && <ProjectCardGrid />}
       {listOrGrid === "list" && <ProjectCardList />}
       <h1 className="mt-10 font-bold">Test dndkit library</h1>
-      <DragDropLists></DragDropLists>
     </>
   );
 };
