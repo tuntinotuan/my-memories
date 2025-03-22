@@ -46,7 +46,14 @@ function LocalBody({ params }: any) {
     { id: 1, title: "Todo" },
     { id: 2, title: "Done" },
   ]);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([
+    { id: 33, boardId: 1, content: "Learn Reactjs" },
+    { id: 22, boardId: 1, content: "Exercise" },
+    { id: 25, boardId: 1, content: "Go to supermarket" },
+    { id: 24, boardId: 2, content: "Play game" },
+    { id: 26, boardId: 2, content: "Go out with my friend" },
+    { id: 27, boardId: 2, content: "Reading 'Don't make me think'" },
+  ]);
   const boardsId = useMemo(() => boards.map((item) => item.id), [boards]);
   const handleOpenBoxAddList = () => {
     setShowBoxAddList(true);
@@ -230,7 +237,12 @@ function LocalBody({ params }: any) {
                   )}
                 ></List>
               )}
-              {activeTask && <CardItem task={activeTask}></CardItem>}
+              {activeTask && (
+                <CardItem
+                  task={activeTask}
+                  className="skew-x-2 rotate-6 opacity-60"
+                ></CardItem>
+              )}
             </DragOverlay>,
             document.body
           )}

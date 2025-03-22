@@ -2,7 +2,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import React from "react";
 import { CSS } from "@dnd-kit/utilities";
 
-const CardItem = ({ task }: any) => {
+const CardItem = ({ task, className }: any) => {
   const {
     attributes,
     listeners,
@@ -21,13 +21,15 @@ const CardItem = ({ task }: any) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`bg-gray-400 bg-opacity-10 p-3 rounded-lg cursor-pointer ${
+      className={`bg-gray-400 bg-opacity-10 p-3 rounded-lg cursor-pointer ${className} ${
         isDragging
           ? "blur-[0.5px] bg-opacity-25 border-2 border-secondaryColor"
           : ""
       }`}
     >
-      <p className="cursor-text">{task.content}</p>
+      <p className={`cursor-text ${isDragging ? "opacity-0" : ""}`}>
+        {task.content}
+      </p>
     </div>
   );
 };

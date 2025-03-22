@@ -64,16 +64,16 @@ const List = ({
   };
   return (
     <div
-      className={`child flex flex-col w-[250px] h-auto gap-2 shrink-0 cursor-grab ${
-        isDragging ? "blur-[0.5px]" : ""
-      }`}
       ref={setNodeRef}
       style={style}
       {...attributes}
       {...listeners}
+      className={`child flex flex-col w-[250px] h-full gap-2 shrink-0 cursor-grab ${
+        isDragging ? "blur-[0.5px]" : ""
+      }`}
     >
       <div
-        className={`flex flex-col gap-2 h-[300px] bg-white text-primaryText rounded p-2 ${
+        className={`flex flex-col gap-2 bg-white max-h-full text-primaryText rounded p-2 ${
           isDragging ? "bg-opacity-60 border-2 border-secondaryColor" : ""
         }`}
       >
@@ -105,11 +105,13 @@ const List = ({
           )}
           <DragIcon></DragIcon>
         </div>
-        <SortableContext items={tasksId}>
-          {tasks.map((task) => (
-            <CardItem task={task} key={task.id} />
-          ))}
-        </SortableContext>
+        <div className="flex flex-col gap-2 overflow-y-auto">
+          <SortableContext items={tasksId}>
+            {tasks.map((task) => (
+              <CardItem task={task} key={task.id} />
+            ))}
+          </SortableContext>
+        </div>
         {!showBoxAddTask && (
           <AddBtn
             text="Add a card"
