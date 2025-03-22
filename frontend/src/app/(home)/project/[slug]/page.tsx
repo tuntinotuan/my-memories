@@ -20,6 +20,7 @@ import List from "./modules/List";
 import { Board, Id, Task } from "./modules/types";
 import { createPortal } from "react-dom";
 import CardItem from "./modules/CardItem";
+import { initialBoards, initialTasks } from "@/api/board/mock.data";
 
 export default function Page({ params }: any) {
   return (
@@ -41,20 +42,29 @@ function LocalBody({ params }: any) {
   //   from: "#6f5dc6",
   //   to: "#e374bc",
   // };
+  return (
+    <div
+      className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover`}
+      style={
+        defaultGradient.type === "imageUrl"
+          ? { backgroundImage: `url(${defaultGradient.url})` }
+          : {
+              backgroundImage: `linear-gradient(to bottom right, ${defaultGradient.from}, ${defaultGradient.to})`,
+            }
+      }
+    >
+      <BoardMenu slug={params.slug} />
+      <LocalContent />
+    </div>
+  );
+}
+
+const LocalContent = () => {
   const [showBoxAddList, setShowBoxAddList] = useState(false);
-  const [boards, setBoards] = useState<Board[]>([
-    { id: 1, title: "Todo" },
-    { id: 2, title: "Done" },
-  ]);
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: 33, boardId: 1, content: "Learn Reactjs" },
-    { id: 22, boardId: 1, content: "Exercise" },
-    { id: 25, boardId: 1, content: "Go to supermarket" },
-    { id: 24, boardId: 2, content: "Play game" },
-    { id: 26, boardId: 2, content: "Go out with my friend" },
-    { id: 27, boardId: 2, content: "Reading 'Don't make me think'" },
-  ]);
+  const [boards, setBoards] = useState<Board[]>(initialBoards);
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const boardsId = useMemo(() => boards.map((item) => item.id), [boards]);
+  const [newTitle, setNewTitle] = useState<string>("");
   const handleOpenBoxAddList = () => {
     setShowBoxAddList(true);
   };
@@ -81,18 +91,16 @@ function LocalBody({ params }: any) {
       const maxScrollLeft = scrollCur.scrollWidth - scrollCur.clientWidth;
       scrollCur.scrollLeft = maxScrollLeft;
     }
-  }, [showBoxAddList]); // Runs when `AddBox UI` update
+  }, [showBoxAddList, newTitle]); // Runs when `AddBox UI` update
   // Restore scroll position after `listData` update
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollLeft = scrollPosition.current;
     }
   }, [boards]); // Runs when `listData` update
-  console.log("boards", boards);
-  console.log("tasks", tasks);
+
   const [activeBoard, setActiveBoard] = useState<Board | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
-  console.log("2 - active", activeBoard, activeTask);
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -100,7 +108,9 @@ function LocalBody({ params }: any) {
       },
     })
   );
-  const [newTitle, setNewTitle] = useState<string>("");
+  function generateId() {
+    return Math.floor(Math.random() * 10001);
+  }
   function createNewBoard(title: string) {
     const boardToAdd: Board = {
       id: generateId(),
@@ -122,9 +132,6 @@ function LocalBody({ params }: any) {
       content: content,
     };
     setTasks([...tasks, newTask]);
-  }
-  function generateId() {
-    return Math.floor(Math.random() * 10001);
   }
   function handleDragStart(event: DragStartEvent) {
     if (event.active.data.current?.type === "Board") {
@@ -184,98 +191,78 @@ function LocalBody({ params }: any) {
       return arrayMove(tasks, activeIndex, activeIndex);
     }
   }
-  // const Content = () => {
-  //   return (
-
-  //   );
-  // };
   return (
     <div
-      className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover`}
-      style={
-        defaultGradient.type === "imageUrl"
-          ? { backgroundImage: `url(${defaultGradient.url})` }
-          : {
-              backgroundImage: `linear-gradient(to bottom right, ${defaultGradient.from}, ${defaultGradient.to})`,
-            }
-      }
+      ref={scrollRef}
+      className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden"
+      onScroll={handleScroll}
+      onWheel={handleWheel}
     >
-      <BoardMenu slug={params.slug} />
-      {/* <Content /> */}
-      <div
-        ref={scrollRef}
-        className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden"
-        onScroll={handleScroll}
-        onWheel={handleWheel}
+      <DndContext
+        sensors={sensors}
+        onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
       >
-        <DndContext
-          sensors={sensors}
-          onDragEnd={handleDragEnd}
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-        >
-          <SortableContext items={boardsId}>
-            {boards.map((board) => (
+        <SortableContext items={boardsId}>
+          {boards.map((board) => (
+            <List
+              board={board}
+              key={board.id}
+              updateBoard={updateBoard}
+              createNewTask={createNewTask}
+              tasks={tasks.filter((task) => task.boardId === board.id)}
+            ></List>
+          ))}
+        </SortableContext>
+        {createPortal(
+          <DragOverlay>
+            {activeBoard && (
               <List
-                board={board}
-                key={board.id}
+                board={activeBoard}
                 updateBoard={updateBoard}
                 createNewTask={createNewTask}
-                tasks={tasks.filter((task) => task.boardId === board.id)}
+                tasks={tasks.filter((task) => task.boardId === activeBoard.id)}
               ></List>
-            ))}
-          </SortableContext>
-          {createPortal(
-            <DragOverlay>
-              {activeBoard && (
-                <List
-                  board={activeBoard}
-                  updateBoard={updateBoard}
-                  createNewTask={createNewTask}
-                  tasks={tasks.filter(
-                    (task) => task.boardId === activeBoard.id
-                  )}
-                ></List>
-              )}
-              {activeTask && (
-                <CardItem
-                  task={activeTask}
-                  className="skew-x-2 rotate-6 opacity-60"
-                ></CardItem>
-              )}
-            </DragOverlay>,
-            document.body
-          )}
-        </DndContext>
-        <ListContainer>
-          {!showBoxAddList && (
-            <AddBtn text="Add a list" onClick={handleOpenBoxAddList} />
-          )}
-          {showBoxAddList && (
-            <AddBox
-              placeholder="Enter list name..."
-              btnText="Add list"
-              onClose={handleCloseBoxAddList}
-              onKeyDown={(e) => {
-                if (e.key !== "Enter") return;
-                if (newTitle) {
-                  createNewBoard(newTitle);
-                  setNewTitle("");
-                }
-              }}
-              onChange={(e) => setNewTitle(e.target.value)}
-              onClickBtnAdd={() => {
-                if (newTitle) {
-                  createNewBoard(newTitle);
-                  handleCloseBoxAddList();
-                  setNewTitle("");
-                }
-              }}
-              value={newTitle}
-            />
-          )}
-        </ListContainer>
-      </div>
+            )}
+            {activeTask && (
+              <CardItem
+                task={activeTask}
+                className="skew-x-2 rotate-6 opacity-60"
+              ></CardItem>
+            )}
+          </DragOverlay>,
+          document.body
+        )}
+      </DndContext>
+      <ListContainer>
+        {!showBoxAddList && (
+          <AddBtn text="Add a list" onClick={handleOpenBoxAddList} />
+        )}
+        {showBoxAddList && (
+          <AddBox
+            placeholder="Enter list name..."
+            btnText="Add list"
+            onClose={handleCloseBoxAddList}
+            onKeyDown={(e) => {
+              if (e.key !== "Enter") return;
+              if (newTitle) {
+                createNewBoard(newTitle);
+                setNewTitle("");
+              }
+            }}
+            onChange={(e) => setNewTitle(e.target.value)}
+            onClickBtnAdd={() => {
+              if (newTitle) {
+                createNewBoard(newTitle);
+                handleCloseBoxAddList();
+                setNewTitle("");
+              }
+            }}
+            value={newTitle}
+          />
+        )}
+      </ListContainer>
     </div>
   );
-}
+};

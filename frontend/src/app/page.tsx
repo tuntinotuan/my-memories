@@ -64,7 +64,6 @@ const MainContent = () => {
       </div>
       {listOrGrid === "grid" && <ProjectCardGrid />}
       {listOrGrid === "list" && <ProjectCardList />}
-      <h1 className="mt-10 font-bold">Test dndkit library</h1>
     </>
   );
 };

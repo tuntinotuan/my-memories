@@ -1,3 +1,4 @@
+import { Board, Task } from "@/app/(home)/project/[slug]/modules/types";
 import { LinearOrUrl } from "@/components/project/types";
 
 export const projectList: { img: LinearOrUrl; title: string }[] = [
@@ -69,4 +70,17 @@ export const projectList: { img: LinearOrUrl; title: string }[] = [
     },
     title: "Before I never love sunset, now, maybe",
   },
+];
+
+export const initialBoards: Board[] = [
+  { id: 1, title: "Todo" },
+  { id: 2, title: "Done" },
+];
+export const initialTasks: Task[] = [
+  { id: 33, boardId: 1, content: "Learn Reactjs" },
+  { id: 22, boardId: 1, content: "Exercise" },
+  { id: 25, boardId: 1, content: "Go to supermarket" },
+  { id: 24, boardId: 2, content: "Play game" },
+  { id: 26, boardId: 2, content: "Go out with my friend" },
+  { id: 27, boardId: 2, content: "Reading 'Don't make me think'" },
 ];

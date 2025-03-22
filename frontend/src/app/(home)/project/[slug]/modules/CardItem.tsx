@@ -27,7 +27,7 @@ const CardItem = ({ task, className }: any) => {
           : ""
       }`}
     >
-      <p className={`cursor-text ${isDragging ? "opacity-0" : ""}`}>
+      <p className={`cursor-text truncate ${isDragging ? "opacity-0" : ""}`}>
         {task.content}
       </p>
     </div>

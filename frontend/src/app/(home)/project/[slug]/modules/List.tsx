@@ -10,18 +10,16 @@ import AddBtn from "./AddBtn";
 import { CSS } from "@dnd-kit/utilities";
 import { Board, Id, Task } from "./types";
 import AddBox from "./AddBox";
+import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 
-const List = ({
-  board,
-  updateBoard,
-  createNewTask,
-  tasks,
-}: {
+type ListProps = {
   board: Board;
+  tasks: Task[];
   updateBoard: (id: Id, title: string) => void;
   createNewTask: (id: Id, content: string) => void;
-  tasks: Task[];
-}) => {
+};
+
+const List = ({ board, updateBoard, createNewTask, tasks }: ListProps) => {
   const [editTitle, setEditTitle] = useState(false);
   const tasksId = useMemo(() => tasks.map((task) => task.id), [tasks]);
   const {
@@ -40,19 +38,6 @@ const List = ({
     transform: CSS.Transform.toString(transform),
     transition,
   };
-  // if (isDragging) {
-  //   return (
-  //     <div
-  //       className={`child flex flex-col w-[250px] gap-2 bg-white border border-secondaryColor shrink-0 ${
-  //         isDragging ? "blur-[0.5px]" : ""
-  //       }`}
-  //       ref={setNodeRef}
-  //       style={style}
-  //       {...attributes}
-  //       {...listeners}
-  //     ></div>
-  //   );
-  // }
   const [newTitle, setNewTitle] = useState(board.title);
   const [newTask, setNewTask] = useState("");
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,33 +62,39 @@ const List = ({
           isDragging ? "bg-opacity-60 border-2 border-secondaryColor" : ""
         }`}
       >
-        <div className="flex items-center justify-between pl-3 py-1">
+        <div className="flex items-center justify-between text-sm font-bold">
           {!editTitle && (
-            <p onClick={() => setEditTitle(true)}>
-              {board.title + " - " + board.id}
+            <p
+              onClick={() => setEditTitle(true)}
+              className="pl-3 py-1 cursor-pointer border border-transparent w-full"
+            >
+              {board.title}
             </p>
           )}
           {editTitle && (
             <input
               type="text"
               defaultValue={board.title}
+              className="w-full border focus:border-secondaryColor pl-3 py-1 rounded transition-all"
               onChange={handleChangeTitle}
               autoFocus
               onBlur={() => {
                 setEditTitle(false);
-                if (board.title === newTitle) return;
+                if (board.title === newTitle || !newTitle) return;
                 updateBoard(board.id, newTitle);
               }}
               onKeyDown={(e) => {
                 if (e.key !== "Enter") return;
                 setEditTitle(false);
-                if (board.title === newTitle) return;
+                if (board.title === newTitle || !newTitle) return;
                 updateBoard(board.id, newTitle);
               }}
-              className="w-auto border focus:border-secondaryColor"
             />
           )}
-          <DragIcon></DragIcon>
+          <ThreeDotsIcon
+            className="p-2 hover:bg-gray-300 rounded"
+            disabled
+          ></ThreeDotsIcon>
         </div>
         <div className="flex flex-col gap-2 overflow-y-auto">
           <SortableContext items={tasksId}>
@@ -114,7 +105,7 @@ const List = ({
         </div>
         {!showBoxAddTask && (
           <AddBtn
-            text="Add a card"
+            text="Add a task"
             className="hover:!bg-gray-500 hover:!bg-opacity-30"
             onClick={() => setShowBoxAddTask(true)}
           ></AddBtn>
