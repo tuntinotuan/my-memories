@@ -8,7 +8,7 @@ const ProjectCardGridItem = ({ title, img }: ProjectCardItemProps) => {
     <div className="flex flex-col w-[220px] h-[222px] gap-2">
       <Link
         href={`/project/${title}`}
-        className="flex justify-center items-end w-full h-full bg-efColor rounded-lg px-4 pt-4 cursor-pointer hover:shadow-inner hover:scale-[1.01] transition-all"
+        className="flex justify-center items-end w-full h-full bg-f2Color rounded-lg px-4 pt-4 cursor-pointer hover:shadow-inner hover:scale-[1.01] transition-all"
       >
         <ProjectImgOrGradient img={img}></ProjectImgOrGradient>
       </Link>

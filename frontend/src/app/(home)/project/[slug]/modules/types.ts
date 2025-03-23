@@ -1,6 +1,6 @@
 export type Id = string | number;
 
-export type Board = {
+export type ListType = {
   id: Id;
   title: string;
 };

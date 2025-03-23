@@ -35,7 +35,7 @@ const ButtonCreate = (props: ButtonCreateProps) => {
             : ""
         }
           ${className}`}
-        onClick={onClick}
+        onClick={!disable ? onClick : () => {}}
         {...rest}
       >
         {children}

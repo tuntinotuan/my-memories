@@ -1,4 +1,4 @@
-import { Board, Task } from "@/app/(home)/project/[slug]/modules/types";
+import { ListType, Task } from "@/app/(home)/project/[slug]/modules/types";
 import { LinearOrUrl } from "@/components/project/types";
 
 export const projectList: { img: LinearOrUrl; title: string }[] = [
@@ -72,7 +72,7 @@ export const projectList: { img: LinearOrUrl; title: string }[] = [
   },
 ];
 
-export const initialBoards: Board[] = [
+export const initialLists: ListType[] = [
   { id: 1, title: "Todo" },
   { id: 2, title: "Done" },
 ];

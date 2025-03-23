@@ -17,19 +17,14 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 import { projectList } from "@/api/board/mock.data";
 const HomeSidebar = () => {
   const [show, setShow] = useState(true);
-  const [showSidebar, setShowSidebar] = useState(true);
   const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
   const [showCreateboard, setShowCreateboard] = useState(false);
   const handleClickButton = () => {
     show ? setShow(false) : setShow(true);
   };
-  const handleOpenAndCloseSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
   const handleOpenAndClosePopupCreateboard = () => {
     setShowCreateboard(!showCreateboard);
   };
-  const pathName = usePathname();
   return (
     <>
       {/* Popup */}

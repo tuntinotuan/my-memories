@@ -17,10 +17,10 @@ import AddBtn from "./modules/AddBtn";
 import AddBox from "./modules/AddBox";
 import ListContainer from "./modules/ListContainer";
 import List from "./modules/List";
-import { Board, Id, Task } from "./modules/types";
+import { ListType, Id, Task } from "./modules/types";
 import { createPortal } from "react-dom";
 import CardItem from "./modules/CardItem";
-import { initialBoards, initialTasks } from "@/api/board/mock.data";
+import { initialLists, initialTasks } from "@/api/board/mock.data";
 
 export default function Page({ params }: any) {
   return (
@@ -61,9 +61,9 @@ function LocalBody({ params }: any) {
 
 const LocalContent = () => {
   const [showBoxAddList, setShowBoxAddList] = useState(false);
-  const [boards, setBoards] = useState<Board[]>(initialBoards);
+  const [lists, setLists] = useState<ListType[]>(initialLists);
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
-  const boardsId = useMemo(() => boards.map((item) => item.id), [boards]);
+  const listsId = useMemo(() => lists.map((item) => item.id), [lists]);
   const [newTitle, setNewTitle] = useState<string>("");
   const handleOpenBoxAddList = () => {
     setShowBoxAddList(true);
@@ -97,9 +97,9 @@ const LocalContent = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollLeft = scrollPosition.current;
     }
-  }, [boards]); // Runs when `listData` update
+  }, [lists]); // Runs when `listData` update
 
-  const [activeBoard, setActiveBoard] = useState<Board | null>(null);
+  const [activeBoard, setActiveBoard] = useState<ListType | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -108,22 +108,20 @@ const LocalContent = () => {
       },
     })
   );
-  function generateId() {
-    return Math.floor(Math.random() * 10001);
-  }
-  function createNewBoard(title: string) {
-    const boardToAdd: Board = {
+
+  function createNewList(title: string) {
+    const boardToAdd: ListType = {
       id: generateId(),
       title: title,
     };
-    setBoards([...boards, boardToAdd]);
+    setLists([...lists, boardToAdd]);
   }
   function updateBoard(id: Id, title: string) {
-    const newBoards = boards.map((item) => {
+    const newLists = lists.map((item) => {
       if (item.id !== id) return item;
       return { ...item, title };
     });
-    setBoards(newBoards);
+    setLists(newLists);
   }
   function createNewTask(boardId: Id, content: string) {
     const newTask = {
@@ -152,12 +150,12 @@ const LocalContent = () => {
     const activeBoardId = active.id;
     const overBoardId = over.id;
     if (activeBoardId === overBoardId) return;
-    setBoards((board) => {
+    setLists((board) => {
       const activeBoardIndex = board.findIndex(
         (item) => item.id === activeBoardId
       );
       const overBoardIndex = board.findIndex((item) => item.id === overBoardId);
-      return arrayMove(boards, activeBoardIndex, overBoardIndex);
+      return arrayMove(lists, activeBoardIndex, overBoardIndex);
     });
   }
   function handleDragOver(event: DragOverEvent) {
@@ -204,8 +202,8 @@ const LocalContent = () => {
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
       >
-        <SortableContext items={boardsId}>
-          {boards.map((board) => (
+        <SortableContext items={listsId}>
+          {lists.map((board) => (
             <List
               board={board}
               key={board.id}
@@ -247,14 +245,14 @@ const LocalContent = () => {
             onKeyDown={(e) => {
               if (e.key !== "Enter") return;
               if (newTitle) {
-                createNewBoard(newTitle);
+                createNewList(newTitle);
                 setNewTitle("");
               }
             }}
             onChange={(e) => setNewTitle(e.target.value)}
             onClickBtnAdd={() => {
               if (newTitle) {
-                createNewBoard(newTitle);
+                createNewList(newTitle);
                 handleCloseBoxAddList();
                 setNewTitle("");
               }
@@ -266,3 +264,7 @@ const LocalContent = () => {
     </div>
   );
 };
+
+export function generateId() {
+  return Math.floor(Math.random() * 10001);
+}
