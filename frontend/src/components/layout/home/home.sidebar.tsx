@@ -15,16 +15,16 @@ import PopupCreateboard from "../../popup/PopupCreateboard";
 import { Tooltip } from "@nextui-org/tooltip";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { projectList } from "@/api/board/mock.data";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
 const HomeSidebar = () => {
   const [show, setShow] = useState(true);
   const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
-  const [showCreateboard, setShowCreateboard] = useState(false);
+  const { showCreateboard, handleOpenAndClosePopupCreateboard } =
+    useCreateBoardStates();
   const handleClickButton = () => {
     show ? setShow(false) : setShow(true);
   };
-  const handleOpenAndClosePopupCreateboard = () => {
-    setShowCreateboard(!showCreateboard);
-  };
+
   return (
     <>
       {/* Popup */}
@@ -59,7 +59,7 @@ const HomeSidebar = () => {
           <ButtonCreate
             className="!w-full my-2"
             styles="primary"
-            onClick={() => setShowCreateboard(true)}
+            onClick={handleOpenAndClosePopupCreateboard}
           >
             <PlusIcon />
             Create a project

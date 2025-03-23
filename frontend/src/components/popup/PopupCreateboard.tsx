@@ -8,10 +8,8 @@ import PopupOverlay from "./popup.overlay";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { LinearOrUrl } from "../project/types";
 import { generateId } from "@/app/(home)/project/[slug]/page";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
 
-// type ColorCode = { from: string; to: string; url?: string };
-// type UrlCode = { from?: string; to?: string; url: string; alt: string };
-type GradientTypes = LinearOrUrl;
 type PopupCreateboardProps = {
   show: boolean;
   onClose: () => void;
@@ -56,7 +54,7 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
       setCurrentGradient({ type: "imageUrl", url: item.url, alt: item.alt });
   };
   const [boardTitle, setBoardTitle] = useState("");
-  const [boards, setBoards] = useState<Board[]>([]);
+  const { boards, setBoards } = useCreateBoardStates();
   console.log("boards", boards);
   const handleCreateABoard = () => {
     const newBoard = {
@@ -65,6 +63,7 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
       img: currentGradient,
     };
     setBoards([...boards, newBoard]);
+    setBoardTitle("");
     onClose();
   };
   return (

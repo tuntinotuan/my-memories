@@ -22,7 +22,6 @@ const ButtonCreate = (props: ButtonCreateProps) => {
     case "secondary":
       newStyles = "bg-white text-black hover:shadow-md";
       break;
-
     default:
       break;
   }
