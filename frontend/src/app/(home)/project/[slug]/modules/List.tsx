@@ -8,12 +8,12 @@ import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import CardItem from "./CardItem";
 import AddBtn from "./AddBtn";
 import { CSS } from "@dnd-kit/utilities";
-import { Board, Id, Task } from "./types";
+import { Id, ListType, Task } from "./types";
 import AddBox from "./AddBox";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 
 type ListProps = {
-  board: Board;
+  board: ListType;
   tasks: Task[];
   updateBoard: (id: Id, title: string) => void;
   createNewTask: (id: Id, content: string) => void;

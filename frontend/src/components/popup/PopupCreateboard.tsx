@@ -7,8 +7,8 @@ import Image from "next/image";
 import PopupOverlay from "./popup.overlay";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { LinearOrUrl } from "../project/types";
-import { generateId } from "@/app/(home)/project/[slug]/page";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
+import { generateId } from "@/utils/otherFs";
 
 type PopupCreateboardProps = {
   show: boolean;

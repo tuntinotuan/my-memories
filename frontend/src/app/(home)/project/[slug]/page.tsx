@@ -21,6 +21,7 @@ import { ListType, Id, Task } from "./modules/types";
 import { createPortal } from "react-dom";
 import CardItem from "./modules/CardItem";
 import { initialLists, initialTasks } from "@/api/board/mock.data";
+import { generateId } from "@/utils/otherFs";
 
 export default function Page({ params }: any) {
   return (
@@ -110,11 +111,11 @@ const LocalContent = () => {
   );
 
   function createNewList(title: string) {
-    const boardToAdd: ListType = {
+    const listToAdd: ListType = {
       id: generateId(),
       title: title,
     };
-    setLists([...lists, boardToAdd]);
+    setLists([...lists, listToAdd]);
   }
   function updateBoard(id: Id, title: string) {
     const newLists = lists.map((item) => {
@@ -264,7 +265,3 @@ const LocalContent = () => {
     </div>
   );
 };
-
-export function generateId() {
-  return Math.floor(Math.random() * 10001);
-}
