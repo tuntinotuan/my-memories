@@ -17,12 +17,16 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 import { projectList } from "@/api/board/mock.data";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 const HomeSidebar = () => {
-  const [show, setShow] = useState(true);
+  const [showRecentDesign, setShowRecentDesign] = useState(true);
+  const [showExampleDesign, setShowExampleDesign] = useState(true);
   const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
-  const { showCreateboard, handleOpenAndClosePopupCreateboard } =
+  const { boards, showCreateboard, handleOpenAndClosePopupCreateboard } =
     useCreateBoardStates();
-  const handleClickButton = () => {
-    show ? setShow(false) : setShow(true);
+  const handleRecent = () => {
+    setShowRecentDesign((pre) => !pre);
+  };
+  const handleExample = () => {
+    setShowExampleDesign((pre) => !pre);
   };
 
   return (
@@ -68,18 +72,49 @@ const HomeSidebar = () => {
             <CrownIcon />
             Try Pro for 30 days
           </ButtonCreate>
-          <div className="">
-            <Button
-              className="group text-xs !gap-1 !py-[6px] !px-2 !rounded-[4px] my-[14px] text-primaryText"
-              hover="hover:bg-primaryHover"
-              onClick={handleClickButton}
-            >
-              <p>Recent designs</p>
-              {show ? <ArrowDownIcon /> : <ArrowRightIcon />}
-            </Button>
-            {show && (
+          <div className="overflow-auto max-h-[65vh] px-1 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm mt-3">
+            {boards.length > 0 && (
+              <Button
+                className="group text-xs !gap-1 !py-[6px] !px-2 !rounded-[4px] mb-[14px] text-primaryText"
+                hover="hover:bg-primaryHover"
+                onClick={handleRecent}
+              >
+                <p>Recent designs</p>
+                {showRecentDesign ? <ArrowDownIcon /> : <ArrowRightIcon />}
+              </Button>
+            )}
+            {showRecentDesign && (
               <>
-                <div className="flex flex-col items-center gap-1 overflow-auto max-h-[62vh] px-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
+                <div className="flex flex-col items-center gap-1 ">
+                  {boards.map((item) => (
+                    <ProjectItem
+                      key={item.id}
+                      img={item.img}
+                      title={item.title}
+                    ></ProjectItem>
+                  ))}
+                </div>
+                {boards.length > 4 && (
+                  <Button
+                    className="w-full hover:bg-primaryHover text-primaryColor"
+                    disable
+                  >
+                    See all
+                  </Button>
+                )}
+              </>
+            )}
+            <Button
+              className="group text-xs !gap-1 !py-[6px] !px-2 !rounded-[4px] mb-[14px] mt-8 text-primaryText"
+              hover="hover:bg-primaryHover"
+              onClick={handleExample}
+            >
+              <p>Example designs</p>
+              {showExampleDesign ? <ArrowDownIcon /> : <ArrowRightIcon />}
+            </Button>
+            {showExampleDesign && (
+              <>
+                <div className="flex flex-col items-center gap-1 ">
                   {projectList.map((item, index) => (
                     <ProjectItem
                       key={index}

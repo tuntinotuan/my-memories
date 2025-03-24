@@ -154,6 +154,9 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
           value={boardTitle}
           className="border border-gray-200 rounded w-full px-3 py-2 focus:border-primaryColor"
           onChange={(e) => setBoardTitle(e.target.value)}
+          onKeyDown={(e) => {
+            e.key === "Enter" && handleCreateABoard();
+          }}
         />
         {boardTitle === "" && (
           <p className="text-[10px] text-red-500">Board title is required *</p>
