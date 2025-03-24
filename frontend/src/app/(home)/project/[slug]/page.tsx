@@ -21,9 +21,21 @@ import { ListType, Id, Task } from "./modules/types";
 import { createPortal } from "react-dom";
 import CardItem from "./modules/CardItem";
 import { initialLists, initialTasks } from "@/api/board/mock.data";
-import { generateId } from "@/utils/otherFs";
+import { cutIdFromSlug, generateId } from "@/utils/otherFs";
+import { Board } from "@/components/popup/PopupCreateboard";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
 
 export default function Page({ params }: any) {
+  const { boards } = useCreateBoardStates();
+  const newBoard = boards.find(
+    (item) => item.id === Number(cutIdFromSlug(params.slug, "-id"))
+  );
+  const [singleBoard, setSingleBoard] = useState<Board>();
+  useEffect(() => {
+    newBoard && setSingleBoard(newBoard);
+  }, []);
+  console.log("singleBoard", singleBoard);
+
   return (
     <div className="flex w-full overflow-hidden">
       <LocalBody params={params}></LocalBody>

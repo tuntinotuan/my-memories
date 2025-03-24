@@ -1,11 +1,7 @@
 import { projectList } from "@/api/board/mock.data";
-import Link from "next/link";
 import React from "react";
-import ProjectImgOrGradient from "./ProjectImgOrGradient";
 import ProjectCardGridItem from "./ProjectCardGridItem";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
-import ButtonCreate from "../button/ButtonCreate";
-import PlusIcon from "../icons/PlusIcon";
 import ProjectHaveAny from "./ProjectHaveAny";
 
 const ProjectCardGrid = () => {
@@ -19,6 +15,7 @@ const ProjectCardGrid = () => {
               title={item.title}
               img={item.img}
               key={item.id}
+              id={item.id}
             ></ProjectCardGridItem>
           ))}
         </div>
