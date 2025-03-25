@@ -10,14 +10,14 @@ import { useRef } from "react";
 const BoardMenu = ({ slug }: any) => {
   const pathname = usePathname();
   const { showMenuboard, handleShowMenuboard } = useLayoutStates();
-  const { boardName, handleSetBoardName } = useCreateBoardStates();
+  const { boardName, handleSetBoardName, singleBoard } = useCreateBoardStates();
   const ref = useRef<HTMLInputElement>(null!);
   return (
     <div className="flex items-center justify-between h-[8%] w-auto bg-black bg-opacity-20 p-2 backdrop-blur-sm">
       <input
         type={boardName ? "text" : "button"}
         // type="text"
-        defaultValue={slug}
+        defaultValue={singleBoard.title}
         className={`w-[${
           pathname.length
         }] p-2 rounded border-2 border-transparent focus:border-2 focus:border-secondaryColor focus:bg-white focus:text-primaryText ${

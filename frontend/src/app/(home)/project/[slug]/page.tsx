@@ -20,21 +20,28 @@ import List from "./modules/List";
 import { ListType, Id, Task } from "./modules/types";
 import { createPortal } from "react-dom";
 import CardItem from "./modules/CardItem";
-import { initialLists, initialTasks } from "@/api/board/mock.data";
-import { cutIdFromSlug, generateId } from "@/utils/otherFs";
+import { initialLists, initialTasks, projectList } from "@/api/board/mock.data";
+import { cutIdFromSlug, generateId, replaceAllTrim } from "@/utils/otherFs";
 import { Board } from "@/components/popup/PopupCreateboard";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 
 export default function Page({ params }: any) {
-  const { boards } = useCreateBoardStates();
+  const { boards, setSingleBoard } = useCreateBoardStates();
   const newBoard = boards.find(
     (item) => item.id === Number(cutIdFromSlug(params.slug, "-id"))
   );
-  const [singleBoard, setSingleBoard] = useState<Board>();
+  const exampleBoard = projectList.find(
+    (item) => replaceAllTrim(item.title) === params.slug
+  );
+  console.log("exampleBoard", exampleBoard, params.slug);
   useEffect(() => {
-    newBoard && setSingleBoard(newBoard);
+    if (newBoard) {
+      setSingleBoard(newBoard);
+    } else {
+      exampleBoard && setSingleBoard(exampleBoard);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("singleBoard", singleBoard);
 
   return (
     <div className="flex w-full overflow-hidden">
@@ -45,24 +52,15 @@ export default function Page({ params }: any) {
 }
 
 function LocalBody({ params }: any) {
-  let defaultGradient: any = {
-    type: "imageUrl",
-    url: "/moment.png",
-    alt: "moment",
-  };
-  // let defaultGradient: any = {
-  //   type: "linearGradient",
-  //   from: "#6f5dc6",
-  //   to: "#e374bc",
-  // };
+  const { singleBoard } = useCreateBoardStates();
   return (
     <div
       className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover`}
       style={
-        defaultGradient.type === "imageUrl"
-          ? { backgroundImage: `url(${defaultGradient.url})` }
+        singleBoard.img.type === "imageUrl"
+          ? { backgroundImage: `url(${singleBoard.img.url})` }
           : {
-              backgroundImage: `linear-gradient(to bottom right, ${defaultGradient.from}, ${defaultGradient.to})`,
+              backgroundImage: `linear-gradient(to bottom right, ${singleBoard.img.from}, ${singleBoard.img.to})`,
             }
       }
     >
