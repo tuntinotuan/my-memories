@@ -7,6 +7,6 @@ export type ListType = {
 
 export type Task = {
   id: Id;
-  boardId: Id;
+  listId: Id;
   content: string;
 };

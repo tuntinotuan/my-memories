@@ -20,12 +20,12 @@ const BoardMenu = ({ slug }: any) => {
         defaultValue={singleBoard.title}
         className={`w-[${
           pathname.length
-        }] p-2 rounded border-2 border-transparent focus:border-2 focus:border-secondaryColor focus:bg-white focus:text-primaryText ${
+        }] p-2 rounded border-2 border-transparent focus:border-2 focus:border-secondaryColor focus:bg-white focus:text-primaryText transition-all ${
           boardName ? "" : ""
         }`}
         ref={ref}
         onBlur={() => handleSetBoardName(false)}
-        // onFocus={(event) => event.target.select()}
+        onFocus={(event) => event.target.select()}
         onClick={() => handleSetBoardName(true)}
       />
       {!showMenuboard && (

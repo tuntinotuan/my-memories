@@ -22,7 +22,6 @@ import { createPortal } from "react-dom";
 import CardItem from "./modules/CardItem";
 import { initialLists, initialTasks, projectList } from "@/api/board/mock.data";
 import { cutIdFromSlug, generateId, replaceAllTrim } from "@/utils/otherFs";
-import { Board } from "@/components/popup/PopupCreateboard";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 
 export default function Page({ params }: any) {
@@ -110,7 +109,7 @@ const LocalContent = () => {
     }
   }, [lists]); // Runs when `listData` update
 
-  const [activeBoard, setActiveBoard] = useState<ListType | null>(null);
+  const [activeList, setActiveList] = useState<ListType | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -127,24 +126,24 @@ const LocalContent = () => {
     };
     setLists([...lists, listToAdd]);
   }
-  function updateBoard(id: Id, title: string) {
+  function updateList(id: Id, title: string) {
     const newLists = lists.map((item) => {
       if (item.id !== id) return item;
       return { ...item, title };
     });
     setLists(newLists);
   }
-  function createNewTask(boardId: Id, content: string) {
+  function createNewTask(listId: Id, content: string) {
     const newTask = {
       id: generateId(),
-      boardId: boardId,
+      listId: listId,
       content: content,
     };
     setTasks([...tasks, newTask]);
   }
   function handleDragStart(event: DragStartEvent) {
-    if (event.active.data.current?.type === "Board") {
-      setActiveBoard(event.active.data.current.board);
+    if (event.active.data.current?.type === "List") {
+      setActiveList(event.active.data.current.list);
       return;
     }
     if (event.active.data.current?.type === "Task") {
@@ -153,20 +152,20 @@ const LocalContent = () => {
     }
   }
   function handleDragEnd(event: DragEndEvent) {
-    setActiveBoard(null);
+    setActiveList(null);
     setActiveTask(null);
     const { active, over } = event;
     if (!over) return;
 
-    const activeBoardId = active.id;
-    const overBoardId = over.id;
-    if (activeBoardId === overBoardId) return;
+    const activeListId = active.id;
+    const overListId = over.id;
+    if (activeListId === overListId) return;
     setLists((board) => {
-      const activeBoardIndex = board.findIndex(
-        (item) => item.id === activeBoardId
+      const activeListIndex = board.findIndex(
+        (item) => item.id === activeListId
       );
-      const overBoardIndex = board.findIndex((item) => item.id === overBoardId);
-      return arrayMove(lists, activeBoardIndex, overBoardIndex);
+      const overListIndex = board.findIndex((item) => item.id === overListId);
+      return arrayMove(lists, activeListIndex, overListIndex);
     });
   }
   function handleDragOver(event: DragOverEvent) {
@@ -186,17 +185,17 @@ const LocalContent = () => {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         const overIndex = tasks.findIndex((t) => t.id === overId);
-        tasks[activeIndex].boardId = tasks[overIndex].boardId;
+        tasks[activeIndex].listId = tasks[overIndex].listId;
         return arrayMove(tasks, activeIndex, overIndex);
       });
     }
 
-    const isOverABoard = over.data.current?.type === "Column";
+    const isOverAList = over.data.current?.type === "List";
 
     // I'm dropping a Task over a column
-    if (isActiveTask && isOverABoard) {
+    if (isActiveTask && isOverAList) {
       const activeIndex = tasks.findIndex((t) => t.id === activeId);
-      tasks[activeIndex].boardId === overId;
+      tasks[activeIndex].listId === overId;
       return arrayMove(tasks, activeIndex, activeIndex);
     }
   }
@@ -214,24 +213,24 @@ const LocalContent = () => {
         onDragOver={handleDragOver}
       >
         <SortableContext items={listsId}>
-          {lists.map((board) => (
+          {lists.map((list) => (
             <List
-              board={board}
-              key={board.id}
-              updateBoard={updateBoard}
+              list={list}
+              key={list.id}
+              updateList={updateList}
               createNewTask={createNewTask}
-              tasks={tasks.filter((task) => task.boardId === board.id)}
+              tasks={tasks.filter((task) => task.listId === list.id)}
             ></List>
           ))}
         </SortableContext>
         {createPortal(
           <DragOverlay>
-            {activeBoard && (
+            {activeList && (
               <List
-                board={activeBoard}
-                updateBoard={updateBoard}
+                list={activeList}
+                updateList={updateList}
                 createNewTask={createNewTask}
-                tasks={tasks.filter((task) => task.boardId === activeBoard.id)}
+                tasks={tasks.filter((task) => task.listId === activeList.id)}
               ></List>
             )}
             {activeTask && (
