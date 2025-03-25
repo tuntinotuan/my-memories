@@ -63,6 +63,7 @@ const List = ({ list, updateList, createNewTask, tasks }: ListProps) => {
             title={list.title}
             id={list.id}
             updateTitle={updateList}
+            pClass="w-full !pr-0"
           ></InputEditText>
           <ThreeDotsIcon
             className="p-2 hover:bg-gray-300 rounded"

@@ -1,6 +1,8 @@
 "use client";
+import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import Button from "@/components/button/Button";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
+import InputEditText from "@/components/input/InputEditText";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { Tooltip } from "@nextui-org/tooltip";
@@ -10,24 +12,39 @@ import { useRef } from "react";
 const BoardMenu = ({ slug }: any) => {
   const pathname = usePathname();
   const { showMenuboard, handleShowMenuboard } = useLayoutStates();
-  const { boardName, handleSetBoardName, singleBoard } = useCreateBoardStates();
+  const {
+    boards,
+    setBoards,
+    boardName,
+    handleSetBoardName,
+    singleBoard,
+    setSingleBoard,
+  } = useCreateBoardStates();
   const ref = useRef<HTMLInputElement>(null!);
+  const handleUpdateBoardTitle = (id: Id, title: string) => {
+    // updated current page data
+    if (id === singleBoard.id) {
+      setSingleBoard({
+        id: singleBoard.id,
+        title: title,
+        img: singleBoard.img,
+      });
+    }
+    // updated into contexts
+    const newLists = boards.map((item) => {
+      if (item.id !== id) return item;
+      return { ...item, title };
+    });
+    setBoards(newLists);
+  };
   return (
     <div className="flex items-center justify-between h-[8%] w-auto bg-black bg-opacity-20 p-2 backdrop-blur-sm">
-      <input
-        type={boardName ? "text" : "button"}
-        // type="text"
-        defaultValue={singleBoard.title}
-        className={`w-[${
-          pathname.length
-        }] p-2 rounded border-2 border-transparent focus:border-2 focus:border-secondaryColor focus:bg-white focus:text-primaryText transition-all ${
-          boardName ? "" : ""
-        }`}
-        ref={ref}
-        onBlur={() => handleSetBoardName(false)}
-        onFocus={(event) => event.target.select()}
-        onClick={() => handleSetBoardName(true)}
-      />
+      <InputEditText
+        id={singleBoard.id}
+        title={singleBoard.title}
+        updateTitle={handleUpdateBoardTitle}
+        pClass="w-auto hover:bg-white hover:bg-opacity-25"
+      ></InputEditText>
       {!showMenuboard && (
         <Tooltip
           showArrow

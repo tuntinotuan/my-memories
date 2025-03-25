@@ -4,8 +4,16 @@ type InputEditTextProps = {
   title: string;
   id: Id;
   updateTitle: (id: Id, title: string) => void;
+  pClass?: string;
+  inputClass?: string;
 };
-const InputEditText = ({ updateTitle, title, id }: InputEditTextProps) => {
+const InputEditText = ({
+  updateTitle,
+  title,
+  id,
+  pClass,
+  inputClass,
+}: InputEditTextProps) => {
   const [editTitle, setEditTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
 
@@ -17,7 +25,7 @@ const InputEditText = ({ updateTitle, title, id }: InputEditTextProps) => {
       {!editTitle && (
         <p
           onClick={() => setEditTitle(true)}
-          className="pl-3 py-1 cursor-pointer border border-transparent w-full"
+          className={`px-3 rounded py-1 cursor-pointer border border-transparent transition-all ${pClass}`}
         >
           {title}
         </p>
@@ -26,7 +34,7 @@ const InputEditText = ({ updateTitle, title, id }: InputEditTextProps) => {
         <input
           type="text"
           defaultValue={title}
-          className="w-full border focus:border-secondaryColor pl-3 py-1 rounded transition-all"
+          className={`w-auto border focus:border-secondaryColor pl-3 py-1 rounded transition-all ${inputClass}`}
           onChange={handleChangeTitle}
           autoFocus
           onBlur={() => {
