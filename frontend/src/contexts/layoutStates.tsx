@@ -18,7 +18,7 @@ const layoutStatesDefaultValues: LayoutStatesType = {
 const LayoutStates = createContext(layoutStatesDefaultValues);
 
 export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
-  const [showMenuboard, setShowMenuboard] = useState(false);
+  const [showMenuboard, setShowMenuboard] = useState(true);
   const [showHomeSidebar, setShowHomeSidebar] = useState(true);
   const handleShowMenuboard = () => {
     setShowMenuboard(!showMenuboard);

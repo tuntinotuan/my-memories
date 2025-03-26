@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import CloseIcon from "@/components/icons/CloseIcon";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import ButtonCreate from "@/components/button/ButtonCreate";
-import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 import Image from "next/image";
 import PopupOverlay from "./popup.overlay";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
