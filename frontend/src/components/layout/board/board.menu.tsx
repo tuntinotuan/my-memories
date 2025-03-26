@@ -6,21 +6,12 @@ import InputEditText from "@/components/input/InputEditText";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { Tooltip } from "@nextui-org/tooltip";
-import { usePathname } from "next/navigation";
 import { useRef } from "react";
 
-const BoardMenu = ({ slug }: any) => {
-  const pathname = usePathname();
+const BoardMenu = () => {
   const { showMenuboard, handleShowMenuboard } = useLayoutStates();
-  const {
-    boards,
-    setBoards,
-    boardName,
-    handleSetBoardName,
-    singleBoard,
-    setSingleBoard,
-  } = useCreateBoardStates();
-  const ref = useRef<HTMLInputElement>(null!);
+  const { boards, setBoards, singleBoard, setSingleBoard } =
+    useCreateBoardStates();
   const handleUpdateBoardTitle = (id: Id, title: string) => {
     // updated current page data
     if (id === singleBoard.id) {

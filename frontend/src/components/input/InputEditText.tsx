@@ -1,4 +1,4 @@
-import { Id, ListType } from "@/app/(home)/project/[slug]/modules/types";
+import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import React, { useState } from "react";
 type InputEditTextProps = {
   title: string;
@@ -15,8 +15,7 @@ const InputEditText = ({
   inputClass,
 }: InputEditTextProps) => {
   const [editTitle, setEditTitle] = useState(false);
-  const [newTitle, setNewTitle] = useState(title);
-
+  const [newTitle, setNewTitle] = useState("");
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
   };
@@ -41,12 +40,14 @@ const InputEditText = ({
             setEditTitle(false);
             if (title === newTitle || !newTitle) return;
             updateTitle(id, newTitle);
+            setNewTitle("");
           }}
           onKeyDown={(e) => {
             if (e.key !== "Enter") return;
             setEditTitle(false);
             if (title === newTitle || !newTitle) return;
             updateTitle(id, newTitle);
+            setNewTitle("");
           }}
         />
       )}

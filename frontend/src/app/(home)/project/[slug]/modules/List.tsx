@@ -1,10 +1,5 @@
-import Button from "@/components/button/Button";
-import PlusIcon from "@/components/icons/PlusIcon";
 import React, { useMemo, useState } from "react";
-import ListContainer from "./ListContainer";
-import DragIcon from "@/components/icons/DragIcon";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import CardItem from "./CardItem";
 import AddBtn from "./AddBtn";
 import { CSS } from "@dnd-kit/utilities";

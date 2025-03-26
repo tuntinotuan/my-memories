@@ -39,8 +39,7 @@ export default function Page({ params }: any) {
     } else {
       exampleBoard && setSingleBoard(exampleBoard);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [newBoard, exampleBoard, setSingleBoard]);
 
   return (
     <div className="flex w-full overflow-hidden">
@@ -63,7 +62,7 @@ function LocalBody({ params }: any) {
             }
       }
     >
-      <BoardMenu slug={params.slug} />
+      <BoardMenu />
       <LocalContent />
     </div>
   );
