@@ -9,6 +9,8 @@ import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { LinearOrUrl } from "../project/types";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { generateId } from "@/utils/otherFs";
+import GradientImage from "./GradientImage";
+import UrlImage from "./UrlImage";
 
 type PopupCreateboardProps = {
   show: boolean;
@@ -38,6 +40,9 @@ const TopControl = ({ onClose }: any) => {
   );
 };
 const Body = ({ onClose }: any) => {
+  const [boardTitle, setBoardTitle] = useState("");
+  const { boards, setBoards } = useCreateBoardStates();
+  console.log("boards", boards);
   const imageList: LinearOrUrl[] = [
     { type: "imageUrl", url: "/moment.png", alt: "moment" },
     { type: "imageUrl", url: "/purple.png", alt: "purple" },
@@ -51,29 +56,15 @@ const Body = ({ onClose }: any) => {
     { type: "linearGradient", from: "#6f5dc6", to: "#e374bc" },
     { type: "linearGradient", from: "#e34935", to: "#f9a13d" },
   ];
-  let defaultGradient: LinearOrUrl = {
-    type: "imageUrl",
-    url: "/moment.png",
-    alt: "moment",
-  };
+  const autoDefaultGradient =
+    boards.length < 4 ? imageList[boards.length] : gradientList[0];
+  let defaultGradient: LinearOrUrl = autoDefaultGradient;
   const [currentGradient, setCurrentGradient] =
     useState<LinearOrUrl>(defaultGradient);
 
-  const handleChangeGradient = (item: LinearOrUrl) => {
-    item.type === "linearGradient" &&
-      setCurrentGradient({
-        type: "linearGradient",
-        from: item.from,
-        to: item.to,
-      });
+  const handleClick = (item: LinearOrUrl) => {
+    setCurrentGradient(item);
   };
-  const handleChangeBg = (item: LinearOrUrl) => {
-    item.type === "imageUrl" &&
-      setCurrentGradient({ type: "imageUrl", url: item.url, alt: item.alt });
-  };
-  const [boardTitle, setBoardTitle] = useState("");
-  const { boards, setBoards } = useCreateBoardStates();
-  console.log("boards", boards);
   const handleCreateABoard = () => {
     const newBoard = {
       id: generateId(),
@@ -82,80 +73,24 @@ const Body = ({ onClose }: any) => {
     };
     setBoards([...boards, newBoard]);
     setBoardTitle("");
+    setCurrentGradient(autoDefaultGradient);
     onClose();
   };
   return (
     <div className="flex flex-col gap-2 h-full overflow-auto px-4 pb-4">
-      <div
-        className={`flex items-center justify-center w-5/6 h-[200px] rounded mx-auto p-4 bg-gradient-to-br bg-cover`}
-        style={
-          currentGradient.type === "imageUrl"
-            ? { backgroundImage: `url(${currentGradient.url})` }
-            : {
-                backgroundImage: `linear-gradient(to bottom right, ${currentGradient.from}, ${currentGradient.to})`,
-              }
-        }
-      >
-        <Image
-          src={`/14cda5dc635d1f13bc48.svg`}
-          alt="at layout"
-          width={2000}
-          height={200}
-          unoptimized
-        ></Image>
-      </div>
+      <DisplayImage currentGradient={currentGradient}></DisplayImage>
       <p className="font-bold">Background</p>
       <div className="">
-        <div className="image-list grid grid-cols-4 gap-2">
-          {imageList.map(
-            (item, index) =>
-              item.type === "imageUrl" && (
-                <Image
-                  src={item.url}
-                  alt={item.alt}
-                  width={200}
-                  height={50}
-                  className={`rounded shadow-md cursor-pointer hover:brightness-95 ${
-                    currentGradient.type === "imageUrl" &&
-                    currentGradient.url === item.url
-                      ? "border-2 border-primaryColor shadow-sm shadow-primaryColor"
-                      : ""
-                  }`}
-                  key={index}
-                  onClick={() => handleChangeBg(item)}
-                  unoptimized
-                />
-              )
-          )}
-        </div>
-        <div className="gradient-list grid grid-cols-6 gap-2 mt-2">
-          {gradientList.map((item, index) => (
-            <div
-              className={`w-full h-10 rounded shadow-md cursor-pointer hover:brightness-110 ${
-                item.type === "linearGradient" &&
-                currentGradient.type === "linearGradient" &&
-                currentGradient.from === item.from &&
-                currentGradient.to === item.to
-                  ? "border-2 border-primaryColor shadow-sm shadow-primaryColor"
-                  : ""
-              }`}
-              key={index}
-              style={
-                item.type === "linearGradient"
-                  ? {
-                      background: `linear-gradient(to bottom right, ${item.from}, ${item.to})`,
-                    }
-                  : {}
-              }
-              onClick={() => handleChangeGradient(item)}
-            ></div>
-          ))}
-          <div
-            className={`flex items-center justify-center w-full h-10 bg-primaryHover text-primaryText hover:text-black hover:shadow-md hover:-translate-y-[1px] rounded shadow-sm cursor-wait transition-all`}
-          >
-            <ThreeDotsIcon fontSize="medium" disabled></ThreeDotsIcon>
-          </div>
-        </div>
+        <UrlImage
+          imageList={imageList}
+          currentGradient={currentGradient}
+          handleClick={handleClick}
+        ></UrlImage>
+        <GradientImage
+          gradientList={gradientList}
+          currentGradient={currentGradient}
+          handleClick={handleClick}
+        ></GradientImage>
       </div>
       <label htmlFor="" className="font-bold">
         Board title
@@ -181,6 +116,32 @@ const Body = ({ onClose }: any) => {
       >
         Create
       </ButtonCreate>
+    </div>
+  );
+};
+const DisplayImage = ({
+  currentGradient,
+}: {
+  currentGradient: LinearOrUrl;
+}) => {
+  return (
+    <div
+      className={`flex items-center justify-center w-5/6 h-[200px] rounded mx-auto p-4 bg-gradient-to-br bg-cover`}
+      style={
+        currentGradient?.type === "imageUrl"
+          ? { backgroundImage: `url(${currentGradient.url})` }
+          : {
+              backgroundImage: `linear-gradient(to bottom right, ${currentGradient.from}, ${currentGradient.to})`,
+            }
+      }
+    >
+      <Image
+        src={`/14cda5dc635d1f13bc48.svg`}
+        alt="at layout"
+        width={2000}
+        height={200}
+        unoptimized
+      ></Image>
     </div>
   );
 };
