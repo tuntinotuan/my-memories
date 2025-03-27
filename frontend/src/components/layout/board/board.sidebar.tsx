@@ -194,10 +194,15 @@ const BoardChangeBackground = () => {
 };
 const BoardPhotosFromUnsplash = () => {
   const [photos, setPhotos] = useState<any>();
+  const [loadingUnsplash, setLoadingUnsplash] = useState(false);
   useEffect(() => {
     async function fetchData() {
+      setLoadingUnsplash(true);
       const data = await getUnsplashImage();
       setPhotos(data);
+      setTimeout(() => {
+        setLoadingUnsplash(false);
+      }, 400);
     }
     fetchData();
   }, []);
@@ -210,17 +215,8 @@ const BoardPhotosFromUnsplash = () => {
         className=""
       ></SearchMenuHeader>
       <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 mt-2 overflow-y-auto">
-        {photos &&
-          photos.map((img: any) => (
-            <Image
-              key={img.id}
-              src={img.urls.small}
-              alt={img.alt_description}
-              width={100}
-              height={100}
-              className="w-full cursor-pointer rounded-lg"
-            ></Image>
-          ))}
+        {loadingUnsplash && <UnsplashPhotosSkeleton />}
+        <UnsplashPhotos photos={photos} transparent={loadingUnsplash} />
       </div>
     </div>
   );
@@ -272,6 +268,40 @@ const LocalIconOverlay = ({ children }: { children: React.ReactNode }) => {
     <div className="flex items-center justify-center w-6 h-6 shrink-0">
       {children}
     </div>
+  );
+};
+
+const UnsplashPhotos = ({ photos, transparent }: any) => {
+  return (
+    <>
+      {photos &&
+        photos.map((img: any) => (
+          <Image
+            key={img.id}
+            src={img.urls.small}
+            alt={img.alt_description}
+            width={100}
+            height={100}
+            className={`w-full cursor-pointer rounded-lg ${
+              transparent ? "opacity-0" : ""
+            }`}
+          ></Image>
+        ))}
+    </>
+  );
+};
+const UnsplashPhotosSkeleton = () => {
+  return (
+    <>
+      {Array(9)
+        .fill(null)
+        .map((item) => (
+          <div
+            key={item}
+            className="animate-pulse w-full h-28 rounded-lg bg-gray-200"
+          ></div>
+        ))}
+    </>
   );
 };
 
