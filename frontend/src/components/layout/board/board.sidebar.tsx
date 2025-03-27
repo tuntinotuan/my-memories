@@ -1,5 +1,6 @@
+"use client"; // Required for Client Components
 import CloseIcon from "@/components/icons/CloseIcon";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import ProjectImgOrGradient from "@/components/project/ProjectImgOrGradient";
 import SettingIcon from "@/components/icons/SettingIcon";
@@ -10,17 +11,19 @@ import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import Image from "next/image";
+import SearchMenuHeader from "@/components/search/SearchMenuHeader";
+import { getUnsplashImage } from "@/app/apiActions";
 export type PageBoardSidebarType = "menu" | "background" | "unsplash" | "color";
+
 type PageProps = {
   page: PageBoardSidebarType;
 };
 const BoardSidebar = () => {
   const { showMenuboard, handleShowMenuboard } = useLayoutStates();
   const { pageBoardSidebar } = useLayoutStates();
-
   return (
     <div
-      className={`relative shadow-md text-sm transition-all shrink-0 ${
+      className={`relative shadow-md text-sm transition-all shrink-0 overflow-hidden pb-10 ${
         showMenuboard
           ? "h-full w-[300px] border border-gray-200 opacity-100 px-2 py-3 "
           : "w-0 h-0 overflow-hidden translate-x-[300px]"
@@ -66,12 +69,12 @@ const BoardTopControl = ({ handleShowMenuboard }: any) => {
   }
   return (
     <div className="flex items-center justify-center pb-3">
-      {pageBoardSidebar !== "menu" && (
-        <ArrowLeftIcon
-          className="absolute left-2"
-          onClick={() => setPageBoardSidebar(newBack)}
-        ></ArrowLeftIcon>
-      )}
+      <ArrowLeftIcon
+        className={`absolute transition-all ${
+          pageBoardSidebar !== "menu" ? "left-2" : "-left-5"
+        } `}
+        onClick={() => setPageBoardSidebar(newBack)}
+      ></ArrowLeftIcon>
       <p className="font-bold">{newTopTitle}</p>
       <CloseIcon
         className="absolute right-2"
@@ -82,7 +85,7 @@ const BoardTopControl = ({ handleShowMenuboard }: any) => {
 };
 const Body = ({ page }: PageProps) => {
   return (
-    <div className="overflow-auto border border-transparent border-y-gray-200 py-2">
+    <div className="h-full overflow-auto border border-transparent border-y-gray-200 py-2">
       {page === "menu" && <BoardMenu />}
       {page === "background" && <BoardChangeBackground />}
       {page === "unsplash" && <BoardPhotosFromUnsplash />}
@@ -160,7 +163,7 @@ const BoardMenu = () => {
   );
 };
 const BoardChangeBackground = () => {
-  const { pageBoardSidebar, setPageBoardSidebar } = useLayoutStates();
+  const { setPageBoardSidebar } = useLayoutStates();
   return (
     <div className="flex items-cemter gap-2">
       <div
@@ -190,7 +193,39 @@ const BoardChangeBackground = () => {
   );
 };
 const BoardPhotosFromUnsplash = () => {
-  return <p>Unsplash</p>;
+  const [photos, setPhotos] = useState<any>();
+  // const photos = await getUnsplashImage();
+  console.log("photos", photos);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getUnsplashImage();
+      setPhotos(data);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <div className="h-full">
+      <SearchMenuHeader
+        placeholder="Photos"
+        width="auto"
+        className="sticky top-0 bg-white"
+      ></SearchMenuHeader>
+      <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 mt-2 overflow-y-auto">
+        {photos &&
+          photos.map((img: any) => (
+            <Image
+              key={img.id}
+              src={img.urls.small}
+              alt={img.alt_description}
+              width={100}
+              height={100}
+              className="w-full cursor-pointer rounded-lg"
+            ></Image>
+          ))}
+      </div>
+    </div>
+  );
 };
 const BoardColors = () => {
   return <p>Colors</p>;

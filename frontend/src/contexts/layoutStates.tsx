@@ -26,7 +26,7 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const [showMenuboard, setShowMenuboard] = useState(true);
   const [showHomeSidebar, setShowHomeSidebar] = useState(true);
   const [pageBoardSidebar, setPageBoardSidebar] =
-    useState<PageBoardSidebarType>("menu");
+    useState<PageBoardSidebarType>("unsplash");
   const handleShowMenuboard = () => {
     setShowMenuboard(!showMenuboard);
     setPageBoardSidebar("menu");
