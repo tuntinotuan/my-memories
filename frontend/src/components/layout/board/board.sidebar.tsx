@@ -194,8 +194,6 @@ const BoardChangeBackground = () => {
 };
 const BoardPhotosFromUnsplash = () => {
   const [photos, setPhotos] = useState<any>();
-  // const photos = await getUnsplashImage();
-  console.log("photos", photos);
   useEffect(() => {
     async function fetchData() {
       const data = await getUnsplashImage();
@@ -209,7 +207,7 @@ const BoardPhotosFromUnsplash = () => {
       <SearchMenuHeader
         placeholder="Photos"
         width="auto"
-        className="sticky top-0 bg-white"
+        className=""
       ></SearchMenuHeader>
       <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 mt-2 overflow-y-auto">
         {photos &&

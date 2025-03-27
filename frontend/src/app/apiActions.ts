@@ -9,7 +9,5 @@ export async function getUnsplashImage() {
     }
   );
   console.log("resssssssss", res);
-  if (!res.ok) throw new Error("Failed to fetch image");
-
   return res.json();
 }

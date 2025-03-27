@@ -15,7 +15,11 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
         scroll?.scrollTop > 0 ? "shadow-lg" : ""
       }`}
     >
-      <SearchMenuHeader disable />
+      <SearchMenuHeader
+        placeholder="Search your content and Memories's"
+        disable
+        width={350}
+      />
       {/* {scroll.scrollTop} | {scroll.scrollLeft} */}
       <Tooltip
         showArrow
