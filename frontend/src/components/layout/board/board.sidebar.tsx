@@ -97,6 +97,7 @@ const Body = ({ page }: PageProps) => {
 };
 
 const BoardMenu = () => {
+  const { singleBoard } = useCreateBoardStates();
   const lists = [
     {
       icon: (
@@ -109,11 +110,7 @@ const BoardMenu = () => {
     },
     {
       icon: (
-        <ProjectImgOrGradient
-          img={{ type: "linearGradient", from: "#e34935", to: "#f9a13d" }}
-          width={24}
-          height={24}
-        />
+        <ProjectImgOrGradient img={singleBoard.img} width={24} height={24} />
       ),
       title: "Change background",
       disable: false,
@@ -269,7 +266,7 @@ const BoardColors = () => {
   };
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-b-gray-200">
+      <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-transparent border-b-gray-200">
         {gradientLists.map((item, index) => (
           <div
             key={index}
@@ -390,7 +387,7 @@ const UnsplashPhotos = ({
         photos.map((img: any) => (
           <Image
             key={img.id}
-            src={img.urls.regular}
+            src={img.urls.small}
             alt={img.alt_description}
             width={100}
             height={100}
