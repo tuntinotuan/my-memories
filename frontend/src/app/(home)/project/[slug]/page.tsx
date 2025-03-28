@@ -56,9 +56,11 @@ function LocalBody({ params }: any) {
       style={
         singleBoard.img.type === "imageUrl"
           ? { backgroundImage: `url(${singleBoard.img.url})` }
-          : {
+          : singleBoard.img.type === "linearGradient"
+          ? {
               backgroundImage: `linear-gradient(to bottom right, ${singleBoard.img.from}, ${singleBoard.img.to})`,
             }
+          : { background: singleBoard.img.code }
       }
     >
       <BoardMenu />

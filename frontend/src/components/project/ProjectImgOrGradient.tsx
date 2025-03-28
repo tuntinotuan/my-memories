@@ -11,9 +11,11 @@ const ProjectImgOrGradient = ({
   const bgImageStyles =
     img.type === "imageUrl"
       ? { backgroundImage: `url(${img.url})` }
-      : {
+      : img.type === "linearGradient"
+      ? {
           backgroundImage: `linear-gradient(to bottom right, ${img.from}, ${img.to})`,
-        };
+        }
+      : { background: img.code };
   const styleInline = { ...bgImageStyles, ...extra };
   return (
     <div

@@ -264,6 +264,24 @@ const BoardColors = () => {
     });
     setBoards(newLists);
   };
+  const updateSingleColor = (code: string) => {
+    let img: LinearOrUrl = {
+      type: "colorCode",
+      code,
+    };
+    // updated current page data
+    setSingleBoard({
+      id: singleBoard.id,
+      title: singleBoard.title,
+      img: img,
+    });
+    // updated into contexts
+    const newLists = boards.map((item) => {
+      if (item.id !== singleBoard.id) return item;
+      return { ...item, img };
+    });
+    setBoards(newLists);
+  };
   return (
     <>
       <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-transparent border-b-gray-200">
@@ -298,9 +316,18 @@ const BoardColors = () => {
         {colorLists.map((item, index) => (
           <div
             key={index}
-            className="w-11 h-11 rounded-md hover:brightness-75 transition-all cursor-wait"
+            className="relative w-11 h-11 rounded-md hover:brightness-75 transition-all cursor-pointer"
             style={{ background: item }}
-          ></div>
+            onClick={() => updateSingleColor(item)}
+          >
+            {singleBoard.img.type === "colorCode" &&
+              singleBoard.img.code === item && (
+                <DoneRoundedIcon
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-green-500"
+                  fontSize="small"
+                ></DoneRoundedIcon>
+              )}
+          </div>
         ))}
       </div>
     </>
