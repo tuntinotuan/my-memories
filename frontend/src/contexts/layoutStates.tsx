@@ -23,10 +23,10 @@ const layoutStatesDefaultValues: LayoutStatesType = {
 const LayoutStates = createContext(layoutStatesDefaultValues);
 
 export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
-  const [showMenuboard, setShowMenuboard] = useState(false);
+  const [showMenuboard, setShowMenuboard] = useState(true);
   const [showHomeSidebar, setShowHomeSidebar] = useState(true);
   const [pageBoardSidebar, setPageBoardSidebar] =
-    useState<PageBoardSidebarType>("menu");
+    useState<PageBoardSidebarType>("color");
   const handleShowMenuboard = () => {
     setShowMenuboard(!showMenuboard);
     setPageBoardSidebar("menu");

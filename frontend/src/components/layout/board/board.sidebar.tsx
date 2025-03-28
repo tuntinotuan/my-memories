@@ -13,8 +13,10 @@ import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import Image from "next/image";
 import SearchMenuHeader from "@/components/search/SearchMenuHeader";
 import { getUnsplashImage } from "@/app/apiActions";
+import { LinearOrUrl } from "@/components/project/types";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
 export type PageBoardSidebarType = "menu" | "background" | "unsplash" | "color";
-
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 type PageProps = {
   page: PageBoardSidebarType;
 };
@@ -222,7 +224,90 @@ const BoardPhotosFromUnsplash = () => {
   );
 };
 const BoardColors = () => {
-  return <p>Colors</p>;
+  const { singleBoard, setSingleBoard, boards, setBoards } =
+    useCreateBoardStates();
+  let gradientLists: { from: string; to: string; span: string }[] = [
+    { from: "#7731d8", to: "#01C4CD", span: "❄️" },
+    { from: "#0c66e3", to: "#09336f", span: "🌊" },
+    { from: "#09326c", to: "#c7509b", span: "🔮" },
+    { from: "#6f5dc6", to: "#e374bc", span: "🌈" },
+    { from: "#e34935", to: "#f9a13d", span: "🍑" },
+    { from: "#E774BB", to: "#F77465", span: "🌸" },
+    { from: "#1F845A", to: "#5DC3CE", span: "🌎" },
+    { from: "#505F79", to: "#192D4F", span: "👽" },
+    { from: "#43290F", to: "#AB2A19", span: "🌋" },
+  ];
+  let colorLists = [
+    "#838C91",
+    "#89609E",
+    "#CD5A91",
+    "#4BBF6B",
+    "#0079BF",
+    "#519839",
+    "#00AECC",
+    "#D29034",
+    "#B04632",
+  ];
+  const updateColors = (from: string, to: string) => {
+    let img: LinearOrUrl = {
+      type: "linearGradient",
+      from,
+      to,
+    };
+    // updated current page data
+    setSingleBoard({
+      id: singleBoard.id,
+      title: singleBoard.title,
+      img: img,
+    });
+    // updated into contexts
+    const newLists = boards.map((item) => {
+      if (item.id !== singleBoard.id) return item;
+      return { ...item, img };
+    });
+    setBoards(newLists);
+  };
+  return (
+    <>
+      <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-b-gray-200">
+        {gradientLists.map((item, index) => (
+          <div
+            key={index}
+            className={`relative w-full h-24 rounded-lg bg-green-400 cursor-pointer hover:brightness-75 transition-all ${
+              singleBoard.img.type === "linearGradient" &&
+              (singleBoard.img.from === item.from &&
+              singleBoard.img.to === item.to
+                ? "brightness-75 cursor-wait"
+                : "")
+            }`}
+            style={{
+              backgroundImage: `linear-gradient(to bottom right, ${item.from}, ${item.to})`,
+            }}
+            onClick={() => updateColors(item.from, item.to)}
+          >
+            {singleBoard.img.type === "linearGradient" &&
+              singleBoard.img.from === item.from &&
+              singleBoard.img.to === item.to && (
+                <DoneRoundedIcon
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-green-500"
+                  fontSize="small"
+                ></DoneRoundedIcon>
+              )}
+            <span className="absolute left-2 bottom-2">{item.span}</span>
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-5 gap-2">
+        {colorLists.map((item, index) => (
+          <div
+            key={index}
+            className="w-11 h-11 rounded-md hover:brightness-75 transition-all cursor-wait"
+            style={{ background: item }}
+          ></div>
+        ))}
+      </div>
+    </>
+  );
 };
 
 const BoardList = ({
@@ -271,20 +356,48 @@ const LocalIconOverlay = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const UnsplashPhotos = ({ photos, transparent }: any) => {
+const UnsplashPhotos = ({
+  photos,
+  transparent,
+}: {
+  photos: any;
+  transparent: boolean;
+}) => {
+  const { boards, singleBoard, setSingleBoard, setBoards } =
+    useCreateBoardStates();
+  const updatePhotos = (url: string, alt: string) => {
+    let img: LinearOrUrl = {
+      type: "imageUrl",
+      url,
+      alt,
+    };
+    // updated current page data
+    setSingleBoard({
+      id: singleBoard.id,
+      title: singleBoard.title,
+      img: img,
+    });
+    // updated into contexts
+    const newLists = boards.map((item) => {
+      if (item.id !== singleBoard.id) return item;
+      return { ...item, img };
+    });
+    setBoards(newLists);
+  };
   return (
     <>
       {photos &&
         photos.map((img: any) => (
           <Image
             key={img.id}
-            src={img.urls.small}
+            src={img.urls.regular}
             alt={img.alt_description}
             width={100}
             height={100}
             className={`w-full cursor-pointer rounded-lg ${
               transparent ? "opacity-0" : ""
             }`}
+            onClick={() => updatePhotos(img.urls.regular, img.alt_description)}
           ></Image>
         ))}
     </>
