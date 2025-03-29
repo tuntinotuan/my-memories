@@ -17,6 +17,11 @@ import { LinearOrUrl } from "@/components/project/types";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 export type PageBoardSidebarType = "menu" | "background" | "unsplash" | "color";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
+import PlusIcon from "@/components/icons/PlusIcon";
+import { SketchPicker, SwatchesPicker } from "react-color";
+import PopupOverlay from "@/components/popup/popup.overlay";
+import Button from "@/components/button/Button";
+import ButtonCreate from "@/components/button/ButtonCreate";
 type PageProps = {
   page: PageBoardSidebarType;
 };
@@ -221,8 +226,6 @@ const BoardPhotosFromUnsplash = () => {
   );
 };
 const BoardColors = () => {
-  const { singleBoard, setSingleBoard, boards, setBoards } =
-    useCreateBoardStates();
   let gradientLists: { from: string; to: string; span: string }[] = [
     { from: "#7731d8", to: "#01C4CD", span: "❄️" },
     { from: "#0c66e3", to: "#09336f", span: "🌊" },
@@ -245,6 +248,12 @@ const BoardColors = () => {
     "#D29034",
     "#B04632",
   ];
+  const { singleBoard, setSingleBoard, boards, setBoards } =
+    useCreateBoardStates();
+  const [color, setColor] = useState("#0088ff");
+  const [colorList, setColorList] = useState(colorLists);
+  const [colorPicker, setColorPicker] = useState(true);
+
   const updateColors = (from: string, to: string) => {
     let img: LinearOrUrl = {
       type: "linearGradient",
@@ -280,7 +289,9 @@ const BoardColors = () => {
       if (item.id !== singleBoard.id) return item;
       return { ...item, img };
     });
+    setColorList([...colorList, code]);
     setBoards(newLists);
+    setColorPicker(false);
   };
   return (
     <>
@@ -313,7 +324,7 @@ const BoardColors = () => {
         ))}
       </div>
       <div className="grid grid-cols-5 gap-2">
-        {colorLists.map((item, index) => (
+        {colorList.map((item, index) => (
           <div
             key={index}
             className="relative w-11 h-11 rounded-md hover:brightness-75 transition-all cursor-pointer"
@@ -329,7 +340,34 @@ const BoardColors = () => {
               )}
           </div>
         ))}
+        <div
+          className="flex items-center justify-center w-11 h-11 rounded-md hover:brightness-75 transition-all cursor-pointer border border-gray-200"
+          onClick={() => setColorPicker(true)}
+        >
+          <PlusIcon></PlusIcon>
+        </div>
       </div>
+      <PopupOverlay
+        width={300}
+        selector="input-color"
+        show={colorPicker}
+        onClick={() => setColorPicker(false)}
+      >
+        <SketchPicker
+          color={color}
+          onChange={(updatedColor) => setColor(updatedColor.hex)}
+        />
+        <p>
+          Selected Color: <span style={{ color }}>{color}</span>
+        </p>
+        <ButtonCreate
+          styles="primary"
+          className="w-[100px]"
+          onClick={() => updateSingleColor(color)}
+        >
+          Add color
+        </ButtonCreate>
+      </PopupOverlay>
     </>
   );
 };

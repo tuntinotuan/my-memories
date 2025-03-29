@@ -129,9 +129,11 @@ const DisplayImage = ({
       style={
         currentGradient?.type === "imageUrl"
           ? { backgroundImage: `url(${currentGradient.url})` }
-          : {
+          : currentGradient?.type === "linearGradient"
+          ? {
               backgroundImage: `linear-gradient(to bottom right, ${currentGradient.from}, ${currentGradient.to})`,
             }
+          : { background: currentGradient.code }
       }
     >
       <Image
