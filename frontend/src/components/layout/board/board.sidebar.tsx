@@ -22,6 +22,7 @@ import { SketchPicker, SwatchesPicker } from "react-color";
 import PopupOverlay from "@/components/popup/popup.overlay";
 import Button from "@/components/button/Button";
 import ButtonCreate from "@/components/button/ButtonCreate";
+import PopupSketchPicker from "@/components/popup/PopupSketchPicker";
 type PageProps = {
   page: PageBoardSidebarType;
 };
@@ -250,9 +251,8 @@ const BoardColors = () => {
   ];
   const { singleBoard, setSingleBoard, boards, setBoards } =
     useCreateBoardStates();
-  const [color, setColor] = useState("#0088ff");
   const [colorList, setColorList] = useState(colorLists);
-  const [colorPicker, setColorPicker] = useState(true);
+  const [colorPicker, setColorPicker] = useState(false);
 
   const updateColors = (from: string, to: string) => {
     let img: LinearOrUrl = {
@@ -289,7 +289,6 @@ const BoardColors = () => {
       if (item.id !== singleBoard.id) return item;
       return { ...item, img };
     });
-    setColorList([...colorList, code]);
     setBoards(newLists);
     setColorPicker(false);
   };
@@ -347,27 +346,13 @@ const BoardColors = () => {
           <PlusIcon></PlusIcon>
         </div>
       </div>
-      <PopupOverlay
-        width={300}
-        selector="input-color"
+      <PopupSketchPicker
         show={colorPicker}
-        onClick={() => setColorPicker(false)}
-      >
-        <SketchPicker
-          color={color}
-          onChange={(updatedColor) => setColor(updatedColor.hex)}
-        />
-        <p>
-          Selected Color: <span style={{ color }}>{color}</span>
-        </p>
-        <ButtonCreate
-          styles="primary"
-          className="w-[100px]"
-          onClick={() => updateSingleColor(color)}
-        >
-          Add color
-        </ButtonCreate>
-      </PopupOverlay>
+        onClose={() => setColorPicker(false)}
+        updateColor={updateSingleColor}
+        colorList={colorList}
+        SetColorList={setColorList}
+      ></PopupSketchPicker>
     </>
   );
 };

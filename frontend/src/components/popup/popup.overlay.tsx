@@ -62,7 +62,7 @@ const LocalOverlay = ({
         onClick={onClick}
       ></div>
       <div
-        className={`fixed mx-auto top-[10vh] left-0 right-0 z-[9999] h-auto max-h-[88vh] border border-gray-200 rounded-md shadow-2xl text-xs transition-all bg-efColor flex flex-col items-center ${
+        className={`fixed mx-auto top-[10vh] left-0 right-0 z-[9999] h-auto max-h-[88vh] border border-gray-200 rounded-md shadow-2xl text-xs transition-all bg-efColor flex flex-col items-center p-4 ${
           show
             ? "scale-100 opacity-100 visible"
             : "scale-[0.2] opacity-0 invisible"
