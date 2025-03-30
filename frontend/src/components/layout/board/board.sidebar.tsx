@@ -18,10 +18,6 @@ import { useCreateBoardStates } from "@/contexts/createBoardStates";
 export type PageBoardSidebarType = "menu" | "background" | "unsplash" | "color";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import PlusIcon from "@/components/icons/PlusIcon";
-import { SketchPicker, SwatchesPicker } from "react-color";
-import PopupOverlay from "@/components/popup/popup.overlay";
-import Button from "@/components/button/Button";
-import ButtonCreate from "@/components/button/ButtonCreate";
 import PopupSketchPicker from "@/components/popup/PopupSketchPicker";
 type PageProps = {
   page: PageBoardSidebarType;
@@ -181,6 +177,7 @@ const BoardChangeBackground = () => {
           className="w-full rounded-lg cursor-pointer"
           width={150}
           height={90}
+          unoptimized
         ></Image>
         <p>Photos</p>
       </div>
@@ -445,6 +442,7 @@ const UnsplashPhotos = ({
               transparent ? "opacity-0" : ""
             }`}
             onClick={() => updatePhotos(img.urls.regular, img.alt_description)}
+            unoptimized
           ></Image>
         ))}
     </>
