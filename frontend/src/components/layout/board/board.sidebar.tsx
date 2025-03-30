@@ -197,17 +197,19 @@ const BoardChangeBackground = () => {
 const BoardPhotosFromUnsplash = () => {
   const [photos, setPhotos] = useState<any>();
   const [loadingUnsplash, setLoadingUnsplash] = useState(false);
+  const [searchValues, setSearchValues] = useState<string>("");
   useEffect(() => {
     async function fetchData() {
       setLoadingUnsplash(true);
-      const data = await getUnsplashImage();
+      const data = await getUnsplashImage(searchValues || "nature");
       setPhotos(data);
+      console.log("data", data);
       setTimeout(() => {
         setLoadingUnsplash(false);
       }, 400);
     }
     fetchData();
-  }, []);
+  }, [searchValues]);
 
   return (
     <div className="h-full">
@@ -215,6 +217,7 @@ const BoardPhotosFromUnsplash = () => {
         placeholder="Photos"
         width="auto"
         className=""
+        setValues={setSearchValues}
       ></SearchMenuHeader>
       <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 mt-2 overflow-y-auto">
         {loadingUnsplash && <UnsplashPhotosSkeleton />}
@@ -453,9 +456,9 @@ const UnsplashPhotosSkeleton = () => {
     <>
       {Array(9)
         .fill(null)
-        .map((item) => (
+        .map((item, index) => (
           <div
-            key={item}
+            key={index}
             className="animate-pulse w-full h-28 rounded-lg bg-gray-200"
           ></div>
         ))}

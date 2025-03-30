@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "../icons/SearchIcon";
 
 const SearchMenuHeader = ({
@@ -6,12 +6,25 @@ const SearchMenuHeader = ({
   placeholder,
   width,
   className,
+  setValues,
 }: {
   disable?: boolean;
   placeholder: string;
   width: number | string;
   className?: string;
+  setValues: any;
 }) => {
+  const [localValue, setLocalValue] = useState("");
+  const handleChangeInput = (e: any) => {
+    setLocalValue(e.target.value);
+  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      localValue && setValues(localValue);
+    }, 2000); // Delay for 0.5s (500ms)
+
+    return () => clearTimeout(timer); // Cleanup timeout on each keystroke
+  }, [localValue, setValues]);
   return (
     <label
       htmlFor="searchInputId"
@@ -31,6 +44,7 @@ const SearchMenuHeader = ({
         className={`w-full placeholder:font-light placeholder:text-gray-500 ${
           disable ? "cursor-wait" : ""
         }`}
+        onChange={handleChangeInput}
       ></input>
     </label>
   );
