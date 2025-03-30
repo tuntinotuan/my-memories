@@ -4,24 +4,6 @@ import { LinearOrUrl } from "@/components/project/types";
 export const projectList: { id: Id; img: LinearOrUrl; title: string }[] = [
   {
     id: 999,
-    img: {
-      type: "imageUrl",
-      url: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
-      alt: "anything",
-    },
-    title: "Online course presentation",
-  },
-  {
-    id: 999,
-    img: {
-      type: "imageUrl",
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
-      alt: "anything",
-    },
-    title: "Green and Yellow Playful Illustrative Finance Presentation ",
-  },
-  {
-    id: 999,
     img: { type: "linearGradient", from: "#7731d8", to: "#01C4CD" },
     title: "Learn basic typescript only 2 hours",
   },
@@ -79,6 +61,24 @@ export const projectList: { id: Id; img: LinearOrUrl; title: string }[] = [
       alt: "anything",
     },
     title: "Before I never love sunset, now, maybe",
+  },
+  {
+    id: 999,
+    img: {
+      type: "imageUrl",
+      url: "https://cdn.prod.website-files.com/62c67bbf65af22785775fee3/66f6ace0028aed08e2ce0d46_Software%20Design%20DocumentationTemplate.png",
+      alt: "anything",
+    },
+    title: "Online course presentation",
+  },
+  {
+    id: 999,
+    img: {
+      type: "imageUrl",
+      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM0xlqNtKvvqUSlyfDKQQJmzQHDWPEedSV1g&s",
+      alt: "anything",
+    },
+    title: "Green and Yellow Playful Illustrative Finance Presentation ",
   },
 ];
 

@@ -12,7 +12,7 @@ const AddBtn = ({ text, className, onClick }: AddBtnProps) => {
   return (
     <div>
       <Button
-        className={`w-full !justify-start bg-white bg-opacity-30 hover:bg-opacity-25 ${className}`}
+        className={`w-full !justify-start bg-white bg-opacity-30 backdrop-blur-sm hover:bg-opacity-25 ${className}`}
         onClick={onClick}
       >
         <PlusIcon></PlusIcon>

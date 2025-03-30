@@ -219,7 +219,7 @@ const BoardPhotosFromUnsplash = () => {
         className=""
         setValues={setSearchValues}
       ></SearchMenuHeader>
-      <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 mt-2 overflow-y-auto">
+      <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 my-2 overflow-y-auto">
         {loadingUnsplash && <UnsplashPhotosSkeleton />}
         <UnsplashPhotos photos={photos} transparent={loadingUnsplash} />
       </div>
@@ -441,11 +441,12 @@ const UnsplashPhotos = ({
             alt={img.alt_description}
             width={100}
             height={100}
-            className={`w-full cursor-pointer rounded-lg ${
+            className={`w-full cursor-pointer rounded-lg border border-gray-200 object-cover ${
               transparent ? "opacity-0" : ""
             }`}
             onClick={() => updatePhotos(img.urls.regular, img.alt_description)}
             unoptimized
+            style={{ height: 100 }}
           ></Image>
         ))}
     </>

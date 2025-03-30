@@ -21,7 +21,7 @@ const SearchMenuHeader = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       localValue && setValues(localValue);
-    }, 2000); // Delay for 0.5s (500ms)
+    }, 200);
 
     return () => clearTimeout(timer); // Cleanup timeout on each keystroke
   }, [localValue, setValues]);
