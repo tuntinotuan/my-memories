@@ -4,8 +4,10 @@ import Link from "next/link";
 import ThreeDotsIcon from "../icons/ThreeDotsIcon";
 import ProjectImgOrGradient from "./ProjectImgOrGradient";
 import { LinearOrUrl } from "./types";
-import { replaceAllTrim } from "@/utils/otherFs";
+import { cutIdFromSlug, replaceAllTrim } from "@/utils/otherFs";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
+import { usePathname } from "next/navigation";
 
 const ProjectItem = ({
   img,
@@ -19,9 +21,16 @@ const ProjectItem = ({
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
   const newTitle = replaceAllTrim(title);
+  const path = usePathname();
+  const titleInPath = path.replace("/project/", "");
   return (
     <div
-      className={`relative w-full group flex items-center gap-2 truncate hover:bg-primaryHover p-2 rounded-md cursor-pointer shrink-0`}
+      className={`relative w-full group flex items-center gap-2 truncate p-2 rounded-md cursor-pointer shrink-0 transition-all ${
+        id === Number(cutIdFromSlug(path, "-id")) ||
+        replaceAllTrim(title) + "/" === titleInPath
+          ? "bg-primaryColor bg-opacity-10 hover:none"
+          : "hover:bg-primaryHover"
+      }`}
     >
       <Link
         href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
@@ -32,7 +41,14 @@ const ProjectItem = ({
         width={24}
         height={24}
       ></ProjectImgOrGradient>
-      <p className="text-sm text-primaryText truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5">
+      <p
+        className={`text-sm truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5 ${
+          id === Number(cutIdFromSlug(path, "-id")) ||
+          replaceAllTrim(title) + "/" === titleInPath
+            ? "text-primaryColor"
+            : "text-primaryText"
+        }`}
+      >
         {title}
       </p>
       <div className="absolute right-1 flex items-center gap-1 shrink-0 opacity-0 group-hover:opacity-100">

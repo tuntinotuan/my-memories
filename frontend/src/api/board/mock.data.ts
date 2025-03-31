@@ -51,7 +51,7 @@ export const projectList: { id: Id; img: LinearOrUrl; title: string }[] = [
   {
     id: 999,
     img: { type: "linearGradient", from: "#0c66e3", to: "#09336f" },
-    title: "My tasks never forget",
+    title: "My tasks never forget old",
   },
   {
     id: 999,
