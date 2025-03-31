@@ -1,21 +1,32 @@
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Tooltip } from "@nextui-org/tooltip";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import ThreeDotsIcon from "../icons/ThreeDotsIcon";
 import ProjectImgOrGradient from "./ProjectImgOrGradient";
 import { LinearOrUrl } from "./types";
+import { replaceAllTrim } from "@/utils/otherFs";
+import { Id } from "@/app/(home)/project/[slug]/modules/types";
 
-const ProjectItem = ({ img, title }: { img: LinearOrUrl; title: string }) => {
+const ProjectItem = ({
+  img,
+  title,
+  id,
+}: {
+  img: LinearOrUrl;
+  title: string;
+  id?: Id;
+}) => {
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
-  const pathName = usePathname();
+  const newTitle = replaceAllTrim(title);
   return (
     <div
       className={`relative w-full group flex items-center gap-2 truncate hover:bg-primaryHover p-2 rounded-md cursor-pointer shrink-0`}
     >
-      <Link href={`/project/${title}`} className="absolute inset-0"></Link>
+      <Link
+        href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
+        className="absolute inset-0"
+      ></Link>
       <ProjectImgOrGradient
         img={img}
         width={24}
@@ -36,7 +47,7 @@ const ProjectItem = ({ img, title }: { img: LinearOrUrl; title: string }) => {
           shadow="sm"
         >
           <Link
-            href={`/project/${title}`}
+            href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
             rel="noopener noreferrer"
             target="_blank"
             className={controlClass}

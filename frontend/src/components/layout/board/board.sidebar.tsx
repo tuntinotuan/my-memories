@@ -209,8 +209,8 @@ const BoardPhotosFromUnsplash = () => {
         setLoadingUnsplash(false);
       }, 400);
     }
-    fetchData();
-  }, [searchValues]);
+    !photos && fetchData();
+  }, [searchValues, photos]);
 
   return (
     <div className="h-full">

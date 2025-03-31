@@ -32,6 +32,7 @@ export default function Page({ params }: any) {
   const exampleBoard = projectList.find(
     (item) => replaceAllTrim(item.title) === params.slug
   );
+  console.log("ss", params.slug);
   useEffect(() => {
     if (newBoard) {
       setSingleBoard(newBoard);

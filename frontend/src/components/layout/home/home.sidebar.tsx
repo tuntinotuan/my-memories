@@ -89,6 +89,7 @@ const HomeSidebar = () => {
                   {boards.map((item) => (
                     <ProjectItem
                       key={item.id}
+                      id={item.id}
                       img={item.img}
                       title={item.title}
                     ></ProjectItem>

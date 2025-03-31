@@ -60,7 +60,7 @@ export const projectList: { id: Id; img: LinearOrUrl; title: string }[] = [
       url: "/sunset.png",
       alt: "anything",
     },
-    title: "Before I never love sunset, now, maybe",
+    title: "Before I never love sunset now maybe",
   },
   {
     id: 999,
