@@ -19,6 +19,7 @@ export type PageBoardSidebarType = "menu" | "background" | "unsplash" | "color";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import PlusIcon from "@/components/icons/PlusIcon";
 import PopupSketchPicker from "@/components/popup/PopupSketchPicker";
+import Link from "next/link";
 type PageProps = {
   page: PageBoardSidebarType;
 };
@@ -435,19 +436,38 @@ const UnsplashPhotos = ({
     <>
       {photos &&
         photos.map((img: any) => (
-          <Image
-            key={img.id}
-            src={img.urls.small}
-            alt={img.alt_description}
-            width={100}
-            height={100}
-            className={`w-full cursor-pointer rounded-lg border border-gray-200 object-cover ${
-              transparent ? "opacity-0" : ""
-            }`}
-            onClick={() => updatePhotos(img.urls.regular, img.alt_description)}
-            unoptimized
-            style={{ height: 100 }}
-          ></Image>
+          <div className="relative w-full overflow-hidden" key={img.id}>
+            <Image
+              key={img.id}
+              src={img.urls.small}
+              alt={img.alt_description}
+              width={100}
+              height={100}
+              className={`w-full cursor-pointer rounded-lg border border-gray-200 object-cover ${
+                transparent ? "opacity-0" : ""
+              }`}
+              unoptimized
+              style={{ height: 100 }}
+            ></Image>
+            <div
+              className={`absolute inset-0 bg-gray-200 bg-opacity-20 opacity-0 hover:opacity-100 transition-all cursor-pointer`}
+            >
+              <div
+                className="h-[75%] w-full hover:bg-gray-200 hover:bg-opacity-25 transition-all"
+                onClick={() =>
+                  updatePhotos(img.urls.regular, img.alt_description)
+                }
+              ></div>
+              <Link
+                href={img.user.links.html}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="block h-[25%] w-full bg-black bg-opacity-25 px-2 py-1 truncate text-white text-xs rounded-br-lg rounded-bl-lg hover:underline transition-all"
+              >
+                {img.user.first_name}
+              </Link>
+            </div>
+          </div>
         ))}
     </>
   );
