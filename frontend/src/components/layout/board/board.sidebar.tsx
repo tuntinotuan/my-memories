@@ -195,7 +195,7 @@ const BoardChangeBackground = () => {
     </div>
   );
 };
-const BoardPhotosFromUnsplash = () => {
+export const BoardPhotosFromUnsplash = () => {
   const [photos, setPhotos] = useState<any>();
   const [loadingUnsplash, setLoadingUnsplash] = useState(false);
   const [searchValues, setSearchValues] = useState<string>("");
@@ -213,14 +213,16 @@ const BoardPhotosFromUnsplash = () => {
   }, [searchValues]);
 
   return (
-    <div className="h-full">
-      <SearchMenuHeader
-        placeholder="Photos"
-        width="auto"
-        className=""
-        setValues={setSearchValues}
-      ></SearchMenuHeader>
-      <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 my-2 overflow-y-auto">
+    <div className="h-full overflow-y-auto">
+      <div className="bg-white sticky top-0 z-[1] pb-2">
+        <SearchMenuHeader
+          placeholder="Photos"
+          width="auto"
+          className="z-10"
+          setValues={setSearchValues}
+        ></SearchMenuHeader>
+      </div>
+      <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 overflow-y-auto pb-4">
         {loadingUnsplash && <UnsplashPhotosSkeleton />}
         <UnsplashPhotos photos={photos} transparent={loadingUnsplash} />
       </div>

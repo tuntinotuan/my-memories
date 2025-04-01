@@ -28,7 +28,7 @@ const SearchMenuHeader = ({
   return (
     <label
       htmlFor="searchInputId"
-      className={`flex items-center gap-2 border border-gray-200 rounded-lg px-2 py-1 text-sm hover:border-gray-500 transition-all cursor-text ${
+      className={`flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-2 py-1 text-sm hover:border-gray-500 transition-all cursor-text ${
         disable ? "cursor-wait" : ""
       } ${className}`}
       style={{ width: width }}

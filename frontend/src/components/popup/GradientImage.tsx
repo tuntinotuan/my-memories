@@ -40,11 +40,11 @@ const GradientImage = ({
         ></div>
       ))}
       <div
-        className={`flex items-center justify-center w-full h-10 bg-primaryHover text-primaryText hover:text-black hover:shadow-md hover:-translate-y-[1px] rounded shadow-sm cursor-wait transition-all`}
+        className={`flex items-center justify-center w-full h-10 bg-primaryHover text-primaryText hover:text-black hover:shadow-md hover:-translate-y-[1px] rounded shadow-sm cursor-pointer transition-all`}
         ref={ref}
         onClick={() => setShowPopup(true)}
       >
-        <ThreeDotsIcon fontSize="medium" disabled></ThreeDotsIcon>
+        <ThreeDotsIcon fontSize="medium"></ThreeDotsIcon>
       </div>
       <PopupMoreBackground
         rect={ref.current?.getBoundingClientRect()}

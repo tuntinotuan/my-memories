@@ -50,7 +50,7 @@ const LocalOverlay = ({
   useOnClickOutside(ref, onClose);
   return show ? (
     <div
-      className="fixed top-0 w-[400px] h-[300px] bg-red-300 bg-opacity-25"
+      className="fixed top-0 w-[300px] h-[300px] max-h-auto bg-white border border-gray-200 shadow-md rounded-lg p-2 overflow-hidden pb-10"
       style={{
         top: rect.top / 2 + rect.height,
         left: rect.left + rect.width + 10,

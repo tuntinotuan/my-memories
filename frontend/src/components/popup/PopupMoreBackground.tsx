@@ -1,5 +1,7 @@
 import React from "react";
 import PopupFlexibleOverlay from "./PopupFlexibleOverlay";
+import { BoardPhotosFromUnsplash } from "../layout/board/board.sidebar";
+import { TopControl } from "./PopupCreateboard";
 
 const PopupMoreBackground = ({ show, onClose, rect }: any) => {
   return (
@@ -10,7 +12,8 @@ const PopupMoreBackground = ({ show, onClose, rect }: any) => {
       // width={400}
       onClose={onClose}
     >
-      More
+      <TopControl onClose={onClose} title="Photos from Unsplash"></TopControl>
+      <BoardPhotosFromUnsplash></BoardPhotosFromUnsplash>
     </PopupFlexibleOverlay>
   );
 };
