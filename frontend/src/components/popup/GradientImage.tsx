@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { LinearOrUrl } from "../project/types";
 import ThreeDotsIcon from "../icons/ThreeDotsIcon";
+import PopupMoreBackground from "./PopupMoreBackground";
 
 type GradientImageProps = {
   gradientList: LinearOrUrl[];
@@ -13,6 +14,8 @@ const GradientImage = ({
   currentGradient,
   handleClick,
 }: GradientImageProps) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
   return (
     <div className="gradient-list grid grid-cols-6 gap-2 mt-2">
       {gradientList.map((item, index) => (
@@ -38,9 +41,16 @@ const GradientImage = ({
       ))}
       <div
         className={`flex items-center justify-center w-full h-10 bg-primaryHover text-primaryText hover:text-black hover:shadow-md hover:-translate-y-[1px] rounded shadow-sm cursor-wait transition-all`}
+        ref={ref}
+        onClick={() => setShowPopup(true)}
       >
         <ThreeDotsIcon fontSize="medium" disabled></ThreeDotsIcon>
       </div>
+      <PopupMoreBackground
+        rect={ref.current?.getBoundingClientRect()}
+        show={showPopup}
+        onClose={() => setShowPopup(false)}
+      ></PopupMoreBackground>
     </div>
   );
 };

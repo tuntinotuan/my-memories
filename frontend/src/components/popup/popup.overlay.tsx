@@ -12,7 +12,6 @@ type PopupOverlayInterface = {
 };
 
 const PopupOverlay = ({
-  selector,
   children,
   show,
   width,
