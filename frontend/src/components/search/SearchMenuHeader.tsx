@@ -12,7 +12,7 @@ const SearchMenuHeader = ({
   placeholder: string;
   width: number | string;
   className?: string;
-  setValues: any;
+  setValues?: any;
 }) => {
   const [localValue, setLocalValue] = useState("");
   const handleChangeInput = (e: any) => {
