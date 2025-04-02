@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useOnClickOutside } from "usehooks-ts";
 
-type PopupFlexibleOverlay = {
+type PopupFlexibleOverlayProps = {
   children: React.ReactNode;
   rect: RectType;
   show: boolean;
@@ -30,7 +30,7 @@ const PopupFlexibleOverlay = ({
   position,
   width,
   height,
-}: PopupFlexibleOverlay) => {
+}: PopupFlexibleOverlayProps) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
@@ -60,7 +60,7 @@ const LocalOverlay = ({
   position,
   width,
   height,
-}: PopupFlexibleOverlay) => {
+}: PopupFlexibleOverlayProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(ref, onClose);
   if (!rect) return;

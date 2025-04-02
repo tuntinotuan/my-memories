@@ -229,7 +229,7 @@ export const BoardPhotosFromUnsplash = () => {
     </div>
   );
 };
-const BoardColors = () => {
+export const BoardColors = () => {
   let gradientLists: { from: string; to: string; span: string }[] = [
     { from: "#7731d8", to: "#01C4CD", span: "❄️" },
     { from: "#0c66e3", to: "#09336f", span: "🌊" },
@@ -296,7 +296,7 @@ const BoardColors = () => {
     setColorPicker(false);
   };
   return (
-    <>
+    <div className="h-full overflow-y-auto pb-4">
       <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-transparent border-b-gray-200">
         {gradientLists.map((item, index) => (
           <div
@@ -356,7 +356,7 @@ const BoardColors = () => {
         colorList={colorList}
         SetColorList={setColorList}
       ></PopupSketchPicker>
-    </>
+    </div>
   );
 };
 

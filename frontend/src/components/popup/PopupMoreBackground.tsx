@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import PopupFlexibleOverlay from "./PopupFlexibleOverlay";
-import { BoardPhotosFromUnsplash } from "../layout/board/board.sidebar";
-import { TopControl } from "./PopupCreateboard";
+import {
+  BoardColors,
+  BoardPhotosFromUnsplash,
+} from "../layout/board/board.sidebar";
+import CloseIcon from "../icons/CloseIcon";
 
 const PopupMoreBackground = ({ show, onClose, rect }: any) => {
+  const [page, setPage] = useState<navPage>("photo");
   return (
     <PopupFlexibleOverlay
       rect={rect}
@@ -14,9 +18,45 @@ const PopupMoreBackground = ({ show, onClose, rect }: any) => {
       position="right"
       onClose={onClose}
     >
-      <TopControl onClose={onClose} title="Photos from Unsplash"></TopControl>
-      <BoardPhotosFromUnsplash></BoardPhotosFromUnsplash>
+      <Top onClose={onClose} onClick={setPage} page={page}></Top>
+      <Body page={page}></Body>
     </PopupFlexibleOverlay>
+  );
+};
+export type navPage = "photo" | "color";
+export type navType = {
+  page: "photo";
+};
+const Body = ({ page }: { page: navPage }) => {
+  if (page === "photo") return <BoardPhotosFromUnsplash />;
+  if (page === "color") return <BoardColors />;
+};
+
+const Top = ({ onClose, onClick, page }: any) => {
+  const lists = [
+    { title: "Photos", page: "photo" },
+    { title: "Color", page: "color" },
+  ];
+  return (
+    <div className="flex items-center justify-between w-full text-sm pb-4">
+      <div className="flex items-center gap-2 px-2">
+        {lists.map((item) => (
+          <div
+            key={item.page}
+            className="relative cursor-pointer"
+            onClick={() => onClick(item.page)}
+          >
+            {item.title}
+            {item.page === page && (
+              <div
+                className={`absolute left-0 right-0 h-1 bg-primaryColor`}
+              ></div>
+            )}
+          </div>
+        ))}
+      </div>
+      <CloseIcon fontSize="small" onClick={onClose}></CloseIcon>
+    </div>
   );
 };
 
