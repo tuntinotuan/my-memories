@@ -1,6 +1,6 @@
 "use client"; // Required for Client Components
 import CloseIcon from "@/components/icons/CloseIcon";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import ProjectImgOrGradient from "@/components/project/ProjectImgOrGradient";
 import SettingIcon from "@/components/icons/SettingIcon";
@@ -18,7 +18,9 @@ import { useCreateBoardStates } from "@/contexts/createBoardStates";
 export type PageBoardSidebarType = "menu" | "background" | "unsplash" | "color";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import PlusIcon from "@/components/icons/PlusIcon";
-import PopupSketchPicker from "@/components/popup/PopupSketchPicker";
+import PopupSketchPicker, {
+  MySketchPicker,
+} from "@/components/popup/PopupSketchPicker";
 import Link from "next/link";
 type PageProps = {
   page: PageBoardSidebarType;
@@ -229,7 +231,11 @@ export const BoardPhotosFromUnsplash = () => {
     </div>
   );
 };
-export const BoardColors = () => {
+export const BoardColors = ({
+  sketchPickerView = "popup",
+}: {
+  sketchPickerView?: "popup" | "below";
+}) => {
   let gradientLists: { from: string; to: string; span: string }[] = [
     { from: "#7731d8", to: "#01C4CD", span: "❄️" },
     { from: "#0c66e3", to: "#09336f", span: "🌊" },
@@ -256,6 +262,7 @@ export const BoardColors = () => {
     useCreateBoardStates();
   const [colorList, setColorList] = useState(colorLists);
   const [colorPicker, setColorPicker] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const updateColors = (from: string, to: string) => {
     let img: LinearOrUrl = {
@@ -295,8 +302,15 @@ export const BoardColors = () => {
     setBoards(newLists);
     setColorPicker(false);
   };
+  useEffect(() => {
+    const scrollCur = ref.current;
+    if (scrollCur && colorPicker) {
+      scrollCur.scrollTop = scrollCur.scrollHeight;
+    }
+  }, [colorPicker]);
+
   return (
-    <div className="h-full overflow-y-auto pb-4">
+    <div className="h-full overflow-y-auto pb-4" ref={ref}>
       <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-transparent border-b-gray-200">
         {gradientLists.map((item, index) => (
           <div
@@ -325,7 +339,7 @@ export const BoardColors = () => {
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-5 gap-2">
+      <div className="grid grid-cols-5 gap-2 mb-2">
         {colorList.map((item, index) => (
           <div
             key={index}
@@ -344,18 +358,30 @@ export const BoardColors = () => {
         ))}
         <div
           className="flex items-center justify-center w-11 h-11 rounded-md hover:brightness-75 transition-all cursor-pointer border border-gray-200"
-          onClick={() => setColorPicker(true)}
+          onClick={() => setColorPicker((pre) => !pre)}
         >
           <PlusIcon></PlusIcon>
         </div>
       </div>
-      <PopupSketchPicker
-        show={colorPicker}
-        onClose={() => setColorPicker(false)}
-        updateColor={updateSingleColor}
-        colorList={colorList}
-        SetColorList={setColorList}
-      ></PopupSketchPicker>
+      {sketchPickerView === "popup" && (
+        <PopupSketchPicker
+          show={colorPicker}
+          onClose={() => setColorPicker(false)}
+          updateColor={updateSingleColor}
+          colorList={colorList}
+          SetColorList={setColorList}
+        ></PopupSketchPicker>
+      )}
+      {sketchPickerView === "below" && (
+        <MySketchPicker
+          show={colorPicker}
+          onClose={() => setColorPicker(false)}
+          updateColor={updateSingleColor}
+          colorList={colorList}
+          SetColorList={setColorList}
+          hiddenTopControl
+        ></MySketchPicker>
+      )}
     </div>
   );
 };

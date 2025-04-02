@@ -5,8 +5,8 @@ import { SketchPicker } from "react-color";
 import { TopControl } from "./PopupCreateboard";
 import PlusIcon from "../icons/PlusIcon";
 
-type PopupSketchPicker = {
-  show: boolean;
+type PopupSketchPickerProps = {
+  show?: boolean;
   onClose: () => void;
   updateColor: (code: string) => void;
   colorList: string[];
@@ -19,9 +19,7 @@ const PopupSketchPicker = ({
   updateColor,
   colorList,
   SetColorList,
-}: PopupSketchPicker) => {
-  const [color, setColor] = useState("#0088ff");
-
+}: PopupSketchPickerProps) => {
   return (
     <PopupOverlay
       width={320}
@@ -29,7 +27,31 @@ const PopupSketchPicker = ({
       show={show}
       onClick={onClose}
     >
-      <TopControl title="Color picker" onClose={onClose}></TopControl>
+      <MySketchPicker
+        show={show}
+        onClose={onClose}
+        updateColor={updateColor}
+        colorList={colorList}
+        SetColorList={SetColorList}
+      ></MySketchPicker>
+    </PopupOverlay>
+  );
+};
+
+export const MySketchPicker = ({
+  show,
+  onClose,
+  updateColor,
+  SetColorList,
+  colorList,
+  hiddenTopControl = false,
+}: PopupSketchPickerProps & { hiddenTopControl?: boolean }) => {
+  const [color, setColor] = useState("#0088ff");
+  return show ? (
+    <>
+      {!hiddenTopControl && (
+        <TopControl title="Color picker" onClose={onClose}></TopControl>
+      )}
       <SketchPicker
         color={color}
         onChange={(updatedColor) => setColor(updatedColor.hex)}
@@ -53,8 +75,8 @@ const PopupSketchPicker = ({
         <PlusIcon></PlusIcon>
         Add color
       </ButtonCreate>
-    </PopupOverlay>
-  );
+    </>
+  ) : null;
 };
 
 export default PopupSketchPicker;

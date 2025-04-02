@@ -5,6 +5,7 @@ import {
   BoardPhotosFromUnsplash,
 } from "../layout/board/board.sidebar";
 import CloseIcon from "../icons/CloseIcon";
+export type navPage = "photo" | "color";
 
 const PopupMoreBackground = ({ show, onClose, rect }: any) => {
   const [page, setPage] = useState<navPage>("photo");
@@ -12,7 +13,6 @@ const PopupMoreBackground = ({ show, onClose, rect }: any) => {
     <PopupFlexibleOverlay
       rect={rect}
       show={show}
-      // selector="myportal"
       width={300}
       height={400}
       position="right"
@@ -22,14 +22,6 @@ const PopupMoreBackground = ({ show, onClose, rect }: any) => {
       <Body page={page}></Body>
     </PopupFlexibleOverlay>
   );
-};
-export type navPage = "photo" | "color";
-export type navType = {
-  page: "photo";
-};
-const Body = ({ page }: { page: navPage }) => {
-  if (page === "photo") return <BoardPhotosFromUnsplash />;
-  if (page === "color") return <BoardColors />;
 };
 
 const Top = ({ onClose, onClick, page }: any) => {
@@ -43,7 +35,9 @@ const Top = ({ onClose, onClick, page }: any) => {
         {lists.map((item) => (
           <div
             key={item.page}
-            className="relative cursor-pointer"
+            className={`relative cursor-pointer transition-all ${
+              item.page === page ? "text-primaryColor font-bold" : ""
+            }`}
             onClick={() => onClick(item.page)}
           >
             {item.title}
@@ -58,6 +52,10 @@ const Top = ({ onClose, onClick, page }: any) => {
       <CloseIcon fontSize="small" onClick={onClose}></CloseIcon>
     </div>
   );
+};
+const Body = ({ page }: { page: navPage }) => {
+  if (page === "photo") return <BoardPhotosFromUnsplash />;
+  if (page === "color") return <BoardColors sketchPickerView="below" />;
 };
 
 export default PopupMoreBackground;
