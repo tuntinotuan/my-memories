@@ -7,6 +7,9 @@ type PopupFlexibleOverlay = {
   rect: RectType;
   show: boolean;
   onClose: () => void;
+  position?: "top" | "bottom" | "left" | "right";
+  width: number;
+  height: number;
 };
 type RectType = {
   bottom: number;
@@ -24,6 +27,9 @@ const PopupFlexibleOverlay = ({
   rect,
   show,
   onClose,
+  position,
+  width,
+  height,
 }: PopupFlexibleOverlay) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -32,7 +38,14 @@ const PopupFlexibleOverlay = ({
   }, []);
   return mounted
     ? createPortal(
-        <LocalOverlay rect={rect} show={show} onClose={onClose}>
+        <LocalOverlay
+          rect={rect}
+          show={show}
+          onClose={onClose}
+          position={position}
+          width={width}
+          height={height}
+        >
           {children}{" "}
         </LocalOverlay>,
         document.body
@@ -44,17 +57,46 @@ const LocalOverlay = ({
   rect,
   show,
   onClose,
+  position,
+  width,
+  height,
 }: PopupFlexibleOverlay) => {
-  console.log("rect", rect);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(ref, onClose);
+  if (!rect) return;
+  let currentPosition = {};
+  switch (position) {
+    case "right":
+      currentPosition = {
+        top: rect.top + rect.height / 2 - height / 2,
+        left: rect.left + rect.width + 10,
+      };
+      break;
+    case "top":
+      currentPosition = {
+        bottom: rect.bottom / 2 + rect.height / 2,
+        left: rect.left + rect.width / 2 - width / 2,
+      };
+      break;
+    case "bottom":
+      currentPosition = {
+        top: rect.bottom,
+        left: rect.left + rect.width / 2 - width / 2,
+      };
+      break;
+    case "left":
+      currentPosition = {
+        top: rect.top + rect.height / 2 - height / 2,
+        right: rect.right + rect.width / 2 - width,
+      };
+      break;
+    default:
+      break;
+  }
   return show ? (
     <div
-      className="fixed top-0 w-[300px] h-[300px] max-h-auto bg-white border border-gray-200 shadow-md rounded-lg p-2 overflow-hidden pb-10"
-      style={{
-        top: rect.top / 2 + rect.height,
-        left: rect.left + rect.width + 10,
-      }}
+      className="fixed h-[50vh] max-h-auto bg-white border border-gray-200 shadow-md rounded-lg p-2 overflow-hidden pb-10"
+      style={{ ...currentPosition, width: width, height: height }}
       ref={ref}
     >
       {children}

@@ -9,7 +9,9 @@ const PopupMoreBackground = ({ show, onClose, rect }: any) => {
       rect={rect}
       show={show}
       // selector="myportal"
-      // width={400}
+      width={300}
+      height={400}
+      position="right"
       onClose={onClose}
     >
       <TopControl onClose={onClose} title="Photos from Unsplash"></TopControl>
