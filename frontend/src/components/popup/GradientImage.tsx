@@ -50,6 +50,7 @@ const GradientImage = ({
         rect={ref.current?.getBoundingClientRect()}
         show={showPopup}
         onClose={() => setShowPopup(false)}
+        update={handleClick}
       ></PopupMoreBackground>
     </div>
   );

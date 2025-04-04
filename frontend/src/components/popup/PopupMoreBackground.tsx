@@ -7,7 +7,7 @@ import {
 import CloseIcon from "../icons/CloseIcon";
 export type navPage = "photo" | "color";
 
-const PopupMoreBackground = ({ show, onClose, rect }: any) => {
+const PopupMoreBackground = ({ show, onClose, rect, update }: any) => {
   const [page, setPage] = useState<navPage>("photo");
   return (
     <PopupFlexibleOverlay
@@ -19,7 +19,7 @@ const PopupMoreBackground = ({ show, onClose, rect }: any) => {
       onClose={onClose}
     >
       <Top onClose={onClose} onClick={setPage} page={page}></Top>
-      <Body page={page}></Body>
+      <Body page={page} update={update}></Body>
     </PopupFlexibleOverlay>
   );
 };
@@ -43,7 +43,7 @@ const Top = ({ onClose, onClick, page }: any) => {
             {item.title}
             {item.page === page && (
               <div
-                className={`absolute left-0 right-0 h-1 bg-primaryColor`}
+                className={`absolute left-0 right-0 h-1 bg-primaryColor rounded`}
               ></div>
             )}
           </div>
@@ -53,9 +53,10 @@ const Top = ({ onClose, onClick, page }: any) => {
     </div>
   );
 };
-const Body = ({ page }: { page: navPage }) => {
+const Body = ({ page, update }: { page: navPage; update: any }) => {
   if (page === "photo") return <BoardPhotosFromUnsplash />;
-  if (page === "color") return <BoardColors sketchPickerView="below" />;
+  if (page === "color")
+    return <BoardColors sketchPickerView="below" update={update} />;
 };
 
 export default PopupMoreBackground;

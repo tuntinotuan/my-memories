@@ -233,8 +233,10 @@ export const BoardPhotosFromUnsplash = () => {
 };
 export const BoardColors = ({
   sketchPickerView = "popup",
+  update,
 }: {
   sketchPickerView?: "popup" | "below";
+  update?: any;
 }) => {
   let gradientLists: { from: string; to: string; span: string }[] = [
     { from: "#7731d8", to: "#01C4CD", span: "❄️" },
@@ -302,6 +304,8 @@ export const BoardColors = ({
     setBoards(newLists);
     setColorPicker(false);
   };
+
+  // auto scroll to end after open SketchPicker
   useEffect(() => {
     const scrollCur = ref.current;
     if (scrollCur && colorPicker) {
@@ -325,7 +329,15 @@ export const BoardColors = ({
             style={{
               backgroundImage: `linear-gradient(to bottom right, ${item.from}, ${item.to})`,
             }}
-            onClick={() => updateColors(item.from, item.to)}
+            onClick={() =>
+              update
+                ? update({
+                    type: "linearGradient",
+                    from: item.from,
+                    to: item.to,
+                  })
+                : updateColors(item.from, item.to)
+            }
           >
             {singleBoard.img.type === "linearGradient" &&
               singleBoard.img.from === item.from &&
@@ -345,7 +357,14 @@ export const BoardColors = ({
             key={index}
             className="relative w-11 h-11 rounded-md hover:brightness-75 transition-all cursor-pointer"
             style={{ background: item }}
-            onClick={() => updateSingleColor(item)}
+            onClick={() =>
+              update
+                ? update({
+                    type: "colorCode",
+                    code: item,
+                  })
+                : updateSingleColor(item)
+            }
           >
             {singleBoard.img.type === "colorCode" &&
               singleBoard.img.code === item && (
