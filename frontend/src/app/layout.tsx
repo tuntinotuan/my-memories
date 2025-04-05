@@ -4,6 +4,7 @@ import "../styles/_reset-css.css";
 import "./globals.css";
 import { LayoutProvider } from "@/contexts/layoutStates";
 import { CreateBoardProvider } from "@/contexts/createBoardStates";
+import { NotifyProvider } from "@/contexts/notifyStates";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +23,10 @@ export default function RootLayout({
       <body className={`fixed inset-0 text-primaryBlack ${inter.className}`}>
         <CreateBoardProvider>
           <LayoutProvider>
-            <div id="myportal" />
-            {children}
+            <NotifyProvider>
+              <div id="myportal" />
+              {children}
+            </NotifyProvider>
           </LayoutProvider>
         </CreateBoardProvider>
       </body>

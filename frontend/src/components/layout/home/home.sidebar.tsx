@@ -15,12 +15,14 @@ import { Tooltip } from "@nextui-org/tooltip";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { projectList } from "@/api/board/mock.data";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
+import { useNotify } from "@/contexts/notifyStates";
 const HomeSidebar = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
   const [showExampleDesign, setShowExampleDesign] = useState(true);
   const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
   const { boards, showCreateboard, handleOpenAndClosePopupCreateboard } =
     useCreateBoardStates();
+  const { setTitle, setActive } = useNotify();
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
@@ -67,7 +69,14 @@ const HomeSidebar = () => {
             <PlusIcon />
             Create a project
           </ButtonCreate>
-          <ButtonCreate className="!w-full" styles="secondary" disable>
+          <ButtonCreate
+            className="!w-full"
+            styles="secondary"
+            onClick={() => {
+              setTitle("Unfortunately, this feature is under development"),
+                setActive(true);
+            }}
+          >
             <CrownIcon />
             Try Pro for 30 days
           </ButtonCreate>
