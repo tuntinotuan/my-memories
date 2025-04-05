@@ -197,7 +197,7 @@ const BoardChangeBackground = () => {
     </div>
   );
 };
-export const BoardPhotosFromUnsplash = () => {
+export const BoardPhotosFromUnsplash = ({ update }: any) => {
   const [photos, setPhotos] = useState<any>();
   const [loadingUnsplash, setLoadingUnsplash] = useState(false);
   const [searchValues, setSearchValues] = useState<string>("");
@@ -226,7 +226,11 @@ export const BoardPhotosFromUnsplash = () => {
       </div>
       <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 overflow-y-auto pb-4">
         {loadingUnsplash && <UnsplashPhotosSkeleton />}
-        <UnsplashPhotos photos={photos} transparent={loadingUnsplash} />
+        <UnsplashPhotos
+          photos={photos}
+          transparent={loadingUnsplash}
+          update={update}
+        />
       </div>
     </div>
   );
@@ -454,9 +458,11 @@ const LocalIconOverlay = ({ children }: { children: React.ReactNode }) => {
 const UnsplashPhotos = ({
   photos,
   transparent,
+  update,
 }: {
   photos: any;
   transparent: boolean;
+  update: any;
 }) => {
   const { boards, singleBoard, setSingleBoard, setBoards } =
     useCreateBoardStates();
@@ -502,7 +508,13 @@ const UnsplashPhotos = ({
               <div
                 className="h-[75%] w-full hover:bg-gray-200 hover:bg-opacity-25 transition-all"
                 onClick={() =>
-                  updatePhotos(img.urls.regular, img.alt_description)
+                  update
+                    ? update({
+                        type: "imageUrl",
+                        url: img.urls.regular,
+                        alt: img.alt_description,
+                      })
+                    : updatePhotos(img.urls.regular, img.alt_description)
                 }
               ></div>
               <Link

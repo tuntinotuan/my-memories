@@ -54,7 +54,7 @@ const Top = ({ onClose, onClick, page }: any) => {
   );
 };
 const Body = ({ page, update }: { page: navPage; update: any }) => {
-  if (page === "photo") return <BoardPhotosFromUnsplash />;
+  if (page === "photo") return <BoardPhotosFromUnsplash update={update} />;
   if (page === "color")
     return <BoardColors sketchPickerView="below" update={update} />;
 };
