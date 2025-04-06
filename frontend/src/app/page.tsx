@@ -11,6 +11,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import ProjectCardList from "@/components/project/ProjectCardList";
 import ProjectCardGrid from "@/components/project/ProjectCardGrid";
 import NotifyNormal from "@/components/notify/NotifyNormal";
+import NotifyComeBack from "@/components/notify/NotifyComeBack";
 export const dynamic = "force-dynamic";
 
 export default function Home() {
@@ -35,6 +36,7 @@ const MainContent = () => {
   return (
     <>
       <NotifyNormal></NotifyNormal>
+      <NotifyComeBack></NotifyComeBack>
       <OriginalBanner
         src="/banner-design-today.jpg"
         title="What will you design to day?"

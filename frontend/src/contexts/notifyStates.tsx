@@ -3,19 +3,31 @@
 import { createContext, useContext, useState } from "react";
 
 const defaultValues = {
-  active: false,
+  activeNormal: false,
+  activeComeBack: false,
   title: "",
-  setActive: (val: boolean) => {},
+  setActiveNormal: (val: boolean) => {},
+  setActiveComeBack: (val: boolean) => {},
   setTitle: (val: string) => {},
 };
 
 const NotifyContext = createContext(defaultValues);
 
 export const NotifyProvider = ({ children }: { children: React.ReactNode }) => {
-  const [active, setActive] = useState(false);
+  const [activeNormal, setActiveNormal] = useState(false);
+  const [activeComeBack, setActiveComeBack] = useState(true);
   const [title, setTitle] = useState("");
   return (
-    <NotifyContext.Provider value={{ active, setActive, title, setTitle }}>
+    <NotifyContext.Provider
+      value={{
+        activeNormal,
+        activeComeBack,
+        setActiveNormal,
+        setActiveComeBack,
+        title,
+        setTitle,
+      }}
+    >
       {children}
     </NotifyContext.Provider>
   );

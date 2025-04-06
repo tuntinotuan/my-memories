@@ -22,7 +22,7 @@ const HomeSidebar = () => {
   const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
   const { boards, showCreateboard, handleOpenAndClosePopupCreateboard } =
     useCreateBoardStates();
-  const { setTitle, setActive } = useNotify();
+  const { setTitle, setActiveComeBack } = useNotify();
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
@@ -139,6 +139,9 @@ const HomeSidebar = () => {
               <Button
                 className="!justify-start gap-3 w-full hover:bg-primaryHover text-primaryText"
                 disable
+                onClick={() => {
+                  setTitle("Task deleted"), setActiveComeBack(true);
+                }}
               >
                 <DeleteForeverOutlinedIcon fontSize="medium" />
                 Trash

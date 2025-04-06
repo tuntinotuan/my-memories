@@ -14,7 +14,7 @@ type ButtonCreateProps = {
 const ButtonCreate = (props: ButtonCreateProps) => {
   const { styles, children, href, className, disable, onClick, ...rest } =
     props;
-  const { setTitle, setActive } = useNotify();
+  const { setTitle, setActiveNormal } = useNotify();
   let newStyles = "";
   switch (styles) {
     case "primary":
@@ -41,7 +41,7 @@ const ButtonCreate = (props: ButtonCreateProps) => {
             ? onClick
             : () => {
                 setTitle("Unfortunately, this feature is under development"),
-                  setActive(true);
+                  setActiveNormal(true);
               }
         }
         {...rest}

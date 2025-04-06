@@ -4,11 +4,11 @@ import CloseIcon from "../icons/CloseIcon";
 import { useNotify } from "@/contexts/notifyStates";
 
 const NotifyNormal = () => {
-  const { title, setActive } = useNotify();
+  const { title, activeNormal, setActiveNormal } = useNotify();
   return (
-    <Notify>
+    <Notify active={activeNormal} setActive={setActiveNormal}>
       {title}
-      <CloseIcon onClick={() => setActive(false)}></CloseIcon>
+      <CloseIcon onClick={() => setActiveNormal(false)}></CloseIcon>
     </Notify>
   );
 };
