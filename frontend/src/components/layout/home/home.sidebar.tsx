@@ -69,14 +69,7 @@ const HomeSidebar = () => {
             <PlusIcon />
             Create a project
           </ButtonCreate>
-          <ButtonCreate
-            className="!w-full"
-            styles="secondary"
-            onClick={() => {
-              setTitle("Unfortunately, this feature is under development"),
-                setActive(true);
-            }}
-          >
+          <ButtonCreate className="!w-full" styles="secondary" disable>
             <CrownIcon />
             Try Pro for 30 days
           </ButtonCreate>

@@ -1,4 +1,5 @@
 "use client";
+import { useNotify } from "@/contexts/notifyStates";
 import Link from "next/link";
 
 type ButtonCreateProps = {
@@ -13,6 +14,7 @@ type ButtonCreateProps = {
 const ButtonCreate = (props: ButtonCreateProps) => {
   const { styles, children, href, className, disable, onClick, ...rest } =
     props;
+  const { setTitle, setActive } = useNotify();
   let newStyles = "";
   switch (styles) {
     case "primary":
@@ -34,7 +36,14 @@ const ButtonCreate = (props: ButtonCreateProps) => {
             : ""
         }
           ${className}`}
-        onClick={!disable ? onClick : () => {}}
+        onClick={
+          !disable
+            ? onClick
+            : () => {
+                setTitle("Unfortunately, this feature is under development"),
+                  setActive(true);
+              }
+        }
         {...rest}
       >
         {children}

@@ -5,6 +5,7 @@ import FolderOpenRoundedIcon from "@mui/icons-material/FolderOpenRounded";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import FolderRoundedIcon from "@mui/icons-material/FolderRounded";
@@ -16,7 +17,7 @@ const HomeMenuSidebar = () => {
   const menuLists = [
     {
       iconNormal: <MenuRoundedIcon fontSize="medium" />,
-      iconActive: <MenuRoundedIcon fontSize="medium" />,
+      iconActive: <MenuOpenRoundedIcon fontSize="medium" />,
       text: "",
       href: "",
     },
@@ -77,7 +78,9 @@ const MenuListItems = ({ lists }: MenuListItems) => {
               : "hover:bg-primaryColor hover:bg-opacity-5"
           }`}
         >
-          {pathname === item.href ? item.iconActive : item.iconNormal}
+          {pathname === item.href || (!item.href && showHomeSidebar)
+            ? item.iconActive
+            : item.iconNormal}
         </div>
         {item.text && (
           <p
