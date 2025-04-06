@@ -1,5 +1,4 @@
 "use client";
-
 import { createContext, useContext, useState } from "react";
 
 const defaultValues = {
@@ -16,7 +15,7 @@ const NotifyContext = createContext(defaultValues);
 export const NotifyProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeNormal, setActiveNormal] = useState(false);
   const [activeComeBack, setActiveComeBack] = useState(true);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("Task is deleted");
   return (
     <NotifyContext.Provider
       value={{

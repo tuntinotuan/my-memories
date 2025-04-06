@@ -22,12 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`fixed inset-0 text-primaryBlack ${inter.className}`}>
         <CreateBoardProvider>
-          <LayoutProvider>
-            <NotifyProvider>
+          <NotifyProvider>
+            <LayoutProvider>
               <div id="myportal" />
               {children}
-            </NotifyProvider>
-          </LayoutProvider>
+            </LayoutProvider>
+          </NotifyProvider>
         </CreateBoardProvider>
       </body>
     </html>

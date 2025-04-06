@@ -8,7 +8,10 @@ const NotifyNormal = () => {
   return (
     <Notify active={activeNormal} setActive={setActiveNormal}>
       {title}
-      <CloseIcon onClick={() => setActiveNormal(false)}></CloseIcon>
+      <CloseIcon
+        className="bg-primaryColor bg-opacity-20 text-primaryColor"
+        onClick={() => setActiveNormal(false)}
+      ></CloseIcon>
     </Notify>
   );
 };

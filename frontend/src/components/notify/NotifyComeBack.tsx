@@ -7,9 +7,9 @@ const NotifyComeBack = () => {
   const { title, activeComeBack, setActiveComeBack } = useNotify();
   return (
     <Notify active={activeComeBack} setActive={setActiveComeBack}>
-      {title}
+      <p className="">{title}</p>
       <Button
-        className="text-primaryColor bg-primaryColor bg-opacity-20"
+        className="text-primaryColor bg-primaryColor bg-opacity-20 px-5"
         onClick={() => setActiveComeBack(false)}
       >
         Undo

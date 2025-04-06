@@ -17,6 +17,8 @@ export const dynamic = "force-dynamic";
 export default function Home() {
   return (
     <div className="flex h-full w-full bg-efColor overflow-hidden">
+      <NotifyNormal />
+      <NotifyComeBack />
       <HomeMenuSidebar></HomeMenuSidebar>
       <HomeSidebarCover>
         <HomeSidebar />
@@ -35,8 +37,6 @@ const MainContent = () => {
   };
   return (
     <>
-      <NotifyNormal></NotifyNormal>
-      <NotifyComeBack></NotifyComeBack>
       <OriginalBanner
         src="/banner-design-today.jpg"
         title="What will you design to day?"
