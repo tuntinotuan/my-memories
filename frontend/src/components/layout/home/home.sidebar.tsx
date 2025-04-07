@@ -84,9 +84,9 @@ const HomeSidebar = () => {
                 {showRecentDesign ? <ArrowDownIcon /> : <ArrowRightIcon />}
               </Button>
             )}
-            {showRecentDesign && (
+            {showRecentDesign && boards.length > 0 && (
               <>
-                <div className="flex flex-col items-center gap-1 ">
+                <div className="flex flex-col items-center gap-1 mb-8">
                   {boards.map((item) => (
                     <ProjectItem
                       key={item.id}
@@ -107,7 +107,7 @@ const HomeSidebar = () => {
               </>
             )}
             <Button
-              className="group text-xs !gap-1 !py-[6px] !px-2 !rounded-[4px] mb-[14px] mt-8 text-primaryText"
+              className="group text-xs !gap-1 !py-[6px] !px-2 !rounded-[4px] mb-[14px] text-primaryText"
               hover="hover:bg-primaryHover"
               onClick={handleExample}
             >

@@ -14,7 +14,7 @@ const NotifyContext = createContext(defaultValues);
 
 export const NotifyProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeNormal, setActiveNormal] = useState(false);
-  const [activeComeBack, setActiveComeBack] = useState(true);
+  const [activeComeBack, setActiveComeBack] = useState(false);
   const [title, setTitle] = useState("Task is deleted");
   return (
     <NotifyContext.Provider

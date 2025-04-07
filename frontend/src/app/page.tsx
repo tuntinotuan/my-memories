@@ -46,7 +46,7 @@ const MainContent = () => {
         <h1 className="text-2xl font-semibold">Recent designs</h1>
         <Tooltip
           showArrow
-          content={listOrGrid ? "View as Grid" : "View as List"}
+          content={listOrGrid === "list" ? "View as Grid" : "View as List"}
           placement="bottom"
           radius="sm"
           delay={200}
@@ -58,7 +58,7 @@ const MainContent = () => {
             className="w-10 h-10 flex items-center justify-center text-primaryText border border-gray-300 rounded-lg hover:bg-efColor active:border-gray-400 active:bg-gray-300 active:shadow-inner cursor-pointer transition-all"
             onClick={handleViewListOrGrid}
           >
-            {listOrGrid ? (
+            {listOrGrid === "list" ? (
               <GridViewRoundedIcon />
             ) : (
               <FormatListBulletedRoundedIcon />

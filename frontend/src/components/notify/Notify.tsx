@@ -1,4 +1,3 @@
-import { useNotify } from "@/contexts/notifyStates";
 import React, { useEffect } from "react";
 
 type NotifyProps = {
@@ -8,14 +7,14 @@ type NotifyProps = {
 };
 
 const Notify = ({ children, active, setActive }: NotifyProps) => {
-  // useEffect(() => {
-  //   if (!active) return;
-  //   const interval = setInterval(() => {
-  //     setActive(false);
-  //   }, 4000);
-  //   return () => clearInterval(interval);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [active]);
+  useEffect(() => {
+    if (!active) return;
+    const interval = setInterval(() => {
+      setActive(false);
+    }, 4000);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
 
   return (
     <div
