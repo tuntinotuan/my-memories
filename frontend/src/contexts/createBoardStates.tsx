@@ -6,6 +6,7 @@ type CreateBoardStatesType = {
   boards: Board[];
   singleBoard: Board;
   boardName: boolean;
+  loadingFetchBoards: boolean;
   showCreateboard: boolean;
   handleOpenAndClosePopupCreateboard: () => void;
   handleSetBoardName: (value: boolean) => void;
@@ -15,6 +16,7 @@ type CreateBoardStatesType = {
 
 const createBoardStatesDefaultValues: CreateBoardStatesType = {
   boards: [],
+  loadingFetchBoards: false,
   singleBoard: {
     id: 1,
     title: "2",
@@ -38,6 +40,7 @@ export const CreateBoardProvider = ({
   const [showCreateboard, setShowCreateboard] = useState(false);
   const [boardName, setBoardName] = useState(false);
   const [boards, setBoards] = useState<Board[]>([]);
+  const [loadingFetchBoards, setLoadingFetchBoards] = useState<boolean>(true);
   const [singleBoard, setSingleBoard] = useState<Board>({
     id: 1,
     title: "2",
@@ -52,18 +55,21 @@ export const CreateBoardProvider = ({
 
   // get boards from localStorage
   useEffect(() => {
-    let board = null;
-
-    try {
-      const stored = localStorage.getItem("boards");
-      if (stored) board = JSON.parse(stored);
-    } catch (error) {
-      console.error("Invalid JSON:", error);
+    async function fetchBoardsFromLocalStorage() {
+      setLoadingFetchBoards(true);
+      let board = null;
+      try {
+        const stored = localStorage.getItem("boards");
+        if (stored) board = await JSON.parse(stored);
+      } catch (error) {
+        console.error("Invalid JSON:", error);
+      }
+      if (board !== null && board.length > 0) {
+        setBoards(board);
+      }
+      setLoadingFetchBoards(false);
     }
-    if (board !== null && board.length > 0) {
-      console.log("bug");
-      setBoards(board);
-    }
+    fetchBoardsFromLocalStorage();
   }, []);
   // save boards to localStorage after update board
   useEffect(() => {
@@ -77,6 +83,7 @@ export const CreateBoardProvider = ({
         boards,
         singleBoard,
         setSingleBoard,
+        loadingFetchBoards,
         showCreateboard,
         handleOpenAndClosePopupCreateboard,
         handleSetBoardName,

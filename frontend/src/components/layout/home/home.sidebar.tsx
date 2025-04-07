@@ -20,8 +20,12 @@ const HomeSidebar = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
   const [showExampleDesign, setShowExampleDesign] = useState(true);
   const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
-  const { boards, showCreateboard, handleOpenAndClosePopupCreateboard } =
-    useCreateBoardStates();
+  const {
+    boards,
+    showCreateboard,
+    loadingFetchBoards,
+    handleOpenAndClosePopupCreateboard,
+  } = useCreateBoardStates();
   const { setTitle, setActiveComeBack } = useNotify();
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
@@ -74,6 +78,18 @@ const HomeSidebar = () => {
             Try Pro for 30 days
           </ButtonCreate>
           <div className="overflow-auto max-h-[65vh] px-1 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm mt-3">
+            {loadingFetchBoards && (
+              <div className="flex flex-col items-center gap-1">
+                {Array(4)
+                  .fill(null)
+                  .map((item, index) => (
+                    <div
+                      key={index}
+                      className="w-full h-10 bg-gray-200 rounded-md animate-pulse"
+                    ></div>
+                  ))}
+              </div>
+            )}
             {boards.length > 0 && (
               <Button
                 className="group text-xs !gap-1 !py-[6px] !px-2 !rounded-[4px] mb-[14px] text-primaryText"
