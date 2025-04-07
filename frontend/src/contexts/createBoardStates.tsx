@@ -1,6 +1,6 @@
 "use client";
 import { Board } from "@/components/popup/PopupCreateboard";
-import { useContext, useState, createContext } from "react";
+import { useContext, useState, createContext, useEffect } from "react";
 
 type CreateBoardStatesType = {
   boards: Board[];
@@ -49,6 +49,27 @@ export const CreateBoardProvider = ({
   const handleOpenAndClosePopupCreateboard = () => {
     setShowCreateboard(!showCreateboard);
   };
+
+  // get boards from localStorage
+  useEffect(() => {
+    let board = null;
+
+    try {
+      const stored = localStorage.getItem("boards");
+      if (stored) board = JSON.parse(stored);
+    } catch (error) {
+      console.error("Invalid JSON:", error);
+    }
+    if (board !== null && board.length > 0) {
+      console.log("bug");
+      setBoards(board);
+    }
+  }, []);
+  // save boards to localStorage after update board
+  useEffect(() => {
+    if (boards.length <= 0) return;
+    localStorage.setItem("boards", JSON.stringify(boards));
+  }, [boards]);
   return (
     <CreateBoardStates.Provider
       value={{
