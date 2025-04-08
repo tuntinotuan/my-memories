@@ -15,7 +15,8 @@ import { Tooltip } from "@nextui-org/tooltip";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { projectList } from "@/api/board/mock.data";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
-import { useNotify } from "@/contexts/notifyStates";
+import { usePathname } from "next/navigation";
+
 const HomeSidebar = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
   const [showExampleDesign, setShowExampleDesign] = useState(true);
@@ -26,14 +27,13 @@ const HomeSidebar = () => {
     loadingFetchBoards,
     handleOpenAndClosePopupCreateboard,
   } = useCreateBoardStates();
-  const { setTitle, setActiveComeBack } = useNotify();
+  const pathname = usePathname();
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
   const handleExample = () => {
     setShowExampleDesign((pre) => !pre);
   };
-
   return (
     <>
       {/* Popup */}
@@ -151,13 +151,14 @@ const HomeSidebar = () => {
                 )}
               </>
             )}
-            <div className="bg-f2Color absolute bottom-0 left-0 right-0 px-4">
+            <div className="bg-f2Color absolute bottom-2 left-0 right-0 px-4">
               <Button
-                className="!justify-start gap-3 w-full hover:bg-primaryHover text-primaryText"
-                disable
-                onClick={() => {
-                  setTitle("Task deleted"), setActiveComeBack(true);
-                }}
+                href="/trash"
+                className={`!justify-start gap-3 w-full hover:bg-primaryHover ${
+                  pathname === "/trash/"
+                    ? "bg-primaryHover text-primaryColor"
+                    : "text-primaryText"
+                }`}
               >
                 <DeleteForeverOutlinedIcon fontSize="medium" />
                 Trash

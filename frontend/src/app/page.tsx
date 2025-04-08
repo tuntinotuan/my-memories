@@ -12,6 +12,7 @@ import ProjectCardList from "@/components/project/ProjectCardList";
 import ProjectCardGrid from "@/components/project/ProjectCardGrid";
 import NotifyNormal from "@/components/notify/NotifyNormal";
 import NotifyComeBack from "@/components/notify/NotifyComeBack";
+import ButtonGridOrListView from "@/components/button/ButtonGridOrListView";
 export const dynamic = "force-dynamic";
 
 export default function Home() {
@@ -30,8 +31,10 @@ export default function Home() {
   );
 }
 
+export type ListOrGrid = "list" | "grid";
+
 const MainContent = () => {
-  const [listOrGrid, setListOrGrid] = useState<"list" | "grid">("grid");
+  const [listOrGrid, setListOrGrid] = useState<ListOrGrid>("grid");
   const handleViewListOrGrid = () => {
     listOrGrid === "list" ? setListOrGrid("grid") : setListOrGrid("list");
   };
@@ -44,27 +47,10 @@ const MainContent = () => {
       ></OriginalBanner>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Recent designs</h1>
-        <Tooltip
-          showArrow
-          content={listOrGrid === "list" ? "View as Grid" : "View as List"}
-          placement="bottom"
-          radius="sm"
-          delay={200}
-          closeDelay={200}
-          className="!px-2 !py-[2px]"
-          shadow="sm"
-        >
-          <div
-            className="w-10 h-10 flex items-center justify-center text-primaryText border border-gray-300 rounded-lg hover:bg-efColor active:border-gray-400 active:bg-gray-300 active:shadow-inner cursor-pointer transition-all"
-            onClick={handleViewListOrGrid}
-          >
-            {listOrGrid === "list" ? (
-              <GridViewRoundedIcon />
-            ) : (
-              <FormatListBulletedRoundedIcon />
-            )}
-          </div>
-        </Tooltip>
+        <ButtonGridOrListView
+          listOrGrid={listOrGrid}
+          handleViewListOrGrid={handleViewListOrGrid}
+        ></ButtonGridOrListView>
       </div>
       {listOrGrid === "grid" && <ProjectCardGrid />}
       {listOrGrid === "list" && <ProjectCardList />}
