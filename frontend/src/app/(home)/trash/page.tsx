@@ -2,6 +2,7 @@
 import { ListOrGrid } from "@/app/page";
 import Button from "@/components/button/Button";
 import ButtonGridOrListView from "@/components/button/ButtonGridOrListView";
+import NavRow from "@/components/nav/NavRow";
 import { useNotify } from "@/contexts/notifyStates";
 import Image from "next/image";
 import { useState } from "react";
@@ -12,7 +13,6 @@ export default function TrashPage() {
   const handleViewListOrGrid = () => {
     listOrGrid === "list" ? setListOrGrid("grid") : setListOrGrid("list");
   };
-  const navList = ["Designs", "Images", "Videos"];
   return (
     <div className="w-full px-5">
       <div className="flex items-center justify-between">
@@ -22,16 +22,7 @@ export default function TrashPage() {
           handleViewListOrGrid={handleViewListOrGrid}
         ></ButtonGridOrListView>
       </div>
-      <div className="flex items-center gap-2">
-        {navList.map((item) => (
-          <div
-            key={item}
-            className="text-sm hover:bg-gray-100 rounded-lg cursor-pointer transition-all px-2 py-3 mt-2"
-          >
-            {item}
-          </div>
-        ))}
-      </div>
+      <NavRow></NavRow>
       <div className="flex flex-col items-center w-full justify-center mx-auto mt-5">
         <Image
           src={"/trash.png"}
