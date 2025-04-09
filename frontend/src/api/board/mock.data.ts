@@ -83,8 +83,8 @@ export const projectList: { id: Id; img: LinearOrUrl; title: string }[] = [
 ];
 
 export const initialLists: ListType[] = [
-  { id: 1, title: "Todo" },
-  { id: 2, title: "Done" },
+  { id: 1, title: "Todo", boardId: 999 },
+  { id: 2, title: "Done", boardId: 999 },
 ];
 export const initialTasks: Task[] = [
   { id: 33, listId: 1, content: "Learn Reactjs" },

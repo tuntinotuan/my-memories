@@ -75,6 +75,10 @@ const LocalContent = () => {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const listsId = useMemo(() => lists.map((item) => item.id), [lists]);
   const [newTitle, setNewTitle] = useState<string>("");
+  const { singleBoard } = useCreateBoardStates();
+
+  console.log("lists", lists);
+
   const handleOpenBoxAddList = () => {
     setShowBoxAddList(true);
   };
@@ -119,10 +123,11 @@ const LocalContent = () => {
     })
   );
 
-  function createNewList(title: string) {
+  function createNewList(boardId: Id, title: string) {
     const listToAdd: ListType = {
       id: generateId(),
       title: title,
+      boardId: boardId,
     };
     setLists([...lists, listToAdd]);
   }
@@ -213,15 +218,17 @@ const LocalContent = () => {
         onDragOver={handleDragOver}
       >
         <SortableContext items={listsId}>
-          {lists.map((list) => (
-            <List
-              list={list}
-              key={list.id}
-              updateList={updateList}
-              createNewTask={createNewTask}
-              tasks={tasks.filter((task) => task.listId === list.id)}
-            ></List>
-          ))}
+          {lists
+            .filter((list) => list.boardId === singleBoard.id)
+            .map((list) => (
+              <List
+                list={list}
+                key={list.id}
+                updateList={updateList}
+                createNewTask={createNewTask}
+                tasks={tasks.filter((task) => task.listId === list.id)}
+              ></List>
+            ))}
         </SortableContext>
         {createPortal(
           <DragOverlay>
@@ -255,14 +262,14 @@ const LocalContent = () => {
             onKeyDown={(e) => {
               if (e.key !== "Enter") return;
               if (newTitle) {
-                createNewList(newTitle);
+                createNewList(singleBoard.id, newTitle);
                 setNewTitle("");
               }
             }}
             onChange={(e) => setNewTitle(e.target.value)}
             onClickBtnAdd={() => {
               if (newTitle) {
-                createNewList(newTitle);
+                createNewList(singleBoard.id, newTitle);
                 handleCloseBoxAddList();
                 setNewTitle("");
               }
