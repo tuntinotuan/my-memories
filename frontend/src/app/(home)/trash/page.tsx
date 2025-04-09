@@ -38,6 +38,7 @@ export default function TrashPage() {
         >
           Test notify
         </Button>
+        <input type="text" className="border border-gray-300 rounded" />
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ const InputEditText = ({
       {!editTitle && (
         <p
           onClick={() => setEditTitle(true)}
-          className={`px-3 rounded py-1 cursor-pointer border border-transparent transition-all ${pClass}`}
+          className={`px-3 rounded py-1 truncate cursor-pointer border border-transparent transition-all ${pClass}`}
         >
           {title}
         </p>
@@ -33,7 +33,7 @@ const InputEditText = ({
         <input
           type="text"
           defaultValue={title}
-          className={`w-auto border focus:border-secondaryColor pl-3 py-1 rounded transition-all ${inputClass}`}
+          className={`border focus:border-secondaryColor px-3 py-1 rounded !box-border transition-all ${inputClass}`}
           onChange={handleChangeTitle}
           autoFocus
           onBlur={() => {

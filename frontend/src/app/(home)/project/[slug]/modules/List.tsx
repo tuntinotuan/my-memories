@@ -53,15 +53,16 @@ const List = ({ list, updateList, createNewTask, tasks }: ListProps) => {
           isDragging ? "bg-opacity-60 border-2 border-secondaryColor" : ""
         }`}
       >
-        <div className="flex items-center justify-between text-sm font-bold">
+        <div className="flex items-center text-sm font-bold box-border">
           <InputEditText
             title={list.title}
             id={list.id}
             updateTitle={updateList}
             pClass="w-full !pr-0"
+            inputClass="w-full"
           ></InputEditText>
           <ThreeDotsIcon
-            className="p-2 hover:bg-gray-300 rounded"
+            className="shrink-0 p-2 hover:bg-gray-300 rounded"
             disabled
           ></ThreeDotsIcon>
         </div>

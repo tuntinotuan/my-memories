@@ -370,13 +370,13 @@ export const BoardColors = ({
                 : updateSingleColor(item)
             }
           >
-            {singleBoard.img.type === "colorCode" &&
+            {/* {singleBoard.img.type === "colorCode" &&
               singleBoard.img.code === item && (
                 <DoneRoundedIcon
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-green-500"
                   fontSize="small"
                 ></DoneRoundedIcon>
-              )}
+              )} */}
           </div>
         ))}
         <div

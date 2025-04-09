@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SearchIcon from "../icons/SearchIcon";
+import { useNotify } from "@/contexts/notifyStates";
 
 const SearchMenuHeader = ({
   disable,
@@ -15,6 +16,7 @@ const SearchMenuHeader = ({
   setValues?: any;
 }) => {
   const [localValue, setLocalValue] = useState("");
+  const { setTitle, setActiveNormal } = useNotify();
   const handleChangeInput = (e: any) => {
     setLocalValue(e.target.value);
   };
@@ -32,6 +34,14 @@ const SearchMenuHeader = ({
         disable ? "cursor-wait" : ""
       } ${className}`}
       style={{ width: width }}
+      onClick={
+        !disable
+          ? () => {}
+          : () => {
+              setTitle("Unfortunately, this feature is under development"),
+                setActiveNormal(true);
+            }
+      }
     >
       <SearchIcon
         fontSize="medium"
@@ -44,6 +54,7 @@ const SearchMenuHeader = ({
         className={`w-full placeholder:font-light placeholder:text-gray-500 ${
           disable ? "cursor-wait" : ""
         }`}
+        disabled={disable}
         onChange={handleChangeInput}
       ></input>
     </label>
