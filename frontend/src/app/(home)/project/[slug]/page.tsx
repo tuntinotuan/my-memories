@@ -71,13 +71,36 @@ function LocalBody({ params }: any) {
 
 const LocalContent = () => {
   const [showBoxAddList, setShowBoxAddList] = useState(false);
-  const [lists, setLists] = useState<ListType[]>(initialLists);
+  const [lists, setLists] = useState<ListType[]>([]);
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const listsId = useMemo(() => lists.map((item) => item.id), [lists]);
   const [newTitle, setNewTitle] = useState<string>("");
   const { singleBoard } = useCreateBoardStates();
 
   console.log("lists", lists);
+
+  // get lists from localStorage
+  useEffect(() => {
+    async function fetchListsFromLocalStorage() {
+      let list = null;
+      try {
+        const stored = localStorage.getItem("lists");
+        if (stored) list = await JSON.parse(stored);
+      } catch (error) {
+        console.error("Invalid JSON:", error);
+      }
+      if (list !== null && list.length > 0) {
+        setLists(list);
+      }
+      if (list === null) setLists(initialLists);
+    }
+    fetchListsFromLocalStorage();
+  }, []);
+  // save lists to localStorage after update list
+  useEffect(() => {
+    if (lists.length <= 0) return;
+    localStorage.setItem("lists", JSON.stringify(lists));
+  }, [lists]);
 
   const handleOpenBoxAddList = () => {
     setShowBoxAddList(true);
