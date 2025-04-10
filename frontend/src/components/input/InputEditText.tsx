@@ -33,7 +33,7 @@ const InputEditText = ({
         <input
           type="text"
           defaultValue={title}
-          className={`border focus:border-secondaryColor px-3 py-1 rounded !box-border transition-all ${inputClass}`}
+          className={`border focus:border-secondaryColor px-3 py-1 rounded transition-all ${inputClass}`}
           onChange={handleChangeTitle}
           autoFocus
           onBlur={() => {

@@ -296,7 +296,7 @@ const LocalContent = () => {
             {activeTask && (
               <CardItem
                 task={activeTask}
-                className="skew-x-2 rotate-6 opacity-60"
+                className="!bg-gray-400 bg-opacity-75 skew-x-2 rotate-6 opacity-60"
               ></CardItem>
             )}
           </DragOverlay>,

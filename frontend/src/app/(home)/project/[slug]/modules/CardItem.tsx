@@ -22,20 +22,18 @@ const CardItem = ({ task, className, updateTask }: any) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`bg-gray-400 bg-opacity-10 p-3 rounded-lg cursor-pointer ${className} ${
+      className={`bg-gray-100 p-2 rounded-lg cursor-grab ${className} ${
         isDragging
-          ? "blur-[0.5px] bg-opacity-25 border-2 border-secondaryColor"
+          ? "blur-[0.5px] bg-opacity-75 border-2 border-secondaryColor"
           : ""
       }`}
     >
-      {/* <p className={`cursor-text truncate ${isDragging ? "opacity-0" : ""}`}>
-        {task.content}
-      </p> */}
       <InputEditText
         id={task.id}
         title={task.content}
         updateTitle={updateTask}
-        pClass="w-full hover:bg-white hover:bg-opacity-25"
+        pClass="w-full h-auto"
+        inputClass="w-full"
       ></InputEditText>
     </div>
   );
