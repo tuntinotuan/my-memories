@@ -1,8 +1,9 @@
 import { useSortable } from "@dnd-kit/sortable";
 import React from "react";
 import { CSS } from "@dnd-kit/utilities";
+import InputEditText from "@/components/input/InputEditText";
 
-const CardItem = ({ task, className }: any) => {
+const CardItem = ({ task, className, updateTask }: any) => {
   const {
     attributes,
     listeners,
@@ -27,9 +28,15 @@ const CardItem = ({ task, className }: any) => {
           : ""
       }`}
     >
-      <p className={`cursor-text truncate ${isDragging ? "opacity-0" : ""}`}>
+      {/* <p className={`cursor-text truncate ${isDragging ? "opacity-0" : ""}`}>
         {task.content}
-      </p>
+      </p> */}
+      <InputEditText
+        id={task.id}
+        title={task.content}
+        updateTitle={updateTask}
+        pClass="w-full hover:bg-white hover:bg-opacity-25"
+      ></InputEditText>
     </div>
   );
 };

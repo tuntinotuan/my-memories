@@ -77,8 +77,6 @@ const LocalContent = () => {
   const [newTitle, setNewTitle] = useState<string>("");
   const { singleBoard } = useCreateBoardStates();
 
-  console.log("lists", lists);
-
   // get lists from localStorage
   useEffect(() => {
     async function fetchListsFromLocalStorage() {
@@ -183,6 +181,14 @@ const LocalContent = () => {
     });
     setLists(newLists);
   }
+  function updateTask(id: Id, content: string) {
+    console.log("new taskssssss", id, content);
+    const newTasks = tasks.map((item) => {
+      if (item.id !== id) return item;
+      return { ...item, content };
+    });
+    setTasks(newTasks);
+  }
   function createNewTask(listId: Id, content: string) {
     const newTask = {
       id: generateId(),
@@ -270,6 +276,7 @@ const LocalContent = () => {
                 list={list}
                 key={list.id}
                 updateList={updateList}
+                updateTask={updateTask}
                 createNewTask={createNewTask}
                 tasks={tasks.filter((task) => task.listId === list.id)}
               ></List>
@@ -281,6 +288,7 @@ const LocalContent = () => {
               <List
                 list={activeList}
                 updateList={updateList}
+                updateTask={updateTask}
                 createNewTask={createNewTask}
                 tasks={tasks.filter((task) => task.listId === activeList.id)}
               ></List>
