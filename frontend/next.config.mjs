@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "img.freepik.com"],
   },
 };
 

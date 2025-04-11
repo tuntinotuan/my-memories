@@ -1,35 +1,18 @@
+import CardAnswer from "@/components/card/CardAnswer";
+import CardKeyword from "@/components/card/CardKeyword";
 import Image from "next/image";
 
-// async function getUnsplashImage() {
-//   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
-//   const res = await fetch(
-//     `https://api.unsplash.com/photos/random?client_id=${accessKey}&count=20`,
-//     {
-//       cache: "no-store",
-//     }
-//   );
-
-//   if (!res.ok) throw new Error("Failed to fetch image");
-
-//   return res.json();
-// }
 export default async function CardPage() {
-  // const images = await getUnsplashImage();
-  // console.log("data", image);
-  console.log("data");
   return (
-    <div>
+    <div className="flex flex-col gap-2 px-4">
       Card page
-      <div className="grid grid-cols-6 w-full">
-        {/* {images.map((img: any) => (
-          <Image
-            key={img.id}
-            src={img.urls.small}
-            alt={img.alt_description}
-            width={200}
-            height={100}
-          />
-        ))} */}
+      <div className="grid grid-cols-6 gap-4 w-full">
+        {Array(9)
+          .fill(null)
+          .map((item, index) => (
+            <CardKeyword key={index}></CardKeyword>
+          ))}
+        <CardAnswer></CardAnswer>
       </div>
     </div>
   );
