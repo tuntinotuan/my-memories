@@ -216,6 +216,7 @@ const LocalContent = () => {
     const activeListId = active.id;
     const overListId = over.id;
     if (activeListId === overListId) return;
+
     setLists((board) => {
       const activeListIndex = board.findIndex(
         (item) => item.id === activeListId
@@ -234,8 +235,8 @@ const LocalContent = () => {
 
     const isActiveTask = active.data.current?.type === "Task";
     const isOverTask = over.data.current?.type === "Task";
-
     if (!isActiveTask) return;
+
     // I'm dropping a Task over another Task
     if (isActiveTask && isOverTask) {
       setTasks((tasks) => {
@@ -250,9 +251,14 @@ const LocalContent = () => {
 
     // I'm dropping a Task over a column
     if (isActiveTask && isOverAList) {
-      const activeIndex = tasks.findIndex((t) => t.id === activeId);
-      tasks[activeIndex].listId === overId;
-      return arrayMove(tasks, activeIndex, activeIndex);
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        tasks[activeIndex].listId = overId;
+        // console.log(
+        //   `$List$ | activeIndex ${activeIndex}, overId ${overId}, tasks[activeIndex].listId ${tasks[activeIndex].listId} `
+        // );
+        return arrayMove(tasks, activeIndex, activeIndex);
+      });
     }
   }
   return (
