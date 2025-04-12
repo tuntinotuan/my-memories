@@ -1,10 +1,10 @@
 import React from "react";
 import CardCover from "./card.cover";
 
-const CardAnswer = () => {
+const CardAnswer = ({ name }: { name: string }) => {
   return (
     <CardCover>
-      <p>Chanh xanh</p>
+      <p className="group-hover:text-primaryColor transition-all">{name}</p>
     </CardCover>
   );
 };
