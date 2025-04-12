@@ -7,7 +7,7 @@ export default async function CardPage() {
   return (
     <div className="flex flex-col gap-2 px-4">
       Card page
-      <div className="grid grid-cols-6 gap-4 w-full">
+      <div className="flex flex-wrap gap-4 w-full">
         {shuffleArray(cards, "long")?.map((item, index) =>
           item.type === "cardKey" ? (
             <CardKeyword

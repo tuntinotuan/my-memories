@@ -10,7 +10,7 @@ type CardKeywordProps = {
 
 const CardKeyword = ({ img, name, pronounce }: CardKeywordProps) => {
   return (
-    <CardCover>
+    <CardCover typeColor="keyword">
       {img && (
         <Image
           src={
