@@ -10,6 +10,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import FolderRoundedIcon from "@mui/icons-material/FolderRounded";
 import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomizeOutlined";
+import KeyboardOutlinedIcon from "@mui/icons-material/KeyboardOutlined";
+import KeyboardRoundedIcon from "@mui/icons-material/KeyboardRounded";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { Tooltip } from "@nextui-org/tooltip";
 const HomeMenuSidebar = () => {
@@ -32,6 +34,12 @@ const HomeMenuSidebar = () => {
       iconActive: <FolderRoundedIcon fontSize="inherit" />,
       text: "Projects",
       href: "/project/",
+    },
+    {
+      iconNormal: <KeyboardOutlinedIcon fontSize="inherit" />,
+      iconActive: <KeyboardRoundedIcon fontSize="inherit" />,
+      text: "Typing",
+      href: "/typing/",
     },
     {
       iconNormal: <DashboardCustomizeOutlinedIcon fontSize="inherit" />,

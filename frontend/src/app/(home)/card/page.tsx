@@ -6,7 +6,6 @@ import CardKeyword from "@/components/card/CardKeyword";
 export default async function CardPage() {
   return (
     <div className="flex flex-col gap-2 px-4">
-      Card page
       <div className="flex flex-wrap gap-4 w-full">
         {shuffleArray(cards, "long")?.map((item, index) =>
           item.type === "cardKey" ? (
