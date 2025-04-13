@@ -29,9 +29,24 @@ const config: Config = {
           "0%": { transform: "scale(0.2)", opacity: "0" },
           "100%": { transform: "scale(1)", opacity: "1" },
         },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0px)" },
+        },
+        hideShow: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
         popupGrow: "popupGrow 2s ease-in-out alternate",
+        wiggle: "wiggle 0.5s ease-in-out infinite",
+        fadeInUp: "fadeInUp 1s ease-out infinite",
+        hideShow: "hideShow 1.2s ease-in-out infinite",
       },
     },
   },
