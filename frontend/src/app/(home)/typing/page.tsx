@@ -7,7 +7,7 @@ export default function TypingPage() {
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const originalText = "background";
   const newText = originalText.split("");
-  console.log("text", text);
+
   const handleChangeInput = (e: any) => {
     setText(e.target.value);
     if (text.length < newText.length) {
@@ -15,7 +15,6 @@ export default function TypingPage() {
     } else {
       setCursorPosition(cursorPosition);
     }
-    console.log("values", e.target.value);
   };
   return (
     <div className="flex flex-col w-full gap-2 px-4 pt-2 bg-[#262A33] text-white">
@@ -28,11 +27,22 @@ export default function TypingPage() {
           htmlFor="typingCursor"
           className="relative flex items-center text-4xl text-[#526777] cursor-pointer"
         >
-          {newText.map((item) => (
-            <div key={item}>{item}</div>
+          {newText.map((item, index) => (
+            <div
+              key={item}
+              className={`${
+                newText[index] === text.split("")[index]
+                  ? "text-white"
+                  : text.split("")[index] !== undefined
+                  ? "text-[#E9595A]"
+                  : ""
+              }`}
+            >
+              {item}
+            </div>
           ))}
           <input
-            className="absolute top-0 bottom-0 w-[2px] h-full bg-[#43FFAF] opacity-0 focus:opacity-100 focus:animate-hideShow transition-all"
+            className="absolute top-0 bottom-0 w-[2px] rounded h-full bg-[#43FFAF] text-transparent opacity-0 focus:opacity-100 focus:animate-hideShow transition-all"
             id="typingCursor"
             onChange={handleChangeInput}
             style={{ left: cursorPosition }}

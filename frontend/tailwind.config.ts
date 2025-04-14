@@ -39,6 +39,7 @@ const config: Config = {
         },
         hideShow: {
           "0%": { opacity: "0" },
+          "50%": { opacity: "0.5" },
           "100%": { opacity: "1" },
         },
       },
@@ -46,7 +47,7 @@ const config: Config = {
         popupGrow: "popupGrow 2s ease-in-out alternate",
         wiggle: "wiggle 0.5s ease-in-out infinite",
         fadeInUp: "fadeInUp 1s ease-out infinite",
-        hideShow: "hideShow 1.2s ease-in-out infinite",
+        hideShow: "hideShow 1s ease-in infinite",
       },
     },
   },
