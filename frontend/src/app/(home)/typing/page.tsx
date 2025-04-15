@@ -1,18 +1,22 @@
 "use client";
 import SettingIcon from "@/components/icons/SettingIcon";
 import { Tooltip } from "@nextui-org/tooltip";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AccessTimeFilledRoundedIcon from "@mui/icons-material/AccessTimeFilledRounded";
 import TextFormatIcon from "@mui/icons-material/TextFormat";
+import { typingwords } from "@/api/typing/typing.data.structure";
 export default function TypingPage() {
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
-  const originalText = "background";
-  const newText = originalText.split("");
+  const [currentTyping, setCurrentTyping] = useState(typingwords[0]);
+  const ref = useRef(1);
+
+  console.log("currentTyping", currentTyping);
 
   const handleChangeInput = (e: any) => {
+    if (e.target.value === " ") return;
     setText(e.target.value);
-    if (text.length < newText.length) {
+    if (text.length < currentTyping.word.length) {
       setCursorPosition(20 * e.target.value.length + 1);
     } else {
       setCursorPosition(cursorPosition);
@@ -26,11 +30,11 @@ export default function TypingPage() {
           htmlFor="typingCursor"
           className="relative flex items-center text-4xl text-[#526777] cursor-pointer"
         >
-          {newText.map((item, index) => (
+          {currentTyping.word.split("").map((item, index) => (
             <div
-              key={item}
+              key={index}
               className={`${
-                newText[index] === text.split("")[index]
+                currentTyping.word[index] === text.split("")[index]
                   ? "text-white"
                   : text.split("")[index] !== undefined
                   ? "text-[#E9595A]"
@@ -41,13 +45,28 @@ export default function TypingPage() {
             </div>
           ))}
           <input
+            value={text}
             className="absolute top-0 bottom-0 w-[2px] rounded h-full bg-[#43FFAF] text-transparent opacity-0 focus:opacity-100 focus:animate-hideShow transition-all"
             id="typingCursor"
             onChange={handleChangeInput}
             style={{ left: cursorPosition }}
+            onKeyDown={(e) => {
+              console.log("e.key", e.key);
+              if (e.key === " ") {
+                setCurrentTyping(typingwords[ref.current]);
+                setCursorPosition(0);
+                setText("");
+                if (typingwords[ref.current + 1] !== undefined) {
+                  ref.current = ref.current + 1;
+                } else {
+                  ref.current = 1;
+                  setCurrentTyping(typingwords[0]);
+                }
+              }
+            }}
           />
         </label>
-        <span className="text-2xl">Lý lịch, phần sau</span>
+        <span className="text-2xl">{currentTyping.meaning}</span>
       </div>
     </div>
   );
