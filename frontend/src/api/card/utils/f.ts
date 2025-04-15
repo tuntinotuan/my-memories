@@ -1,6 +1,6 @@
 import { CardType } from "../card.data.types";
 
-export function shuffleArray(arr: CardType[], type: "short" | "long") {
+export function shuffleArray(arr: any[], type: "short" | "long") {
   const copy = [...arr];
 
   if (type === "short") return copy.sort(() => Math.random() - 0.5);

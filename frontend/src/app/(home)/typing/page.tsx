@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import AccessTimeFilledRoundedIcon from "@mui/icons-material/AccessTimeFilledRounded";
 import TextFormatIcon from "@mui/icons-material/TextFormat";
 import { typingwords } from "@/api/typing/typing.data.structure";
+import { shuffleArray } from "@/api/card/utils/f";
 
 export default function TypingPage() {
   return (
@@ -41,6 +42,9 @@ const TypingHeaderMenu = () => {
         words
       </div>
       <div className="w-[6px] h-full bg-[#262A33] rounded-full"></div>
+      <p className="text-[#43FFAF] hover:text-white transition-all cursor-pointer">
+        1
+      </p>
       <p className="hover:text-white transition-all cursor-pointer">10</p>
       <p className="hover:text-white transition-all cursor-pointer">25</p>
       <p className="hover:text-white transition-all cursor-pointer">50</p>
@@ -54,7 +58,8 @@ const TypingHeaderMenu = () => {
 const TypingContent = () => {
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
-  const [currentTyping, setCurrentTyping] = useState(typingwords[0]);
+  const typingwordsRandom = shuffleArray(typingwords, "short");
+  const [currentTyping, setCurrentTyping] = useState(typingwordsRandom[0]);
   const ref = useRef(1);
 
   console.log("currentTyping", currentTyping);
@@ -75,13 +80,40 @@ const TypingContent = () => {
     if (e.target.value === " ") return;
     setText(e.target.value);
   };
+  const handleOnKeyDown = (e: any) => {
+    if (e.key === " ") {
+      setCurrentTyping(typingwordsRandom[ref.current]);
+      setCursorPosition(0);
+      setText("");
+      if (typingwordsRandom[ref.current + 1] !== undefined) {
+        ref.current = ref.current + 1;
+      } else {
+        ref.current = 1;
+        setCurrentTyping(typingwordsRandom[0]);
+      }
+    }
+    const textWidthIncrease = getTextWidth(
+      currentTyping.word[text ? text.length : 0],
+      "36px Arial"
+    );
+    const textWidthDecrease = getTextWidth(
+      currentTyping.word[text ? text.length - 1 : 0],
+      "36px Arial"
+    );
+    if (text.length < currentTyping.word.length && e.key !== " ") {
+      e.key !== "Backspace" &&
+        setCursorPosition(cursorPosition + textWidthIncrease + 1.5);
+    }
+    if (e.key === "Backspace" && text.length > 0)
+      setCursorPosition(cursorPosition - textWidthDecrease - 1.5);
+  };
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 ">
       <label
         htmlFor="typingCursor"
         className="relative flex items-center text-4xl text-[#526777] cursor-pointer"
       >
-        {currentTyping.word.split("").map((item, index) => (
+        {currentTyping.word.split("").map((item: string, index: number) => (
           <div
             key={index}
             className={`${
@@ -101,33 +133,7 @@ const TypingContent = () => {
           id="typingCursor"
           onChange={handleChangeInput}
           style={{ left: cursorPosition }}
-          onKeyDown={(e) => {
-            if (e.key === " ") {
-              setCurrentTyping(typingwords[ref.current]);
-              setCursorPosition(0);
-              setText("");
-              if (typingwords[ref.current + 1] !== undefined) {
-                ref.current = ref.current + 1;
-              } else {
-                ref.current = 1;
-                setCurrentTyping(typingwords[0]);
-              }
-            }
-            const textWidthIncrease = getTextWidth(
-              currentTyping.word[text ? text.length : 0],
-              "36px Arial"
-            );
-            const textWidthDecrease = getTextWidth(
-              currentTyping.word[text ? text.length - 1 : 0],
-              "36px Arial"
-            );
-            if (text.length < currentTyping.word.length && e.key !== " ") {
-              e.key !== "Backspace" &&
-                setCursorPosition(cursorPosition + textWidthIncrease + 1.5);
-            }
-            if (e.key === "Backspace" && text.length > 0)
-              setCursorPosition(cursorPosition - textWidthDecrease - 1.5);
-          }}
+          onKeyDown={handleOnKeyDown}
         />
       </label>
       <span className="text-2xl">{currentTyping.meaning}</span>
