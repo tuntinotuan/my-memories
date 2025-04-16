@@ -46,7 +46,7 @@ export const typingwords: typingWordsTypes[] = [
     meaning: "giỏ, rổ",
   },
   {
-    word: "fuel truck",
+    word: "fueltruck",
     meaning: "xe tải, nhiên liệu",
   },
   {
