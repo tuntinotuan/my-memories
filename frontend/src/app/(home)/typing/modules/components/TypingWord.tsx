@@ -1,7 +1,8 @@
 import React from "react";
 import TypingCursor from "./TypingCursor";
+import { typingWordsTypes } from "@/api/typing/typing.type";
 type TypingWordProps = {
-  currentTyping: any;
+  currentTyping: typingWordsTypes;
   text: string;
   onChange: (e: any) => void;
   onKeyDown: (e: any) => void;
@@ -17,7 +18,7 @@ const TypingWord = ({
   return (
     <label
       htmlFor="typingCursor"
-      className="relative flex items-center text-4xl text-[#526777] cursor-pointer"
+      className="relative flex items-center text-4xl text-[#526777] cursor-pointer select-none"
     >
       {currentTyping.word.split("").map((item: string, index: number) => (
         <div

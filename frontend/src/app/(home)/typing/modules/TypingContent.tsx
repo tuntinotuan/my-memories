@@ -4,11 +4,16 @@ import TypingRestart from "@/components/typing/TypingRestart";
 import { getTextWidth } from "@/utils/stringFs";
 import { useRef, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
+import { TypingManyWords } from "./TypingManyWords";
+import { typingWordsTypes } from "@/api/typing/typing.type";
 
 export const TypingContent = () => {
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
-  const typingwordsRandom = shuffleArray(typingwords, "short");
+  const typingwordsRandom: typingWordsTypes[] = shuffleArray(
+    typingwords,
+    "short"
+  );
   const [currentTyping, setCurrentTyping] = useState(typingwordsRandom[0]);
   const refCountIndexArray = useRef(1);
 
@@ -51,13 +56,22 @@ export const TypingContent = () => {
   };
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 ">
-      <TypingOnlyAWord
-        currentTyping={currentTyping}
+      {false && (
+        <TypingOnlyAWord
+          currentTyping={currentTyping}
+          text={text}
+          onChange={handleChangeInput}
+          onKeyDown={handleOnKeyDown}
+          cursorPosition={cursorPosition}
+        ></TypingOnlyAWord>
+      )}
+      <TypingManyWords
         text={text}
+        words={typingwords}
         onChange={handleChangeInput}
         onKeyDown={handleOnKeyDown}
         cursorPosition={cursorPosition}
-      ></TypingOnlyAWord>
+      ></TypingManyWords>
       <TypingRestart
         onRestart={() => {
           setCurrentTyping(typingwordsRandom[0]);
