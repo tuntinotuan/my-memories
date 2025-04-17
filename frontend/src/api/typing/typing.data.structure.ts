@@ -65,8 +65,4 @@ export const typingwords: typingWordsTypes[] = [
     word: "conductor",
     meaning: "nhạc trưởng, chỉ huy",
   },
-  {
-    word: "conductor",
-    meaning: "nhạc trưởng, chỉ huy",
-  },
 ];

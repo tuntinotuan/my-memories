@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 
-type typingStylesType = "combine" | "words";
+export type typingStylesType = "time" | "combine" | "words";
 
 type defaltValuesType = {
   typingStyles: typingStylesType;
