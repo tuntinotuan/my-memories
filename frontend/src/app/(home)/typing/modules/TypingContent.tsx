@@ -16,6 +16,7 @@ export const TypingContent = () => {
   );
   const [currentTyping, setCurrentTyping] = useState(typingwordsRandom[0]);
   const refCountIndexArray = useRef(1);
+  const refNextWord = useRef(0);
 
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
@@ -26,6 +27,7 @@ export const TypingContent = () => {
       setCurrentTyping(typingwordsRandom[refCountIndexArray.current]);
       setCursorPosition(0);
       setText("");
+      refNextWord.current = refNextWord.current + 1;
       if (typingwordsRandom[refCountIndexArray.current + 1] !== undefined) {
         refCountIndexArray.current = refCountIndexArray.current + 1;
       } else {
@@ -65,13 +67,7 @@ export const TypingContent = () => {
           cursorPosition={cursorPosition}
         ></TypingOnlyAWord>
       )}
-      <TypingManyWords
-        text={text}
-        words={typingwords}
-        onChange={handleChangeInput}
-        onKeyDown={handleOnKeyDown}
-        cursorPosition={cursorPosition}
-      ></TypingManyWords>
+      <TypingManyWords words={typingwords}></TypingManyWords>
       <TypingRestart
         onRestart={() => {
           setCurrentTyping(typingwordsRandom[0]);
