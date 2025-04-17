@@ -6,8 +6,10 @@ import { useRef, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
 import { typingWordsTypes } from "@/api/typing/typing.type";
+import { useTyping } from "@/contexts/TypingStates";
 
 export const TypingContent = () => {
+  const { typingStyles } = useTyping();
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const typingwordsRandom: typingWordsTypes[] = shuffleArray(
@@ -58,7 +60,11 @@ export const TypingContent = () => {
   };
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 ">
-      {false && (
+      {/* <div className="flex items-center justify-between w-full">
+        <p className="text-xl text-[#43FFAF]">0 / 17</p>
+        <div></div>
+      </div> */}
+      {typingStyles === "combine" && (
         <TypingOnlyAWord
           currentTyping={currentTyping}
           text={text}
@@ -67,7 +73,9 @@ export const TypingContent = () => {
           cursorPosition={cursorPosition}
         ></TypingOnlyAWord>
       )}
-      <TypingManyWords words={typingwords}></TypingManyWords>
+      {typingStyles === "words" && (
+        <TypingManyWords words={typingwords}></TypingManyWords>
+      )}
       <TypingRestart
         onRestart={() => {
           setCurrentTyping(typingwordsRandom[0]);
