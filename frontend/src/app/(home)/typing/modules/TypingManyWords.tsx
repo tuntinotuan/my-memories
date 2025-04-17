@@ -17,6 +17,16 @@ export const TypingManyWords = ({ words }: TypingManyWordsProps) => {
     setText(e.target.value.trim());
   };
 
+  useEffect(() => {
+    document.getElementById(`typingCursorId${countNextWord}`)?.focus();
+
+    console.log("typingID", `typingCursorId${countNextWord + 1}`);
+    console.log(
+      "typingID",
+      document.getElementById(`typingCursorId${countNextWord + 1}`)
+    );
+  }, [countNextWord]);
+
   const handleOnKeyDown = (e: any) => {
     if (e.key === " " && text.length === words[countNextWord].word.length) {
       setCursorPosition(0);
