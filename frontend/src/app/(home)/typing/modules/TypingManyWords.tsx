@@ -30,12 +30,12 @@ export const TypingManyWords = () => {
     }
     const textWidthIncrease = getTextWidth(
       refWords.current[countNextWord].word[text ? text.length : 0],
-      "36px Arial"
+      "36px monospace"
     );
     console.log("textWidthIncrease", textWidthIncrease);
     const textWidthDecrease = getTextWidth(
       refWords.current[countNextWord].word[text ? text.length - 1 : 0],
-      "36px Arial"
+      "36px monospace"
     );
     if (
       text.length < refWords.current[countNextWord].word.length &&

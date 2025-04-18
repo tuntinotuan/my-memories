@@ -39,11 +39,11 @@ export const TypingContent = () => {
     }
     const textWidthIncrease = getTextWidth(
       currentTyping.word[text ? text.length : 0],
-      "36px Arial"
+      "36px monospace"
     );
     const textWidthDecrease = getTextWidth(
       currentTyping.word[text ? text.length - 1 : 0],
-      "36px Arial"
+      "36px monospace"
     );
     if (
       text.length < currentTyping.word.length &&

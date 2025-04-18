@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import "../styles/_reset-css.css";
 import "./globals.css";
 import { LayoutProvider } from "@/contexts/layoutStates";
 import { CreateBoardProvider } from "@/contexts/createBoardStates";
 import { NotifyProvider } from "@/contexts/notifyStates";
 
-const inter = Inter({ subsets: ["latin"] });
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"], // adjust based on what you need
+  variable: "--font-roboto-mono", // optional, for use in CSS
+  display: "swap", // optional for better UX
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`fixed inset-0 text-primaryBlack ${inter.className}`}>
+      <body className={`fixed inset-0 text-primaryBlack`}>
         <CreateBoardProvider>
           <NotifyProvider>
             <LayoutProvider>
