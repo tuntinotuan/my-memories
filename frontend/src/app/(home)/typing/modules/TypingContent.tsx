@@ -64,6 +64,7 @@ export const TypingContent = () => {
         <p className="text-xl text-[#43FFAF]">0 / 17</p>
         <div></div>
       </div> */}
+      {typingStyles === "time" && <p>This feature is under development</p>}
       {typingStyles === "combine" && (
         <TypingOnlyAWord
           currentTyping={currentTyping}
@@ -73,9 +74,7 @@ export const TypingContent = () => {
           cursorPosition={cursorPosition}
         ></TypingOnlyAWord>
       )}
-      {typingStyles === "words" && (
-        <TypingManyWords words={typingwords}></TypingManyWords>
-      )}
+      {typingStyles === "words" && <TypingManyWords />}
       <TypingRestart
         onRestart={() => {
           setCurrentTyping(typingwordsRandom[0]);
