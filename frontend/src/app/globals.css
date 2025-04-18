@@ -33,7 +33,7 @@
 } */
 
 body {
-  font-family: "DM Mono", serif;
+  font-family: Arial;
 }
 
 @layer utilities {

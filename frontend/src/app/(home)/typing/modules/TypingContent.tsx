@@ -53,10 +53,10 @@ export const TypingContent = () => {
       !e.altKey
     ) {
       e.key !== "Backspace" &&
-        setCursorPosition(cursorPosition + textWidthIncrease + 1.5);
+        setCursorPosition(cursorPosition + textWidthIncrease);
     }
     if (e.key === "Backspace" && text.length > 0)
-      setCursorPosition(cursorPosition - textWidthDecrease - 1.5);
+      setCursorPosition(cursorPosition - textWidthDecrease);
   };
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 ">

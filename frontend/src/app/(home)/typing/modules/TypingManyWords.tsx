@@ -9,15 +9,14 @@ export const TypingManyWords = () => {
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const [countNextWord, setCountNextWord] = useState(0);
   const refWords = useRef(shuffleArray(typingwords, "short"));
-  const handleChangeInput = (e: any) => {
-    if (e.target.value === " ") return;
-    setText(e.target.value.trim());
-  };
 
   useEffect(() => {
     document.getElementById(`typingCursorId${countNextWord}`)?.focus();
   }, [countNextWord]);
-
+  const handleChangeInput = (e: any) => {
+    if (e.target.value === " ") return;
+    setText(e.target.value.trim());
+  };
   const handleOnKeyDown = (e: any) => {
     if (
       e.key === " " &&
@@ -25,12 +24,15 @@ export const TypingManyWords = () => {
     ) {
       setCursorPosition(0);
       setText("");
-      setCountNextWord(countNextWord + 1);
+      setCountNextWord(
+        countNextWord + 1 !== refWords.current.length ? countNextWord + 1 : 0
+      );
     }
     const textWidthIncrease = getTextWidth(
       refWords.current[countNextWord].word[text ? text.length : 0],
       "36px Arial"
     );
+    console.log("textWidthIncrease", textWidthIncrease);
     const textWidthDecrease = getTextWidth(
       refWords.current[countNextWord].word[text ? text.length - 1 : 0],
       "36px Arial"
@@ -43,10 +45,10 @@ export const TypingManyWords = () => {
       !e.altKey
     ) {
       e.key !== "Backspace" &&
-        setCursorPosition(cursorPosition + textWidthIncrease + 1.5);
+        setCursorPosition(cursorPosition + textWidthIncrease);
     }
     if (e.key === "Backspace" && text.length > 0)
-      setCursorPosition(cursorPosition - textWidthDecrease - 1.5);
+      setCursorPosition(cursorPosition - textWidthDecrease);
   };
   console.log("refWords.current", refWords.current);
   console.log("next", countNextWord);

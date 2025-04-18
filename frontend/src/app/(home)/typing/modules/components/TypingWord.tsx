@@ -43,13 +43,15 @@ const TypingWord = ({
           {item}
         </div>
       ))}
-      <TypingCursor
-        id={next === wordIndex ? cursorId + wordIndex : ""}
-        value={text}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        cursorPosition={cursorPosition}
-      />
+      {next === wordIndex && (
+        <TypingCursor
+          id={next === wordIndex ? cursorId + wordIndex : ""}
+          value={text}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          cursorPosition={cursorPosition}
+        />
+      )}
     </label>
   );
 };
