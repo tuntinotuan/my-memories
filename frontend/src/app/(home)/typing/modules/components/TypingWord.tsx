@@ -21,10 +21,7 @@ const TypingWord = ({
 }: TypingWordProps) => {
   const cursorId: string = "typingCursorId";
   return (
-    <label
-      htmlFor={next === wordIndex ? cursorId + wordIndex : ""}
-      className="relative flex items-center text-4xl text-[#526777] cursor-pointer select-none"
-    >
+    <label className="relative flex items-center text-4xl text-[#526777] cursor-pointer select-none">
       {currentTyping.word.split("").map((item: string, index: number) => (
         <div
           key={index}
@@ -45,7 +42,7 @@ const TypingWord = ({
       ))}
       {next === wordIndex && (
         <TypingCursor
-          id={next === wordIndex ? cursorId + wordIndex : ""}
+          id={next !== undefined ? cursorId + next : cursorId}
           value={text}
           onChange={onChange}
           onKeyDown={onKeyDown}

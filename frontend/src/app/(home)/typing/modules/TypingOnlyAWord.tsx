@@ -1,6 +1,6 @@
-import TypingCursor from "./components/TypingCursor";
 import TypingMeaning from "./components/TypingMeaning";
 import TypingWord from "./components/TypingWord";
+import TypingOverlayBlur from "./TypingOverlayBlur";
 
 type TypingOnlyAWordProps = {
   currentTyping: any;
@@ -27,6 +27,7 @@ export const TypingOnlyAWord = ({
         cursorPosition={cursorPosition}
       ></TypingWord>
       <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
+      <TypingOverlayBlur htmlFor={"typingCursorId"}></TypingOverlayBlur>
     </>
   );
 };

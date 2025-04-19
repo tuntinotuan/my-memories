@@ -3,6 +3,7 @@ import { getTextWidth } from "@/utils/stringFs";
 import { useEffect, useRef, useState } from "react";
 import { typingwords } from "@/api/typing/typing.data.structure";
 import { shuffleArray } from "@/api/card/utils/f";
+import TypingOverlayBlur from "./TypingOverlayBlur";
 
 export const TypingManyWords = () => {
   const [text, setText] = useState<string>("");
@@ -53,22 +54,24 @@ export const TypingManyWords = () => {
   console.log("refWords.current", refWords.current);
   console.log("next", countNextWord);
   return (
-    <label
-      htmlFor={`typingCursorId${countNextWord}`}
-      className="flex flex-wrap gap-4"
-    >
-      {refWords.current.map((word, index) => (
-        <TypingWord
-          key={index}
-          next={countNextWord}
-          wordIndex={index}
-          currentTyping={word}
-          text={text}
-          onChange={handleChangeInput}
-          onKeyDown={handleOnKeyDown}
-          cursorPosition={cursorPosition}
-        ></TypingWord>
-      ))}
-    </label>
+    <>
+      <label className="flex flex-wrap gap-4">
+        {refWords.current.map((word, index) => (
+          <TypingWord
+            key={index}
+            next={countNextWord}
+            wordIndex={index}
+            currentTyping={word}
+            text={text}
+            onChange={handleChangeInput}
+            onKeyDown={handleOnKeyDown}
+            cursorPosition={cursorPosition}
+          ></TypingWord>
+        ))}
+      </label>
+      <TypingOverlayBlur
+        htmlFor={`typingCursorId${countNextWord}`}
+      ></TypingOverlayBlur>
+    </>
   );
 };
