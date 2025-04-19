@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { useTyping } from "@/contexts/TypingStates";
+import { useTyping } from "@/contexts/typingStates";
 
 export const TypingContent = () => {
   const { typingStyles } = useTyping();

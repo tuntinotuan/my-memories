@@ -3,8 +3,9 @@ import { Tooltip } from "@nextui-org/tooltip";
 import ClockIcon from "@/components/icons/ClockIcon";
 import WordIcon from "@/components/icons/WordIcon";
 import SplitscreenRoundedIcon from "@mui/icons-material/SplitscreenRounded";
-import { typingStylesType, useTyping } from "@/contexts/TypingStates";
+import { typingStylesType, useTyping } from "@/contexts/typingStates";
 import React from "react";
+import { WordAmountType } from "./types";
 
 export const TypingHeaderMenu = () => {
   const { typingStyles } = useTyping();
@@ -34,20 +35,21 @@ export const TypingHeaderMenu = () => {
     </div>
   );
 };
-
 const SplitElement = () => {
   return <div className="w-[6px] h-full bg-[#262A33] rounded-full"></div>;
 };
 const WordAmount = () => {
-  const listAmount = [10, 25, 50, 100];
+  const listAmount: WordAmountType[] = [10, 25, 50, 100];
+  const { wordAmount, setWordAmount } = useTyping();
   return (
     <>
       {listAmount.map((item) => (
         <p
           key={item}
           className={`transition-all cursor-pointer ${
-            item === 10 ? "text-[#43FFAF]" : "hover:text-white"
+            item === wordAmount ? "text-[#43FFAF]" : "hover:text-white"
           }`}
+          onClick={() => setWordAmount(item)}
         >
           {item}
         </p>
