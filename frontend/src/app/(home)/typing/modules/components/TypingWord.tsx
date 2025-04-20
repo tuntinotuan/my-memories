@@ -21,7 +21,7 @@ const TypingWord = ({
 }: TypingWordProps) => {
   const cursorId: string = "typingCursorId";
   return (
-    <label className="relative flex items-center text-4xl text-[#526777] cursor-pointer select-none">
+    <div className="relative flex items-center text-4xl text-[#526777] cursor-default select-none">
       {currentTyping.word.split("").map((item: string, index: number) => (
         <div
           key={index}
@@ -49,7 +49,7 @@ const TypingWord = ({
           cursorPosition={cursorPosition}
         />
       )}
-    </label>
+    </div>
   );
 };
 

@@ -60,7 +60,8 @@ export const TypingManyWords = () => {
       e.key.length === 1 &&
       !e.ctrlKey &&
       !e.metaKey &&
-      !e.altKey
+      !e.altKey &&
+      e.key !== " "
     ) {
       e.key !== "Backspace" &&
         setCursorPosition(cursorPosition + textWidthIncrease);
