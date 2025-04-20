@@ -2,9 +2,9 @@ import TypingWord from "./components/TypingWord";
 import { getTextWidth } from "@/utils/stringFs";
 import { useEffect, useRef, useState } from "react";
 import { typingwords } from "@/api/typing/typing.data.structure";
-import { shuffleArray } from "@/api/card/utils/f";
 import TypingOverlayBlur from "./TypingOverlayBlur";
 import { useTyping } from "@/contexts/typingStates";
+import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 
 export const TypingManyWords = () => {
@@ -13,15 +13,21 @@ export const TypingManyWords = () => {
   const [countNextWord, setCountNextWord] = useState(0);
   const { wordAmount } = useTyping();
 
-  const refWords = useRef(shuffleArray(typingwords, "short"));
-  const newWords: typingWordsTypes[] = Array.from(
-    { length: wordAmount },
-    () => {
-      const randomIndex = Math.floor(Math.random() * refWords.current.length);
-      return refWords.current[randomIndex];
-    }
+  const refWords = useRef(
+    creationNewArrWithQuantityBigger(typingwords, wordAmount)
   );
-  console.log("newWords", newWords);
+  const [newArrWords, setNewArrWords] = useState<typingWordsTypes[]>(
+    refWords.current
+  );
+  useEffect(() => {
+    setNewArrWords(
+      creationNewArrWithQuantityBigger(refWords.current, wordAmount)
+    );
+    setCursorPosition(0);
+    setText("");
+    setCountNextWord(0);
+  }, [wordAmount]);
+
   useEffect(() => {
     document.getElementById(`typingCursorId${countNextWord}`)?.focus();
   }, [countNextWord]);
@@ -30,24 +36,27 @@ export const TypingManyWords = () => {
     setText(e.target.value.trim());
   };
   const handleOnKeyDown = (e: any) => {
-    if (e.key === " " && text.length === newWords[countNextWord].word.length) {
+    if (
+      e.key === " " &&
+      text.length === newArrWords[countNextWord].word.length
+    ) {
       setCursorPosition(0);
       setText("");
       setCountNextWord(
-        countNextWord + 1 !== newWords.length ? countNextWord + 1 : 0
+        countNextWord + 1 !== newArrWords.length ? countNextWord + 1 : 0
       );
     }
     const textWidthIncrease = getTextWidth(
-      newWords[countNextWord].word[text ? text.length : 0],
+      newArrWords[countNextWord].word[text ? text.length : 0],
       "36px monospace"
     );
     console.log("textWidthIncrease", textWidthIncrease);
     const textWidthDecrease = getTextWidth(
-      newWords[countNextWord].word[text ? text.length - 1 : 0],
+      newArrWords[countNextWord].word[text ? text.length - 1 : 0],
       "36px monospace"
     );
     if (
-      text.length < newWords[countNextWord].word.length &&
+      text.length < newArrWords[countNextWord].word.length &&
       e.key.length === 1 &&
       !e.ctrlKey &&
       !e.metaKey &&
@@ -59,12 +68,12 @@ export const TypingManyWords = () => {
     if (e.key === "Backspace" && text.length > 0)
       setCursorPosition(cursorPosition - textWidthDecrease);
   };
-  console.log("newWords", newWords);
+  console.log("newArrWords", newArrWords);
   console.log("next", countNextWord);
   return (
     <>
       <label className="flex flex-wrap gap-4">
-        {newWords.map((word, index) => (
+        {newArrWords.map((word, index) => (
           <TypingWord
             key={index}
             next={countNextWord}
