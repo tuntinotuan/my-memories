@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TypingCursor from "./TypingCursor";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 type TypingWordProps = {
@@ -20,22 +20,29 @@ const TypingWord = ({
   cursorPosition,
 }: TypingWordProps) => {
   const cursorId: string = "typingCursorId";
+  const [newText, setNewText] = useState<string>(text);
+  useEffect(() => {
+    if (next === wordIndex) {
+      setNewText(text);
+    }
+    // get correct key word
+    // const correct = document.getElementsByClassName("correct");
+    // console.log("correct", correct.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text]);
+
   return (
     <div className="relative flex items-center text-4xl text-[#526777] cursor-default select-none">
       {currentTyping.word.split("").map((item: string, index: number) => (
         <div
           key={index}
-          className={
-            next === wordIndex
-              ? `${
-                  currentTyping.word[index] === text.split("")[index]
-                    ? "text-white"
-                    : text.split("")[index] !== undefined
-                    ? "text-[#E9595A]"
-                    : ""
-                }`
+          className={`${
+            currentTyping.word[index] === newText.split("")[index]
+              ? "text-white correct"
+              : newText.split("")[index] !== undefined
+              ? "text-[#E9595A] wrong"
               : ""
-          }
+          }`}
         >
           {item}
         </div>

@@ -19,12 +19,19 @@ const TypingRestart = ({ onRestart }: TypingRestartProps) => {
         className="!px-2 !py-[2px]"
         shadow="sm"
       >
-        <button>
+        <label
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onRestart && onRestart();
+            }
+          }}
+        >
           <SettingsBackupRestoreRoundedIcon
             className="cursor-pointer"
             onClick={onRestart}
           ></SettingsBackupRestoreRoundedIcon>
-        </button>
+        </label>
       </Tooltip>
     </div>
   );

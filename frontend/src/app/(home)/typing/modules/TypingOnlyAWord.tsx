@@ -19,13 +19,15 @@ export const TypingOnlyAWord = ({
 }: TypingOnlyAWordProps) => {
   return (
     <>
-      <TypingWord
-        currentTyping={currentTyping}
-        text={text}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        cursorPosition={cursorPosition}
-      ></TypingWord>
+      <label>
+        <TypingWord
+          currentTyping={currentTyping}
+          text={text}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          cursorPosition={cursorPosition}
+        ></TypingWord>
+      </label>
       <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
       <TypingOverlayBlur htmlFor={"typingCursorId"}></TypingOverlayBlur>
     </>

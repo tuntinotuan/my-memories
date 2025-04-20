@@ -69,8 +69,6 @@ export const TypingManyWords = () => {
     if (e.key === "Backspace" && text.length > 0)
       setCursorPosition(cursorPosition - textWidthDecrease);
   };
-  console.log("newArrWords", newArrWords);
-  console.log("next", countNextWord);
   return (
     <>
       <label className="flex flex-wrap gap-4">
