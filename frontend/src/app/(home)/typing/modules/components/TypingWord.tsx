@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import TypingCursor from "./TypingCursor";
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { useTyping } from "@/contexts/TypingStates";
+import { useTyping } from "@/contexts/typingStates";
 type TypingWordProps = {
   currentTyping: typingWordsTypes;
   text: string;

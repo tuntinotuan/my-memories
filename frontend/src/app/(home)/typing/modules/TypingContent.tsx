@@ -7,10 +7,10 @@ import { useEffect, useRef, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { useTyping } from "@/contexts/TypingStates";
+import { useTyping } from "@/contexts/typingStates";
 
 export const TypingContent = () => {
-  const { typingStyles } = useTyping();
+  const { typingStyles, wordAmount, countNextWord } = useTyping();
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -20,10 +20,12 @@ export const TypingContent = () => {
   if (!hydrated) return null; // or a skeleton/placeholder
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 ">
-      {/* <div className="flex items-center justify-between w-full">
-        <p className="text-xl text-[#43FFAF]">0 / 17</p>
-        <div></div>
-      </div> */}
+      {typingStyles !== "combine" && (
+        <div className="flex items-center justify-between w-full">
+          <p className="text-xl text-[#43FFAF] transition-all">{`${countNextWord}/${wordAmount}`}</p>
+          <div></div>
+        </div>
+      )}
       {typingStyles === "time" && <p>This feature is under development</p>}
       {typingStyles === "combine" && <TypingOnlyAWord />}
       {typingStyles === "words" && <TypingManyWords />}
