@@ -12,6 +12,8 @@ export const TypingManyWords = () => {
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const [countNextWord, setCountNextWord] = useState(0);
   const { wordAmount } = useTyping();
+  const [heightFlexible, setHeightFlexible] = useState(0);
+  const [rowCount, setRowCount] = useState<number>(0);
 
   const refWords = useRef(
     creationNewArrWithQuantityBigger(typingwords, wordAmount)
@@ -19,6 +21,7 @@ export const TypingManyWords = () => {
   const [newArrWords, setNewArrWords] = useState<typingWordsTypes[]>(
     refWords.current
   );
+  console.log("rowCount", rowCount);
   useEffect(() => {
     setNewArrWords(
       creationNewArrWithQuantityBigger(refWords.current, wordAmount)
@@ -26,7 +29,34 @@ export const TypingManyWords = () => {
     setCursorPosition(0);
     setText("");
     setCountNextWord(0);
+    setHeightFlexible(0);
   }, [wordAmount]);
+  const containerRef = useRef<HTMLLabelElement>(null);
+  const [lastInRowIndexes, setLastInRowIndexes] = useState<number[]>([]);
+  useEffect(() => {
+    const detectLastInRows = () => {
+      const children = containerRef.current?.children;
+      if (!children) return;
+
+      const rowMap: Record<number, number> = {};
+      const newLastIndexes: number[] = [];
+
+      Array.from(children).forEach((child, index) => {
+        const top = (child as HTMLElement).offsetTop;
+        rowMap[top] = index; // the latest index on this row
+      });
+
+      newLastIndexes.push(...Object.values(rowMap));
+      setLastInRowIndexes(newLastIndexes);
+      const rowCount = Object.keys(rowMap).length;
+      setRowCount(rowCount);
+    };
+
+    detectLastInRows();
+    window.addEventListener("resize", detectLastInRows);
+
+    return () => window.removeEventListener("resize", detectLastInRows);
+  }, [wordAmount, countNextWord]);
 
   useEffect(() => {
     document.getElementById(`typingCursorId${countNextWord}`)?.focus();
@@ -38,22 +68,24 @@ export const TypingManyWords = () => {
   const handleOnKeyDown = (e: any) => {
     if (
       e.key === " " &&
-      text.length === newArrWords[countNextWord].word.length
+      text.length >= newArrWords[countNextWord].word.length &&
+      countNextWord + 1 !== newArrWords.length
     ) {
       setCursorPosition(0);
       setText("");
-      setCountNextWord(
-        countNextWord + 1 !== newArrWords.length ? countNextWord + 1 : 0
-      );
+      setCountNextWord(countNextWord + 1);
+      if (lastInRowIndexes.includes(countNextWord) && rowCount > 3) {
+        console.log("last indexxxx", lastInRowIndexes.includes(countNextWord));
+        setHeightFlexible(heightFlexible + 48);
+      }
     }
     const textWidthIncrease = getTextWidth(
       newArrWords[countNextWord].word[text ? text.length : 0],
-      "36px monospace"
+      "24px monospace"
     );
-    console.log("textWidthIncrease", textWidthIncrease);
     const textWidthDecrease = getTextWidth(
       newArrWords[countNextWord].word[text ? text.length - 1 : 0],
-      "36px monospace"
+      "24px monospace"
     );
     if (
       text.length < newArrWords[countNextWord].word.length &&
@@ -71,19 +103,26 @@ export const TypingManyWords = () => {
   };
   return (
     <>
-      <label className="flex flex-wrap gap-4">
-        {newArrWords.map((word, index) => (
-          <TypingWord
-            key={index}
-            next={countNextWord}
-            wordIndex={index}
-            currentTyping={word}
-            text={text}
-            onChange={handleChangeInput}
-            onKeyDown={handleOnKeyDown}
-            cursorPosition={cursorPosition}
-          ></TypingWord>
-        ))}
+      <label className={`flex items-start max-h-[130px] overflow-hidden`}>
+        <label
+          ref={containerRef}
+          className="flex flex-wrap gap-4 transition-all"
+          style={{ transform: `translateY(-${heightFlexible}px)` }}
+        >
+          {newArrWords.map((word, index) => (
+            <TypingWord
+              key={index}
+              next={countNextWord}
+              wordIndex={index}
+              currentTyping={word}
+              text={text}
+              onChange={handleChangeInput}
+              onKeyDown={handleOnKeyDown}
+              cursorPosition={cursorPosition}
+              textSize="text-2xl"
+            ></TypingWord>
+          ))}
+        </label>
       </label>
       <TypingOverlayBlur
         htmlFor={`typingCursorId${countNextWord}`}

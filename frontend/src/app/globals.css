@@ -63,3 +63,25 @@ body {
 .home-sidebar:hover .homesidebar-close-icon {
   opacity: 100;
 }
+
+/*  */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.flex-item {
+  /* flex: 0 0 100px; */
+  width: auto;
+  /* height: 60px; */
+  background: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.last-in-row {
+  border: 2px solid red;
+  background-color: #ffe4e4;
+}

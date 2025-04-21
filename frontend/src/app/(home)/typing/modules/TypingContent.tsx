@@ -25,7 +25,7 @@ export const TypingContent = () => {
         <div></div>
       </div> */}
       {typingStyles === "time" && <p>This feature is under development</p>}
-      {typingStyles === "combine" && <TypingOnlyAWord></TypingOnlyAWord>}
+      {typingStyles === "combine" && <TypingOnlyAWord />}
       {typingStyles === "words" && <TypingManyWords />}
       <TypingRestart onRestart={() => {}}></TypingRestart>
     </div>
