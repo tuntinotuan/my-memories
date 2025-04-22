@@ -13,7 +13,7 @@ export const TypingManyWords = () => {
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const [heightFlexible, setHeightFlexible] = useState(0);
   const [rowCount, setRowCount] = useState<number>(0);
-  // const [countNextWord, setCountNextWord] = useState<number>(0);
+  const [rowTyped, setRowTyped] = useState<number>(0);
   const refWords = useRef(
     creationNewArrWithQuantityBigger(typingwords, wordAmount)
   );
@@ -28,6 +28,7 @@ export const TypingManyWords = () => {
     setText("");
     setCountNextWord(0);
     setHeightFlexible(0);
+    setRowTyped(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordAmount]);
   const containerRef = useRef<HTMLLabelElement>(null);
@@ -72,7 +73,13 @@ export const TypingManyWords = () => {
       setCursorPosition(0);
       setText("");
       setCountNextWord(countNextWord + 1);
-      if (lastInRowIndexes.includes(countNextWord) && rowCount > 3) {
+      lastInRowIndexes.includes(countNextWord) && setRowTyped(rowTyped + 1);
+      if (
+        lastInRowIndexes.includes(countNextWord) &&
+        rowCount > 3 &&
+        rowTyped > 0 &&
+        rowTyped + 2 < rowCount
+      ) {
         console.log("last indexxxx", lastInRowIndexes.includes(countNextWord));
         setHeightFlexible(heightFlexible + 48);
       }
@@ -101,7 +108,8 @@ export const TypingManyWords = () => {
   };
   return (
     <>
-      <label className={`flex items-start max-h-[130px] overflow-hidden`}>
+      {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`}
+      <label className={`flex items-start h-[130px] overflow-hidden`}>
         <label
           ref={containerRef}
           className="flex flex-wrap gap-4 transition-all"
