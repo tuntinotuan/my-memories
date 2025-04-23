@@ -3,7 +3,7 @@ import TypingRestart from "@/components/typing/TypingRestart";
 import { useEffect, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
-import { useTyping } from "@/contexts/typingStates";
+import { useTyping } from "@/contexts/TypingStates";
 
 export const TypingContent = () => {
   const { typingStyles, wordAmount, countNextWord } = useTyping();
