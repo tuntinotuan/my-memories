@@ -6,7 +6,7 @@ import FlexRowWrap from "./modules/flexRow";
 
 export default function TypingPage() {
   return (
-    <div className="flex flex-col w-full gap-2 px-4 pt-2 bg-[#262A33] text-white">
+    <div className="flex flex-col w-full gap-2 px-4 pt-2 bg-typingBg text-white">
       <TypingHeaderMenu></TypingHeaderMenu>
       <TypingContent></TypingContent>
       {false && <FlexRowWrap></FlexRowWrap>}

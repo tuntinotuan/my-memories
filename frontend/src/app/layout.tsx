@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import "../styles/_reset-css.css";
+import "../styles/typing-theme.css";
 import "./globals.css";
 import { LayoutProvider } from "@/contexts/layoutStates";
 import { CreateBoardProvider } from "@/contexts/createBoardStates";

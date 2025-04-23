@@ -40,7 +40,7 @@ const TypingWord = ({
 
   return (
     <div
-      className={`relative flex items-center  text-[#526777] cursor-default select-none ${
+      className={`relative flex items-center text-typingTextNormal cursor-default select-none ${
         textSize ? textSize : "text-4xl"
       }`}
     >
@@ -49,9 +49,9 @@ const TypingWord = ({
           key={index}
           className={`${
             currentTyping.word[index] === newText.split("")[index]
-              ? "text-white correct"
+              ? "text-typingTextCorrect correct"
               : newText.split("")[index] !== undefined
-              ? "text-[#E9595A] wrong"
+              ? "text-typingTextWrong wrong"
               : ""
           }`}
         >

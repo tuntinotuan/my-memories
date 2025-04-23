@@ -10,7 +10,7 @@ import { WordAmountType } from "./types";
 export const TypingHeaderMenu = () => {
   const { typingStyles } = useTyping();
   return (
-    <div className="flex items-center gap-3 !w-auto mx-auto bg-[#1F232C] text-[#526777] rounded-lg px-5 py-3 z-10">
+    <div className="flex items-center gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-3 z-10">
       <Tooltip
         showArrow
         content="Practice with your typing skill and remember your keyword"
@@ -36,7 +36,7 @@ export const TypingHeaderMenu = () => {
   );
 };
 const SplitElement = () => {
-  return <div className="w-[6px] h-full bg-[#262A33] rounded-full"></div>;
+  return <div className="w-[6px] h-full bg-typingBg rounded-full"></div>;
 };
 const WordAmount = () => {
   const listAmount: WordAmountType[] = [10, 25, 50, 100];
@@ -47,7 +47,9 @@ const WordAmount = () => {
         <p
           key={item}
           className={`transition-all cursor-pointer ${
-            item === wordAmount ? "text-[#43FFAF]" : "hover:text-white"
+            item === wordAmount
+              ? "text-typingColorActive"
+              : "hover:text-typingTextHover"
           }`}
           onClick={() => setWordAmount(item)}
         >
@@ -78,8 +80,8 @@ const BtnTypingStyles = ({
       <div
         className={`flex items-center gap-1 transition-all cursor-default ${
           typingStyles === style
-            ? "text-[#43FFAF]"
-            : "hover:text-white cursor-pointer"
+            ? "text-typingColorActive"
+            : "hover:text-typingTextHover cursor-pointer"
         } ${className}`}
         onClick={onClick}
       >

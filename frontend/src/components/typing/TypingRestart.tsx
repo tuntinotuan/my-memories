@@ -11,7 +11,7 @@ const TypingRestart = ({ onRestart }: TypingRestartProps) => {
   const { typingStyles } = useTyping();
   return (
     <div
-      className={`flex w-full justify-center z-10 bg-[#1F232C] bg-opacity-5 backdrop-blur-sm p-2 ${
+      className={`flex w-full justify-center z-10 bg-opacity-5 backdrop-blur-sm p-2 ${
         typingStyles !== "combine" ? "flex-1" : ""
       }`}
     >
@@ -32,6 +32,7 @@ const TypingRestart = ({ onRestart }: TypingRestartProps) => {
               onRestart && onRestart();
             }
           }}
+          className="text-typingTextNormal"
         >
           <SettingsBackupRestoreRoundedIcon
             className="cursor-pointer"

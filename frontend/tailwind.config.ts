@@ -23,6 +23,13 @@ const config: Config = {
         primaryText: "#4c5156",
         primaryHover: "#e7e6f3",
         primaryBlack: "#0d1216",
+        typingBg: "var(--bg-primary)",
+        typingColorActive: "var(--color-active)",
+        typingTextNormal: "var(--text-normal)",
+        typingTextCorrect: "var(--text-correct)",
+        typingTextWrong: "var(--text-wrong)",
+        typingBgControlMenu: "var(--bg-control)",
+        typingTextHover: "var(--text-hover)",
       },
       keyframes: {
         popupGrow: {

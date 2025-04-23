@@ -5,7 +5,7 @@ type TypingMeaningProps = {
 };
 
 const TypingMeaning = ({ children }: TypingMeaningProps) => {
-  return <span className="text-2xl">{children}</span>;
+  return <span className="text-2xl text-typingTextHover">{children}</span>;
 };
 
 export default TypingMeaning;

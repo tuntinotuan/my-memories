@@ -18,7 +18,7 @@ const TypingCursor = ({
   return (
     <input
       value={value}
-      className={`absolute top-0 bottom-0 w-[2px] rounded h-full bg-[#43FFAF] text-transparent opacity-0 focus:opacity-100 focus:animate-hideShow transition-all`}
+      className={`absolute top-0 bottom-0 w-[2px] rounded h-full bg-typingColorActive text-transparent opacity-0 focus:opacity-100 focus:animate-hideShow transition-all`}
       id={id}
       onChange={onChange}
       style={{ left: cursorPosition }}
