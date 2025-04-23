@@ -15,10 +15,10 @@ export const TypingContent = () => {
 
   if (!hydrated) return null; // or a skeleton/placeholder
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-4 ">
+    <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
       {typingStyles !== "combine" && (
-        <div className="flex items-center justify-between w-full">
-          <p className="text-xl text-[#43FFAF] transition-all">{`${countNextWord}/${wordAmount}`}</p>
+        <div className="flex items-end justify-between h-[20vh] bg-[#1F232C] bg-opacity-5 backdrop-blur-sm w-full z-10 p-2 rounded">
+          <p className="text-xl text-[#43FFAF] bg-[#1F232C] transition-all rounded py-1 px-2">{`${countNextWord}/${wordAmount}`}</p>
           <div></div>
         </div>
       )}

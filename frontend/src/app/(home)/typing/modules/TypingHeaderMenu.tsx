@@ -10,7 +10,7 @@ import { WordAmountType } from "./types";
 export const TypingHeaderMenu = () => {
   const { typingStyles } = useTyping();
   return (
-    <div className="flex items-center gap-3 !w-auto mx-auto bg-[#1F232C] text-[#526777] rounded-lg px-5 py-3">
+    <div className="flex items-center gap-3 !w-auto mx-auto bg-[#1F232C] text-[#526777] rounded-lg px-5 py-3 z-10">
       <Tooltip
         showArrow
         content="Practice with your typing skill and remember your keyword"

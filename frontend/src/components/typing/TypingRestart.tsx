@@ -1,14 +1,20 @@
 import React from "react";
 import SettingsBackupRestoreRoundedIcon from "@mui/icons-material/SettingsBackupRestoreRounded";
 import { Tooltip } from "@nextui-org/tooltip";
+import { useTyping } from "@/contexts/typingStates";
 
 type TypingRestartProps = {
   onRestart?: () => void;
 };
 
 const TypingRestart = ({ onRestart }: TypingRestartProps) => {
+  const { typingStyles } = useTyping();
   return (
-    <div className="mx-auto">
+    <div
+      className={`flex w-full justify-center z-10 bg-[#1F232C] bg-opacity-5 backdrop-blur-sm p-2 ${
+        typingStyles !== "combine" ? "flex-1" : ""
+      }`}
+    >
       <Tooltip
         showArrow
         content="Restart Test"
