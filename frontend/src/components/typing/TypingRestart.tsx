@@ -1,7 +1,7 @@
 import React from "react";
 import SettingsBackupRestoreRoundedIcon from "@mui/icons-material/SettingsBackupRestoreRounded";
 import { Tooltip } from "@nextui-org/tooltip";
-import { useTyping } from "@/contexts/typingStates";
+import { useTyping } from "@/contexts/TypingStates";
 
 type TypingRestartProps = {
   onRestart?: () => void;

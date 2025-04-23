@@ -5,7 +5,7 @@ import { typingwords } from "@/api/typing/typing.data.structure";
 import TypingOverlayBlur from "./TypingOverlayBlur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { useTyping } from "@/contexts/typingStates";
+import { useTyping } from "@/contexts/TypingStates";
 
 export const TypingManyWords = () => {
   const { wordAmount, countNextWord, setCountNextWord } = useTyping();

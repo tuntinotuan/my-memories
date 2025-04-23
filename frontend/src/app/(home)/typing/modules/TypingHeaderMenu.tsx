@@ -3,7 +3,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import ClockIcon from "@/components/icons/ClockIcon";
 import WordIcon from "@/components/icons/WordIcon";
 import SplitscreenRoundedIcon from "@mui/icons-material/SplitscreenRounded";
-import { typingStylesType, useTyping } from "@/contexts/typingStates";
+import { typingStylesType, useTyping } from "@/contexts/TypingStates";
 import React from "react";
 import { WordAmountType } from "./types";
 
