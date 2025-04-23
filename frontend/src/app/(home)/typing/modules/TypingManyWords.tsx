@@ -108,7 +108,7 @@ export const TypingManyWords = () => {
   };
   return (
     <>
-      {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`}
+      {/* {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`} */}
       <label className={`flex items-start h-[130px] overflow-hidden`}>
         <label
           ref={containerRef}

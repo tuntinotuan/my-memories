@@ -1,12 +1,8 @@
 "use client";
-import { shuffleArray } from "@/api/card/utils/f";
-import { typingwords } from "@/api/typing/typing.data.structure";
 import TypingRestart from "@/components/typing/TypingRestart";
-import { getTextWidth } from "@/utils/stringFs";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
-import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/typingStates";
 
 export const TypingContent = () => {

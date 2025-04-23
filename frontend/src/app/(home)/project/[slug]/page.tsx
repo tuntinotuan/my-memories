@@ -136,11 +136,7 @@ const LocalContent = () => {
       scrollPosition.current = scrollRef.current.scrollLeft;
     }
   };
-  const handleWheel = (event: React.WheelEvent) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft += event.deltaY; // Moves horizontally instead of vertically
-    }
-  };
+
   // Restore scroll position after `AddBox UI` update
   useEffect(() => {
     const scrollCur = scrollRef.current;
@@ -266,7 +262,6 @@ const LocalContent = () => {
       ref={scrollRef}
       className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden"
       onScroll={handleScroll}
-      onWheel={handleWheel}
     >
       <DndContext
         sensors={sensors}
