@@ -6,6 +6,7 @@ import "./globals.css";
 import { LayoutProvider } from "@/contexts/layoutStates";
 import { CreateBoardProvider } from "@/contexts/createBoardStates";
 import { NotifyProvider } from "@/contexts/notifyStates";
+import { TypingThemeProvider } from "@/contexts/typingThemeStates";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
@@ -29,10 +30,12 @@ export default function RootLayout({
       <body className={`fixed inset-0 text-primaryBlack`}>
         <CreateBoardProvider>
           <NotifyProvider>
-            <LayoutProvider>
-              <div id="myportal" />
-              {children}
-            </LayoutProvider>
+            <TypingThemeProvider>
+              <LayoutProvider>
+                <div id="myportal" />
+                {children}
+              </LayoutProvider>
+            </TypingThemeProvider>
           </NotifyProvider>
         </CreateBoardProvider>
       </body>

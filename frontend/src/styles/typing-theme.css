@@ -1,10 +1,4 @@
 /* default theme */
-/* --bg-primary: #262a33;
-  --bg-control: #1f232c;
-  --color-active: #43ffaf;
-  --text-normal: #526777;
-  --text-correct: #fff;
-  --text-wrong: #e9595a; */
 :root {
   --bg-primary: #fff;
   --bg-control: #eff4fc;
@@ -17,14 +11,22 @@
 
 /* dark theme */
 .theme-dark {
-  --color-primary: #0ea5e9;
-  --color-bg: #111827;
-  --color-text: #f3f4f6;
+  --bg-primary: #262a33;
+  --bg-control: #1f232c;
+  --color-active: #43ffaf;
+  --text-normal: #526777;
+  --text-correct: #fff;
+  --text-wrong: #e9595a;
+  --text-hover: #fff;
 }
 
 /* green theme */
 .theme-green {
-  --color-primary: #10b981;
-  --color-bg: #f0fdf4;
-  --color-text: #065f46;
+  --bg-primary: #79fbdf;
+  --bg-control: #1f232c;
+  --color-active: #894ede;
+  --text-normal: #526777;
+  --text-correct: #fff;
+  --text-wrong: #e9595a;
+  --text-hover: #fff;
 }
