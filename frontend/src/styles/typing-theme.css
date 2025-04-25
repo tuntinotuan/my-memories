@@ -1,5 +1,14 @@
 /* default theme */
-:root {
+/* :root {
+  --bg-primary: #fff;
+  --bg-control: #eff4fc;
+  --color-active: #01c4cd;
+  --text-normal: #526777;
+  --text-correct: #894ede;
+  --text-wrong: #e9595a;
+  --text-hover: #000;
+} */
+.theme-light {
   --bg-primary: #fff;
   --bg-control: #eff4fc;
   --color-active: #01c4cd;

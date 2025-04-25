@@ -6,9 +6,12 @@ import SplitscreenRoundedIcon from "@mui/icons-material/SplitscreenRounded";
 import { typingStylesType, useTyping } from "@/contexts/TypingStates";
 import React from "react";
 import { WordAmountType } from "./types";
+import PaletteRoundedIcon from "@mui/icons-material/PaletteRounded";
+import { useTypingTheme } from "@/contexts/typingThemeStates";
 
 export const TypingHeaderMenu = () => {
   const { typingStyles } = useTyping();
+  const { theme, setTheme, themPopup, setThemePopup } = useTypingTheme();
   return (
     <div className="flex items-center gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-3 z-10">
       <Tooltip
@@ -31,7 +34,14 @@ export const TypingHeaderMenu = () => {
           <WordAmount />
         </>
       )}
-      <SettingIcon></SettingIcon>
+      <SplitElement />
+      <div
+        className="flex gap-1 cursor-pointer hover:text-typingTextHover transition-all"
+        onClick={() => setThemePopup(true)}
+      >
+        theme
+        <PaletteRoundedIcon fontSize="inherit"></PaletteRoundedIcon>
+      </div>
     </div>
   );
 };

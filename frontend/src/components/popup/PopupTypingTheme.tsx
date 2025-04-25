@@ -4,25 +4,32 @@ import { TopControl } from "./PopupCreateboard";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 
 const PopupTypingTheme = () => {
-  const { theme, setTheme } = useTypingTheme();
-  const [show, setShow] = useState(true);
-  let themeList = ["theme-dark", "theme-green", ""];
+  const { theme, setTheme, themPopup, setThemePopup } = useTypingTheme();
+  let themeList = ["theme-dark", "theme-green", "theme-light"];
   return (
     <PopupOverlay
-      show={show}
+      show={themPopup}
       selector="myportal"
-      width={400}
-      onClick={() => setShow(false)}
+      width={300}
+      onClick={() => setThemePopup(false)}
     >
-      <TopControl title="Typing change theme" onClose={() => setShow(false)} />
+      <TopControl
+        title="Typing change theme"
+        onClose={() => setThemePopup(false)}
+      />
       <div className="flex items-center gap-2">
-        {themeList.map((item) => (
+        {themeList.map((item, index) => (
           <div
+            tabIndex={index}
             key={item}
-            className={`${item} flex items-center gap-1 bg-typingBg rounded-full p-2 cursor-pointer`}
+            className={`${item} flex items-center gap-1 bg-typingBg rounded-full p-2 border-2 ${
+              item === theme
+                ? "border-primaryColor"
+                : "border-gray-200 cursor-pointer"
+            }`}
             onClick={() => {
               setTheme(item);
-              setShow(false);
+              setThemePopup(false);
             }}
           >
             <div className="w-4 h-4 rounded-full bg-typingColorActive"></div>
