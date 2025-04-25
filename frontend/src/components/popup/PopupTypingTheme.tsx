@@ -5,7 +5,18 @@ import { useTypingTheme } from "@/contexts/typingThemeStates";
 
 const PopupTypingTheme = () => {
   const { theme, setTheme, themPopup, setThemePopup } = useTypingTheme();
-  let themeList = ["theme-dark", "theme-green", "theme-light"];
+  let themeList = [
+    "theme-dark",
+    "theme-green",
+    "theme-light",
+    "theme-blue",
+    "theme-deep",
+    "theme-a-blue",
+    "theme-coal",
+    "theme-gold",
+    "theme-darkin",
+    "theme-purple",
+  ];
   return (
     <PopupOverlay
       show={themPopup}
@@ -17,7 +28,7 @@ const PopupTypingTheme = () => {
         title="Typing change theme"
         onClose={() => setThemePopup(false)}
       />
-      <div className="flex items-center gap-2">
+      <div className="flex items-center flex-wrap gap-2">
         {themeList.map((item, index) => (
           <div
             tabIndex={index}

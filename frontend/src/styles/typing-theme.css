@@ -39,3 +39,80 @@
   --text-wrong: #e9595a;
   --text-hover: #fff;
 }
+
+/* blue theme */
+.theme-blue {
+  --bg-primary: #2d394d;
+  --bg-control: #263041;
+  --color-active: #ff7a90;
+  --text-normal: #4a768d;
+  --text-correct: #fff;
+  --text-wrong: #e9595a;
+  --text-hover: #fff;
+}
+
+/* deep theme */
+.theme-deep {
+  --bg-primary: #1c1c1c;
+  --bg-control: #242424;
+  --color-active: #dfd7af;
+  --text-normal: #444444;
+  --text-correct: #fff;
+  --text-wrong: #e91e63;
+  --text-hover: #fff;
+}
+
+/* a-blue theme */
+.theme-a-blue {
+  --bg-primary: #313338;
+  --bg-control: #2b2d31;
+  --color-active: #5a65ea;
+  --text-normal: #565861;
+  --text-correct: #fff;
+  --text-wrong: #811510;
+  --text-hover: #fff;
+}
+
+/* coal theme */
+.theme-coal {
+  --bg-primary: #121520;
+  --bg-control: #1b1e2c;
+  --color-active: #fff;
+  --text-normal: #676e8a;
+  --text-correct: #fff;
+  --text-wrong: #f94348;
+  --text-hover: #fff;
+}
+
+/* gold theme */
+.theme-gold {
+  --bg-primary: #292521;
+  --bg-control: #1d1b18;
+  --color-active: #23a9f2;
+  --text-normal: #f5ae2d;
+  --text-correct: #e4c6a7;
+  --text-wrong: #ad4d3b;
+  --text-hover: #e4c6a7;
+}
+
+/* darkin theme */
+.theme-darkin {
+  --bg-primary: #0f0000;
+  --bg-control: #200a0a;
+  --color-active: #b31313;
+  --text-normal: #683434;
+  --text-correct: #da6b02;
+  --text-wrong: #23a9f2;
+  --text-hover: #fff;
+}
+
+/* purple theme */
+.theme-purple {
+  --bg-primary: #190618;
+  --bg-control: #2c0c28;
+  --color-active: #e0caac;
+  --text-normal: #4c1e48;
+  --text-correct: #fff;
+  --text-wrong: #b12e33;
+  --text-hover: #fff;
+}

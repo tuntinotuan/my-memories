@@ -15,7 +15,7 @@ export const TypingThemeProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [theme, setTheme] = useState("theme-light");
+  const [theme, setTheme] = useState("theme-deep");
   const [themPopup, setThemePopup] = useState(false);
   useEffect(() => {
     document.body.className = `${theme} fixed inset-0 text-primaryBlack`;
