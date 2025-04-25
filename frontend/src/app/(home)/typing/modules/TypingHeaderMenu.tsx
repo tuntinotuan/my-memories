@@ -8,10 +8,11 @@ import React from "react";
 import { WordAmountType } from "./types";
 import PaletteRoundedIcon from "@mui/icons-material/PaletteRounded";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
+import PopupTypingTheme from "@/components/popup/PopupTypingTheme";
 
 export const TypingHeaderMenu = () => {
   const { typingStyles } = useTyping();
-  const { theme, setTheme, themPopup, setThemePopup } = useTypingTheme();
+  const { setThemePopup } = useTypingTheme();
   return (
     <div className="flex items-center gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-3 z-10">
       <Tooltip
@@ -42,6 +43,7 @@ export const TypingHeaderMenu = () => {
         theme
         <PaletteRoundedIcon fontSize="inherit"></PaletteRoundedIcon>
       </div>
+      <PopupTypingTheme></PopupTypingTheme>
     </div>
   );
 };

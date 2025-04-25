@@ -24,7 +24,7 @@ export const TypingOnlyAWord = () => {
     setText(e.target.value.trim());
   };
   const handleOnKeyDown = (e: any) => {
-    if (e.key === " " && text.length === currentTyping.word.length) {
+    if (e.key === " " && text.length >= currentTyping.word.length) {
       setCurrentTyping(typingwordsRandom[refCountIndexArray.current]);
       setCursorPosition(0);
       setText("");

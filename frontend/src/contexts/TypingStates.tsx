@@ -8,6 +8,8 @@ type defaltValuesType = {
   typingStyles: typingStylesType;
   wordAmount: WordAmountType;
   countNextWord: number;
+  hideOverlay: boolean;
+  setHideOverlay: (val: boolean) => void;
   setCountNextWord: (val: number) => void;
   setWordAmount: (val: WordAmountType) => void;
   setTypingStyles: (val: typingStylesType) => void;
@@ -17,6 +19,8 @@ const defaultValues: defaltValuesType = {
   typingStyles: "words",
   wordAmount: 10,
   countNextWord: 0,
+  hideOverlay: true,
+  setHideOverlay: () => {},
   setCountNextWord: () => {},
   setWordAmount: () => {},
   setTypingStyles: () => {},
@@ -28,6 +32,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [typingStyles, setTypingStyles] = useState<typingStylesType>("words");
   const [wordAmount, setWordAmount] = useState<WordAmountType>(10);
   const [countNextWord, setCountNextWord] = useState(0);
+  const [hideOverlay, setHideOverlay] = useState(false);
 
   return (
     <TypingContext.Provider
@@ -38,6 +43,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         setCountNextWord,
         typingStyles,
         setTypingStyles,
+        hideOverlay,
+        setHideOverlay,
       }}
     >
       {children}
