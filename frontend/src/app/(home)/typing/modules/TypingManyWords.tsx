@@ -3,12 +3,13 @@ import { getTextWidth } from "@/utils/stringFs";
 import { useEffect, useRef, useState } from "react";
 import { typingwords } from "@/api/typing/typing.data.structure";
 import TypingOverlayBlur from "./TypingOverlayBlur";
-import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
+import { creationNewArrWithQuantityBigger, getAllKey } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
 
 export const TypingManyWords = () => {
-  const { wordAmount, countNextWord, setCountNextWord } = useTyping();
+  const { wordAmount, countNextWord, setCountNextWord, setShowResults } =
+    useTyping();
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const [heightFlexible, setHeightFlexible] = useState(0);
@@ -29,6 +30,7 @@ export const TypingManyWords = () => {
     setCountNextWord(0);
     setHeightFlexible(0);
     setRowTyped(0);
+    console.log("allKey", getAllKey(newArrWords));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordAmount]);
   const containerRef = useRef<HTMLLabelElement>(null);
@@ -65,25 +67,32 @@ export const TypingManyWords = () => {
     setText(e.target.value.trim());
   };
   const handleOnKeyDown = (e: any) => {
+    // Finished per word
     if (
       e.key === " " &&
       text.length >= newArrWords[countNextWord].word.length &&
-      countNextWord + 1 !== newArrWords.length
+      countNextWord <= newArrWords.length
     ) {
       setCursorPosition(0);
       setText("");
       setCountNextWord(countNextWord + 1);
       lastInRowIndexes.includes(countNextWord) && setRowTyped(rowTyped + 1);
+
+      // words dynamic per row
       if (
         lastInRowIndexes.includes(countNextWord) &&
         rowCount > 3 &&
         rowTyped > 0 &&
         rowTyped + 2 < rowCount
       ) {
-        console.log("last indexxxx", lastInRowIndexes.includes(countNextWord));
         setHeightFlexible(heightFlexible + 48);
       }
+
+      // Show Results
+      if (countNextWord + 1 === wordAmount) setShowResults(true);
     }
+
+    // Caculate TextWidth
     const textWidthIncrease = getTextWidth(
       newArrWords[countNextWord].word[text ? text.length : 0],
       "24px monospace"
@@ -92,6 +101,8 @@ export const TypingManyWords = () => {
       newArrWords[countNextWord].word[text ? text.length - 1 : 0],
       "24px monospace"
     );
+
+    // Increase & Decrease cursor position
     if (
       text.length < newArrWords[countNextWord].word.length &&
       e.key.length === 1 &&
