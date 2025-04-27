@@ -1,5 +1,6 @@
 "use client";
 import { WordAmountType } from "@/app/(home)/typing/modules/types";
+import { useCountDown } from "@/hooks/useCountDown";
 import { createContext, useContext, useState } from "react";
 
 export type typingStylesType = "time" | "combine" | "words";
@@ -9,6 +10,9 @@ type defaltValuesType = {
   wordAmount: WordAmountType;
   countNextWord: number;
   hideOverlay: boolean;
+  secondsOfManyWords: number;
+  setSecondsOfManyWords: (val: boolean) => void;
+  resetRunningManyWords: () => void;
   showResults: boolean;
   setShowResults: (val: boolean) => void;
   setHideOverlay: (val: boolean) => void;
@@ -24,6 +28,9 @@ const defaultValues: defaltValuesType = {
   hideOverlay: true,
   showResults: false,
   setHideOverlay: () => {},
+  secondsOfManyWords: 0,
+  setSecondsOfManyWords: () => {},
+  resetRunningManyWords: () => {},
   setShowResults: () => {},
   setCountNextWord: () => {},
   setWordAmount: () => {},
@@ -38,11 +45,19 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [countNextWord, setCountNextWord] = useState(0);
   const [hideOverlay, setHideOverlay] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const {
+    seconds: secondsOfManyWords,
+    setIsRunning: setSecondsOfManyWords,
+    resetRunning: resetRunningManyWords,
+  } = useCountDown();
 
   return (
     <TypingContext.Provider
       value={{
         wordAmount,
+        secondsOfManyWords,
+        setSecondsOfManyWords,
+        resetRunningManyWords,
         setWordAmount,
         countNextWord,
         setCountNextWord,

@@ -8,14 +8,14 @@ export function typingCaculateResultWithWordAmount(
   quantityCorrect: number,
   quantityWrong: number
 ) {
-  if (!wordAmount) return 0;
-  if (timeInSeconds === 0) return 0;
-
   let wpm = 0;
   let acc = 0;
+  let totalTypedChars = quantityCorrect + quantityWrong;
+  let wordIsTyped = quantityCorrect / 5;
 
-  wpm = Math.round((wordAmount / timeInSeconds) * 60);
-  acc = (100 / (quantityCorrect + quantityWrong)) * quantityCorrect;
+  wpm = Math.round((wordIsTyped / timeInSeconds) * 60);
+
+  acc = (100 / totalTypedChars) * quantityCorrect;
 
   return { wpm, acc, quantityCorrect, quantityWrong };
 }

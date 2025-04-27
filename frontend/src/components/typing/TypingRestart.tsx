@@ -18,7 +18,7 @@ const TypingRestart = ({ onRestart }: TypingRestartProps) => {
       <Tooltip
         showArrow
         content="Restart Test"
-        placement="bottom"
+        placement="top"
         radius="sm"
         delay={200}
         closeDelay={200}
@@ -32,7 +32,7 @@ const TypingRestart = ({ onRestart }: TypingRestartProps) => {
               onRestart && onRestart();
             }
           }}
-          className="text-typingTextNormal"
+          className="h-0 text-typingTextNormal"
         >
           <SettingsBackupRestoreRoundedIcon
             className="cursor-pointer"

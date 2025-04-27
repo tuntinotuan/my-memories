@@ -8,8 +8,13 @@ import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
 
 export const TypingManyWords = () => {
-  const { wordAmount, countNextWord, setCountNextWord, setShowResults } =
-    useTyping();
+  const {
+    wordAmount,
+    countNextWord,
+    setCountNextWord,
+    setShowResults,
+    setSecondsOfManyWords,
+  } = useTyping();
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const [heightFlexible, setHeightFlexible] = useState(0);
@@ -67,6 +72,9 @@ export const TypingManyWords = () => {
     setText(e.target.value.trim());
   };
   const handleOnKeyDown = (e: any) => {
+    // Run count down time
+    setSecondsOfManyWords(true);
+
     // Finished per word
     if (
       e.key === " " &&
@@ -89,7 +97,10 @@ export const TypingManyWords = () => {
       }
 
       // Show Results
-      if (countNextWord + 1 === wordAmount) setShowResults(true);
+      if (countNextWord + 1 === wordAmount) {
+        setSecondsOfManyWords(false);
+        setShowResults(true);
+      }
     }
 
     // Caculate TextWidth

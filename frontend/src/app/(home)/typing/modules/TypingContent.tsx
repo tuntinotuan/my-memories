@@ -14,6 +14,9 @@ export const TypingContent = () => {
     countNextWord,
     setHideOverlay,
     setShowResults,
+    secondsOfManyWords,
+    resetRunningManyWords,
+    setSecondsOfManyWords,
   } = useTyping();
   const { seconds, setIsRunning } = useCountDown();
   const [hydrated, setHydrated] = useState(false);
@@ -31,6 +34,7 @@ export const TypingContent = () => {
             {document.getElementsByClassName("wrong").length} | {seconds}
             <div onClick={() => setIsRunning((pre) => !pre)}>Run</div>
           </div>
+          {secondsOfManyWords}
         </div>
       )}
       {typingStyles === "time" && <p>This feature is under development</p>}
@@ -44,6 +48,8 @@ export const TypingContent = () => {
             setHydrated(true);
           }, 0);
           setHideOverlay(true);
+          resetRunningManyWords();
+          setSecondsOfManyWords(false);
         }}
       ></TypingRestart>
     </div>

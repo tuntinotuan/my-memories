@@ -9,7 +9,7 @@ export default function TypingPage() {
   const { showResults } = useTyping();
   return (
     <div className="flex flex-col w-full gap-2 px-4 pt-2 bg-typingBg text-white">
-      <TypingHeaderMenu></TypingHeaderMenu>
+      {!showResults && <TypingHeaderMenu></TypingHeaderMenu>}
       {!showResults && <TypingContent></TypingContent>}
       {showResults && <TypingResults></TypingResults>}
       {false && <FlexRowWrap></FlexRowWrap>}
