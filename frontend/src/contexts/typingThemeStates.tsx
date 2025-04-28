@@ -15,9 +15,16 @@ export const TypingThemeProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [theme, setTheme] = useState("theme-deep");
+  const [theme, setTheme] = useState<string>("");
+
   const [themPopup, setThemePopup] = useState(false);
   useEffect(() => {
+    const keyTheme = localStorage.getItem("typing-theme");
+    console.log("keyTheme", keyTheme);
+    keyTheme ? setTheme(keyTheme) : setTheme("theme-deep");
+  }, []);
+  useEffect(() => {
+    theme && localStorage.setItem("typing-theme", theme);
     document.body.className = `${theme} fixed inset-0 text-primaryBlack`;
   }, [theme]);
   return (
