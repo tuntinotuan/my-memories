@@ -42,6 +42,10 @@ const TypingWord = ({
     <div
       className={`relative flex items-center text-typingTextNormal cursor-default select-none ${
         textSize ? textSize : "text-4xl"
+      } ${
+        next !== wordIndex && currentTyping.word !== newText && newText !== ""
+          ? "underline decoration-typingTextWrong"
+          : ""
       }`}
     >
       {currentTyping.word.split("").map((item: string, index: number) => (
