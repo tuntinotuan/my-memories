@@ -11,7 +11,9 @@ type defaltValuesType = {
   countNextWord: number;
   hideOverlay: boolean;
   secondsOfManyWords: number;
+  cursorIsTyping: boolean;
   setSecondsOfManyWords: (val: boolean) => void;
+  setCursorIsTyping: (val: boolean) => void;
   resetRunningManyWords: () => void;
   showResults: boolean;
   setShowResults: (val: boolean) => void;
@@ -29,6 +31,8 @@ const defaultValues: defaltValuesType = {
   showResults: false,
   setHideOverlay: () => {},
   secondsOfManyWords: 0,
+  cursorIsTyping: false,
+  setCursorIsTyping: () => {},
   setSecondsOfManyWords: () => {},
   resetRunningManyWords: () => {},
   setShowResults: () => {},
@@ -45,6 +49,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [countNextWord, setCountNextWord] = useState(0);
   const [hideOverlay, setHideOverlay] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [cursorIsTyping, setCursorIsTyping] = useState(false);
   const {
     seconds: secondsOfManyWords,
     setIsRunning: setSecondsOfManyWords,
@@ -56,6 +61,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         wordAmount,
         secondsOfManyWords,
+        cursorIsTyping,
+        setCursorIsTyping,
         setSecondsOfManyWords,
         resetRunningManyWords,
         setWordAmount,

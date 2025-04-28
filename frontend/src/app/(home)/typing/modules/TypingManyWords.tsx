@@ -14,6 +14,7 @@ export const TypingManyWords = () => {
     setCountNextWord,
     setShowResults,
     setSecondsOfManyWords,
+    setCursorIsTyping,
   } = useTyping();
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -74,11 +75,12 @@ export const TypingManyWords = () => {
   const handleOnKeyDown = (e: any) => {
     // Run count down time
     setSecondsOfManyWords(true);
+    setCursorIsTyping(true);
 
     // Finished per word
     if (
       e.key === " " &&
-      text.length >= newArrWords[countNextWord].word.length &&
+      text.length > 0 &&
       countNextWord <= newArrWords.length
     ) {
       setCursorPosition(0);
