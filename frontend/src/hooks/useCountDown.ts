@@ -1,26 +1,27 @@
+import { WordTimeType } from "@/app/(home)/typing/modules/types";
 import { useEffect, useState } from "react";
 
-export function useCountDown() {
-  const [seconds, setSeconds] = useState<number>(0);
-  const [isRunning, setIsRunning] = useState<boolean>(false);
+export function useCountDown(initialTiming: WordTimeType) {
+  const [seconds, setSeconds] = useState<number>(initialTiming);
+  const [isCountDown, setIsCountDown] = useState<boolean>(false);
 
-  const resetRunning = () => {
-    setSeconds(0);
+  const resetCountDownIsInitial = () => {
+    setSeconds(initialTiming);
   };
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
-    if (isRunning) {
+    if (isCountDown) {
       interval = setInterval(() => {
-        setSeconds((prev) => prev + 1);
+        setSeconds((prev) => prev - 1);
       }, 1000);
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isRunning]);
+  }, [isCountDown]);
 
-  return { seconds, setIsRunning, resetRunning };
+  return { seconds, setIsCountDown, resetCountDownIsInitial };
 }

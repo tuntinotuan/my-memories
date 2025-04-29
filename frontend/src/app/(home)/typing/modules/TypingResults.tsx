@@ -9,6 +9,8 @@ export const TypingResults = () => {
     secondsOfManyWords,
     wordAmount,
     resetRunningManyWords,
+    setIsCountDown,
+    resetCountDownIsInitial,
   } = useTyping();
   const { wpm, acc, quantityCorrect, quantityWrong } =
     typingCaculateResultWithWordAmount(
@@ -32,6 +34,8 @@ export const TypingResults = () => {
           setShowResults(false);
           setHideOverlay(true);
           resetRunningManyWords();
+          resetCountDownIsInitial();
+          setIsCountDown(false);
         }}
       ></TypingRestart>
     </div>

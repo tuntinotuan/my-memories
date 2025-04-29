@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
 import { useTyping } from "@/contexts/TypingStates";
-import { useCountDown } from "@/hooks/useCountDown";
-import { typingCaculateResultWithWordTime } from "@/utils/typingFs";
 
 export const TypingContent = () => {
   const {
@@ -17,8 +15,10 @@ export const TypingContent = () => {
     secondsOfManyWords,
     resetRunningManyWords,
     setSecondsOfManyWords,
+    secondsOfTimeWords,
+    setIsCountDown,
+    resetCountDownIsInitial,
   } = useTyping();
-  const { seconds, setIsRunning } = useCountDown();
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
     setHydrated(true);
@@ -28,18 +28,17 @@ export const TypingContent = () => {
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
       {typingStyles !== "combine" && (
         <div className="flex items-end justify-between h-[20vh] bg-opacity-5 backdrop-blur-sm w-full z-10 p-2 rounded">
-          <p className="text-xl text-typingColorActive bg-typingBgControlMenu transition-all rounded py-1 px-2">{`${countNextWord}/${wordAmount}`}</p>
-          <div className="flex gap-1">
-            {document.getElementsByClassName("correct").length} |
-            {document.getElementsByClassName("wrong").length} | {seconds}
-            <div onClick={() => setIsRunning((pre) => !pre)}>Run</div>
-          </div>
+          <p className="text-xl text-typingColorActive bg-typingBgControlMenu transition-all rounded py-1 px-2">
+            {typingStyles === "words"
+              ? `${countNextWord}/${wordAmount}`
+              : secondsOfTimeWords}
+          </p>
           {secondsOfManyWords}
         </div>
       )}
-      {typingStyles === "time" && <p>This feature is under development</p>}
+      {typingStyles === "time" && <TypingManyWords types="time" />}
       {typingStyles === "combine" && <TypingOnlyAWord />}
-      {typingStyles === "words" && <TypingManyWords />}
+      {typingStyles === "words" && <TypingManyWords types="words" />}
       <TypingRestart
         onRestart={() => {
           setHydrated(false);
@@ -50,6 +49,8 @@ export const TypingContent = () => {
           setHideOverlay(true);
           resetRunningManyWords();
           setSecondsOfManyWords(false);
+          resetCountDownIsInitial();
+          setIsCountDown(false);
         }}
       ></TypingRestart>
     </div>

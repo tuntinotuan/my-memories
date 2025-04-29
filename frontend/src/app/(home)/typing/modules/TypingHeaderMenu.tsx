@@ -5,14 +5,13 @@ import WordIcon from "@/components/icons/WordIcon";
 import SplitscreenRoundedIcon from "@mui/icons-material/SplitscreenRounded";
 import { typingStylesType, useTyping } from "@/contexts/TypingStates";
 import React from "react";
-import { WordAmountType } from "./types";
+import { WordAmountType, WordTimeType } from "./types";
 import PaletteRoundedIcon from "@mui/icons-material/PaletteRounded";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import PopupTypingTheme from "@/components/popup/PopupTypingTheme";
 
 export const TypingHeaderMenu = () => {
   const { typingStyles } = useTyping();
-  const { setThemePopup } = useTypingTheme();
   return (
     <div className="flex items-center gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-3 z-10">
       <Tooltip
@@ -35,14 +34,14 @@ export const TypingHeaderMenu = () => {
           <WordAmount />
         </>
       )}
+      {typingStyles === "time" && (
+        <>
+          <SplitElement />
+          <WordTime />
+        </>
+      )}
       <SplitElement />
-      <div
-        className="flex gap-1 cursor-pointer hover:text-typingTextHover transition-all"
-        onClick={() => setThemePopup(true)}
-      >
-        theme
-        <PaletteRoundedIcon fontSize="inherit"></PaletteRoundedIcon>
-      </div>
+      <BtnChangeTheme />
       <PopupTypingTheme></PopupTypingTheme>
     </div>
   );
@@ -64,6 +63,27 @@ const WordAmount = () => {
               : "hover:text-typingTextHover"
           }`}
           onClick={() => setWordAmount(item)}
+        >
+          {item}
+        </p>
+      ))}
+    </>
+  );
+};
+const WordTime = () => {
+  const listTime: WordTimeType[] = [15, 30, 60, 120];
+  const { wordTime, setWordTime } = useTyping();
+  return (
+    <>
+      {listTime.map((item) => (
+        <p
+          key={item}
+          className={`transition-all cursor-pointer ${
+            item === wordTime
+              ? "text-typingColorActive"
+              : "hover:text-typingTextHover"
+          }`}
+          onClick={() => setWordTime(item)}
         >
           {item}
         </p>
@@ -164,5 +184,18 @@ const ListBtnTypingStyles = () => {
         </BtnTypingStyles>
       ))}
     </>
+  );
+};
+const BtnChangeTheme = () => {
+  const { setThemePopup } = useTypingTheme();
+
+  return (
+    <div
+      className="flex gap-1 cursor-pointer hover:text-typingTextHover transition-all"
+      onClick={() => setThemePopup(true)}
+    >
+      theme
+      <PaletteRoundedIcon fontSize="inherit"></PaletteRoundedIcon>
+    </div>
   );
 };

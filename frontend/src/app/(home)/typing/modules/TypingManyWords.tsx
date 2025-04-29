@@ -7,14 +7,18 @@ import { creationNewArrWithQuantityBigger, getAllKey } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
 
-export const TypingManyWords = () => {
+export const TypingManyWords = ({ types }: { types: "time" | "words" }) => {
   const {
     wordAmount,
     countNextWord,
     setCountNextWord,
     setShowResults,
     setSecondsOfManyWords,
+    resetRunningManyWords,
     setCursorIsTyping,
+    setIsCountDown,
+    resetCountDownIsInitial,
+    secondsOfTimeWords,
   } = useTyping();
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -36,6 +40,8 @@ export const TypingManyWords = () => {
     setCountNextWord(0);
     setHeightFlexible(0);
     setRowTyped(0);
+    setSecondsOfManyWords(false);
+    resetRunningManyWords();
     console.log("allKey", getAllKey(newArrWords));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordAmount]);
@@ -68,6 +74,13 @@ export const TypingManyWords = () => {
   useEffect(() => {
     document.getElementById(`typingCursorId${countNextWord}`)?.focus();
   }, [countNextWord]);
+  useEffect(() => {
+    // Show results for time type
+    if (secondsOfTimeWords === 0 && types === "time") {
+      setIsCountDown(false);
+      setShowResults(true);
+    }
+  }, [secondsOfTimeWords]);
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
     setText(e.target.value.trim());
@@ -76,6 +89,7 @@ export const TypingManyWords = () => {
     // Run count down time
     setSecondsOfManyWords(true);
     setCursorIsTyping(true);
+    setIsCountDown(true);
 
     // Finished per word
     if (
@@ -98,8 +112,8 @@ export const TypingManyWords = () => {
         setHeightFlexible(heightFlexible + 48);
       }
 
-      // Show Results
-      if (countNextWord + 1 === wordAmount) {
+      // Show Results for words type
+      if (countNextWord + 1 === wordAmount && types === "words") {
         setSecondsOfManyWords(false);
         setShowResults(true);
       }
