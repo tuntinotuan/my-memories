@@ -27,8 +27,7 @@ export function typingCaculateResultWithWordTime(
   let wpm = 0;
   let acc = 0;
   let totalTypedChars = quantityCorrect + quantityWrong;
-  let newWordIsTyped =
-    Math.round((quantityCorrect / totalTypedChars) * 100) / 5;
+  let newWordIsTyped = quantityCorrect / 5;
 
   wpm = Math.round((newWordIsTyped / timeInSeconds) * 60);
   acc = (100 / totalTypedChars) * quantityCorrect;

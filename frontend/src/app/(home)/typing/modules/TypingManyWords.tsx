@@ -19,6 +19,7 @@ export const TypingManyWords = ({ types }: { types: "time" | "words" }) => {
     setIsCountDown,
     resetCountDownIsInitial,
     secondsOfTimeWords,
+    wordTime,
   } = useTyping();
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -42,9 +43,18 @@ export const TypingManyWords = ({ types }: { types: "time" | "words" }) => {
     setRowTyped(0);
     setSecondsOfManyWords(false);
     resetRunningManyWords();
-    console.log("allKey", getAllKey(newArrWords));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordAmount]);
+  useEffect(() => {
+    setCursorPosition(0);
+    setText("");
+    setCountNextWord(0);
+    setHeightFlexible(0);
+    setRowTyped(0);
+    setIsCountDown(false);
+    resetCountDownIsInitial();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordTime]);
   const containerRef = useRef<HTMLLabelElement>(null);
   const [lastInRowIndexes, setLastInRowIndexes] = useState<number[]>([]);
   useEffect(() => {
@@ -74,12 +84,13 @@ export const TypingManyWords = ({ types }: { types: "time" | "words" }) => {
   useEffect(() => {
     document.getElementById(`typingCursorId${countNextWord}`)?.focus();
   }, [countNextWord]);
+  // Show results for time type
   useEffect(() => {
-    // Show results for time type
     if (secondsOfTimeWords === 0 && types === "time") {
       setIsCountDown(false);
       setShowResults(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondsOfTimeWords]);
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
@@ -87,9 +98,9 @@ export const TypingManyWords = ({ types }: { types: "time" | "words" }) => {
   };
   const handleOnKeyDown = (e: any) => {
     // Run count down time
-    setSecondsOfManyWords(true);
     setCursorIsTyping(true);
-    setIsCountDown(true);
+    if (types === "words") setSecondsOfManyWords(true);
+    if (types === "time") setIsCountDown(true);
 
     // Finished per word
     if (

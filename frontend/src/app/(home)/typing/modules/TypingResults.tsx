@@ -1,6 +1,9 @@
 import TypingRestart from "@/components/typing/TypingRestart";
 import { useTyping } from "@/contexts/TypingStates";
-import { typingCaculateResultWithWordAmount } from "@/utils/typingFs";
+import {
+  typingCaculateResultWithWordAmount,
+  typingCaculateResultWithWordTime,
+} from "@/utils/typingFs";
 
 export const TypingResults = () => {
   const {
@@ -11,14 +14,22 @@ export const TypingResults = () => {
     resetRunningManyWords,
     setIsCountDown,
     resetCountDownIsInitial,
+    typingStyles,
+    wordTime,
   } = useTyping();
   const { wpm, acc, quantityCorrect, quantityWrong } =
-    typingCaculateResultWithWordAmount(
-      secondsOfManyWords,
-      wordAmount,
-      document.getElementsByClassName("correct").length,
-      document.getElementsByClassName("wrong").length
-    );
+    typingStyles === "words"
+      ? typingCaculateResultWithWordAmount(
+          secondsOfManyWords,
+          wordAmount,
+          document.getElementsByClassName("correct").length,
+          document.getElementsByClassName("wrong").length
+        )
+      : typingCaculateResultWithWordTime(
+          wordTime,
+          document.getElementsByClassName("correct").length,
+          document.getElementsByClassName("wrong").length
+        );
 
   return (
     <div className="mx-auto h-full flex flex-col justify-around  gap-2 text-typingTextNormal">

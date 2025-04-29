@@ -75,10 +75,6 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     setIsCountDown,
     resetCountDownIsInitial,
   } = useCountDown(wordTime);
-  useEffect(() => {
-    setIsCountDown(false);
-    resetCountDownIsInitial();
-  }, [wordTime]);
 
   return (
     <TypingContext.Provider
