@@ -10,6 +10,7 @@ import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { generateId } from "@/utils/otherFs";
 import GradientImage from "./GradientImage";
 import UrlImage from "./UrlImage";
+import { useRouter } from "next/navigation";
 
 type PopupCreateboardProps = {
   show: boolean;
@@ -45,6 +46,7 @@ export const TopControl = ({ onClose, title = "Create board" }: any) => {
 const Body = ({ onClose }: any) => {
   const [boardTitle, setBoardTitle] = useState("");
   const { boards, setBoards } = useCreateBoardStates();
+  const router = useRouter();
   console.log("boards", boards);
   const imageList: LinearOrUrl[] = [
     { type: "imageUrl", url: "/moment.png", alt: "moment" },
@@ -68,16 +70,18 @@ const Body = ({ onClose }: any) => {
   const handleClick = (item: LinearOrUrl) => {
     setCurrentGradient(item);
   };
-  const handleCreateABoard = () => {
+  const handleCreateABoard = async () => {
+    const newId = generateId();
     const newBoard = {
-      id: generateId(),
+      id: newId,
       title: boardTitle,
       img: currentGradient,
     };
     setBoards([...boards, newBoard]);
     setBoardTitle("");
     setCurrentGradient(autoDefaultGradient);
-    onClose();
+    await onClose();
+    router.push(`/project/${boardTitle + "-id" + newId}`);
   };
   return (
     <div className="flex flex-col gap-2 h-full overflow-auto px-4 pb-4">
