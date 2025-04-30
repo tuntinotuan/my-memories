@@ -1,4 +1,5 @@
 "use client";
+import { getRandomWordApi } from "@/api/typing/random.word.api";
 import {
   WordAmountType,
   WordTimeType,
@@ -14,6 +15,7 @@ type defaltValuesType = {
   wordAmount: WordAmountType;
   wordTime: WordTimeType;
   secondsOfTimeWords: number;
+  wordApi: [];
   setIsCountDown: (val: boolean) => void;
   resetCountDownIsInitial: () => void;
   countNextWord: number;
@@ -37,6 +39,7 @@ const defaultValues: defaltValuesType = {
   wordAmount: 10,
   wordTime: 15,
   secondsOfTimeWords: 15,
+  wordApi: [],
   setIsCountDown: () => {},
   resetCountDownIsInitial: () => {},
   countNextWord: 0,
@@ -75,12 +78,21 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     setIsCountDown,
     resetCountDownIsInitial,
   } = useCountDown(wordTime);
-
+  const [wordApi, setWordApi] = useState<[]>([]);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getRandomWordApi(25, 6);
+      setWordApi(data);
+      console.log("random word api", data);
+    }
+    fetchData();
+  }, []);
   return (
     <TypingContext.Provider
       value={{
         wordTime,
         wordAmount,
+        wordApi,
         showResults,
         hideOverlay,
         typingStyles,
