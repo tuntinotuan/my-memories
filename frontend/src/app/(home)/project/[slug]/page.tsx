@@ -257,6 +257,10 @@ const LocalContent = () => {
       });
     }
   }
+  function handleDeleteTask(id: Id) {
+    let newTask = tasks.filter((task) => task.id !== id);
+    setTasks(newTask);
+  }
   return (
     <div
       ref={scrollRef}
@@ -279,6 +283,7 @@ const LocalContent = () => {
                 updateList={updateList}
                 updateTask={updateTask}
                 createNewTask={createNewTask}
+                handleDeleteTask={handleDeleteTask}
                 tasks={tasks.filter((task) => task.listId === list.id)}
               ></List>
             ))}
@@ -291,6 +296,7 @@ const LocalContent = () => {
                 updateList={updateList}
                 updateTask={updateTask}
                 createNewTask={createNewTask}
+                handleDeleteTask={handleDeleteTask}
                 tasks={tasks.filter((task) => task.listId === activeList.id)}
               ></List>
             )}

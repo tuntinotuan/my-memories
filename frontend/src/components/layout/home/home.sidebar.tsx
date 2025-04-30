@@ -2,7 +2,6 @@
 import HeaderLogo from "../../logo/header.logo";
 import ButtonCreate from "../../button/ButtonCreate";
 import Button from "../../button/Button";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ProjectItem from "../../project/ProjectItem";
 import { useState } from "react";
 import CrownIcon from "../../icons/CrownIcon";
@@ -16,6 +15,7 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 import { projectList } from "@/api/board/mock.data";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { usePathname } from "next/navigation";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 
 const HomeSidebar = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
@@ -160,7 +160,7 @@ const HomeSidebar = () => {
                     : "text-primaryText"
                 }`}
               >
-                <DeleteForeverOutlinedIcon fontSize="medium" />
+                <DeleteIcon />
                 Trash
               </Button>
             </div>

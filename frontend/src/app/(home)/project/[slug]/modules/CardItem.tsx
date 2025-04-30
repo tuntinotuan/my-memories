@@ -2,8 +2,9 @@ import { useSortable } from "@dnd-kit/sortable";
 import React from "react";
 import { CSS } from "@dnd-kit/utilities";
 import InputEditText from "@/components/input/InputEditText";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 
-const CardItem = ({ task, className, updateTask }: any) => {
+const CardItem = ({ task, className, updateTask, handleDeleteTask }: any) => {
   const {
     attributes,
     listeners,
@@ -22,7 +23,7 @@ const CardItem = ({ task, className, updateTask }: any) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`bg-gray-100 p-2 rounded-lg cursor-grab ${className} ${
+      className={`relative flex items-center gap-2 group bg-gray-100 p-2 rounded-lg cursor-grab ${className} ${
         isDragging
           ? "blur-[0.5px] bg-opacity-75 border-2 border-secondaryColor"
           : ""
@@ -35,6 +36,10 @@ const CardItem = ({ task, className, updateTask }: any) => {
         pClass="w-full h-auto"
         inputClass="w-full"
       ></InputEditText>
+      <DeleteIcon
+        className="absolute right-1 transition-all opacity-0 group-hover:opacity-100"
+        onClick={() => handleDeleteTask(task.id)}
+      />
     </div>
   );
 };

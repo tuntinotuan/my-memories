@@ -12,6 +12,7 @@ type ListProps = {
   list: ListType;
   tasks: Task[];
   updateList: (id: Id, title: string) => void;
+  handleDeleteTask: (id: Id) => void;
   updateTask: (id: Id, title: string) => void;
   createNewTask: (id: Id, content: string) => void;
 };
@@ -21,6 +22,7 @@ const List = ({
   updateList,
   updateTask,
   createNewTask,
+  handleDeleteTask,
   tasks,
 }: ListProps) => {
   const tasksId = useMemo(() => tasks.map((task) => task.id), [tasks]);
@@ -76,7 +78,12 @@ const List = ({
         <div className="flex flex-col gap-2 overflow-y-auto">
           <SortableContext items={tasksId}>
             {tasks.map((task) => (
-              <CardItem task={task} key={task.id} updateTask={updateTask} />
+              <CardItem
+                task={task}
+                key={task.id}
+                updateTask={updateTask}
+                handleDeleteTask={handleDeleteTask}
+              />
             ))}
           </SortableContext>
         </div>
