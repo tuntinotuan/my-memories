@@ -71,6 +71,17 @@ const TypingWord = ({
           cursorPosition={cursorPosition}
         />
       )}
+
+      {/* {next !== undefined && wordIndex !== undefined && (
+        <div
+          className={`absolute top-0 bottom-0 -right-4 w-[2px] rounded h-full bg-typingColorActive transition-all ${
+            next - 1 === wordIndex ? "dynamicCursor" : "opacity-0"
+          }`}
+          style={
+            next - 1 === wordIndex ? { right: -16 } : { left: cursorPosition }
+          }
+        ></div>
+      )} */}
     </div>
   );
 };
