@@ -9,11 +9,16 @@ import { WordAmountType, WordTimeType } from "./types";
 import PaletteRoundedIcon from "@mui/icons-material/PaletteRounded";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import PopupTypingTheme from "@/components/popup/PopupTypingTheme";
+import PopupCreateTypingList from "@/components/popup/PopupCreateTypingList";
 
 export const TypingHeaderMenu = () => {
-  const { typingStyles } = useTyping();
+  const { typingStyles, showPopupCreate, setShowPopupCreate } = useTyping();
   return (
     <div className="flex items-center gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-3 z-10">
+      <PopupCreateTypingList
+        show={showPopupCreate}
+        onClose={() => setShowPopupCreate(false)}
+      ></PopupCreateTypingList>
       <Tooltip
         showArrow
         content="Practice with your typing skill and remember your keyword"
@@ -43,6 +48,13 @@ export const TypingHeaderMenu = () => {
       <SplitElement />
       <BtnChangeTheme />
       <PopupTypingTheme></PopupTypingTheme>
+      <SplitElement />
+      <div
+        className="transition-all hover:text-typingTextHover cursor-pointer"
+        onClick={() => setShowPopupCreate(true)}
+      >
+        Create a typing list
+      </div>
     </div>
   );
 };

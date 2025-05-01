@@ -1,0 +1,103 @@
+import React, { useState } from "react";
+import PopupOverlay from "./popup.overlay";
+import { TopControl } from "./PopupCreateboard";
+import Button from "../button/Button";
+import PlusIcon from "../icons/PlusIcon";
+import { typingWordsTypes } from "@/api/typing/typing.type";
+
+type PopupCreateTypingListProps = {
+  show: boolean;
+  onClose: () => void;
+};
+const PopupCreateTypingList = ({
+  show,
+  onClose,
+}: PopupCreateTypingListProps) => {
+  return (
+    <PopupOverlay
+      show={show}
+      selector="myportal"
+      width={500}
+      onClick={onClose}
+      className="bg-typingBg text-typingTextCorrect"
+    >
+      <TopControl title="Create typing list" onClose={onClose} />
+      <Body onClose={onClose} />
+    </PopupOverlay>
+  );
+};
+
+const Body = ({ onClose }: any) => {
+  const [typingList, setTypingList] = useState<typingWordsTypes[]>([]);
+  const handleAdd = () => {
+    const newWord = {
+      word: "",
+      meaning: "",
+    };
+    setTypingList([...typingList, newWord]);
+  };
+  return (
+    <div className="flex flex-col gap-2 h-full w-full overflow-auto px-4 pb-4">
+      <div className="flex gap-1">
+        <label htmlFor="">List name:</label>
+        <input
+          type="text"
+          className="text-typingColorActive"
+          placeholder="Typing your list name.."
+        />
+      </div>
+      <div className="flex items-start gap-2 w-full">
+        <div className="flex-1 flex flex-col gap-1">
+          <input
+            type="text"
+            className="border border-gray-300 rounded w-full px-3 py-2 focus:border-primaryColor transition-all"
+            placeholder="word name..."
+            required
+          />
+          <input
+            type="text"
+            className="border border-gray-300 rounded w-full px-3 py-2 focus:border-primaryColor transition-all"
+            placeholder="meaning of word..."
+            required
+          />
+          <Button
+            className="bg-typingBgControlMenu"
+            hover=" hover:bg-typingColorActive"
+            onClick={handleAdd}
+          >
+            <PlusIcon></PlusIcon>Add a pair of word
+          </Button>
+        </div>
+        <div className="flex flex-col items-center justify-center gap-1 w-1/2 max-h-[150px] border border-gray-200 border-dotted rounded p-2 overflow-y-auto">
+          {/* <p className="text-[10px] text-typingTextWrong">
+            Nothing is imported
+          </p> */}
+          <div className="flex flex-col items-center border border-gray-200 border-dotted p-1 rounded">
+            <p className="text-typingTextNormal">Background</p>
+            <p className="text-[9px] text-typingTextHover">lý lịch, phần sau</p>
+          </div>
+          <div className="flex flex-col items-center border border-gray-200 border-dotted p-1 rounded">
+            <p className="text-typingTextNormal">Background</p>
+            <p className="text-[9px] text-typingTextHover">lý lịch, phần sau</p>
+          </div>
+          <div className="flex flex-col items-center border border-gray-200 border-dotted p-1 rounded">
+            <p className="text-typingTextNormal">Background</p>
+            <p className="text-[9px] text-typingTextHover">lý lịch, phần sau</p>
+          </div>
+        </div>
+      </div>
+      <label htmlFor="">Other options</label>
+      <div className="flex gap-2">
+        <div className="cursor-pointer hover:bg-typingBgControlMenu trnasition-all p-2 rounded">
+          .txt files
+        </div>
+        <div className="cursor-pointer hover:bg-typingBgControlMenu trnasition-all p-2 rounded">
+          .xlsx files
+        </div>
+      </div>
+      <Button hover="hover:bg-typingBgControlMenu">Create list</Button>
+    </div>
+  );
+};
+
+export default PopupCreateTypingList;
