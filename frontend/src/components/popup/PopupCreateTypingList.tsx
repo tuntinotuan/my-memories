@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PopupOverlay from "./popup.overlay";
 import { TopControl } from "./PopupCreateboard";
 import Button from "../button/Button";
@@ -31,8 +31,10 @@ const PopupCreateTypingList = ({
 const Body = ({ onClose }: any) => {
   const [wordList, setWordList] = useState<any>([]);
   const [typingList, setTypingList] = useState<typingWordsTypes[]>([]);
+  const [listName, setListName] = useState("");
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     async function fetchWordListFromLocalStorage() {
@@ -56,7 +58,8 @@ const Body = ({ onClose }: any) => {
   }, [wordList]);
 
   const handleAddAPairOfWord = () => {
-    if (!word || !meaning) return;
+    if (!word) return document.getElementById("wordName")?.focus();
+    if (!meaning) return document.getElementById("wordMeaning")?.focus();
     const newWord = {
       word,
       meaning,
@@ -64,24 +67,38 @@ const Body = ({ onClose }: any) => {
     setTypingList([...typingList, newWord]);
     setWord("");
     setMeaning("");
+    document.getElementById("wordName")?.focus();
   };
   const handleCreateTypingList = () => {
+    if (!listName) return document.getElementById("listName")?.focus();
     if (typingList.length <= 0) return;
     const newList = {
       id: generateId(),
+      name: listName,
       typingList,
     };
     setWordList([...wordList, newList]);
     setTypingList([]);
+    setListName("");
   };
+  // auto scroll to end after add a new pair of word
+  useEffect(() => {
+    const scrollCur = ref.current;
+    if (scrollCur) {
+      scrollCur.scrollTop = scrollCur.scrollHeight;
+    }
+  }, [typingList]);
   return (
     <div className="flex flex-col gap-2 h-full w-full overflow-auto px-4 pb-4">
       <div className="flex gap-1">
         <label htmlFor="">List name:</label>
         <input
+          value={listName}
           type="text"
           className="text-typingColorActive"
           placeholder="Typing your list name.."
+          onChange={(e) => setListName(e.target.value)}
+          id="listName"
         />
       </div>
       <div className="flex items-start gap-2 w-full">
@@ -92,6 +109,7 @@ const Body = ({ onClose }: any) => {
             className="border border-gray-300 rounded w-full px-3 py-2 focus:border-typingColorActive transition-all"
             placeholder="word name..."
             onChange={(e) => setWord(e.target.value)}
+            id="wordName"
             required
           />
           <input
@@ -100,6 +118,12 @@ const Body = ({ onClose }: any) => {
             className="border border-gray-300 rounded w-full px-3 py-2 focus:border-typingColorActive transition-all"
             placeholder="meaning of word..."
             onChange={(e) => setMeaning(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleAddAPairOfWord();
+              }
+            }}
+            id="wordMeaning"
             required
           />
           <Button
@@ -115,7 +139,10 @@ const Body = ({ onClose }: any) => {
             </div>
           )}
         </div>
-        <div className="flex flex-col items-center justify-start gap-1 w-1/2 max-h-[150px] border border-gray-200 border-dotted rounded p-2 overflow-y-auto">
+        <div
+          className="flex flex-col items-center justify-start gap-1 w-1/2 max-h-[150px] border border-gray-200 border-dotted rounded p-2 overflow-y-auto"
+          ref={ref}
+        >
           {typingList.length === 0 && (
             <p className="text-[10px] text-typingTextWrong">
               Nothing is imported

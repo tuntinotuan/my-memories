@@ -15,7 +15,7 @@ import KeyboardOutlinedIcon from "@mui/icons-material/KeyboardOutlined";
 export const TypingHeaderMenu = () => {
   const { typingStyles, showPopupCreate, setShowPopupCreate } = useTyping();
   return (
-    <div className="flex items-center gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-2 z-10">
+    <div className="flex items-center flex-wrap gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-2 z-20">
       <PopupCreateTypingList
         show={showPopupCreate}
         onClose={() => setShowPopupCreate(false)}
