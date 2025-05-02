@@ -5,6 +5,7 @@ import Button from "../button/Button";
 import PlusIcon from "../icons/PlusIcon";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { generateId } from "@/utils/otherFs";
+import { useTyping } from "@/contexts/TypingStates";
 
 type PopupCreateTypingListProps = {
   show: boolean;
@@ -29,33 +30,12 @@ const PopupCreateTypingList = ({
 };
 
 const Body = ({ onClose }: any) => {
-  const [wordList, setWordList] = useState<any>([]);
   const [typingList, setTypingList] = useState<typingWordsTypes[]>([]);
   const [listName, setListName] = useState("");
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
   const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    async function fetchWordListFromLocalStorage() {
-      let lists = null;
-      try {
-        const stored = localStorage.getItem("wordList");
-        if (stored) lists = await JSON.parse(stored);
-      } catch (error) {
-        console.error("Invalid JSON:", error);
-      }
-      if (lists !== null && lists.length > 0) {
-        setWordList(lists);
-      }
-    }
-    fetchWordListFromLocalStorage();
-  }, []);
-
-  useEffect(() => {
-    if (wordList.length <= 0) return;
-    localStorage.setItem("wordList", JSON.stringify(wordList));
-  }, [wordList]);
+  const { wordList, setWordList } = useTyping();
 
   const handleAddAPairOfWord = () => {
     if (!word) return document.getElementById("wordName")?.focus();
@@ -80,6 +60,7 @@ const Body = ({ onClose }: any) => {
     setWordList([...wordList, newList]);
     setTypingList([]);
     setListName("");
+    onClose();
   };
   // auto scroll to end after add a new pair of word
   useEffect(() => {

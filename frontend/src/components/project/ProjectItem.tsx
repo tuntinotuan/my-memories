@@ -14,7 +14,7 @@ const ProjectItem = ({
   title,
   id,
 }: {
-  img: LinearOrUrl;
+  img?: LinearOrUrl;
   title: string;
   id?: Id;
 }) => {
@@ -36,11 +36,13 @@ const ProjectItem = ({
         href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
         className="absolute inset-0"
       ></Link>
-      <ProjectImgOrGradient
-        img={img}
-        width={24}
-        height={24}
-      ></ProjectImgOrGradient>
+      {img && (
+        <ProjectImgOrGradient
+          img={img}
+          width={24}
+          height={24}
+        ></ProjectImgOrGradient>
+      )}
       <p
         className={`text-sm truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5 ${
           id === Number(cutIdFromSlug(path, "-id")) ||

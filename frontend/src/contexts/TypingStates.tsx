@@ -18,6 +18,8 @@ type defaltValuesType = {
   wordApi: [];
   setIsCountDown: (val: boolean) => void;
   resetCountDownIsInitial: () => void;
+  wordList: any;
+  setWordList: (val: any) => void;
   countNextWord: number;
   hideOverlay: boolean;
   secondsOfManyWords: number;
@@ -51,6 +53,8 @@ const defaultValues: defaltValuesType = {
   secondsOfManyWords: 0,
   cursorIsTyping: false,
   showPopupCreate: false,
+  wordList: [],
+  setWordList: () => {},
   setShowPopupCreate: () => {},
   setCursorIsTyping: () => {},
   setSecondsOfManyWords: () => {},
@@ -84,7 +88,30 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   } = useCountDown(wordTime);
   const [wordApi, setWordApi] = useState<[]>([]);
   const [showPopupCreate, setShowPopupCreate] = useState(false);
+  const [wordList, setWordList] = useState<any>([]);
 
+  //
+  useEffect(() => {
+    async function fetchWordListFromLocalStorage() {
+      let lists = null;
+      try {
+        const stored = localStorage.getItem("wordList");
+        if (stored) lists = await JSON.parse(stored);
+      } catch (error) {
+        console.error("Invalid JSON:", error);
+      }
+      if (lists !== null && lists.length > 0) {
+        setWordList(lists);
+      }
+    }
+    fetchWordListFromLocalStorage();
+  }, []);
+  //
+  useEffect(() => {
+    if (wordList.length <= 0) return;
+    localStorage.setItem("wordList", JSON.stringify(wordList));
+  }, [wordList]);
+  // get api from Random-Word-Api
   useEffect(() => {
     async function fetchData() {
       const data = await getRandomWordApi(25, 6);
@@ -107,6 +134,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         secondsOfManyWords,
         secondsOfTimeWords,
         showPopupCreate,
+        wordList,
+        setWordList,
         setShowPopupCreate,
         setIsCountDown,
         resetCountDownIsInitial,
