@@ -1,7 +1,7 @@
 import HomeContentCover from "@/components/layout/home/home.content.cover";
 import HomeMenuSidebar from "@/components/layout/home/home.menu.sidebar";
-import HomeSidebar from "@/components/layout/home/home.sidebar";
 import HomeSidebarCover from "@/components/layout/home/home.sidebar.cover";
+import HomeSidebarForTyping from "@/components/layout/home/home.sidebar.for.typing";
 import { TypingProvider } from "@/contexts/TypingStates";
 
 export default function TypingLayout({
@@ -13,7 +13,7 @@ export default function TypingLayout({
     <TypingProvider>
       <HomeMenuSidebar />
       <HomeSidebarCover>
-        <HomeSidebar />
+        <HomeSidebarForTyping />
         <HomeContentCover>{children}</HomeContentCover>
       </HomeSidebarCover>
     </TypingProvider>

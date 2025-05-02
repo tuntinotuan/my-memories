@@ -10,11 +10,12 @@ import PaletteRoundedIcon from "@mui/icons-material/PaletteRounded";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import PopupTypingTheme from "@/components/popup/PopupTypingTheme";
 import PopupCreateTypingList from "@/components/popup/PopupCreateTypingList";
+import KeyboardOutlinedIcon from "@mui/icons-material/KeyboardOutlined";
 
 export const TypingHeaderMenu = () => {
   const { typingStyles, showPopupCreate, setShowPopupCreate } = useTyping();
   return (
-    <div className="flex items-center gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-3 z-10">
+    <div className="flex items-center gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-2 z-10">
       <PopupCreateTypingList
         show={showPopupCreate}
         onClose={() => setShowPopupCreate(false)}
@@ -29,7 +30,10 @@ export const TypingHeaderMenu = () => {
         className="!px-2 !py-[2px]"
         shadow="sm"
       >
-        <h1 className="cursor-default">Typing</h1>
+        <h1 className="flex items-center gap-1 cursor-default">
+          <KeyboardOutlinedIcon fontSize="small" />
+          Typing
+        </h1>
       </Tooltip>
       <SplitElement />
       <ListBtnTypingStyles />
@@ -49,12 +53,6 @@ export const TypingHeaderMenu = () => {
       <BtnChangeTheme />
       <PopupTypingTheme></PopupTypingTheme>
       <SplitElement />
-      <div
-        className="transition-all hover:text-typingTextHover cursor-pointer"
-        onClick={() => setShowPopupCreate(true)}
-      >
-        Create a typing list
-      </div>
     </div>
   );
 };

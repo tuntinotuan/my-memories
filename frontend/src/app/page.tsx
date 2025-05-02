@@ -1,18 +1,15 @@
 "use client";
 import HomeMenuSidebar from "@/components/layout/home/home.menu.sidebar";
 import HomeContentCover from "@/components/layout/home/home.content.cover";
-import HomeSidebar from "@/components/layout/home/home.sidebar";
 import HomeSidebarCover from "@/components/layout/home/home.sidebar.cover";
 import OriginalBanner from "@/components/banner/OriginalBanner";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import { useState } from "react";
-import { Tooltip } from "@nextui-org/tooltip";
 import ProjectCardList from "@/components/project/ProjectCardList";
 import ProjectCardGrid from "@/components/project/ProjectCardGrid";
 import NotifyNormal from "@/components/notify/NotifyNormal";
 import NotifyComeBack from "@/components/notify/NotifyComeBack";
 import ButtonGridOrListView from "@/components/button/ButtonGridOrListView";
+import HomeSidebarForBoard from "@/components/layout/home/home.sidebar.for.board";
 export const dynamic = "force-dynamic";
 
 export default function Home() {
@@ -22,7 +19,7 @@ export default function Home() {
       <NotifyComeBack />
       <HomeMenuSidebar></HomeMenuSidebar>
       <HomeSidebarCover>
-        <HomeSidebar />
+        <HomeSidebarForBoard />
         <HomeContentCover className="flex-col gap-2 px-6">
           <MainContent />
         </HomeContentCover>
