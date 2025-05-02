@@ -23,7 +23,7 @@ const CardItem = ({ task, className, updateTask, handleDeleteTask }: any) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`relative flex items-center gap-2 group bg-gray-100 p-2 rounded-lg cursor-grab ${className} ${
+      className={`flex items-center gap-2 group bg-gray-100 p-2 rounded-lg cursor-grab ${className} ${
         isDragging
           ? "blur-[0.5px] bg-opacity-75 border-2 border-secondaryColor"
           : ""
@@ -37,7 +37,7 @@ const CardItem = ({ task, className, updateTask, handleDeleteTask }: any) => {
         inputClass="w-full"
       ></InputEditText>
       <DeleteIcon
-        className="absolute right-1 transition-all opacity-0 group-hover:opacity-100"
+        className="transition-all opacity-0 group-hover:opacity-100"
         onClick={() => handleDeleteTask(task.id)}
       />
     </div>

@@ -33,7 +33,6 @@ export const TypingContent = () => {
               ? `${countNextWord}/${wordAmount}`
               : secondsOfTimeWords}
           </p>
-          {secondsOfManyWords}
         </div>
       )}
       {typingStyles === "time" && <TypingManyWords types="time" />}
