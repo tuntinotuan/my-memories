@@ -1,8 +1,7 @@
 import HomeContentCover from "@/components/layout/home/home.content.cover";
-import HomeMenu from "@/components/layout/home/home.menu.header";
 import HomeMenuSidebar from "@/components/layout/home/home.menu.sidebar";
-import HomeSidebar from "@/components/layout/home/home.sidebar";
 import HomeSidebarCover from "@/components/layout/home/home.sidebar.cover";
+import HomeSidebarForBoard from "@/components/layout/home/home.sidebar.for.board";
 
 export default function CardLayout({
   children,
@@ -13,7 +12,7 @@ export default function CardLayout({
     <>
       <HomeMenuSidebar />
       <HomeSidebarCover>
-        <HomeSidebar />
+        <HomeSidebarForBoard />
         <HomeContentCover>{children}</HomeContentCover>
       </HomeSidebarCover>
     </>
