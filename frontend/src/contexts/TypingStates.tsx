@@ -69,7 +69,7 @@ const defaultValues: defaltValuesType = {
 const TypingContext = createContext(defaultValues);
 
 export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
-  const [typingStyles, setTypingStyles] = useState<typingStylesType>("words");
+  const [typingStyles, setTypingStyles] = useState<typingStylesType>("combine");
   const [wordAmount, setWordAmount] = useState<WordAmountType>(10);
   const [wordTime, setWordTime] = useState<WordTimeType>(15);
   const [countNextWord, setCountNextWord] = useState(0);

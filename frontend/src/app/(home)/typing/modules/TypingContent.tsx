@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
 import { useTyping } from "@/contexts/TypingStates";
+import PopupHover from "@/components/popup/PopupHover";
 
 export const TypingContent = () => {
   const {
@@ -52,6 +53,14 @@ export const TypingContent = () => {
           setIsCountDown(false);
         }}
       ></TypingRestart>
+      {/* <PopupHover>
+        <p>8.88 wpm</p>
+      </PopupHover> */}
+      {/* <PopupHover>
+        <p>15.52%</p>
+        <p>9 correct</p>
+        <p>49 incorrect</p>
+      </PopupHover> */}
     </div>
   );
 };
