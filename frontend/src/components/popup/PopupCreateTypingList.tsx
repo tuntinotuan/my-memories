@@ -34,7 +34,6 @@ const Body = ({ onClose }: any) => {
   const [listName, setListName] = useState("");
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
-  const ref = useRef<HTMLDivElement | null>(null);
   const { wordList, setWordList } = useTyping();
 
   const handleAddAPairOfWord = () => {
@@ -62,96 +61,20 @@ const Body = ({ onClose }: any) => {
     setListName("");
     onClose();
   };
-  // auto scroll to end after add a new pair of word
-  useEffect(() => {
-    const scrollCur = ref.current;
-    if (scrollCur) {
-      scrollCur.scrollTop = scrollCur.scrollHeight;
-    }
-  }, [typingList]);
+
   return (
     <div className="flex flex-col gap-2 h-full w-full overflow-auto px-4 pb-4">
-      <div className="flex gap-1">
-        <label htmlFor="">List name:</label>
-        <input
-          value={listName}
-          type="text"
-          className="text-typingColorActive"
-          placeholder="Typing your list name.."
-          onChange={(e) => setListName(e.target.value)}
-          id="listName"
-        />
-      </div>
-      <div className="flex items-start gap-2 w-full">
-        <div className="flex-1 flex flex-col gap-1">
-          <input
-            value={word}
-            type="text"
-            className="border border-gray-300 rounded w-full px-3 py-2 focus:border-typingColorActive transition-all"
-            placeholder="word name..."
-            onChange={(e) => setWord(e.target.value)}
-            id="wordName"
-            required
-          />
-          <input
-            value={meaning}
-            type="text"
-            className="border border-gray-300 rounded w-full px-3 py-2 focus:border-typingColorActive transition-all"
-            placeholder="meaning of word..."
-            onChange={(e) => setMeaning(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleAddAPairOfWord();
-              }
-            }}
-            id="wordMeaning"
-            required
-          />
-          <Button
-            className="bg-typingBgControlMenu"
-            hover=" hover:bg-typingColorActive"
-            onClick={handleAddAPairOfWord}
-          >
-            <PlusIcon></PlusIcon>Add a pair of word
-          </Button>
-          {typingList.length > 0 && (
-            <div className="ml-auto px-2 border border-gray-200 border-dotted rounded">
-              {typingList.length}
-            </div>
-          )}
-        </div>
-        <div
-          className="flex flex-col items-center justify-start gap-1 w-1/2 max-h-[150px] border border-gray-200 border-dotted rounded p-2 overflow-y-auto"
-          ref={ref}
-        >
-          {typingList.length === 0 && (
-            <p className="text-[10px] text-typingTextWrong">
-              Nothing is imported
-            </p>
-          )}
-          {typingList.length > 0 &&
-            typingList.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center border border-gray-200 border-dotted py-1 px-2 rounded"
-              >
-                <p className="text-typingTextNormal">{item.word}</p>
-                <p className="text-[9px] text-typingTextHover">
-                  {item.meaning}
-                </p>
-              </div>
-            ))}
-        </div>
-      </div>
-      <label htmlFor="">Other options</label>
-      <div className="flex gap-2">
-        <div className="cursor-pointer hover:bg-typingBgControlMenu transition-all p-2 rounded">
-          .txt files
-        </div>
-        <div className="cursor-pointer hover:bg-typingBgControlMenu transition-all p-2 rounded">
-          .xlsx files
-        </div>
-      </div>
+      <Form
+        word={word}
+        setWord={setWord}
+        meaning={meaning}
+        setMeaning={setMeaning}
+        handleAddAPairOfWord={handleAddAPairOfWord}
+        typingList={typingList}
+        listName={listName}
+        setListName={setListName}
+      ></Form>
+      <OtherOptions />
       <Button
         hover="hover:bg-typingBgControlMenu"
         onClick={handleCreateTypingList}
@@ -162,4 +85,109 @@ const Body = ({ onClose }: any) => {
   );
 };
 
+const Form = ({
+  word,
+  setWord,
+  meaning,
+  setMeaning,
+  handleAddAPairOfWord,
+  typingList,
+  listName,
+  setListName,
+}: any) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  // auto scroll to end after add a new pair of word
+  useEffect(() => {
+    const scrollCur = ref.current;
+    if (scrollCur) {
+      scrollCur.scrollTop = scrollCur.scrollHeight;
+    }
+  }, [typingList]);
+  return (
+    <div className="flex items-start gap-2 w-full">
+      <div className="flex-1 flex flex-col gap-1">
+        <div className="flex items-center gap-1">
+          <input
+            value={listName}
+            type="text"
+            className="text-typingColorActive"
+            placeholder="Typing your list name.."
+            onChange={(e) => setListName(e.target.value)}
+            id="listName"
+          />
+        </div>
+        <input
+          value={word}
+          type="text"
+          className="border border-gray-300 rounded w-full px-3 py-2 focus:border-typingColorActive transition-all"
+          placeholder="word name..."
+          onChange={(e) => setWord(e.target.value)}
+          id="wordName"
+          required
+        />
+        <input
+          value={meaning}
+          type="text"
+          className="border border-gray-300 rounded w-full px-3 py-2 focus:border-typingColorActive transition-all"
+          placeholder="meaning of word..."
+          onChange={(e) => setMeaning(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleAddAPairOfWord();
+            }
+          }}
+          id="wordMeaning"
+          required
+        />
+        <Button
+          className="bg-typingBgControlMenu"
+          hover=" hover:bg-typingColorActive"
+          onClick={handleAddAPairOfWord}
+        >
+          <PlusIcon></PlusIcon>Add a pair of word
+        </Button>
+        {typingList.length > 0 && (
+          <div className="ml-auto px-1 border border-gray-200 border-dotted rounded">
+            {typingList.length}
+          </div>
+        )}
+      </div>
+      <div
+        className="flex flex-col items-center justify-start gap-1 w-1/2 max-h-[150px] border border-gray-200 border-dotted rounded p-2 overflow-y-auto"
+        ref={ref}
+      >
+        {typingList.length === 0 && (
+          <p className="text-[10px] text-typingTextWrong">
+            Nothing is imported
+          </p>
+        )}
+        {typingList.length > 0 &&
+          typingList.map((item: any, index: any) => (
+            <TypingItem key={index} data={item}></TypingItem>
+          ))}
+      </div>
+    </div>
+  );
+};
+const TypingItem = ({ data }: any) => {
+  return (
+    <div className="flex flex-col items-center border border-gray-200 border-dotted py-1 px-2 rounded">
+      <p className="text-typingTextNormal">{data.word}</p>
+      <p className="text-[9px] text-typingTextHover">{data.meaning}</p>
+    </div>
+  );
+};
+const OtherOptions = () => {
+  return (
+    <>
+      <label htmlFor="">Other options:</label>
+      <div className="flex gap-2">
+        <div className="cursor-pointer hover:bg-typingBgControlMenu transition-all p-2 rounded">
+          notepad, excel files...
+        </div>
+      </div>
+    </>
+  );
+};
 export default PopupCreateTypingList;
