@@ -1,6 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-
+interface DOMRect {
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  readonly top: number;
+  readonly right: number;
+  readonly bottom: number;
+  readonly left: number;
+  toJSON(): any;
+}
 const PopupHover = ({
   children,
   rect,
@@ -10,6 +20,16 @@ const PopupHover = ({
   rect: any;
   isHovered: any;
 }) => {
+  const [localRect, setLocalRect] = useState<DOMRect>(() => new DOMRect());
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (ref.current) {
+      const newRect = ref.current.getBoundingClientRect();
+      setLocalRect(newRect);
+      console.log("recttttttt", newRect); // Safe: width is defined
+    }
+  }, []);
+
   return (
     <Overlay>
       <div
@@ -19,14 +39,14 @@ const PopupHover = ({
         style={
           rect
             ? {
-                top: 0,
-                left: rect.left,
+                top: rect.top,
+                left: rect.left - rect.width + rect.width / 2,
               }
             : {}
         }
       >
-        {children}
-        <div className="arrow absolute top-full left-1/2 -translate-x-1/2 -translate-y-1/2 w-[10px] h-[10px] bg-inherit rotate-45 -z-10"></div>
+        <div ref={ref}>{children}</div>
+        <Arrow></Arrow>
       </div>
     </Overlay>
   );
@@ -39,6 +59,12 @@ const Overlay = ({ children }: { children: React.ReactNode }) => {
     return () => setMounted(false);
   }, []);
   return mounted ? createPortal(children, document.body) : null;
+};
+
+const Arrow = () => {
+  return (
+    <div className="arrow absolute top-full left-1/2 -translate-x-1/2 -translate-y-1/2 w-[10px] h-[10px] bg-inherit rotate-45 -z-10"></div>
+  );
 };
 
 export default PopupHover;

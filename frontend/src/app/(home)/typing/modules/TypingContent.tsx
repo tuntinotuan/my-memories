@@ -62,7 +62,17 @@ export const TypingContent = () => {
         <p>9 correct</p>
         <p>49 incorrect</p>
       </PopupHover> */}
-      <MyTooltip>my hover</MyTooltip>
+      <MyTooltip
+        contents={
+          <>
+            <p>15.52%</p>
+            <p>9 correct</p>
+            <p>49 incorrect</p>
+          </>
+        }
+      >
+        my hover
+      </MyTooltip>
     </div>
   );
 };

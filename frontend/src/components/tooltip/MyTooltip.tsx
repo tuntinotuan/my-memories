@@ -4,9 +4,10 @@ import PopupHover from "../popup/PopupHover";
 
 type MyToolipProps = {
   children: React.ReactNode;
+  contents: React.ReactNode;
 };
 
-const MyTooltip = ({ children }: MyToolipProps) => {
+const MyTooltip = ({ children, contents }: MyToolipProps) => {
   const { ref, isHovered } = useHoverDelay<HTMLDivElement>({
     enterDelay: 300,
     leaveDelay: 300,
@@ -17,9 +18,7 @@ const MyTooltip = ({ children }: MyToolipProps) => {
         rect={ref.current?.getBoundingClientRect()}
         isHovered={isHovered}
       >
-        <p>15.52%</p>
-        <p>9 correct</p>
-        <p>49 incorrect</p>
+        {contents}
       </PopupHover>
       <div ref={ref} className="cursor-default">
         {children}

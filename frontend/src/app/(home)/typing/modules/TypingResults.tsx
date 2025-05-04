@@ -1,3 +1,4 @@
+import MyTooltip from "@/components/tooltip/MyTooltip";
 import TypingRestart from "@/components/typing/TypingRestart";
 import { useTyping } from "@/contexts/TypingStates";
 import {
@@ -34,7 +35,15 @@ export const TypingResults = () => {
   return (
     <div className="mx-auto h-full flex flex-col justify-around  gap-2 text-typingTextNormal">
       <span className="text-3xl">wpm</span>
-      <p className="text-6xl text-typingColorActive">{wpm}</p>
+      <MyTooltip
+        contents={
+          <>
+            <p>{`${wpm} wpm`}</p>
+          </>
+        }
+      >
+        <p className="text-6xl text-typingColorActive">{wpm}</p>
+      </MyTooltip>
       <span className="text-3xl">acc</span>
       <p className="text-6xl text-typingColorActive">{`${Math.round(acc)}%`}</p>
       <span className="text-3xl">time seconds</span>
