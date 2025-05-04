@@ -5,7 +5,7 @@ interface UseHoverOptions {
   leaveDelay?: number; // milliseconds
 }
 
-export function useHover<T extends HTMLElement>({
+export function useHoverDelay<T extends HTMLElement>({
   enterDelay = 0,
   leaveDelay = 0,
 }: UseHoverOptions = {}) {

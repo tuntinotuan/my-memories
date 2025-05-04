@@ -5,6 +5,7 @@ import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
 import { useTyping } from "@/contexts/TypingStates";
 import PopupHover from "@/components/popup/PopupHover";
+import MyTooltip from "@/components/tooltip/MyTooltip";
 
 export const TypingContent = () => {
   const {
@@ -61,6 +62,7 @@ export const TypingContent = () => {
         <p>9 correct</p>
         <p>49 incorrect</p>
       </PopupHover> */}
+      <MyTooltip>my hover</MyTooltip>
     </div>
   );
 };
