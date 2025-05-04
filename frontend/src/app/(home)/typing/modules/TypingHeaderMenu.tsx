@@ -52,7 +52,6 @@ export const TypingHeaderMenu = () => {
       <SplitElement />
       <BtnChangeTheme />
       <PopupTypingTheme></PopupTypingTheme>
-      <SplitElement />
     </div>
   );
 };
