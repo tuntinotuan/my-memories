@@ -34,13 +34,16 @@ const PopupHover = ({
     <Overlay>
       <div
         className={`fixed flex flex-col gap-[2px] bg-black text-white text-lg/4 px-4 py-3 rounded transition-all z-30 ${
-          isHovered ? "opacity-100 -translate-y-1" : "opacity-0 translate-y-0"
+          isHovered
+            ? "opacity-100 visible -translate-y-1"
+            : "opacity-0 translate-y-0 invisible"
         }`}
         style={
           rect
             ? {
-                top: rect.top,
-                left: rect.left - rect.width + rect.width / 2,
+                top: rect.top + window.scrollY - 10,
+                left: rect.left + window.scrollX + rect.width / 2,
+                transform: "translate(-50%, -100%)",
               }
             : {}
         }

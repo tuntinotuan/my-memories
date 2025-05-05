@@ -45,10 +45,19 @@ export const TypingResults = () => {
         <p className="text-6xl text-typingColorActive">{wpm}</p>
       </MyTooltip>
       <span className="text-3xl">acc</span>
-      <p className="text-6xl text-typingColorActive">{`${Math.round(acc)}%`}</p>
-      <span className="text-3xl">time seconds</span>
-      <p className="text-6xl text-typingColorActive">{secondsOfManyWords}</p>
-      {quantityCorrect} |{quantityWrong}
+      <MyTooltip
+        contents={
+          <>
+            <p>{`${acc.toFixed(2)}%`}</p>
+            <p>{`${quantityCorrect} correct`}</p>
+            <p>{`${quantityWrong} incorrect`}</p>
+          </>
+        }
+      >
+        <p className="text-6xl text-typingColorActive">{`${Math.round(
+          acc
+        )}%`}</p>
+      </MyTooltip>
       <TypingRestart
         onRestart={() => {
           setShowResults(false);
