@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Placement } from "../tooltip/MyTooltip";
 interface DOMRect {
@@ -27,7 +27,7 @@ const PopupHover = ({
 
   useEffect(() => {
     if (!rect) return;
-    const tooltipOffset = 10; // distance from the element
+    const tooltipOffset = 15; // distance from the element
     const scrollY = window.scrollY;
     const scrollX = window.scrollX;
 
@@ -82,7 +82,7 @@ const PopupHover = ({
         }}
       >
         {children}
-        <Arrow></Arrow>
+        <Arrow placement={placement}></Arrow>
       </div>
     </Overlay>
   );
@@ -97,9 +97,29 @@ const Overlay = ({ children }: { children: React.ReactNode }) => {
   return mounted ? createPortal(children, document.body) : null;
 };
 
-const Arrow = () => {
+const Arrow = ({ placement }: { placement: Placement }) => {
+  let newStyles = "";
+  switch (placement) {
+    case "top":
+      newStyles = "top-full left-1/2 -translate-x-1/2 -translate-y-1/2";
+      break;
+    case "bottom":
+      newStyles = "bottom-full left-1/2 -translate-x-1/2 translate-y-1/2";
+      break;
+    case "left":
+      newStyles = "bottom-1/2 left-full -translate-x-1/2 translate-y-1/2";
+      break;
+    case "right":
+      newStyles = "bottom-1/2 right-full translate-x-1/2 translate-y-1/2";
+      break;
+
+    default:
+      break;
+  }
   return (
-    <div className="arrow absolute top-full left-1/2 -translate-x-1/2 -translate-y-1/2 w-[10px] h-[10px] bg-inherit rotate-45 -z-10"></div>
+    <div
+      className={`arrow absolute w-[10px] h-[10px] bg-inherit rotate-45 -z-10 ${newStyles}`}
+    ></div>
   );
 };
 

@@ -62,17 +62,56 @@ export const TypingContent = () => {
         <p>9 correct</p>
         <p>49 incorrect</p>
       </PopupHover> */}
-      <MyTooltip
-        contents={
-          <>
-            <p>15.52%</p>
-            <p>9 correct</p>
-            <p>49 incorrect</p>
-          </>
-        }
-      >
-        my hover
-      </MyTooltip>
+      <div className="flex items-center gap-10">
+        <MyTooltip
+          contents={
+            <>
+              <p>15.52%</p>
+              <p>9 correct</p>
+              <p>49 incorrect</p>
+            </>
+          }
+          placement="top"
+        >
+          my hover
+        </MyTooltip>
+        <MyTooltip
+          contents={
+            <>
+              <p>15.52%</p>
+              <p>9 correct</p>
+              <p>49 incorrect</p>
+            </>
+          }
+          placement="bottom"
+        >
+          my hover
+        </MyTooltip>
+        <MyTooltip
+          contents={
+            <>
+              <p>15.52%</p>
+              <p>9 correct</p>
+              <p>49 incorrect</p>
+            </>
+          }
+          placement="left"
+        >
+          my hover
+        </MyTooltip>
+        <MyTooltip
+          contents={
+            <>
+              <p>15.52%</p>
+              <p>9 correct</p>
+              <p>49 incorrect</p>
+            </>
+          }
+          placement="right"
+        >
+          my hover
+        </MyTooltip>
+      </div>
     </div>
   );
 };
