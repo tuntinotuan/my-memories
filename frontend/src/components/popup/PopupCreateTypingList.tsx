@@ -6,6 +6,7 @@ import PlusIcon from "../icons/PlusIcon";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { generateId } from "@/utils/otherFs";
 import { useTyping } from "@/contexts/TypingStates";
+import FileUpload from "../file/FileUpload";
 
 type PopupCreateTypingListProps = {
   show: boolean;
@@ -74,7 +75,7 @@ const Body = ({ onClose }: any) => {
         listName={listName}
         setListName={setListName}
       ></Form>
-      <OtherOptions />
+      <OtherOptions setTypingList={setTypingList} />
       <Button
         hover="hover:bg-typingBgControlMenu"
         onClick={handleCreateTypingList}
@@ -178,7 +179,35 @@ const TypingItem = ({ data }: any) => {
     </div>
   );
 };
-const OtherOptions = () => {
+const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const text = reader.result as string;
+      const lines = text
+        .split("\n")
+        .map((line) => line.trim())
+        .filter((line) => line.length > 0); // remove blank lines
+
+      const result: typingWordsTypes[] = [];
+
+      for (let i = 0; i < lines.length; i += 2) {
+        const word = lines[i];
+        const meaning = lines[i + 1];
+        if (word && meaning) {
+          result.push({ word, meaning });
+        }
+      }
+
+      setTypingList(result);
+    };
+
+    reader.readAsText(file);
+  };
   return (
     <>
       <label htmlFor="">Other options:</label>
@@ -186,6 +215,7 @@ const OtherOptions = () => {
         <div className="cursor-pointer hover:bg-typingBgControlMenu transition-all p-2 rounded">
           notepad, excel files...
         </div>
+        <FileUpload handleFileChange={handleFileChange}></FileUpload>
       </div>
     </>
   );
