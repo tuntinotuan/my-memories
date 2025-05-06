@@ -4,20 +4,14 @@ import { useEffect, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
 import { useTyping } from "@/contexts/TypingStates";
-import PopupHover from "@/components/popup/PopupHover";
-import MyTooltip from "@/components/tooltip/MyTooltip";
 
 export const TypingContent = () => {
   const {
     typingStyles,
-    wordAmount,
-    countNextWord,
     setHideOverlay,
     setShowResults,
-    secondsOfManyWords,
     resetRunningManyWords,
     setSecondsOfManyWords,
-    secondsOfTimeWords,
     setIsCountDown,
     resetCountDownIsInitial,
   } = useTyping();
@@ -28,15 +22,7 @@ export const TypingContent = () => {
   if (!hydrated) return null; // or a skeleton/placeholder
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
-      {typingStyles !== "combine" && (
-        <div className="flex items-end justify-between h-[20vh] bg-opacity-5 backdrop-blur-sm w-full z-10 p-2 rounded">
-          <p className="text-xl text-typingColorActive bg-typingBgControlMenu transition-all rounded py-1 px-2">
-            {typingStyles === "words"
-              ? `${countNextWord}/${wordAmount}`
-              : secondsOfTimeWords}
-          </p>
-        </div>
-      )}
+      <ViewAmountOrTime />
       {typingStyles === "time" && <TypingManyWords types="time" />}
       {typingStyles === "combine" && <TypingOnlyAWord />}
       {typingStyles === "words" && <TypingManyWords types="words" />}
@@ -54,64 +40,24 @@ export const TypingContent = () => {
           setIsCountDown(false);
         }}
       ></TypingRestart>
-      {/* <PopupHover>
-        <p>8.88 wpm</p>
-      </PopupHover> */}
-      {/* <PopupHover>
-        <p>15.52%</p>
-        <p>9 correct</p>
-        <p>49 incorrect</p>
-      </PopupHover> */}
-      <div className="flex items-center gap-10">
-        <MyTooltip
-          contents={
-            <>
-              <p>15.52%</p>
-              <p>9 correct</p>
-              <p>49 incorrect</p>
-            </>
-          }
-          placement="top"
-        >
-          my hover
-        </MyTooltip>
-        <MyTooltip
-          contents={
-            <>
-              <p>15.52%</p>
-              <p>9 correct</p>
-              <p>49 incorrect</p>
-            </>
-          }
-          placement="bottom"
-        >
-          my hover
-        </MyTooltip>
-        <MyTooltip
-          contents={
-            <>
-              <p>15.52%</p>
-              <p>9 correct</p>
-              <p>49 incorrect</p>
-            </>
-          }
-          placement="left"
-        >
-          my hover
-        </MyTooltip>
-        <MyTooltip
-          contents={
-            <>
-              <p>15.52%</p>
-              <p>9 correct</p>
-              <p>49 incorrect</p>
-            </>
-          }
-          placement="right"
-        >
-          my hover
-        </MyTooltip>
-      </div>
     </div>
+  );
+};
+
+const ViewAmountOrTime = () => {
+  const { typingStyles, wordAmount, countNextWord, secondsOfTimeWords } =
+    useTyping();
+  return (
+    <>
+      {typingStyles !== "combine" && (
+        <div className="flex items-end justify-between h-[20vh] bg-opacity-5 backdrop-blur-sm w-full z-10 p-2 rounded">
+          <p className="text-xl text-typingColorActive bg-typingBgControlMenu transition-all rounded py-1 px-2">
+            {typingStyles === "words"
+              ? `${countNextWord}/${wordAmount}`
+              : secondsOfTimeWords}
+          </p>
+        </div>
+      )}
+    </>
   );
 };

@@ -48,7 +48,7 @@ export const TypingResults = () => {
       <MyTooltip
         contents={
           <>
-            <p>{`${acc.toFixed(2)}%`}</p>
+            <p>{`${Math.round(acc * 100) / 100}%`}</p>
             <p>{`${quantityCorrect} correct`}</p>
             <p>{`${quantityWrong} incorrect`}</p>
           </>

@@ -2,7 +2,6 @@
 import { TypingContent } from "./modules/TypingContent";
 import { TypingResults } from "./modules/TypingResults";
 import { TypingHeaderMenu } from "./modules/TypingHeaderMenu";
-import FlexRowWrap from "./modules/flexRow";
 import { useTyping } from "@/contexts/TypingStates";
 
 export default function TypingPage() {
@@ -12,7 +11,6 @@ export default function TypingPage() {
       {!showResults && <TypingHeaderMenu></TypingHeaderMenu>}
       {!showResults && <TypingContent></TypingContent>}
       {showResults && <TypingResults></TypingResults>}
-      {false && <FlexRowWrap></FlexRowWrap>}
     </div>
   );
 }

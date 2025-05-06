@@ -1,4 +1,3 @@
-import SettingIcon from "@/components/icons/SettingIcon";
 import { Tooltip } from "@nextui-org/tooltip";
 import ClockIcon from "@/components/icons/ClockIcon";
 import WordIcon from "@/components/icons/WordIcon";
@@ -197,7 +196,6 @@ const ListBtnTypingStyles = () => {
 };
 const BtnChangeTheme = () => {
   const { setThemePopup } = useTypingTheme();
-
   return (
     <div
       className="flex gap-1 cursor-pointer hover:text-typingTextHover transition-all"
