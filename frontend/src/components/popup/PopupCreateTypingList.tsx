@@ -74,6 +74,7 @@ const Body = ({ onClose }: any) => {
         typingList={typingList}
         listName={listName}
         setListName={setListName}
+        setTypingList={setTypingList}
       ></Form>
       <OtherOptions setTypingList={setTypingList} />
       <Button
@@ -95,6 +96,7 @@ const Form = ({
   typingList,
   listName,
   setListName,
+  setTypingList,
 }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -105,6 +107,9 @@ const Form = ({
       scrollCur.scrollTop = scrollCur.scrollHeight;
     }
   }, [typingList]);
+  const handleClearData = () => {
+    setTypingList([]);
+  };
   return (
     <div className="flex items-start gap-2 w-full">
       <div className="flex-1 flex flex-col gap-1">
@@ -149,8 +154,16 @@ const Form = ({
           <PlusIcon></PlusIcon>Add a pair of word
         </Button>
         {typingList.length > 0 && (
-          <div className="ml-auto px-1 border border-gray-200 border-dotted rounded">
-            {typingList.length}
+          <div className="flex items-center justify-between">
+            <p
+              className="hover:underline cursor-pointer transition-all"
+              onClick={handleClearData}
+            >
+              Clear data
+            </p>
+            <p className="px-1 border border-gray-200 border-dotted rounded">
+              {typingList.length}
+            </p>
           </div>
         )}
       </div>
@@ -180,10 +193,11 @@ const TypingItem = ({ data }: any) => {
   );
 };
 const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
+  const [fileName, setFileName] = useState("");
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
+    setFileName(file.name);
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -212,10 +226,10 @@ const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
     <>
       <label htmlFor="">Other options:</label>
       <div className="flex gap-2">
-        <div className="cursor-pointer hover:bg-typingBgControlMenu transition-all p-2 rounded">
-          notepad, excel files...
-        </div>
-        <FileUpload handleFileChange={handleFileChange}></FileUpload>
+        <FileUpload
+          title={fileName || "notepad, excel files"}
+          handleFileChange={handleFileChange}
+        ></FileUpload>
       </div>
     </>
   );

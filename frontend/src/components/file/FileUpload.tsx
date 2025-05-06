@@ -2,7 +2,9 @@ import { useState } from "react";
 
 export default function FileUpload({
   handleFileChange,
+  title,
 }: {
+  title: string;
   handleFileChange: any;
 }) {
   const [text, setText] = useState("");
@@ -10,8 +12,19 @@ export default function FileUpload({
 
   return (
     <div>
-      <input type="file" accept=".txt" onChange={handleFileChange} />
-      <pre>{text}</pre>
+      <label
+        htmlFor="inputUploadFile"
+        className="cursor-pointer hover:bg-typingBgControlMenu transition-all p-2 rounded"
+      >
+        {title}
+      </label>
+      <input
+        id="inputUploadFile"
+        type="file"
+        accept=".txt"
+        onChange={handleFileChange}
+        className="hidden"
+      />
     </div>
   );
 }
