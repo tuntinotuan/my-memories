@@ -7,6 +7,7 @@ import { typingWordsTypes } from "@/api/typing/typing.type";
 import { generateId } from "@/utils/otherFs";
 import { useTyping } from "@/contexts/TypingStates";
 import FileUpload from "../file/FileUpload";
+import * as XLSX from "xlsx";
 
 type PopupCreateTypingListProps = {
   show: boolean;
@@ -200,27 +201,48 @@ const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
     setFileName(file.name);
     const reader = new FileReader();
 
-    reader.onload = () => {
-      const text = reader.result as string;
-      const lines = text
-        .split("\n")
-        .map((line) => line.trim())
-        .filter((line) => line.length > 0); // remove blank lines
+    const fileName = file.name.toLowerCase();
+    const isTxt = fileName.endsWith(".txt");
+    const isXlsx = fileName.endsWith(".xlsx") || fileName.endsWith(".xls");
+
+    reader.onload = (event) => {
+      // const text = reader.result as string;
+      // const lines = text
+      //   .split("\n")
+      //   .map((line) => line.trim())
+      //   .filter((line) => line.length > 0); // remove blank lines
 
       const result: typingWordsTypes[] = [];
 
-      for (let i = 0; i < lines.length; i += 2) {
-        const word = lines[i];
-        const meaning = lines[i + 1];
-        if (word && meaning) {
-          result.push({ word, meaning });
+      const arrayBuffer = event.target?.result as ArrayBuffer;
+
+      // ✅ Use `type: "array"` to fix the ZIP compression method error
+      const workbook = XLSX.read(arrayBuffer, { type: "array" });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows: any[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+      // if (isTxt) {
+      //   for (let i = 0; i < lines.length; i += 2) {
+      //     const word = lines[i];
+      //     const meaning = lines[i + 1];
+      //     if (word && meaning) {
+      //       result.push({ word, meaning });
+      //     }
+      //   }
+      // }
+      if (isXlsx) {
+        for (let i = 0; i < rows.length; i++) {
+          const [word, meaning] = rows[i];
+          if (word !== undefined && meaning !== undefined) {
+            result.push({ word: String(word), meaning: String(meaning) });
+          }
         }
       }
 
       setTypingList(result);
     };
 
-    reader.readAsText(file);
+    // reader.readAsText(file);
+    reader.readAsArrayBuffer(file);
   };
   return (
     <>

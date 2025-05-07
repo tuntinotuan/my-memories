@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function FileUpload({
   handleFileChange,
   title,
@@ -7,9 +5,6 @@ export default function FileUpload({
   title: string;
   handleFileChange: any;
 }) {
-  const [text, setText] = useState("");
-  console.log("texttttt", text);
-
   return (
     <div>
       <label
@@ -21,7 +16,7 @@ export default function FileUpload({
       <input
         id="inputUploadFile"
         type="file"
-        accept=".txt"
+        accept=".txt, .xlsx, .xls"
         onChange={handleFileChange}
         className="hidden"
       />
