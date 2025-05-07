@@ -8,6 +8,8 @@ import { generateId } from "@/utils/otherFs";
 import { useTyping } from "@/contexts/TypingStates";
 import FileUpload from "../file/FileUpload";
 import * as XLSX from "xlsx";
+import MyTooltip from "../tooltip/MyTooltip";
+import Image from "next/image";
 
 type PopupCreateTypingListProps = {
   show: boolean;
@@ -246,12 +248,29 @@ const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
   return (
     <>
       <label htmlFor="">Other options:</label>
-      <div className="flex gap-2">
+      <MyTooltip
+        contents={
+          <div className="flex gap-1">
+            <Image
+              src={"/notepad-format.png"}
+              alt="notepad-format image"
+              width={90}
+              height={150}
+            ></Image>
+            <Image
+              src={"/excel-format.png"}
+              alt="notepad-format image"
+              width={170}
+              height={150}
+            ></Image>
+          </div>
+        }
+      >
         <FileUpload
           title={fileName || "notepad, excel files"}
           handleFileChange={handleFileChange}
         ></FileUpload>
-      </div>
+      </MyTooltip>
     </>
   );
 };

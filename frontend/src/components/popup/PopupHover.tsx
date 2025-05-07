@@ -72,7 +72,7 @@ const PopupHover = ({
   return (
     <Overlay>
       <div
-        className={`fixed flex flex-col gap-[2px] bg-black text-white text-lg/4 px-4 py-3 rounded transition-all z-30 ${
+        className={`fixed flex flex-col gap-[2px] bg-black text-white text-lg/4 px-4 py-3 rounded transition-all z-50 ${
           isHovered
             ? "opacity-100 visible -translate-y-1"
             : "opacity-0 translate-y-0 invisible"

@@ -6,7 +6,7 @@ export default function FileUpload({
   handleFileChange: any;
 }) {
   return (
-    <div>
+    <>
       <label
         htmlFor="inputUploadFile"
         className="cursor-pointer hover:bg-typingBgControlMenu transition-all p-2 rounded"
@@ -20,6 +20,6 @@ export default function FileUpload({
         onChange={handleFileChange}
         className="hidden"
       />
-    </div>
+    </>
   );
 }
