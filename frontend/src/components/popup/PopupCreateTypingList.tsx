@@ -206,13 +206,21 @@ const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
     const isXlsx = fileName.endsWith(".xlsx") || fileName.endsWith(".xls");
 
     reader.onload = (event) => {
-      // const text = reader.result as string;
-      // const lines = text
-      //   .split("\n")
-      //   .map((line) => line.trim())
-      //   .filter((line) => line.length > 0); // remove blank lines
-
       const result: typingWordsTypes[] = [];
+      if (isTxt) {
+        const text = reader.result as string;
+        const lines = text
+          .split("\n")
+          .map((line) => line.trim())
+          .filter((line) => line.length > 0); // remove blank lines
+        for (let i = 0; i < lines.length; i += 2) {
+          const word = lines[i];
+          const meaning = lines[i + 1];
+          if (word && meaning) {
+            result.push({ word, meaning });
+          }
+        }
+      }
 
       const arrayBuffer = event.target?.result as ArrayBuffer;
 
@@ -220,15 +228,7 @@ const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
       const workbook = XLSX.read(arrayBuffer, { type: "array" });
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
       const rows: any[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-      // if (isTxt) {
-      //   for (let i = 0; i < lines.length; i += 2) {
-      //     const word = lines[i];
-      //     const meaning = lines[i + 1];
-      //     if (word && meaning) {
-      //       result.push({ word, meaning });
-      //     }
-      //   }
-      // }
+
       if (isXlsx) {
         for (let i = 0; i < rows.length; i++) {
           const [word, meaning] = rows[i];
@@ -237,12 +237,11 @@ const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
           }
         }
       }
-
       setTypingList(result);
     };
 
-    // reader.readAsText(file);
-    reader.readAsArrayBuffer(file);
+    isTxt && reader.readAsText(file);
+    isXlsx && reader.readAsArrayBuffer(file);
   };
   return (
     <>
