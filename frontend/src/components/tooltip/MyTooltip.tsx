@@ -22,7 +22,7 @@ const MyTooltip = ({ children, contents, placement }: MyToolipProps) => {
       >
         {contents}
       </PopupHover>
-      <div ref={ref} className="w-auto cursor-default">
+      <div ref={ref} className="w-fit cursor-default">
         {children}
       </div>
     </>
