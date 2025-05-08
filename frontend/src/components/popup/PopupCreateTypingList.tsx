@@ -37,6 +37,7 @@ const Body = ({ onClose }: any) => {
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
   const { wordList, setWordList } = useTyping();
+  const [fileName, setFileName] = useState("");
 
   const handleAddAPairOfWord = () => {
     if (!word) return document.getElementById("wordName")?.focus();
@@ -74,10 +75,15 @@ const Body = ({ onClose }: any) => {
         handleAddAPairOfWord={handleAddAPairOfWord}
         typingList={typingList}
         listName={listName}
+        fileName={fileName}
         setListName={setListName}
         setTypingList={setTypingList}
       ></Form>
-      <OtherOptions setTypingList={setTypingList} />
+      <OtherOptions
+        setTypingList={setTypingList}
+        fileName={fileName}
+        setFileName={setFileName}
+      />
       <Button
         hover="hover:bg-typingBgControlMenu"
         onClick={handleCreateTypingList}
@@ -96,6 +102,7 @@ const Form = ({
   handleAddAPairOfWord,
   typingList,
   listName,
+  fileName,
   setListName,
   setTypingList,
 }: any) => {
@@ -116,7 +123,7 @@ const Form = ({
       <div className="flex-1 flex flex-col gap-1">
         <div className="flex items-center gap-1">
           <input
-            value={listName}
+            value={fileName.replace(/\.[^/.]+$/, "") || listName}
             type="text"
             className="text-typingColorActive"
             placeholder="Typing your list name.."
@@ -193,8 +200,7 @@ const TypingItem = ({ data }: any) => {
     </div>
   );
 };
-const OtherOptions = ({ setTypingList }: { setTypingList: any }) => {
-  const [fileName, setFileName] = useState("");
+const OtherOptions = ({ setTypingList, fileName, setFileName }: any) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;

@@ -33,7 +33,7 @@ export const TypingResults = () => {
         );
 
   return (
-    <div className="mx-auto h-full flex flex-col justify-around  gap-2 text-typingTextNormal">
+    <div className="mx-auto h-full flex flex-col justify-center gap-2 text-typingTextNormal">
       <span className="text-3xl">wpm</span>
       <MyTooltip
         contents={
@@ -66,6 +66,7 @@ export const TypingResults = () => {
           resetCountDownIsInitial();
           setIsCountDown(false);
         }}
+        className="flex-none"
       ></TypingRestart>
     </div>
   );

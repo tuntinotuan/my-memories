@@ -5,15 +5,16 @@ import { useTyping } from "@/contexts/TypingStates";
 
 type TypingRestartProps = {
   onRestart?: () => void;
+  className?: string;
 };
 
-const TypingRestart = ({ onRestart }: TypingRestartProps) => {
+const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
   const { typingStyles } = useTyping();
   return (
     <div
       className={`flex w-full justify-center z-10 bg-opacity-5 p-2 ${
         typingStyles !== "combine" ? "flex-1" : ""
-      } ${typingStyles === "words" ? "backdrop-blur-sm" : ""}`}
+      } ${typingStyles === "words" ? "backdrop-blur-sm" : ""} ${className}`}
     >
       <Tooltip
         showArrow
