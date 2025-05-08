@@ -13,22 +13,24 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 import ButtonCreate from "@/components/button/ButtonCreate";
 import PlusIcon from "@/components/icons/PlusIcon";
 import CrownIcon from "@/components/icons/CrownIcon";
-import { projectList } from "@/api/board/mock.data";
 import { useTyping } from "@/contexts/TypingStates";
+import { Id } from "@/app/(home)/project/[slug]/modules/types";
 
 const HomeSidebarForTyping = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
   const [showExampleDesign, setShowExampleDesign] = useState(true);
   const { handleShowHomeSidebar } = useLayoutStates();
-  const { boards, loadingFetchBoards, handleOpenAndClosePopupCreateboard } =
-    useCreateBoardStates();
-  const { typingStyles, showPopupCreate, wordList, setShowPopupCreate } =
-    useTyping();
+  const { boards } = useCreateBoardStates();
+  const { wordList, setWordList, setShowPopupCreate } = useTyping();
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
   const handleExample = () => {
     setShowExampleDesign((pre) => !pre);
+  };
+  const handleDeleteTypingList = (id: Id) => {
+    const newWordList = wordList.filter((item: any) => item.id !== id);
+    setWordList(newWordList);
   };
   return (
     <HomeSidebar>
@@ -84,6 +86,7 @@ const HomeSidebarForTyping = () => {
                   key={item.id}
                   id={item.id}
                   title={item.name}
+                  handleDelete={handleDeleteTypingList}
                 ></ProjectItem>
               ))}
             </div>

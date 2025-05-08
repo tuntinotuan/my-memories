@@ -6,17 +6,18 @@ import ProjectImgOrGradient from "./ProjectImgOrGradient";
 import { LinearOrUrl } from "./types";
 import { cutIdFromSlug, replaceAllTrim } from "@/utils/otherFs";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
-import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { usePathname } from "next/navigation";
 
 const ProjectItem = ({
   img,
   title,
   id,
+  handleDelete,
 }: {
   img?: LinearOrUrl;
   title: string;
   id?: Id;
+  handleDelete?: (id: Id) => void;
 }) => {
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
@@ -76,6 +77,7 @@ const ProjectItem = ({
         <ThreeDotsIcon
           fontSize="inherit"
           className={`${controlClass} cursor-wait`}
+          onClick={() => (handleDelete ? handleDelete(id || 0) : {})}
         ></ThreeDotsIcon>
       </div>
     </div>
