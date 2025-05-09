@@ -16,6 +16,7 @@ import CrownIcon from "@/components/icons/CrownIcon";
 import { useTyping } from "@/contexts/TypingStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { replaceAllTrim } from "@/utils/otherFs";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 
 const HomeSidebarForTyping = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
@@ -110,7 +111,22 @@ const HomeSidebarForTyping = () => {
           </div>
         )}
       </div>
+      <Popup></Popup>
     </HomeSidebar>
+  );
+};
+
+export const Popup = () => {
+  return (
+    <div className="fixed top-1/3 left-52 w-[300px] h-auto bg-white shadow-popup-rect rounded-xl z-50 border border-gray-100">
+      <div className="flex flex-col border border-transparent border-b-gray-200 p-3">
+        <p className="font-bold text-lg">Day in a week </p>
+      </div>
+      <div className="flex items-center gap-2 w-full text-primaryText hover:bg-gray-100 px-3 py-2 transition-all cursor-pointer">
+        <DeleteIcon></DeleteIcon>
+        Delete
+      </div>
+    </div>
   );
 };
 

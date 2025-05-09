@@ -56,6 +56,11 @@ const config: Config = {
         fadeInUp: "fadeInUp 1s ease-out infinite",
         hideShow: "hideShow 1s ease-in infinite",
       },
+      boxShadow: {
+        "popup-rect": "0 0px 15px rgba(0, 0, 0, 0.1)",
+        "soft-blue": "0 0 10px rgba(59, 130, 246, 0.5)", // Tailwind blue glow
+        "deep-xl": "0 10px 25px -5px rgba(0, 0, 0, 0.5)", // deep large shadow
+      },
     },
   },
   darkMode: "class",
