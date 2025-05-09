@@ -41,12 +41,12 @@ const HomeMenuSidebar = () => {
       text: "Typing",
       href: "/typing/",
     },
-    {
-      iconNormal: <DashboardCustomizeOutlinedIcon fontSize="inherit" />,
-      iconActive: <DashboardCustomizeRoundedIcon fontSize="inherit" />,
-      text: "Card",
-      href: "/card/",
-    },
+    // {
+    //   iconNormal: <DashboardCustomizeOutlinedIcon fontSize="inherit" />,
+    //   iconActive: <DashboardCustomizeRoundedIcon fontSize="inherit" />,
+    //   text: "Card",
+    //   href: "/card/",
+    // },
   ];
   return (
     <ul

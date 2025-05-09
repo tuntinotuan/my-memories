@@ -13,10 +13,12 @@ const ProjectItem = ({
   title,
   id,
   handleDelete,
+  href,
 }: {
   img?: LinearOrUrl;
   title: string;
   id?: Id;
+  href: string;
   handleDelete?: (id: Id) => void;
 }) => {
   let controlClass =
@@ -26,7 +28,7 @@ const ProjectItem = ({
   const titleInPath = path.replace("/project/", "");
   return (
     <div
-      className={`relative w-full group flex items-center gap-2 truncate p-2 rounded-md cursor-pointer shrink-0 transition-all ${
+      className={`relative w-full group flex items-center gap-2 truncate py-2 px-2 rounded-md cursor-pointer shrink-0 transition-all ${
         id === Number(cutIdFromSlug(path, "-id")) ||
         replaceAllTrim(title) + "/" === titleInPath
           ? "bg-primaryColor bg-opacity-10 hover:none"
@@ -34,7 +36,8 @@ const ProjectItem = ({
       }`}
     >
       <Link
-        href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
+        href={href}
+        // href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
         className="absolute inset-0"
       ></Link>
       {img && (
@@ -66,7 +69,7 @@ const ProjectItem = ({
           shadow="sm"
         >
           <Link
-            href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
+            href={href}
             rel="noopener noreferrer"
             target="_blank"
             className={controlClass}

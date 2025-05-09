@@ -15,6 +15,7 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import CrownIcon from "@/components/icons/CrownIcon";
 import { useTyping } from "@/contexts/TypingStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
+import { replaceAllTrim } from "@/utils/otherFs";
 
 const HomeSidebarForTyping = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
@@ -87,6 +88,9 @@ const HomeSidebarForTyping = () => {
                   id={item.id}
                   title={item.name}
                   handleDelete={handleDeleteTypingList}
+                  href={`/typing/${
+                    replaceAllTrim(item.name) + "-id" + item.id
+                  }`}
                 ></ProjectItem>
               ))}
             </div>

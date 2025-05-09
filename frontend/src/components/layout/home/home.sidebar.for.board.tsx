@@ -14,6 +14,7 @@ import ButtonCreate from "@/components/button/ButtonCreate";
 import PlusIcon from "@/components/icons/PlusIcon";
 import CrownIcon from "@/components/icons/CrownIcon";
 import { projectList } from "@/api/board/mock.data";
+import { replaceAllTrim } from "@/utils/otherFs";
 
 const HomeSidebarForBoard = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
@@ -94,6 +95,9 @@ const HomeSidebarForBoard = () => {
                   id={item.id}
                   img={item.img}
                   title={item.title}
+                  href={`/project/${
+                    replaceAllTrim(item.title) + "-id" + item.id
+                  }`}
                 ></ProjectItem>
               ))}
             </div>
@@ -123,6 +127,7 @@ const HomeSidebarForBoard = () => {
                   key={index}
                   img={item.img}
                   title={item.title}
+                  href={`/project/${replaceAllTrim(item.title)}`}
                 ></ProjectItem>
               ))}
             </div>
