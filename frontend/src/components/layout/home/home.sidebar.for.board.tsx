@@ -98,6 +98,7 @@ const HomeSidebarForBoard = () => {
                   href={`/project/${
                     replaceAllTrim(item.title) + "-id" + item.id
                   }`}
+                  disabledControl
                 ></ProjectItem>
               ))}
             </div>

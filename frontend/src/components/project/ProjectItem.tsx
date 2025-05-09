@@ -7,12 +7,15 @@ import { LinearOrUrl } from "./types";
 import { cutIdFromSlug, replaceAllTrim } from "@/utils/otherFs";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { usePathname } from "next/navigation";
+import { useRef } from "react";
 
 const ProjectItem = ({
   img,
   title,
   id,
   handleDelete,
+  selectedItem,
+  disabledControl,
   href,
 }: {
   img?: LinearOrUrl;
@@ -20,7 +23,10 @@ const ProjectItem = ({
   id?: Id;
   href: string;
   handleDelete?: (id: Id) => void;
+  selectedItem?: any;
+  disabledControl?: boolean;
 }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
   const newTitle = replaceAllTrim(title);
@@ -28,6 +34,7 @@ const ProjectItem = ({
   const titleInPath = path.replace("/project/", "");
   return (
     <div
+      ref={ref}
       className={`relative w-full group flex items-center gap-2 truncate py-2 px-2 rounded-md cursor-pointer shrink-0 transition-all ${
         id === Number(cutIdFromSlug(path, "-id")) ||
         replaceAllTrim(title) + "/" === titleInPath
@@ -79,8 +86,18 @@ const ProjectItem = ({
         </Tooltip>
         <ThreeDotsIcon
           fontSize="inherit"
-          className={`${controlClass} cursor-wait`}
-          onClick={() => (handleDelete ? handleDelete(id || 0) : {})}
+          className={`${controlClass} ${
+            disabledControl ? "cursor-wait" : "cursor-pointer"
+          }`}
+          onClick={() =>
+            disabledControl
+              ? {}
+              : selectedItem({
+                  id,
+                  title,
+                  rect: ref.current?.getBoundingClientRect(),
+                })
+          }
         ></ThreeDotsIcon>
       </div>
     </div>
