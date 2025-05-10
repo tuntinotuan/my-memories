@@ -8,6 +8,7 @@ import { cutIdFromSlug, replaceAllTrim } from "@/utils/otherFs";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
+import { useTyping } from "@/contexts/TypingStates";
 
 const ProjectItem = ({
   img,
@@ -27,6 +28,7 @@ const ProjectItem = ({
   disabledControl?: boolean;
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
+  const { setTypingListSetting } = useTyping();
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
   const newTitle = replaceAllTrim(title);
@@ -89,15 +91,15 @@ const ProjectItem = ({
           className={`${controlClass} ${
             disabledControl ? "cursor-wait" : "cursor-pointer"
           }`}
-          onClick={() =>
-            disabledControl
-              ? {}
-              : selectedItem({
-                  id,
-                  title,
-                  rect: ref.current?.getBoundingClientRect(),
-                })
-          }
+          onClick={() => {
+            if (disabledControl) return;
+            selectedItem({
+              id,
+              title,
+              rect: ref.current?.getBoundingClientRect(),
+            });
+            setTypingListSetting(true);
+          }}
         ></ThreeDotsIcon>
       </div>
     </div>

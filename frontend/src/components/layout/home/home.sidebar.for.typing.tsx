@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import HomeSidebar from "./home.sidebar";
 import Button from "@/components/button/Button";
 import ProjectItem from "@/components/project/ProjectItem";
@@ -17,12 +17,19 @@ import { useTyping } from "@/contexts/TypingStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { replaceAllTrim } from "@/utils/otherFs";
 import DeleteIcon from "@/components/icons/DeleteIcon";
+import { useOnClickOutside } from "usehooks-ts";
 
 const HomeSidebarForTyping = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
   const { handleShowHomeSidebar } = useLayoutStates();
   const { boards } = useCreateBoardStates();
-  const { wordList, setWordList, setShowPopupCreate } = useTyping();
+  const {
+    wordList,
+    setWordList,
+    setShowPopupCreate,
+    typingListSetting,
+    setTypingListSetting,
+  } = useTyping();
   const [pickedItem, setPickedItem] = useState();
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
@@ -114,15 +121,20 @@ const HomeSidebarForTyping = () => {
       <Popup
         onClickDelete={handleDeleteTypingList}
         pickedItem={pickedItem}
+        show={typingListSetting}
+        onClose={() => setTypingListSetting(false)}
       ></Popup>
     </HomeSidebar>
   );
 };
 
-export const Popup = ({ onClickDelete, pickedItem }: any) => {
+export const Popup = ({ onClickDelete, pickedItem, show, onClose }: any) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useOnClickOutside(ref, onClose);
   if (!pickedItem) return null;
-  return (
+  return show ? (
     <div
+      ref={ref}
       className={`fixed w-[300px] h-auto bg-white shadow-popup-rect rounded-xl z-50 border border-gray-200`}
       style={{
         top: pickedItem.rect.top + window.scrollY + pickedItem.rect.height / 2,
@@ -131,16 +143,21 @@ export const Popup = ({ onClickDelete, pickedItem }: any) => {
       }}
     >
       <div className="flex flex-col border border-transparent border-b-gray-200 p-3">
-        <p className="font-bold text-lg">{pickedItem?.title}</p>
+        <p className="font-bold text-lg">{pickedItem.title}</p>
       </div>
       <div
         className="flex items-center gap-2 w-full text-primaryText hover:bg-gray-100 px-3 py-2 transition-all cursor-pointer"
-        onClick={() => onClickDelete(pickedItem?.id)}
+        onClick={() => {
+          onClickDelete(pickedItem.id);
+          onClose();
+        }}
       >
         <DeleteIcon></DeleteIcon>
         Delete
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 
