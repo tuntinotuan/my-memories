@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import { Placement } from "../tooltip/MyTooltip";
+import PortalOverlay from "./portal.overlay";
 interface DOMRect {
   readonly x: number;
   readonly y: number;
@@ -70,7 +70,7 @@ const PopupHover = ({
   }, [rect, placement]);
 
   return (
-    <Overlay>
+    <PortalOverlay>
       <div
         className={`fixed flex flex-col gap-[2px] bg-black text-white text-lg/4 px-4 py-3 rounded transition-all z-50 ${
           isHovered
@@ -84,17 +84,8 @@ const PopupHover = ({
         {children}
         <Arrow placement={placement}></Arrow>
       </div>
-    </Overlay>
+    </PortalOverlay>
   );
-};
-
-const Overlay = ({ children }: { children: React.ReactNode }) => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
-  return mounted ? createPortal(children, document.body) : null;
 };
 
 const Arrow = ({ placement }: { placement: Placement }) => {

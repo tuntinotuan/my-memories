@@ -30,8 +30,7 @@ const ProjectItem = ({
   const ref = useRef<HTMLDivElement | null>(null);
   const { setTypingListSetting } = useTyping();
   let controlClass =
-    "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md";
-  const newTitle = replaceAllTrim(title);
+    "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md opacity-0 group-hover:opacity-100";
   const path = usePathname();
   const titleInPath = path.replace("/project/", "");
   return (
@@ -66,42 +65,65 @@ const ProjectItem = ({
       >
         {title}
       </p>
-      <div className="absolute right-1 flex items-center gap-1 shrink-0 opacity-0 group-hover:opacity-100">
-        <Tooltip
-          showArrow
-          content="Open in new tab"
-          placement="bottom"
-          radius="sm"
-          delay={200}
-          closeDelay={200}
-          className="!px-2 !py-[2px]"
-          shadow="sm"
+      <AbsoluteControls
+        href={href}
+        disabledControl={disabledControl}
+        controlClass={controlClass}
+        id={id}
+        onClickSetting={() => {
+          if (disabledControl) return;
+          selectedItem({
+            id,
+            title,
+            rect: ref.current?.getBoundingClientRect(),
+          });
+          setTypingListSetting(true);
+        }}
+      ></AbsoluteControls>
+    </div>
+  );
+};
+
+const AbsoluteControls = ({
+  href,
+  disabledControl,
+  controlClass,
+  onClickSetting,
+  id,
+}: any) => {
+  const { typingListSetting, currentlyPickedSetting } = useTyping();
+  return (
+    <div className="absolute right-1 flex items-center gap-1 shrink-0">
+      <Tooltip
+        showArrow
+        content="Open in new tab"
+        placement="bottom"
+        radius="sm"
+        delay={200}
+        closeDelay={200}
+        className="!px-2 !py-[2px]"
+        shadow="sm"
+      >
+        <Link
+          href={href}
+          rel="noopener noreferrer"
+          target="_blank"
+          className={controlClass}
         >
-          <Link
-            href={href}
-            rel="noopener noreferrer"
-            target="_blank"
-            className={controlClass}
-          >
-            <OpenInNewIcon fontSize="inherit"></OpenInNewIcon>{" "}
-          </Link>
-        </Tooltip>
-        <ThreeDotsIcon
-          fontSize="inherit"
-          className={`${controlClass} ${
-            disabledControl ? "cursor-wait" : "cursor-pointer"
-          }`}
-          onClick={() => {
-            if (disabledControl) return;
-            selectedItem({
-              id,
-              title,
-              rect: ref.current?.getBoundingClientRect(),
-            });
-            setTypingListSetting(true);
-          }}
-        ></ThreeDotsIcon>
-      </div>
+          <OpenInNewIcon fontSize="inherit"></OpenInNewIcon>{" "}
+        </Link>
+      </Tooltip>
+      <ThreeDotsIcon
+        fontSize="inherit"
+        className={`${controlClass} ${
+          disabledControl ? "cursor-wait" : "cursor-pointer"
+        } ${
+          currentlyPickedSetting.id === id && typingListSetting
+            ? "!opacity-100 bg-gray-300"
+            : ""
+        }`}
+        onClick={onClickSetting}
+      ></ThreeDotsIcon>
     </div>
   );
 };

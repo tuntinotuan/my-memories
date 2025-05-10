@@ -29,12 +29,13 @@ const HomeSidebarForTyping = () => {
     setShowPopupCreate,
     typingListSetting,
     setTypingListSetting,
+    currentlyPickedSetting,
+    setCurrentlyPickedSetting,
   } = useTyping();
-  const [pickedItem, setPickedItem] = useState();
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
-  console.log("pickedItem", pickedItem);
+  console.log("currentlyPickedSetting", currentlyPickedSetting);
 
   const handleDeleteTypingList = (id: Id) => {
     const newWordList = wordList.filter((item: any) => item.id !== id);
@@ -95,7 +96,7 @@ const HomeSidebarForTyping = () => {
                   id={item.id}
                   title={item.name}
                   handleDelete={handleDeleteTypingList}
-                  selectedItem={setPickedItem}
+                  selectedItem={setCurrentlyPickedSetting}
                   href={`/typing/${
                     replaceAllTrim(item.name) + "-id" + item.id
                   }`}
@@ -120,7 +121,7 @@ const HomeSidebarForTyping = () => {
       </div>
       <Popup
         onClickDelete={handleDeleteTypingList}
-        pickedItem={pickedItem}
+        pickedItem={currentlyPickedSetting}
         show={typingListSetting}
         onClose={() => setTypingListSetting(false)}
       ></Popup>
@@ -135,7 +136,7 @@ export const Popup = ({ onClickDelete, pickedItem, show, onClose }: any) => {
   return show ? (
     <div
       ref={ref}
-      className={`fixed w-[300px] h-auto bg-white shadow-popup-rect rounded-xl z-50 border border-gray-200`}
+      className={`fixed w-[300px] h-auto bg-white shadow-popup-rect rounded-xl z-50 border border-gray-200 overflow-hidden`}
       style={{
         top: pickedItem.rect.top + window.scrollY + pickedItem.rect.height / 2,
         left: pickedItem.rect.right + window.scrollX,

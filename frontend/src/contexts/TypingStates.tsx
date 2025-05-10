@@ -1,5 +1,6 @@
 "use client";
 import { getRandomWordApi } from "@/api/typing/random.word.api";
+import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import {
   WordAmountType,
   WordTimeType,
@@ -9,6 +10,11 @@ import { useRunningTime } from "@/hooks/useRunningTime";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export type typingStylesType = "time" | "combine" | "words";
+export type settingType = {
+  id: Id;
+  title: string;
+  rect?: DOMRect;
+};
 
 type defaltValuesType = {
   typingStyles: typingStylesType;
@@ -31,6 +37,8 @@ type defaltValuesType = {
   resetRunningManyWords: () => void;
   showResults: boolean;
   showPopupCreate: boolean;
+  currentlyPickedSetting: settingType;
+  setCurrentlyPickedSetting: ({ id, title, rect }: settingType) => void;
   setShowPopupCreate: (val: boolean) => void;
   setShowResults: (val: boolean) => void;
   setHideOverlay: (val: boolean) => void;
@@ -58,6 +66,8 @@ const defaultValues: defaltValuesType = {
   wordList: [],
   setWordList: () => {},
   typingListSetting: false,
+  currentlyPickedSetting: { id: 0, title: "nothing" },
+  setCurrentlyPickedSetting: () => {},
   setTypingListSetting: () => {},
   setShowPopupCreate: () => {},
   setCursorIsTyping: () => {},
@@ -94,6 +104,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [wordApi, setWordApi] = useState<[]>([]);
   const [showPopupCreate, setShowPopupCreate] = useState(false);
   const [wordList, setWordList] = useState<any>([]);
+  const [currentlyPickedSetting, setCurrentlyPickedSetting] =
+    useState<settingType>({ id: 0, title: "nothing" });
 
   //
   useEffect(() => {
@@ -141,6 +153,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         showPopupCreate,
         wordList,
         typingListSetting,
+        currentlyPickedSetting,
+        setCurrentlyPickedSetting,
         setTypingListSetting,
         setWordList,
         setShowPopupCreate,
