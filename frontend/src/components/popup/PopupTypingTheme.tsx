@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PopupOverlay from "./popup.overlay";
 import { TopControl } from "./PopupCreateboard";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
@@ -20,7 +20,6 @@ const PopupTypingTheme = () => {
   return (
     <PopupOverlay
       show={themPopup}
-      selector="myportal"
       width={300}
       onClick={() => setThemePopup(false)}
     >

@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import React, { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 type PopupFlexibleOverlayProps = {
@@ -23,36 +22,6 @@ type RectType = {
 };
 
 const PopupFlexibleOverlay = ({
-  children,
-  rect,
-  show,
-  onClose,
-  position,
-  width,
-  height,
-}: PopupFlexibleOverlayProps) => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
-  return mounted
-    ? createPortal(
-        <LocalOverlay
-          rect={rect}
-          show={show}
-          onClose={onClose}
-          position={position}
-          width={width}
-          height={height}
-        >
-          {children}{" "}
-        </LocalOverlay>,
-        document.body
-      )
-    : null;
-};
-const LocalOverlay = ({
   children,
   rect,
   show,
@@ -105,4 +74,5 @@ const LocalOverlay = ({
     <></>
   );
 };
+
 export default PopupFlexibleOverlay;

@@ -10,15 +10,7 @@ import { usePathname } from "next/navigation";
 import { useRef } from "react";
 import { useTyping } from "@/contexts/TypingStates";
 
-const ProjectItem = ({
-  img,
-  title,
-  id,
-  handleDelete,
-  selectedItem,
-  disabledControl,
-  href,
-}: {
+type ProjectItemProps = {
   img?: LinearOrUrl;
   title: string;
   id?: Id;
@@ -26,7 +18,16 @@ const ProjectItem = ({
   handleDelete?: (id: Id) => void;
   selectedItem?: any;
   disabledControl?: boolean;
-}) => {
+};
+
+const ProjectItem = ({
+  img,
+  title,
+  id,
+  selectedItem,
+  disabledControl,
+  href,
+}: ProjectItemProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const { setTypingListSetting } = useTyping();
   let controlClass =

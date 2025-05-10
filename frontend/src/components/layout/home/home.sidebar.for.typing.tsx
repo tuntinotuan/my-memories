@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import HomeSidebar from "./home.sidebar";
 import Button from "@/components/button/Button";
 import ProjectItem from "@/components/project/ProjectItem";
@@ -16,8 +16,7 @@ import CrownIcon from "@/components/icons/CrownIcon";
 import { useTyping } from "@/contexts/TypingStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { replaceAllTrim } from "@/utils/otherFs";
-import DeleteIcon from "@/components/icons/DeleteIcon";
-import { useOnClickOutside } from "usehooks-ts";
+import { PopupDotsSetting } from "@/components/popup/PopupDotsSetting";
 
 const HomeSidebarForTyping = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
@@ -119,46 +118,13 @@ const HomeSidebarForTyping = () => {
           </div>
         )}
       </div>
-      <Popup
+      <PopupDotsSetting
         onClickDelete={handleDeleteTypingList}
         pickedItem={currentlyPickedSetting}
         show={typingListSetting}
         onClose={() => setTypingListSetting(false)}
-      ></Popup>
+      ></PopupDotsSetting>
     </HomeSidebar>
-  );
-};
-
-export const Popup = ({ onClickDelete, pickedItem, show, onClose }: any) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  useOnClickOutside(ref, onClose);
-  if (!pickedItem) return null;
-  return show ? (
-    <div
-      ref={ref}
-      className={`fixed w-[300px] h-auto bg-white shadow-popup-rect rounded-xl z-50 border border-gray-200 overflow-hidden`}
-      style={{
-        top: pickedItem.rect.top + window.scrollY + pickedItem.rect.height / 2,
-        left: pickedItem.rect.right + window.scrollX,
-        transform: "translate(0, -50%)",
-      }}
-    >
-      <div className="flex flex-col border border-transparent border-b-gray-200 p-3">
-        <p className="font-bold text-lg">{pickedItem.title}</p>
-      </div>
-      <div
-        className="flex items-center gap-2 w-full text-primaryText hover:bg-gray-100 px-3 py-2 transition-all cursor-pointer"
-        onClick={() => {
-          onClickDelete(pickedItem.id);
-          onClose();
-        }}
-      >
-        <DeleteIcon></DeleteIcon>
-        Delete
-      </div>
-    </div>
-  ) : (
-    <></>
   );
 };
 
