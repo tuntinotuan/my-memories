@@ -1,7 +1,12 @@
 import { useOnClickOutside } from "usehooks-ts";
 import DeleteIcon from "../icons/DeleteIcon";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import PortalOverlay from "./portal.overlay";
+import OpenInANewTabIcon from "../icons/OpenInANewTabIcon";
+import LinkNewTabOverlay from "../overlay/link.newtab.overlay";
+import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import { Id } from "@/app/(home)/project/[slug]/modules/types";
+import { useTyping } from "@/contexts/TypingStates";
 
 export const PopupDotsSetting = ({
   onClickDelete,
@@ -11,6 +16,35 @@ export const PopupDotsSetting = ({
 }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(ref, onClose);
+  const {
+    wordList,
+    setWordList,
+    currentlyPickedSetting,
+    setCurrentlyPickedSetting,
+  } = useTyping();
+  let listControls = [
+    {
+      icon: <OpenInANewTabIcon size="medium"></OpenInANewTabIcon>,
+      title: "Open in a new tab",
+      href: pickedItem.href,
+    },
+    {
+      icon: <DeleteIcon></DeleteIcon>,
+      title: "Delete",
+      onClick: () => {
+        onClickDelete(pickedItem.id);
+        onClose();
+      },
+    },
+  ];
+  const handleUpdateTypingListName = (id: Id, title: string) => {
+    const newTasks = wordList.map((item: any) => {
+      if (item.id !== id) return item;
+      return { ...item, name: title };
+    });
+    setCurrentlyPickedSetting({ ...currentlyPickedSetting, title });
+    setWordList(newTasks);
+  };
   return show ? (
     <PortalOverlay>
       <div
@@ -24,21 +58,113 @@ export const PopupDotsSetting = ({
         }}
       >
         <div className="flex flex-col border border-transparent border-b-gray-200 p-3">
-          <p className="font-bold text-lg">{pickedItem.title}</p>
+          <InputPencilEdit
+            title={pickedItem.title}
+            id={pickedItem.id}
+            updateTitle={handleUpdateTypingListName}
+          ></InputPencilEdit>
         </div>
-        <div
-          className="flex items-center gap-2 w-full text-primaryText hover:bg-gray-100 px-3 py-2 transition-all cursor-pointer"
-          onClick={() => {
-            onClickDelete(pickedItem.id);
-            onClose();
-          }}
-        >
-          <DeleteIcon></DeleteIcon>
-          Delete
-        </div>
+        {listControls.map((item) => (
+          <Item
+            key={item.title}
+            onClick={item.onClick ? item.onClick : () => {}}
+            href={item.href}
+            icon={item.icon}
+            title={item.title}
+          ></Item>
+        ))}
       </div>
     </PortalOverlay>
   ) : (
     <></>
+  );
+};
+
+const Item = ({
+  onClick,
+  title,
+  icon,
+  href,
+}: {
+  onClick: () => void;
+  title: string;
+  icon: React.ReactNode;
+  href?: string;
+}) => {
+  const Main = () => {
+    return (
+      <div
+        className="flex items-center gap-2 w-full text-primaryText hover:bg-gray-100 px-3 py-2 transition-all cursor-pointer"
+        onClick={onClick}
+      >
+        {icon}
+        {title}
+      </div>
+    );
+  };
+  if (href)
+    return (
+      <LinkNewTabOverlay href={href}>
+        <Main></Main>
+      </LinkNewTabOverlay>
+    );
+  return <Main></Main>;
+};
+
+const InputPencilEdit = ({
+  title,
+  updateTitle,
+  id,
+}: {
+  title: string;
+  updateTitle: any;
+  id: Id;
+}) => {
+  const ref = useRef<HTMLInputElement | null>(null);
+  const [showEdit, setShowEdit] = useState<boolean>(false);
+  const [newTitle, setNewTitle] = useState("");
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(e.target.value);
+  };
+  useOnClickOutside(ref, () => setShowEdit(false));
+  return (
+    <>
+      {!showEdit && (
+        <p
+          className="flex items-center gap-1 w-fit font-bold text-lg border border-transparent hover:border-b-gray-300 border-dotted transition-all"
+          onClick={() => setShowEdit(true)}
+        >
+          {title}
+          <DriveFileRenameOutlineOutlinedIcon
+            className="cursor-pointer"
+            onClick={() => setShowEdit(true)}
+          />
+        </p>
+      )}
+      {showEdit && (
+        <input
+          ref={ref}
+          type="text"
+          defaultValue={title}
+          autoFocus
+          onFocus={(e) => e.target.select()}
+          onChange={handleChangeTitle}
+          className="font-bold text-lg border border-transparent border-b-gray-300 border-dotted transition-all"
+          onBlur={() => {
+            setShowEdit(false);
+            if (title === newTitle || !newTitle) return;
+            updateTitle(id, newTitle);
+            setNewTitle("");
+          }}
+          onKeyDown={(e) => {
+            if (e.key !== "Enter") return;
+            setShowEdit(false);
+            if (title === newTitle || !newTitle) return;
+            updateTitle(id, newTitle);
+            setNewTitle("");
+          }}
+        />
+      )}
+    </>
   );
 };

@@ -1,4 +1,3 @@
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Tooltip } from "@nextui-org/tooltip";
 import Link from "next/link";
 import ThreeDotsIcon from "../icons/ThreeDotsIcon";
@@ -9,6 +8,8 @@ import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
 import { useTyping } from "@/contexts/TypingStates";
+import OpenInANewTabIcon from "../icons/OpenInANewTabIcon";
+import LinkNewTabOverlay from "../overlay/link.newtab.overlay";
 
 type ProjectItemProps = {
   img?: LinearOrUrl;
@@ -77,6 +78,7 @@ const ProjectItem = ({
             id,
             title,
             rect: ref.current?.getBoundingClientRect(),
+            href,
           });
           setTypingListSetting(true);
         }}
@@ -105,14 +107,9 @@ const AbsoluteControls = ({
         className="!px-2 !py-[2px]"
         shadow="sm"
       >
-        <Link
-          href={href}
-          rel="noopener noreferrer"
-          target="_blank"
-          className={controlClass}
-        >
-          <OpenInNewIcon fontSize="inherit"></OpenInNewIcon>{" "}
-        </Link>
+        <LinkNewTabOverlay href={href} className={controlClass}>
+          <OpenInANewTabIcon></OpenInANewTabIcon>
+        </LinkNewTabOverlay>
       </Tooltip>
       <ThreeDotsIcon
         fontSize="inherit"

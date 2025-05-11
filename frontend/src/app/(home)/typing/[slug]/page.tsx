@@ -20,6 +20,7 @@ export default function Page({ params }: any) {
     console.log("newData", newData);
     if (!newData) return;
     setNewWordList(newData.typingList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordList, params.slug]);
 
   return (
