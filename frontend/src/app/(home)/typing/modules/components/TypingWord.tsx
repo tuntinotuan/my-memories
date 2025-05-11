@@ -40,28 +40,34 @@ const TypingWord = ({
 
   return (
     <div
-      className={`relative flex items-center text-typingTextNormal cursor-default select-none ${
+      className={`relative flex items-center text-typingTextNormal cursor-default select-none lowercase ${
         textSize ? textSize : "text-4xl"
       } ${
-        next !== wordIndex && currentTyping.word !== newText && newText !== ""
+        next !== wordIndex &&
+        currentTyping.word.toLocaleLowerCase() !== newText &&
+        newText !== ""
           ? "underline decoration-typingTextWrong"
           : ""
       }`}
     >
-      {currentTyping.word.split("").map((item: string, index: number) => (
-        <div
-          key={index}
-          className={`${
-            currentTyping.word[index] === newText.split("")[index]
-              ? "text-typingTextCorrect correct"
-              : newText.split("")[index] !== undefined
-              ? "text-typingTextWrong wrong"
-              : ""
-          }`}
-        >
-          {item}
-        </div>
-      ))}
+      {currentTyping.word
+        .toLocaleLowerCase()
+        .split("")
+        .map((item: string, index: number) => (
+          <div
+            key={index}
+            className={`${
+              currentTyping.word.toLocaleLowerCase()[index] ===
+              newText.split("")[index]
+                ? "text-typingTextCorrect correct"
+                : newText.split("")[index] !== undefined
+                ? "text-typingTextWrong wrong"
+                : ""
+            }`}
+          >
+            {item}
+          </div>
+        ))}
       {next === wordIndex && (
         <TypingCursor
           id={next !== undefined ? cursorId + next : cursorId}

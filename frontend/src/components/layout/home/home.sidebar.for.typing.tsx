@@ -34,7 +34,6 @@ const HomeSidebarForTyping = () => {
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
-  console.log("currentlyPickedSetting", currentlyPickedSetting);
 
   const handleDeleteTypingList = (id: Id) => {
     const newWordList = wordList.filter((item: any) => item.id !== id);
@@ -64,7 +63,7 @@ const HomeSidebarForTyping = () => {
         </Tooltip>
       </div>
       <ButtonCreate
-        className="!w-full my-2"
+        className="bg-typingBg !text-typingTextNormal !w-full my-2"
         styles="primary"
         onClick={() => setShowPopupCreate(true)}
       >

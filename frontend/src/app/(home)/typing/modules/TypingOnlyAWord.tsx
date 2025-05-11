@@ -5,15 +5,12 @@ import TypingOverlayBlur from "./TypingOverlayBlur";
 import { useRef, useState } from "react";
 import { shuffleArray } from "@/api/card/utils/f";
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { typingwords } from "@/api/typing/typing.data.structure";
 
-export const TypingOnlyAWord = () => {
+export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
   const [text, setText] = useState<string>("");
   const [cursorPosition, setCursorPosition] = useState<number>(0);
-  const typingwordsRandom: typingWordsTypes[] = shuffleArray(
-    typingwords,
-    "short"
-  );
+
+  const typingwordsRandom: typingWordsTypes[] = shuffleArray(data, "short");
 
   const [currentTyping, setCurrentTyping] = useState(typingwordsRandom[0]);
   const refCountIndexArray = useRef(1);

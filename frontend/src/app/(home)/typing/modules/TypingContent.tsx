@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { TypingOnlyAWord } from "./TypingOnlyAWord";
 import { TypingManyWords } from "./TypingManyWords";
 import { useTyping } from "@/contexts/TypingStates";
+import { typingWordsTypes } from "@/api/typing/typing.type";
 
-export const TypingContent = () => {
+export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   const {
     typingStyles,
     setHideOverlay,
@@ -24,7 +25,7 @@ export const TypingContent = () => {
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
       <ViewAmountOrTime />
       {typingStyles === "time" && <TypingManyWords types="time" />}
-      {typingStyles === "combine" && <TypingOnlyAWord />}
+      {typingStyles === "combine" && <TypingOnlyAWord data={data} />}
       {typingStyles === "words" && <TypingManyWords types="words" />}
       <TypingRestart
         onRestart={() => {

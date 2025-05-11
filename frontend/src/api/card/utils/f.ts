@@ -1,5 +1,3 @@
-import { CardType } from "../card.data.types";
-
 export function shuffleArray(arr: any[], type: "short" | "long") {
   const copy = [...arr];
 

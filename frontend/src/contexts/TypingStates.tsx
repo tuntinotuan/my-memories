@@ -129,14 +129,14 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("wordList", JSON.stringify(wordList));
   }, [wordList]);
   // get api from Random-Word-Api
-  useEffect(() => {
-    async function fetchData() {
-      const data = await getRandomWordApi(25, 6);
-      setWordApi(data);
-      console.log("random word api", data);
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const data = await getRandomWordApi(25, 6);
+  //     setWordApi(data);
+  //     console.log("random word api", data);
+  //   }
+  //   fetchData();
+  // }, []);
   return (
     <TypingContext.Provider
       value={{
