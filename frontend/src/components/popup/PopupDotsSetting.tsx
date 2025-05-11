@@ -130,16 +130,16 @@ const InputPencilEdit = ({
   return (
     <>
       {!showEdit && (
-        <p
-          className="flex items-center gap-1 w-fit font-bold text-lg border border-transparent hover:border-b-gray-300 border-dotted transition-all"
+        <div
+          className="flex items-center  gap-1 w-fit max-w-full font-bold text-lg border border-transparent hover:border-b-gray-300 border-dotted transition-all"
           onClick={() => setShowEdit(true)}
         >
-          {title}
+          <p className="truncate">{title}</p>
           <DriveFileRenameOutlineOutlinedIcon
-            className="cursor-pointer"
+            className="shrink-0 cursor-pointer"
             onClick={() => setShowEdit(true)}
           />
-        </p>
+        </div>
       )}
       {showEdit && (
         <input

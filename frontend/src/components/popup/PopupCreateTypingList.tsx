@@ -83,6 +83,7 @@ const Body = ({ onClose }: any) => {
         setTypingList={setTypingList}
         fileName={fileName}
         setFileName={setFileName}
+        setListName={setListName}
       />
       <Button
         hover="hover:bg-typingBgControlMenu"
@@ -123,7 +124,8 @@ const Form = ({
       <div className="flex-1 flex flex-col gap-1">
         <div className="flex items-center gap-1">
           <input
-            value={fileName.replace(/\.[^/.]+$/, "") || listName}
+            defaultValue={fileName.replace(/\.[^/.]+$/, "")}
+            value={listName}
             type="text"
             className="text-typingColorActive"
             placeholder="Typing your list name.."
@@ -200,7 +202,12 @@ const TypingItem = ({ data }: any) => {
     </div>
   );
 };
-const OtherOptions = ({ setTypingList, fileName, setFileName }: any) => {
+const OtherOptions = ({
+  setTypingList,
+  fileName,
+  setFileName,
+  setListName,
+}: any) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -208,9 +215,9 @@ const OtherOptions = ({ setTypingList, fileName, setFileName }: any) => {
     const reader = new FileReader();
 
     const fileName = file.name.toLowerCase();
+    setListName(fileName.replace(/\.[^/.]+$/, ""));
     const isTxt = fileName.endsWith(".txt");
     const isXlsx = fileName.endsWith(".xlsx") || fileName.endsWith(".xls");
-
     reader.onload = (event) => {
       const result: typingWordsTypes[] = [];
       if (isTxt) {
