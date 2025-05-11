@@ -8,11 +8,12 @@ import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useEffect, useState } from "react";
 
 export default function Page({ params }: any) {
-  const { showResults, wordList } = useTyping();
+  const { showResults, wordList, setShowResults } = useTyping();
   const [newWordList, setNewWordList] = useState<typingWordsTypes[]>([
     { word: "apple", meaning: "qua tao" },
   ]);
   useEffect(() => {
+    setShowResults(false);
     const newData = wordList.find(
       (item: any) => item.id === Number(cutIdFromSlug(params.slug, "-id"))
     );
@@ -23,7 +24,6 @@ export default function Page({ params }: any) {
 
   return (
     <div className="flex flex-col w-full gap-2 px-4 pt-2 bg-typingBg text-white">
-      {params.slug}
       {!showResults && <TypingHeaderMenu></TypingHeaderMenu>}
       {!showResults && <TypingContent data={newWordList}></TypingContent>}
       {showResults && <TypingResults></TypingResults>}

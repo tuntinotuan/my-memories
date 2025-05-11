@@ -7,7 +7,13 @@ import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
 
-export const TypingManyWords = ({ types }: { types: "time" | "words" }) => {
+export const TypingManyWords = ({
+  types,
+  data,
+}: {
+  types: "time" | "words";
+  data: typingWordsTypes[];
+}) => {
   const {
     wordAmount,
     countNextWord,
@@ -29,7 +35,7 @@ export const TypingManyWords = ({ types }: { types: "time" | "words" }) => {
   const [rowTyped, setRowTyped] = useState<number>(0);
   const refWords = useRef(
     creationNewArrWithQuantityBigger(
-      typingwords,
+      data,
       types === "words" ? wordAmount : wordTime * 2.5
     )
   );

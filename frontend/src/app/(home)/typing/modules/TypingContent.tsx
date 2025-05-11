@@ -24,9 +24,11 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
       <ViewAmountOrTime />
-      {typingStyles === "time" && <TypingManyWords types="time" />}
+      {typingStyles === "time" && <TypingManyWords types="time" data={data} />}
       {typingStyles === "combine" && <TypingOnlyAWord data={data} />}
-      {typingStyles === "words" && <TypingManyWords types="words" />}
+      {typingStyles === "words" && (
+        <TypingManyWords types="words" data={data} />
+      )}
       <TypingRestart
         onRestart={() => {
           setHydrated(false);
