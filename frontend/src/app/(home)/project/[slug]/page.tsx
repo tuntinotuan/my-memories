@@ -52,7 +52,7 @@ function LocalBody({ params }: any) {
   const { singleBoard } = useCreateBoardStates();
   return (
     <div
-      className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover`}
+      className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover bg-center`}
       style={
         singleBoard.img.type === "imageUrl"
           ? { backgroundImage: `url(${singleBoard.img.url})` }
