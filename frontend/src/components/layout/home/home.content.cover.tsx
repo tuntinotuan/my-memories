@@ -19,7 +19,7 @@ const HomeContentCover = ({ children, className }: HomeContentCoverProps) => {
     <div className="relative bg-white rounded-t-xl shadow-[0_0_12px_2px_rgba(0,0,0,0.2)] border border-gray-300 w-full overflow-hidden">
       <HomeMenuHeader scroll={scroll}></HomeMenuHeader>
       <div
-        className={`w-full h-[92%] flex overflow-x-hidden ${className}`}
+        className={`relative w-full h-[92%] flex overflow-x-hidden ${className}`}
         ref={ref}
         onScroll={handleScroll}
       >

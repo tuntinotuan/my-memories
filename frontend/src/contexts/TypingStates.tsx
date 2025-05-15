@@ -32,6 +32,8 @@ type defaltValuesType = {
   cursorIsTyping: boolean;
   setSecondsOfManyWords: (val: boolean) => void;
   typingListSetting: boolean;
+  typingFullScreen: boolean;
+  setTypingFullScreen: (val: boolean) => void;
   setTypingListSetting: (val: boolean) => void;
   setCursorIsTyping: (val: boolean) => void;
   resetRunningManyWords: () => void;
@@ -70,6 +72,8 @@ const defaultValues: defaltValuesType = {
   typingListSetting: false,
   currentlyPickedSetting: { id: 0, title: "nothing" },
   isCaplock: false,
+  typingFullScreen: false,
+  setTypingFullScreen: () => {},
   setIsCaplock: () => {},
   setCurrentlyPickedSetting: () => {},
   setTypingListSetting: () => {},
@@ -111,6 +115,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentlyPickedSetting, setCurrentlyPickedSetting] =
     useState<settingType>({ id: 0, title: "nothing" });
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
+  const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   //
   useEffect(() => {
     async function fetchWordListFromLocalStorage() {
@@ -178,6 +183,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         typingListSetting,
         currentlyPickedSetting,
         isCaplock,
+        typingFullScreen,
+        setTypingFullScreen,
         setIsCaplock,
         setCurrentlyPickedSetting,
         setTypingListSetting,
