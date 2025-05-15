@@ -38,6 +38,8 @@ type defaltValuesType = {
   showResults: boolean;
   showPopupCreate: boolean;
   currentlyPickedSetting: settingType;
+  isCaplock: boolean;
+  setIsCaplock: (val: boolean) => void;
   setCurrentlyPickedSetting: ({ id, title, rect }: settingType) => void;
   setShowPopupCreate: (val: boolean) => void;
   setShowResults: (val: boolean) => void;
@@ -67,6 +69,8 @@ const defaultValues: defaltValuesType = {
   setWordList: () => {},
   typingListSetting: false,
   currentlyPickedSetting: { id: 0, title: "nothing" },
+  isCaplock: false,
+  setIsCaplock: () => {},
   setCurrentlyPickedSetting: () => {},
   setTypingListSetting: () => {},
   setShowPopupCreate: () => {},
@@ -106,7 +110,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [wordList, setWordList] = useState<any>([]);
   const [currentlyPickedSetting, setCurrentlyPickedSetting] =
     useState<settingType>({ id: 0, title: "nothing" });
-
+  const [isCaplock, setIsCaplock] = useState<boolean>(false);
   //
   useEffect(() => {
     async function fetchWordListFromLocalStorage() {
@@ -128,6 +132,24 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     if (wordList.length <= 0) return;
     localStorage.setItem("wordList", JSON.stringify(wordList));
   }, [wordList]);
+
+  // Dynamic Caps Lock On & Off
+  useEffect(() => {
+    const handleKeyEvent = (e: KeyboardEvent) => {
+      const isCapsLockBoolean =
+        e.getModifierState && e.getModifierState("CapsLock");
+      setIsCaplock(isCapsLockBoolean);
+      console.log("Caps Lock On:", isCapsLockBoolean);
+    };
+
+    window.addEventListener("keydown", handleKeyEvent);
+    window.addEventListener("keyup", handleKeyEvent);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyEvent);
+      window.removeEventListener("keyup", handleKeyEvent);
+    };
+  }, []);
   // get api from Random-Word-Api
   // useEffect(() => {
   //   async function fetchData() {
@@ -137,6 +159,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   //   }
   //   fetchData();
   // }, []);
+
   return (
     <TypingContext.Provider
       value={{
@@ -154,6 +177,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         wordList,
         typingListSetting,
         currentlyPickedSetting,
+        isCaplock,
+        setIsCaplock,
         setCurrentlyPickedSetting,
         setTypingListSetting,
         setWordList,
