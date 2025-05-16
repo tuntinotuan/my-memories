@@ -16,6 +16,14 @@ const PopupTypingTheme = () => {
     "theme-gold",
     "theme-darkin",
     "theme-purple",
+    "theme-beach",
+    "theme-kelp",
+    "theme-evon",
+    "theme-land",
+    "theme-purpler",
+    "theme-army",
+    "theme-diff",
+    "theme-hp",
   ];
   return (
     <PopupOverlay

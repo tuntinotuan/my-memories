@@ -116,3 +116,83 @@
   --text-wrong: #b12e33;
   --text-hover: #fff;
 }
+/* beach theme */
+.theme-beach {
+  --bg-primary: #18181a;
+  --bg-control: #0f0f10;
+  --color-active: #e4609b;
+  --text-normal: #47bac0;
+  --text-correct: #fff;
+  --text-wrong: #f4ea8b;
+  --text-hover: #fff;
+}
+/* kelp theme */
+.theme-kelp {
+  --bg-primary: #0b1e1a;
+  --bg-control: #041715;
+  --color-active: #66ac92;
+  --text-normal: #015c53;
+  --text-correct: #fff;
+  --text-wrong: #bc5f68;
+  --text-hover: #fff;
+}
+/* evon theme */
+.theme-evon {
+  --bg-primary: #1e1e32;
+  --bg-control: #181829;
+  --color-active: #7a52cc;
+  --text-normal: #5c5c99;
+  --text-correct: #fff;
+  --text-wrong: #bc5f68;
+  --text-hover: #fff;
+}
+/* land theme */
+.theme-land {
+  --bg-primary: #2c2e34;
+  --bg-control: #232429;
+  --color-active: #9ed072;
+  --text-normal: #e7c664;
+  --text-correct: #fff;
+  --text-wrong: #bc5f68;
+  --text-hover: #fff;
+}
+/* purpler theme */
+.theme-purpler {
+  --bg-primary: #2e1a47;
+  --bg-control: #27173c;
+  --color-active: #f7f2ea;
+  --text-normal: #c18fff;
+  --text-correct: #f7f2ea;
+  --text-wrong: #bc5f68;
+  --text-hover: #fff;
+}
+/* army theme */
+.theme-army {
+  --bg-primary: #1f4437;
+  --bg-control: #244d3f;
+  --color-active: #d6686f;
+  --text-normal: #3e7a65;
+  --text-correct: #cdc6bc;
+  --text-wrong: #b31313;
+  --text-hover: #fff;
+}
+/* diff theme */
+.theme-diff {
+  --bg-primary: #303c36;
+  --bg-control: #36453c;
+  --color-active: #a59682;
+  --text-normal: #181d1a;
+  --text-correct: #a59682;
+  --text-wrong: #601420;
+  --text-hover: #a59682;
+}
+/* hp theme */
+.theme-hp {
+  --bg-primary: #6e2626;
+  --bg-control: #3f1616;
+  --color-active: #e55050;
+  --text-normal: #ff6060;
+  --text-correct: #ffaaaa;
+  --text-wrong: #8881ac;
+  --text-hover: #a59682;
+}
