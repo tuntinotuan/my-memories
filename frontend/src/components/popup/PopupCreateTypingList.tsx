@@ -53,6 +53,7 @@ const Body = ({ onClose }: any) => {
   };
   const handleCreateTypingList = () => {
     if (!listName) return document.getElementById("listName")?.focus();
+
     if (typingList.length <= 0) return;
     const newList = {
       id: generateId(),
@@ -127,8 +128,8 @@ const Form = ({
             defaultValue={fileName.replace(/\.[^/.]+$/, "")}
             value={listName}
             type="text"
-            className="text-typingColorActive"
-            placeholder="Typing your list name.."
+            className="w-full text-typingColorActive border border-transparent focus:border-typingColorActive transition-all px-2 py-1 rounded"
+            placeholder="Typing your list name..."
             onChange={(e) => setListName(e.target.value)}
             id="listName"
           />
