@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
+import PortalOverlay from "./portal.overlay";
 
 type PopupFlexibleOverlayProps = {
   children: React.ReactNode;
@@ -63,13 +64,15 @@ const PopupFlexibleOverlay = ({
       break;
   }
   return show ? (
-    <div
-      className="fixed h-[50vh] max-h-auto bg-white border border-gray-200 shadow-md rounded-lg p-2 overflow-hidden pb-10"
-      style={{ ...currentPosition, width: width, height: height }}
-      ref={ref}
-    >
-      {children}
-    </div>
+    <PortalOverlay>
+      <div
+        className="fixed h-[50vh] max-h-auto bg-white border border-gray-200 shadow-md rounded-lg p-2 overflow-hidden pb-10 z-50"
+        style={{ ...currentPosition, width: width, height: height }}
+        ref={ref}
+      >
+        {children}
+      </div>
+    </PortalOverlay>
   ) : (
     <></>
   );
