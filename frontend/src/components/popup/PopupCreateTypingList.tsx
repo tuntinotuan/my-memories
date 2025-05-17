@@ -58,6 +58,7 @@ const Body = ({ onClose }: any) => {
     const newList = {
       id: generateId(),
       name: listName,
+      theme: "theme-dark",
       typingList,
     };
     setWordList([...wordList, newList]);

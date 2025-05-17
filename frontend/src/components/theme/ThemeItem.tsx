@@ -3,8 +3,8 @@ import React from "react";
 type ThemeItemProps = {
   currentTheme: string;
   item: string;
-  index: number;
-  onClick: () => void;
+  index?: number;
+  onClick?: () => void;
   size?: number;
 };
 
@@ -22,7 +22,7 @@ const ThemeItem = ({
   ];
   return (
     <div
-      tabIndex={index + 1}
+      tabIndex={index || -1 + 1}
       id={item === currentTheme ? "current-theme-active" : ""}
       className={`${item} flex items-center gap-1 bg-typingBg hover:scale-105 focus:scale-105 rounded-full transition-all ${
         item === currentTheme
@@ -32,7 +32,7 @@ const ThemeItem = ({
       style={{ padding: size / 2, borderWidth: size / 8 }}
       onClick={onClick}
       onKeyDown={(e) => {
-        if (e.key === "Enter") onClick();
+        if (e.key === "Enter") onClick && onClick();
       }}
     >
       {colorThreeCircles.map((item) => (

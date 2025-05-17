@@ -93,6 +93,7 @@ const HomeSidebarForTyping = () => {
                   key={item.id}
                   id={item.id}
                   title={item.name}
+                  theme={item.theme}
                   handleDelete={handleDeleteTypingList}
                   selectedItem={setCurrentlyPickedSetting}
                   href={`/typing/${

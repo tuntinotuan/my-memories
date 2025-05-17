@@ -10,6 +10,7 @@ import { useRef } from "react";
 import { useTyping } from "@/contexts/TypingStates";
 import OpenInANewTabIcon from "../icons/OpenInANewTabIcon";
 import LinkNewTabOverlay from "../overlay/link.newtab.overlay";
+import ThemeItem from "../theme/ThemeItem";
 
 type ProjectItemProps = {
   img?: LinearOrUrl;
@@ -19,6 +20,7 @@ type ProjectItemProps = {
   handleDelete?: (id: Id) => void;
   selectedItem?: any;
   disabledControl?: boolean;
+  theme?: string;
 };
 
 const ProjectItem = ({
@@ -28,6 +30,7 @@ const ProjectItem = ({
   selectedItem,
   disabledControl,
   href,
+  theme,
 }: ProjectItemProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const { setTypingListSetting } = useTyping();
@@ -57,6 +60,7 @@ const ProjectItem = ({
           height={24}
         ></ProjectImgOrGradient>
       )}
+      {theme && <ThemeItem item={theme} currentTheme="" size={6}></ThemeItem>}
       <p
         className={`text-sm truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5 ${
           id === Number(cutIdFromSlug(path, "-id")) ||

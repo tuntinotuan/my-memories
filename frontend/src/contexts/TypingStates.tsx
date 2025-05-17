@@ -30,6 +30,8 @@ type defaltValuesType = {
   hideOverlay: boolean;
   secondsOfManyWords: number;
   cursorIsTyping: boolean;
+  singleTypingList: any;
+  setSingleTypingList: (val: []) => void;
   setSecondsOfManyWords: (val: boolean) => void;
   typingListSetting: boolean;
   typingFullScreen: boolean;
@@ -64,6 +66,8 @@ const defaultValues: defaltValuesType = {
   hideOverlay: true,
   showResults: false,
   setHideOverlay: () => {},
+  singleTypingList: [],
+  setSingleTypingList: () => {},
   secondsOfManyWords: 0,
   cursorIsTyping: false,
   showPopupCreate: false,
@@ -112,6 +116,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [wordApi, setWordApi] = useState<[]>([]);
   const [showPopupCreate, setShowPopupCreate] = useState(false);
   const [wordList, setWordList] = useState<any>([]);
+  const [singleTypingList, setSingleTypingList] = useState<[]>([]);
   const [currentlyPickedSetting, setCurrentlyPickedSetting] =
     useState<settingType>({ id: 0, title: "nothing" });
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
@@ -184,6 +189,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         currentlyPickedSetting,
         isCaplock,
         typingFullScreen,
+        singleTypingList,
+        setSingleTypingList,
         setTypingFullScreen,
         setIsCaplock,
         setCurrentlyPickedSetting,

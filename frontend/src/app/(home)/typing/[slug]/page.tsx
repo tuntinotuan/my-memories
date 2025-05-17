@@ -6,9 +6,11 @@ import { TypingContent } from "../modules/TypingContent";
 import { cutIdFromSlug } from "@/utils/otherFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useEffect, useState } from "react";
+import { useTypingTheme } from "@/contexts/typingThemeStates";
 
 export default function Page({ params }: any) {
   const { showResults, wordList, setShowResults } = useTyping();
+  const { setSingleTheme } = useTypingTheme();
   const [newWordList, setNewWordList] = useState<typingWordsTypes[]>([
     { word: "apple", meaning: "qua tao" },
   ]);
@@ -20,6 +22,7 @@ export default function Page({ params }: any) {
     console.log("newData", newData);
     if (!newData) return;
     setNewWordList(newData.typingList);
+    setSingleTheme(newData.theme);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordList, params.slug]);
 
