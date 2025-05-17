@@ -2,6 +2,7 @@ import React from "react";
 import PopupOverlay from "./popup.overlay";
 import { TopControl } from "./PopupCreateboard";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
+import ThemeItem from "../theme/ThemeItem";
 
 const PopupTypingTheme = () => {
   const { theme, setTheme, themPopup, setThemePopup } = useTypingTheme();
@@ -35,25 +36,18 @@ const PopupTypingTheme = () => {
         title="Typing change theme"
         onClose={() => setThemePopup(false)}
       />
-      <div className="flex items-center flex-wrap gap-2">
+      <div className="flex items-center justify-center flex-wrap gap-2">
         {themeList.map((item, index) => (
-          <div
-            tabIndex={index}
-            key={item}
-            className={`${item} flex items-center gap-1 bg-typingBg rounded-full p-2 border-2 ${
-              item === theme
-                ? "border-primaryColor"
-                : "border-gray-200 cursor-pointer"
-            }`}
+          <ThemeItem
+            key={index}
+            item={item}
+            index={index}
+            currentTheme={theme}
             onClick={() => {
               setTheme(item);
               setThemePopup(false);
             }}
-          >
-            <div className="w-4 h-4 rounded-full bg-typingColorActive"></div>
-            <div className="w-4 h-4 rounded-full bg-typingTextNormal"></div>
-            <div className="w-4 h-4 rounded-full bg-typingTextCorrect"></div>
-          </div>
+          ></ThemeItem>
         ))}
       </div>
     </PopupOverlay>
