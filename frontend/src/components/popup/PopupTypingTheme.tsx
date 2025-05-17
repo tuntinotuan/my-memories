@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PopupOverlay from "./popup.overlay";
 import { TopControl } from "./PopupCreateboard";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
@@ -26,6 +26,12 @@ const PopupTypingTheme = () => {
     "theme-diff",
     "theme-hp",
   ];
+
+  useEffect(() => {
+    const themeActiveClass = document.getElementById("current-theme-active");
+    themeActiveClass?.focus();
+  }, [themPopup]);
+
   return (
     <PopupOverlay
       show={themPopup}

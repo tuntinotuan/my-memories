@@ -1,5 +1,4 @@
-import { useTypingTheme } from "@/contexts/typingThemeStates";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
 type ThemeItemProps = {
   currentTheme: string;
@@ -16,18 +15,15 @@ const ThemeItem = ({
   onClick,
   size = 16,
 }: ThemeItemProps) => {
-  const { themPopup } = useTypingTheme();
-  const divRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    item === currentTheme && themPopup && divRef.current?.focus();
-  }, [themPopup]);
-
+  const colorThreeCircles = [
+    "bg-typingColorActive",
+    "bg-typingTextNormal",
+    "bg-typingTextCorrect",
+  ];
   return (
     <div
-      ref={divRef}
       tabIndex={index + 1}
-      key={item}
-      autoFocus={item === currentTheme}
+      id={item === currentTheme ? "current-theme-active" : ""}
       className={`${item} flex items-center gap-1 bg-typingBg hover:scale-105 focus:scale-105 rounded-full transition-all ${
         item === currentTheme
           ? "border-primaryColor shadow-sm focus:outline-none shadow-primaryColor scale-105"
@@ -39,18 +35,13 @@ const ThemeItem = ({
         if (e.key === "Enter") onClick();
       }}
     >
-      <div
-        className="rounded-full bg-typingColorActive"
-        style={{ width: size, height: size }}
-      ></div>
-      <div
-        className="rounded-full bg-typingTextNormal"
-        style={{ width: size, height: size }}
-      ></div>
-      <div
-        className="rounded-full bg-typingTextCorrect"
-        style={{ width: size, height: size }}
-      ></div>
+      {colorThreeCircles.map((item) => (
+        <div
+          key={item}
+          className={`rounded-full ${item}`}
+          style={{ width: size, height: size }}
+        ></div>
+      ))}
     </div>
   );
 };
