@@ -19,6 +19,7 @@ const ProjectCardList = () => {
               title={item.title}
               img={item.img}
               key={item.id}
+              id={item.id}
             ></ProjectCardListItem>
           ))}
         </div>
