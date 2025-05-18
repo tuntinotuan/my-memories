@@ -7,11 +7,13 @@ import React from "react";
 import { WordAmountType, WordTimeType } from "./types";
 import PaletteRoundedIcon from "@mui/icons-material/PaletteRounded";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
-import PopupTypingTheme from "@/components/popup/PopupTypingTheme";
+import PopupTypingTheme, {
+  changeFor,
+} from "@/components/popup/PopupTypingTheme";
 import PopupCreateTypingList from "@/components/popup/PopupCreateTypingList";
 import KeyboardOutlinedIcon from "@mui/icons-material/KeyboardOutlined";
 
-export const TypingHeaderMenu = () => {
+export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
   const { typingStyles, showPopupCreate, setShowPopupCreate } = useTyping();
   return (
     <div className="flex items-center flex-wrap gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-2 z-20">
@@ -50,7 +52,7 @@ export const TypingHeaderMenu = () => {
       )}
       <SplitElement />
       <BtnChangeTheme />
-      <PopupTypingTheme></PopupTypingTheme>
+      <PopupTypingTheme changeFor={changeFor}></PopupTypingTheme>
     </div>
   );
 };

@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 
 export default function Page({ params }: any) {
-  const { showResults, wordList, setShowResults } = useTyping();
+  const { showResults, wordList, setShowResults, setSingleTypingList } =
+    useTyping();
   const { setSingleTheme } = useTypingTheme();
   const [newWordList, setNewWordList] = useState<typingWordsTypes[]>([
     { word: "apple", meaning: "qua tao" },
@@ -22,13 +23,14 @@ export default function Page({ params }: any) {
     console.log("newData", newData);
     if (!newData) return;
     setNewWordList(newData.typingList);
+    setSingleTypingList(newData);
     setSingleTheme(newData.theme);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordList, params.slug]);
 
   return (
     <div className="flex flex-col w-full gap-2 px-4 pt-2 bg-typingBg text-white">
-      {!showResults && <TypingHeaderMenu></TypingHeaderMenu>}
+      {!showResults && <TypingHeaderMenu changeFor="single"></TypingHeaderMenu>}
       {!showResults && <TypingContent data={newWordList}></TypingContent>}
       {showResults && <TypingResults></TypingResults>}
     </div>

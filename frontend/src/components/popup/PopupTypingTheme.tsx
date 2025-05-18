@@ -3,9 +3,24 @@ import PopupOverlay from "./popup.overlay";
 import { TopControl } from "./PopupCreateboard";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import ThemeItem from "../theme/ThemeItem";
+import { useTyping } from "@/contexts/TypingStates";
+import { Id } from "@/app/(home)/project/[slug]/modules/types";
+export type changeFor = "global" | "single";
 
-const PopupTypingTheme = () => {
-  const { theme, setTheme, themPopup, setThemePopup } = useTypingTheme();
+type PopupTypingThemeProps = {
+  changeFor?: changeFor;
+};
+
+const PopupTypingTheme = ({ changeFor = "global" }: PopupTypingThemeProps) => {
+  const {
+    theme,
+    setTheme,
+    themPopup,
+    setThemePopup,
+    singleTheme,
+    setSingleTheme,
+  } = useTypingTheme();
+  const { wordList, setWordList, singleTypingList } = useTyping();
   let themeList = [
     "theme-dark",
     "theme-green",
@@ -26,6 +41,15 @@ const PopupTypingTheme = () => {
     "theme-diff",
     "theme-hp",
   ];
+
+  const updateSingleTheme = (id: Id, theme: string) => {
+    const newSingleTheme = wordList.map((item: any) => {
+      if (item.id !== id) return item;
+      return { ...item, theme };
+    });
+    setSingleTheme(theme);
+    setWordList(newSingleTheme);
+  };
 
   useEffect(() => {
     const themeActiveClass = document.getElementById("current-theme-active");
@@ -48,9 +72,14 @@ const PopupTypingTheme = () => {
             key={index}
             item={item}
             index={index}
-            currentTheme={theme}
+            currentTheme={changeFor === "single" ? singleTheme : theme}
             onClick={() => {
-              setTheme(item);
+              if (changeFor === "global") {
+                setTheme(item);
+              }
+              if (changeFor === "single") {
+                updateSingleTheme(singleTypingList.id, item);
+              }
               setThemePopup(false);
             }}
           ></ThemeItem>
