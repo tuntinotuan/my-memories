@@ -1,33 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
+import { PlacementProps } from "./types";
+import { FuncCaculatePlacement } from "./process.functions";
 
-const NavRow = ({ navList }: { navList: string[] }) => {
-  const [currentCor, setCurrentCor] = useState<number[]>([]);
+type NavProps = {
+  navList: string[];
+  gap?: number;
+};
+
+const NavRow = ({ navList, gap = 8 }: NavProps) => {
   let currentCorArray = useRef<number[]>([]);
   const [currentPage, setCurrentPage] = useState<string>(navList[0]);
-  const [placement, setPlacement] = useState<{
-    width: number;
-    translate: number;
-  }>();
-  console.log("currentPage", currentPage);
-  console.log("placement", placement);
-  const gapItem = 8;
 
-  useEffect(() => {
-    const isCurrentIndex = navList.indexOf(currentPage);
-    console.log("isCurrentIndex", isCurrentIndex);
-    let localValue: { width: number; translate: number } = {
-      width: currentCorArray.current[isCurrentIndex],
-      translate: 0,
-    };
-    for (let index = 0; index < isCurrentIndex; index++) {
-      localValue.translate =
-        localValue.translate + currentCorArray.current[index] + gapItem;
-    }
-    setPlacement(localValue);
-  }, [currentPage]);
+  const { placement } = FuncCaculatePlacement(
+    navList,
+    currentPage,
+    currentCorArray.current,
+    gap
+  );
 
   return (
-    <div className="relative flex items-center" style={{ gap: gapItem }}>
+    <div className="relative flex items-center" style={{ gap }}>
       {navList.map((item, index) => (
         <NavItem
           key={item}
@@ -35,21 +27,18 @@ const NavRow = ({ navList }: { navList: string[] }) => {
           index={index}
           navLength={navList.length}
           currentCor={currentCorArray.current}
-          setCurrentCor={setCurrentCor}
           setCurrentPage={setCurrentPage}
         ></NavItem>
       ))}
-      {currentCor && (
-        <div
-          className="absolute h-[3px] rounded bg-primaryColor transition-all"
-          style={{
-            width: placement?.width,
-            left: 0,
-            bottom: 0,
-            transform: `translateX(${placement?.translate || 0}px)`,
-          }}
-        ></div>
-      )}
+      <div
+        className="absolute h-[3px] rounded bg-primaryColor transition-all"
+        style={{
+          width: placement?.width,
+          left: 0,
+          bottom: 0,
+          transform: `translateX(${placement?.translate}px)`,
+        }}
+      ></div>
     </div>
   );
 };
@@ -65,15 +54,14 @@ function NavItem({
   navLength: number;
   index: number;
   currentCor: number[];
-  setCurrentCor: (e: any) => void;
   setCurrentPage: (e: any) => void;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     currentCor.length < navLength &&
       currentCor.push(ref?.current?.getBoundingClientRect().width || 0);
-    // setCurrentCor([...currentCor, ref?.current?.getBoundingClientRect().width]);
-    if (index === 2) {
+    if (index === 0) {
       setCurrentPage(title);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
