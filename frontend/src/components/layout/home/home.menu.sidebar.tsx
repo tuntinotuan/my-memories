@@ -29,12 +29,12 @@ const HomeMenuSidebar = () => {
       text: "Home",
       href: "/",
     },
-    {
-      iconNormal: <FolderOpenRoundedIcon fontSize="inherit" />,
-      iconActive: <FolderRoundedIcon fontSize="inherit" />,
-      text: "Projects",
-      href: "/project/",
-    },
+    // {
+    //   iconNormal: <FolderOpenRoundedIcon fontSize="inherit" />,
+    //   iconActive: <FolderRoundedIcon fontSize="inherit" />,
+    //   text: "Projects",
+    //   href: "/project/",
+    // },
     {
       iconNormal: <KeyboardOutlinedIcon fontSize="inherit" />,
       iconActive: <KeyboardRoundedIcon fontSize="inherit" />,
