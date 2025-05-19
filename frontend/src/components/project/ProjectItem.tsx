@@ -83,6 +83,7 @@ const ProjectItem = ({
             title,
             rect: ref.current?.getBoundingClientRect(),
             href,
+            theme,
           });
           setTypingListSetting(true);
         }}

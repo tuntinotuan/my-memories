@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { PlacementProps } from "./types";
 import { FuncCaculatePlacement } from "./process.functions";
 
 type NavProps = {

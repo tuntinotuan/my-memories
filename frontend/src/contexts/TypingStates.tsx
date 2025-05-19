@@ -14,6 +14,7 @@ export type settingType = {
   id: Id;
   title: string;
   rect?: DOMRect;
+  theme: string;
 };
 
 type defaltValuesType = {
@@ -74,7 +75,7 @@ const defaultValues: defaltValuesType = {
   wordList: [],
   setWordList: () => {},
   typingListSetting: false,
-  currentlyPickedSetting: { id: 0, title: "nothing" },
+  currentlyPickedSetting: { id: 0, title: "nothing", theme: "" },
   isCaplock: false,
   typingFullScreen: false,
   setTypingFullScreen: () => {},
@@ -118,7 +119,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [wordList, setWordList] = useState<any>([]);
   const [singleTypingList, setSingleTypingList] = useState<[]>([]);
   const [currentlyPickedSetting, setCurrentlyPickedSetting] =
-    useState<settingType>({ id: 0, title: "nothing" });
+    useState<settingType>({ id: 0, title: "nothing", theme: "" });
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   //

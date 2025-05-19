@@ -7,6 +7,9 @@ import LinkNewTabOverlay from "../overlay/link.newtab.overlay";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { useTyping } from "@/contexts/TypingStates";
+import ThemeItem from "../theme/ThemeItem";
+import ArrowBackIcon from "../icons/ArrowBackIcon";
+import { themeList } from "@/api/typing/typing.data.structure";
 
 export const PopupDotsSetting = ({
   onClickDelete,
@@ -27,6 +30,16 @@ export const PopupDotsSetting = ({
       icon: <OpenInANewTabIcon size="medium"></OpenInANewTabIcon>,
       title: "Open in a new tab",
       href: pickedItem.href,
+    },
+    {
+      icon: (
+        <ThemeItem item={pickedItem.theme} currentTheme="" size={9}></ThemeItem>
+      ),
+      title: "Change theme",
+      onClick: () => {
+        onClickDelete(pickedItem.id);
+        onClose();
+      },
     },
     {
       icon: <DeleteIcon></DeleteIcon>,
@@ -73,10 +86,44 @@ export const PopupDotsSetting = ({
             title={item.title}
           ></Item>
         ))}
+        {false && <ChangeThemePage></ChangeThemePage>}
       </div>
     </PortalOverlay>
   ) : (
     <></>
+  );
+};
+
+const ChangeThemePage = () => {
+  const { currentlyPickedSetting } = useTyping();
+  return (
+    <>
+      <div className="flex items-center gap-2 p-3">
+        <div className="flex items-center justify-center p-1 rounded-lg hover:bg-primaryHover transition-all cursor-pointer">
+          <ArrowBackIcon></ArrowBackIcon>
+        </div>
+        <p className="font-bold text-lg">Change theme</p>
+      </div>
+      <div className="flex items-center justify-center gap-1 flex-wrap pb-3">
+        {themeList.map((item, index) => (
+          <ThemeItem
+            key={index}
+            item={item}
+            index={index}
+            currentTheme={currentlyPickedSetting.theme}
+            // onClick={() => {
+            //   if (changeFor === "global") {
+            //     setTheme(item);
+            //   }
+            //   if (changeFor === "single") {
+            //     updateSingleTheme(singleTypingList.id, item);
+            //   }
+            //   setThemePopup(false);
+            // }}
+          ></ThemeItem>
+        ))}
+      </div>
+    </>
   );
 };
 

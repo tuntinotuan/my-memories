@@ -206,3 +206,24 @@ export const typingwords: typingWordsTypes[] = [
     meaning: "cũ, xưa, già",
   },
 ];
+
+export const themeList = [
+  "theme-dark",
+  "theme-green",
+  "theme-light",
+  "theme-blue",
+  "theme-deep",
+  "theme-a-blue",
+  "theme-coal",
+  "theme-gold",
+  "theme-darkin",
+  "theme-purple",
+  "theme-beach",
+  "theme-kelp",
+  "theme-evon",
+  "theme-land",
+  "theme-purpler",
+  "theme-army",
+  "theme-diff",
+  "theme-hp",
+];

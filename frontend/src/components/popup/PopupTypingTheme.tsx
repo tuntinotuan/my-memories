@@ -5,6 +5,7 @@ import { useTypingTheme } from "@/contexts/typingThemeStates";
 import ThemeItem from "../theme/ThemeItem";
 import { useTyping } from "@/contexts/TypingStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
+import { themeList } from "@/api/typing/typing.data.structure";
 export type changeFor = "global" | "single";
 
 type PopupTypingThemeProps = {
@@ -21,26 +22,6 @@ const PopupTypingTheme = ({ changeFor = "global" }: PopupTypingThemeProps) => {
     setSingleTheme,
   } = useTypingTheme();
   const { wordList, setWordList, singleTypingList } = useTyping();
-  let themeList = [
-    "theme-dark",
-    "theme-green",
-    "theme-light",
-    "theme-blue",
-    "theme-deep",
-    "theme-a-blue",
-    "theme-coal",
-    "theme-gold",
-    "theme-darkin",
-    "theme-purple",
-    "theme-beach",
-    "theme-kelp",
-    "theme-evon",
-    "theme-land",
-    "theme-purpler",
-    "theme-army",
-    "theme-diff",
-    "theme-hp",
-  ];
 
   const updateSingleTheme = (id: Id, theme: string) => {
     const newSingleTheme = wordList.map((item: any) => {
