@@ -5,11 +5,7 @@ import Button from "@/components/button/Button";
 import ProjectItem from "@/components/project/ProjectItem";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowRightIcon from "@/components/icons/ArrowRightIcon";
-import CloseIcon from "@/components/icons/CloseIcon";
-import { Tooltip } from "@nextui-org/tooltip";
-import HeaderLogo from "@/components/logo/header.logo";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
-import { useLayoutStates } from "@/contexts/layoutStates";
 import ButtonCreate from "@/components/button/ButtonCreate";
 import PlusIcon from "@/components/icons/PlusIcon";
 import CrownIcon from "@/components/icons/CrownIcon";
@@ -20,14 +16,15 @@ import { PopupDotsSetting } from "@/components/popup/setting/PopupDotsSetting";
 import OpenInANewTabIcon from "@/components/icons/OpenInANewTabIcon";
 import ThemeItem from "@/components/theme/ThemeItem";
 import DeleteIcon from "@/components/icons/DeleteIcon";
+import SettingRootPage from "@/components/popup/setting/pages/SettingRootPage";
+import { SettingChangeThemePage } from "@/components/popup/setting/pages/SettingChangeThemePage";
+import HomeSidebarTop from "./home.sidebar.top";
 
 const HomeSidebarForTyping = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
-  const { handleShowHomeSidebar } = useLayoutStates();
   const { boards } = useCreateBoardStates();
   const {
     wordList,
-    setWordList,
     setShowPopupCreate,
     typingListSetting,
     setTypingListSetting,
@@ -37,61 +34,10 @@ const HomeSidebarForTyping = () => {
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
-  const listItem = [
-    {
-      icon: <OpenInANewTabIcon size="medium"></OpenInANewTabIcon>,
-      title: "Open in a new tab",
-      href: currentlyPickedSetting.href,
-    },
-    {
-      icon: (
-        <ThemeItem
-          item={currentlyPickedSetting.theme}
-          currentTheme=""
-          size={9}
-        ></ThemeItem>
-      ),
-      title: "Change theme",
-      onClick: () => {
-        setTypingListSetting(false);
-      },
-    },
-    {
-      icon: <DeleteIcon></DeleteIcon>,
-      title: "Delete",
-      onClick: () => {
-        handleDeleteTypingList(currentlyPickedSetting.id);
-        setTypingListSetting(false);
-      },
-    },
-  ];
-  const handleDeleteTypingList = (id: Id) => {
-    const newWordList = wordList.filter((item: any) => item.id !== id);
-    setWordList(newWordList);
-  };
+
   return (
     <HomeSidebar>
-      <div className="flex items-center justify-between">
-        <HeaderLogo></HeaderLogo>
-        <Tooltip
-          showArrow
-          content="Close menu"
-          placement="bottom"
-          radius="sm"
-          delay={200}
-          closeDelay={200}
-          className="!px-2 !py-[2px]"
-          shadow="sm"
-        >
-          <div>
-            <CloseIcon
-              onClick={() => handleShowHomeSidebar()}
-              className="homesidebar-close-icon opacity-0"
-              border
-            ></CloseIcon>
-          </div>
-        </Tooltip>
-      </div>
+      <HomeSidebarTop />
       <ButtonCreate
         className="bg-typingBg !text-typingTextNormal !w-full my-2"
         styles="primary"
@@ -124,7 +70,6 @@ const HomeSidebarForTyping = () => {
                   id={item.id}
                   title={item.name}
                   theme={item.theme}
-                  handleDelete={handleDeleteTypingList}
                   selectedItem={setCurrentlyPickedSetting}
                   href={`/typing/${
                     replaceAllTrim(item.name) + "-id" + item.id
@@ -152,9 +97,66 @@ const HomeSidebarForTyping = () => {
         show={typingListSetting}
         onClose={() => setTypingListSetting(false)}
         rect={currentlyPickedSetting.rect}
-        listItem={listItem}
-      ></PopupDotsSetting>
+      >
+        <BodyTypingSetting onClose={() => setTypingListSetting(false)} />
+      </PopupDotsSetting>
     </HomeSidebar>
+  );
+};
+
+const BodyTypingSetting = ({ onClose }: any) => {
+  const {
+    wordList,
+    setWordList,
+    currentlyPickedSetting,
+    setTypingListSetting,
+  } = useTyping();
+  const [currentPage, setCurrentPage] = useState<"root" | "theme">("root");
+  const listItem = [
+    {
+      icon: <OpenInANewTabIcon size="medium"></OpenInANewTabIcon>,
+      title: "Open in a new tab",
+      href: currentlyPickedSetting.href,
+    },
+    {
+      icon: (
+        <ThemeItem
+          item={currentlyPickedSetting.theme}
+          currentTheme=""
+          size={9}
+        ></ThemeItem>
+      ),
+      title: "Change theme",
+      onClick: () => {
+        setCurrentPage("theme");
+      },
+    },
+    {
+      icon: <DeleteIcon></DeleteIcon>,
+      title: "Delete",
+      onClick: () => {
+        handleDeleteTypingList(currentlyPickedSetting.id);
+        setTypingListSetting(false);
+      },
+    },
+  ];
+  const handleDeleteTypingList = (id: Id) => {
+    const newWordList = wordList.filter((item: any) => item.id !== id);
+    setWordList(newWordList);
+  };
+
+  return (
+    <>
+      {currentPage === "root" && (
+        <SettingRootPage listControls={listItem}></SettingRootPage>
+      )}
+      {currentPage === "theme" && (
+        <SettingChangeThemePage
+          onBackRootPage={() => setCurrentPage("root")}
+          onClose={onClose}
+        ></SettingChangeThemePage>
+      )}
+    </>
   );
 };
 

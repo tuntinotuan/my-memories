@@ -8,14 +8,14 @@ type PopupDotsSettingProps = {
   show: boolean;
   onClose: () => void;
   rect?: DOMRect;
-  listItem: any;
+  children: React.ReactNode;
 };
 
 export const PopupDotsSetting = ({
   show,
   onClose,
   rect,
-  listItem,
+  children,
 }: PopupDotsSettingProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(ref, onClose);
@@ -35,8 +35,7 @@ export const PopupDotsSetting = ({
             : {}
         }
       >
-        <SettingRootPage listControls={listItem}></SettingRootPage>
-        {false && <SettingChangeThemePage></SettingChangeThemePage>}
+        {children}
       </div>
     </PortalOverlay>
   ) : (

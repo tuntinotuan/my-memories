@@ -32,10 +32,10 @@ const SettingRootPage = ({ listControls }: { listControls: any }) => {
       {listControls.map((item: any) => (
         <SettingItem
           key={item.title}
-          onClick={item.onClick ? item.onClick : () => {}}
           href={item.href}
           icon={item.icon}
           title={item.title}
+          onClick={item.onClick ? item.onClick : () => {}}
         ></SettingItem>
       ))}
     </>

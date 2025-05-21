@@ -17,7 +17,6 @@ type ProjectItemProps = {
   title: string;
   id?: Id;
   href: string;
-  handleDelete?: (id: Id) => void;
   selectedItem?: any;
   disabledControl?: boolean;
   theme?: string;

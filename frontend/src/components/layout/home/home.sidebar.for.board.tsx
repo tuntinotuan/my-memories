@@ -15,6 +15,7 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import CrownIcon from "@/components/icons/CrownIcon";
 import { projectList } from "@/api/board/mock.data";
 import { replaceAllTrim } from "@/utils/otherFs";
+import HomeSidebarTop from "./home.sidebar.top";
 
 const HomeSidebarForBoard = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
@@ -30,27 +31,7 @@ const HomeSidebarForBoard = () => {
   };
   return (
     <HomeSidebar>
-      <div className="flex items-center justify-between">
-        <HeaderLogo></HeaderLogo>
-        <Tooltip
-          showArrow
-          content="Close menu"
-          placement="bottom"
-          radius="sm"
-          delay={200}
-          closeDelay={200}
-          className="!px-2 !py-[2px]"
-          shadow="sm"
-        >
-          <div>
-            <CloseIcon
-              onClick={() => handleShowHomeSidebar()}
-              className="homesidebar-close-icon opacity-0"
-              border
-            ></CloseIcon>
-          </div>
-        </Tooltip>
-      </div>
+      <HomeSidebarTop />
       <ButtonCreate
         className="!w-full my-2"
         styles="primary"
