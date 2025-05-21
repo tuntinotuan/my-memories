@@ -1,6 +1,7 @@
 import ErrorRoundedIcon from "@mui/icons-material/ErrorRounded";
 import MyTooltip from "../tooltip/MyTooltip";
 import Image from "next/image";
+import { useRef } from "react";
 
 export default function FileUpload({
   handleFileChange,
@@ -9,6 +10,14 @@ export default function FileUpload({
   title: string;
   handleFileChange: any;
 }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const resetFileInput = () => {
+    // Clears the input value so the same file can be selected again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
   return (
     <>
       <label
@@ -21,10 +30,12 @@ export default function FileUpload({
         </MyTooltip>
       </label>
       <input
+        ref={fileInputRef}
         id="inputUploadFile"
         type="file"
         accept=".txt, .xlsx, .xls"
         onChange={handleFileChange}
+        onClick={resetFileInput}
         className="hidden"
       />
     </>

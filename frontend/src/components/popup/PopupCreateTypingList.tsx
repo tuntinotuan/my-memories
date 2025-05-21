@@ -64,6 +64,7 @@ const Body = ({ onClose }: any) => {
     setWordList([...wordList, newList]);
     setTypingList([]);
     setListName("");
+    setFileName("");
     onClose();
   };
 
@@ -78,6 +79,7 @@ const Body = ({ onClose }: any) => {
         typingList={typingList}
         listName={listName}
         fileName={fileName}
+        setFileName={setFileName}
         setListName={setListName}
         setTypingList={setTypingList}
       ></Form>
@@ -107,6 +109,7 @@ const Form = ({
   listName,
   fileName,
   setListName,
+  setFileName,
   setTypingList,
 }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -120,6 +123,7 @@ const Form = ({
   }, [typingList]);
   const handleClearData = () => {
     setTypingList([]);
+    setFileName("");
   };
   return (
     <div className="flex items-start gap-2 w-full">
@@ -213,7 +217,9 @@ const OtherOptions = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
     setFileName(file.name);
+
     const reader = new FileReader();
 
     const fileName = file.name.toLowerCase();
@@ -238,7 +244,6 @@ const OtherOptions = ({
       }
 
       const arrayBuffer = event.target?.result as ArrayBuffer;
-
       // ✅ Use `type: "array"` to fix the ZIP compression method error
       const workbook = XLSX.read(arrayBuffer, { type: "array" });
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -252,6 +257,7 @@ const OtherOptions = ({
           }
         }
       }
+
       setTypingList(result);
     };
 
