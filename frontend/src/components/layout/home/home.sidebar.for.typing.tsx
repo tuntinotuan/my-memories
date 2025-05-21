@@ -16,7 +16,10 @@ import CrownIcon from "@/components/icons/CrownIcon";
 import { useTyping } from "@/contexts/TypingStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { replaceAllTrim } from "@/utils/otherFs";
-import { PopupDotsSetting } from "@/components/popup/PopupDotsSetting";
+import { PopupDotsSetting } from "@/components/popup/setting/PopupDotsSetting";
+import OpenInANewTabIcon from "@/components/icons/OpenInANewTabIcon";
+import ThemeItem from "@/components/theme/ThemeItem";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 
 const HomeSidebarForTyping = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
@@ -34,7 +37,34 @@ const HomeSidebarForTyping = () => {
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
-
+  const listItem = [
+    {
+      icon: <OpenInANewTabIcon size="medium"></OpenInANewTabIcon>,
+      title: "Open in a new tab",
+      href: currentlyPickedSetting.href,
+    },
+    {
+      icon: (
+        <ThemeItem
+          item={currentlyPickedSetting.theme}
+          currentTheme=""
+          size={9}
+        ></ThemeItem>
+      ),
+      title: "Change theme",
+      onClick: () => {
+        setTypingListSetting(false);
+      },
+    },
+    {
+      icon: <DeleteIcon></DeleteIcon>,
+      title: "Delete",
+      onClick: () => {
+        handleDeleteTypingList(currentlyPickedSetting.id);
+        setTypingListSetting(false);
+      },
+    },
+  ];
   const handleDeleteTypingList = (id: Id) => {
     const newWordList = wordList.filter((item: any) => item.id !== id);
     setWordList(newWordList);
@@ -119,10 +149,10 @@ const HomeSidebarForTyping = () => {
         )}
       </div>
       <PopupDotsSetting
-        onClickDelete={handleDeleteTypingList}
-        pickedItem={currentlyPickedSetting}
         show={typingListSetting}
         onClose={() => setTypingListSetting(false)}
+        rect={currentlyPickedSetting.rect}
+        listItem={listItem}
       ></PopupDotsSetting>
     </HomeSidebar>
   );

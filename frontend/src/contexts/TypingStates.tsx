@@ -15,6 +15,7 @@ export type settingType = {
   title: string;
   rect?: DOMRect;
   theme: string;
+  href?: string;
 };
 
 type defaltValuesType = {
