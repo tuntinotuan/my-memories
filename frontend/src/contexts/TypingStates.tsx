@@ -5,6 +5,7 @@ import {
   WordAmountType,
   WordTimeType,
 } from "@/app/(home)/typing/modules/types";
+import { LinearOrUrl } from "@/components/project/types";
 import { useCountDown } from "@/hooks/useCountDown";
 import { useRunningTime } from "@/hooks/useRunningTime";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -16,6 +17,7 @@ export type settingType = {
   rect?: DOMRect;
   theme: string;
   href?: string;
+  img?: LinearOrUrl;
 };
 
 type defaltValuesType = {

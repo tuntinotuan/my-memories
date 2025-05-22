@@ -84,6 +84,7 @@ const ProjectItem = ({
             rect: ref.current?.getBoundingClientRect(),
             href,
             theme,
+            img,
           });
           openSetting();
         }}

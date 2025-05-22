@@ -15,6 +15,8 @@ import { useTyping } from "@/contexts/TypingStates";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import SettingRootPage from "@/components/popup/setting/pages/SettingRootPage";
+import { useLayoutStates } from "@/contexts/layoutStates";
+import ProjectImgOrGradient from "@/components/project/ProjectImgOrGradient";
 
 const HomeSidebarForBoard = () => {
   const {
@@ -58,11 +60,32 @@ const HomeSidebarForBoard = () => {
 const BodySetting = ({ onClose }: any) => {
   const { pickedSetting, boards, setBoards, setPickedSetting } =
     useCreateBoardStates();
+  const { handleShowMenuboard, setPageBoardSidebar } = useLayoutStates();
   const listItem = [
     {
       icon: <OpenInANewTabIcon size="medium"></OpenInANewTabIcon>,
       title: "Open in a new tab",
       href: pickedSetting.href,
+    },
+    {
+      icon: (
+        <ProjectImgOrGradient
+          img={
+            pickedSetting.img || {
+              type: "linearGradient",
+              from: "#7731d8",
+              to: "#01C4CD",
+            }
+          }
+          width={24}
+          height={24}
+        ></ProjectImgOrGradient>
+      ),
+      title: "Change background",
+      onClick: () => {
+        // handleShowMenuboard();
+        // setPageBoardSidebar("background");
+      },
     },
     {
       icon: <DeleteIcon></DeleteIcon>,
