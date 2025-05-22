@@ -10,7 +10,8 @@ import React, { useState } from "react";
 const HomeSidebarTypingList = () => {
   const [showRecentDesign, setShowRecentDesign] = useState(true);
   const { boards } = useCreateBoardStates();
-  const { wordList, setCurrentlyPickedSetting } = useTyping();
+  const { wordList, setCurrentlyPickedSetting, setTypingListSetting } =
+    useTyping();
   const handleRecent = () => {
     setShowRecentDesign((pre) => !pre);
   };
@@ -35,6 +36,7 @@ const HomeSidebarTypingList = () => {
                 id={item.id}
                 title={item.name}
                 theme={item.theme}
+                openSetting={() => setTypingListSetting(true)}
                 selectedItem={setCurrentlyPickedSetting}
                 href={`/typing/${replaceAllTrim(item.name) + "-id" + item.id}`}
               ></ProjectItem>

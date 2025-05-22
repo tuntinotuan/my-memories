@@ -57,6 +57,7 @@ const BodyTypingSetting = ({ onClose }: any) => {
     wordList,
     setWordList,
     currentlyPickedSetting,
+    setCurrentlyPickedSetting,
     setTypingListSetting,
   } = useTyping();
   const [currentPage, setCurrentPage] = useState<"root" | "theme">("root");
@@ -93,10 +94,23 @@ const BodyTypingSetting = ({ onClose }: any) => {
     setWordList(newWordList);
   };
 
+  const handleUpdateTypingListName = (id: Id, title: string) => {
+    const newTasks = wordList.map((item: any) => {
+      if (item.id !== id) return item;
+      return { ...item, name: title };
+    });
+    setCurrentlyPickedSetting({ ...currentlyPickedSetting, title });
+    setWordList(newTasks);
+  };
   return (
     <>
       {currentPage === "root" && (
-        <SettingRootPage listControls={listItem}></SettingRootPage>
+        <SettingRootPage
+          listControls={listItem}
+          id={currentlyPickedSetting.id}
+          title={currentlyPickedSetting.title}
+          handleUpdateTitle={handleUpdateTypingListName}
+        ></SettingRootPage>
       )}
       {currentPage === "theme" && (
         <SettingChangeThemePage

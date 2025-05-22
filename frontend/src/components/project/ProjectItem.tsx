@@ -20,6 +20,7 @@ type ProjectItemProps = {
   selectedItem?: any;
   disabledControl?: boolean;
   theme?: string;
+  openSetting: any;
 };
 
 const ProjectItem = ({
@@ -30,9 +31,9 @@ const ProjectItem = ({
   disabledControl,
   href,
   theme,
+  openSetting,
 }: ProjectItemProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { setTypingListSetting } = useTyping();
   let controlClass =
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md opacity-0 group-hover:opacity-100";
   const path = usePathname();
@@ -84,7 +85,7 @@ const ProjectItem = ({
             href,
             theme,
           });
-          setTypingListSetting(true);
+          openSetting();
         }}
       ></AbsoluteControls>
     </div>

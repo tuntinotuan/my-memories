@@ -1,6 +1,7 @@
 "use client";
 import { Board } from "@/components/popup/PopupCreateboard";
 import { useContext, useState, createContext, useEffect } from "react";
+import { settingType } from "./TypingStates";
 
 type CreateBoardStatesType = {
   boards: Board[];
@@ -8,6 +9,10 @@ type CreateBoardStatesType = {
   boardName: boolean;
   loadingFetchBoards: boolean;
   showCreateboard: boolean;
+  showSetting: boolean;
+  pickedSetting: settingType;
+  setPickedSetting: ({ id, title, rect }: settingType) => void;
+  setShowSetting: (value: boolean) => void;
   handleOpenAndClosePopupCreateboard: () => void;
   handleSetBoardName: (value: boolean) => void;
   setBoards: (value: Board[]) => void;
@@ -24,6 +29,10 @@ const createBoardStatesDefaultValues: CreateBoardStatesType = {
   },
   boardName: false,
   showCreateboard: false,
+  showSetting: false,
+  pickedSetting: { id: 0, title: "nothing", theme: "" },
+  setPickedSetting: () => {},
+  setShowSetting: () => {},
   handleOpenAndClosePopupCreateboard: () => {},
   handleSetBoardName: () => {},
   setBoards: () => {},
@@ -46,6 +55,12 @@ export const CreateBoardProvider = ({
     title: "2",
     img: { type: "imageUrl", url: "", alt: "" },
   });
+  const [pickedSetting, setPickedSetting] = useState<settingType>({
+    id: 0,
+    title: "nothing",
+    theme: "",
+  });
+  const [showSetting, setShowSetting] = useState(false);
   const handleSetBoardName = (value: boolean) => {
     setBoardName(value);
   };
@@ -84,7 +99,11 @@ export const CreateBoardProvider = ({
         singleBoard,
         setSingleBoard,
         loadingFetchBoards,
+        showSetting,
+        setShowSetting,
         showCreateboard,
+        pickedSetting,
+        setPickedSetting,
         handleOpenAndClosePopupCreateboard,
         handleSetBoardName,
         setBoards,
