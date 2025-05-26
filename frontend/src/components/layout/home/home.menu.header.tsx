@@ -42,7 +42,7 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
       </Button>
       <Button className="py-1" disable>
         <Image
-          src="/avatar.jpg"
+          src="/avatar-black-umbrella.jpg"
           alt="Avatar Icon"
           width={30}
           height={30}

@@ -53,7 +53,7 @@ const List = ({
       style={style}
       {...attributes}
       {...listeners}
-      className={`child flex flex-col w-[250px] h-full gap-2 shrink-0 cursor-grab ${
+      className={`child flex flex-col w-[266px] h-full gap-2 shrink-0 cursor-grab ${
         isDragging ? "blur-[0.5px]" : ""
       }`}
     >

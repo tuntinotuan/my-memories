@@ -11,6 +11,7 @@ import { useTyping } from "@/contexts/TypingStates";
 import OpenInANewTabIcon from "../icons/OpenInANewTabIcon";
 import LinkNewTabOverlay from "../overlay/link.newtab.overlay";
 import ThemeItem from "../theme/ThemeItem";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
 
 type ProjectItemProps = {
   img?: LinearOrUrl;
@@ -101,6 +102,7 @@ const AbsoluteControls = ({
   id,
 }: any) => {
   const { typingListSetting, currentlyPickedSetting } = useTyping();
+  const { showSetting, pickedSetting } = useCreateBoardStates();
   return (
     <div className="absolute right-1 flex items-center gap-1 shrink-0">
       <Tooltip
@@ -122,7 +124,8 @@ const AbsoluteControls = ({
         className={`${controlClass} ${
           disabledControl ? "cursor-wait" : "cursor-pointer"
         } ${
-          currentlyPickedSetting.id === id && typingListSetting
+          (currentlyPickedSetting.id === id && typingListSetting) ||
+          (pickedSetting.id === id && showSetting)
             ? "!opacity-100 bg-gray-300"
             : ""
         }`}
