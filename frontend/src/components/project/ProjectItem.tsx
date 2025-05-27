@@ -21,7 +21,7 @@ type ProjectItemProps = {
   selectedItem?: any;
   disabledControl?: boolean;
   theme?: string;
-  openSetting: any;
+  openSetting?: any;
 };
 
 const ProjectItem = ({
