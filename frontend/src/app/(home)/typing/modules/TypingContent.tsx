@@ -23,6 +23,7 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   if (!hydrated) return null; // or a skeleton/placeholder
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
+      <p>This is new branch with name smooth-cursor</p>
       <ViewAmountOrTime />
       {typingStyles === "time" && <TypingManyWords types="time" data={data} />}
       {typingStyles === "combine" && <TypingOnlyAWord data={data} />}
