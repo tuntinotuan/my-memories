@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import PopupOverlay from "./popup.overlay";
+import PopupOverlay from "../overlay/popup.overlay";
 import { TopControl } from "./PopupCreateboard";
 import Button from "../button/Button";
 import PlusIcon from "../icons/PlusIcon";

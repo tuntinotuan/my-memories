@@ -21,7 +21,7 @@ const TypingCursor = ({
     <input
       value={value}
       className={`absolute top-0 bottom-0 w-[2px] rounded h-full bg-typingColorActive text-transparent opacity-0 focus:opacity-100  transition-all ${
-        cursorIsTyping ? "" : "focus:animate-hideShow"
+        cursorIsTyping ? "" : "focus:animate-careFlashSmooth"
       }`}
       id={id}
       onChange={onChange}

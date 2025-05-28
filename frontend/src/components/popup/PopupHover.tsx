@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Placement } from "../tooltip/MyTooltip";
-import PortalOverlay from "./portal.overlay";
+import PortalOverlay from "../overlay/portal.overlay";
 interface DOMRect {
   readonly x: number;
   readonly y: number;

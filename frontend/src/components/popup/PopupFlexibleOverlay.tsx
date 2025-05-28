@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import PortalOverlay from "./portal.overlay";
+import PortalOverlay from "../overlay/portal.overlay";
 
 type PopupFlexibleOverlayProps = {
   children: React.ReactNode;

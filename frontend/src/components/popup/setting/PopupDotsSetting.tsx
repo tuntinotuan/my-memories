@@ -1,6 +1,6 @@
 import { useOnClickOutside } from "usehooks-ts";
 import { useRef } from "react";
-import PortalOverlay from "../portal.overlay";
+import PortalOverlay from "../../overlay/portal.overlay";
 import { SettingChangeThemePage } from "./pages/SettingChangeThemePage";
 import SettingRootPage from "./pages/SettingRootPage";
 

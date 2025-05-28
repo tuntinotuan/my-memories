@@ -49,12 +49,17 @@ const config: Config = {
           "50%": { opacity: "0.5" },
           "100%": { opacity: "1" },
         },
+        flashSmooth: {
+          "0%, 100%": { opacity: "0" },
+          "50%": { opacity: "1" },
+        },
       },
       animation: {
         popupGrow: "popupGrow 2s ease-in-out alternate",
         wiggle: "wiggle 0.5s ease-in-out infinite",
         fadeInUp: "fadeInUp 1s ease-out infinite",
         hideShow: "hideShow 1s ease-in infinite",
+        careFlashSmooth: "flashSmooth 1s infinite",
       },
       boxShadow: {
         "popup-rect": "0 0px 15px rgba(0, 0, 0, 0.1)",

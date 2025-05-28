@@ -3,7 +3,7 @@ import CloseIcon from "@/components/icons/CloseIcon";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import ButtonCreate from "@/components/button/ButtonCreate";
 import Image from "next/image";
-import PopupOverlay from "./popup.overlay";
+import PopupOverlay from "../overlay/popup.overlay";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { LinearOrUrl } from "../project/types";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
