@@ -22,6 +22,7 @@ import PopupSketchPicker, {
   MySketchPicker,
 } from "@/components/popup/PopupSketchPicker";
 import Link from "next/link";
+import { useScrollToEnd } from "@/hooks/useScrollToEnd";
 type PageProps = {
   page: PageBoardSidebarType;
 };
@@ -308,15 +309,7 @@ export const BoardColors = ({
     setBoards(newLists);
     setColorPicker(false);
   };
-
-  // auto scroll to end after open SketchPicker
-  useEffect(() => {
-    const scrollCur = ref.current;
-    if (scrollCur && colorPicker) {
-      scrollCur.scrollTop = scrollCur.scrollHeight;
-    }
-  }, [colorPicker]);
-
+  useScrollToEnd(ref, colorPicker);
   return (
     <div className="h-full overflow-y-auto pb-4" ref={ref}>
       <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-transparent border-b-gray-200">
