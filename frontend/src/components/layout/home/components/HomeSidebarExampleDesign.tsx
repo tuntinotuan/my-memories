@@ -31,6 +31,7 @@ const HomeSidebarExampleDesign = () => {
                 img={item.img}
                 title={item.title}
                 href={`/project/${replaceAllTrim(item.title)}`}
+                hiddenSettingButton
               ></ProjectItem>
             ))}
           </div>

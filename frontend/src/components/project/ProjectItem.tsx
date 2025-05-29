@@ -22,6 +22,7 @@ type ProjectItemProps = {
   disabledControl?: boolean;
   theme?: string;
   openSetting?: any;
+  hiddenSettingButton?: boolean;
 };
 
 const ProjectItem = ({
@@ -33,6 +34,7 @@ const ProjectItem = ({
   href,
   theme,
   openSetting,
+  hiddenSettingButton,
 }: ProjectItemProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   let controlClass =
@@ -77,6 +79,7 @@ const ProjectItem = ({
         disabledControl={disabledControl}
         controlClass={controlClass}
         id={id}
+        hiddenSettingButton={hiddenSettingButton}
         onClickSetting={() => {
           if (disabledControl) return;
           selectedItem({
@@ -100,6 +103,7 @@ const AbsoluteControls = ({
   controlClass,
   onClickSetting,
   id,
+  hiddenSettingButton,
 }: any) => {
   const { typingListSetting, currentlyPickedSetting } = useTyping();
   const { showSetting, pickedSetting } = useCreateBoardStates();
@@ -119,18 +123,20 @@ const AbsoluteControls = ({
           <OpenInANewTabIcon></OpenInANewTabIcon>
         </LinkNewTabOverlay>
       </Tooltip>
-      <ThreeDotsIcon
-        fontSize="inherit"
-        className={`${controlClass} ${
-          disabledControl ? "cursor-wait" : "cursor-pointer"
-        } ${
-          (currentlyPickedSetting.id === id && typingListSetting) ||
-          (pickedSetting.id === id && showSetting)
-            ? "!opacity-100 bg-gray-300"
-            : ""
-        }`}
-        onClick={onClickSetting}
-      ></ThreeDotsIcon>
+      {!hiddenSettingButton && (
+        <ThreeDotsIcon
+          fontSize="inherit"
+          className={`${controlClass} ${
+            disabledControl ? "cursor-wait" : "cursor-pointer"
+          } ${
+            (currentlyPickedSetting.id === id && typingListSetting) ||
+            (pickedSetting.id === id && showSetting)
+              ? "!opacity-100 bg-gray-300"
+              : ""
+          }`}
+          onClick={onClickSetting}
+        ></ThreeDotsIcon>
+      )}
     </div>
   );
 };
