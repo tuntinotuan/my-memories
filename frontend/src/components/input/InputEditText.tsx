@@ -1,5 +1,6 @@
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import React, { useState } from "react";
+import MyTooltip from "../tooltip/MyTooltip";
 type InputEditTextProps = {
   title: string;
   id: Id;
@@ -22,12 +23,20 @@ const InputEditText = ({
   return (
     <>
       {!editTitle && (
-        <p
-          onClick={() => setEditTitle(true)}
-          className={`px-3 rounded py-1 truncate cursor-pointer border border-transparent transition-all ${pClass}`}
+        <MyTooltip
+          contents={<p>{title}</p>}
+          size="small"
+          className="w-full"
+          enterDelay={600}
+          arrowRounded
         >
-          {title}
-        </p>
+          <p
+            onClick={() => setEditTitle(true)}
+            className={`px-3 rounded py-1 truncate cursor-pointer border border-transparent transition-all ${pClass}`}
+          >
+            {title}
+          </p>
+        </MyTooltip>
       )}
       {editTitle && (
         <input

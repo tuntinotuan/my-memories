@@ -9,6 +9,8 @@ type MyToolipProps = {
   className?: string;
   size?: "small" | "medium" | "large";
   arrowRounded?: boolean;
+  enterDelay?: number;
+  leaveDelay?: number;
 };
 
 const MyTooltip = ({
@@ -18,10 +20,12 @@ const MyTooltip = ({
   className,
   size,
   arrowRounded,
+  enterDelay = 300,
+  leaveDelay = 300,
 }: MyToolipProps) => {
   const { ref, isHovered } = useHoverDelay<HTMLDivElement>({
-    enterDelay: 300,
-    leaveDelay: 300,
+    enterDelay: enterDelay,
+    leaveDelay: leaveDelay,
   });
   return (
     <>
