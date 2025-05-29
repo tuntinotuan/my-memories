@@ -104,7 +104,14 @@ const Body = ({ page }: PageProps) => {
 
 const BoardMenu = () => {
   const { singleBoard } = useCreateBoardStates();
-  const lists = [
+  const list1 = [
+    {
+      icon: (
+        <ProjectImgOrGradient img={singleBoard.img} width={24} height={24} />
+      ),
+      title: "Change background",
+      disable: false,
+    },
     {
       icon: (
         <LocalIconOverlay>
@@ -114,13 +121,7 @@ const BoardMenu = () => {
       title: "Settings",
       disable: true,
     },
-    {
-      icon: (
-        <ProjectImgOrGradient img={singleBoard.img} width={24} height={24} />
-      ),
-      title: "Change background",
-      disable: false,
-    },
+
     {
       icon: (
         <LocalIconOverlay>
@@ -162,7 +163,7 @@ const BoardMenu = () => {
   ];
   return (
     <>
-      <BoardList values={lists}></BoardList>
+      <BoardList values={list1}></BoardList>
       <BoardList values={list2} lastItem></BoardList>
     </>
   );

@@ -13,18 +13,22 @@ interface DOMRect {
   toJSON(): any;
 }
 const PopupHover = ({
+  size = "medium",
   children,
   rect,
   isHovered,
   placement = "top",
+  arrowRounded = false,
 }: {
   children: React.ReactNode;
   rect?: DOMRect;
   isHovered: boolean;
   placement?: Placement;
+  size?: "small" | "medium" | "large";
+  arrowRounded?: boolean;
 }) => {
   const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
-
+  let newSize = "";
   useEffect(() => {
     if (!rect) return;
     const tooltipOffset = 15; // distance from the element
@@ -69,10 +73,22 @@ const PopupHover = ({
     setTooltipStyle(style);
   }, [rect, placement]);
 
+  switch (size) {
+    case "small":
+      newSize = "text-sm/4 px-2 py-1";
+      break;
+    case "medium":
+      newSize = "text-lg/4 px-4 py-3";
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <PortalOverlay>
       <div
-        className={`fixed flex flex-col gap-[2px] bg-black text-white text-lg/4 px-4 py-3 rounded transition-all z-50 ${
+        className={`fixed flex flex-col gap-[2px] bg-black text-white rounded transition-all z-50 ${newSize} ${
           isHovered
             ? "opacity-100 visible -translate-y-1"
             : "opacity-0 translate-y-0 invisible"
@@ -82,17 +98,23 @@ const PopupHover = ({
         }}
       >
         {children}
-        <Arrow placement={placement}></Arrow>
+        <Arrow placement={placement} arrowRounded={arrowRounded}></Arrow>
       </div>
     </PortalOverlay>
   );
 };
 
-const Arrow = ({ placement }: { placement: Placement }) => {
+const Arrow = ({
+  placement,
+  arrowRounded,
+}: {
+  placement: Placement;
+  arrowRounded: boolean;
+}) => {
   let newStyles = "";
   switch (placement) {
     case "top":
-      newStyles = "top-full left-1/2 -translate-x-1/2 -translate-y-1/2";
+      newStyles = "top-full left-1/2 -translate-x-1/2 -translate-y-[60%]";
       break;
     case "bottom":
       newStyles = "bottom-full left-1/2 -translate-x-1/2 translate-y-1/2";
@@ -109,7 +131,9 @@ const Arrow = ({ placement }: { placement: Placement }) => {
   }
   return (
     <div
-      className={`arrow absolute w-[10px] h-[10px] bg-inherit rotate-45 -z-10 ${newStyles}`}
+      className={`arrow absolute w-[10px] h-[10px] bg-inherit rotate-45 -z-10 ${newStyles} ${
+        arrowRounded ? "rounded" : ""
+      }`}
     ></div>
   );
 };

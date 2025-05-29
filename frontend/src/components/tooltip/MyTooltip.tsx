@@ -6,9 +6,19 @@ type MyToolipProps = {
   children: React.ReactNode;
   contents: React.ReactNode;
   placement?: Placement;
+  className?: string;
+  size?: "small" | "medium" | "large";
+  arrowRounded?: boolean;
 };
 
-const MyTooltip = ({ children, contents, placement }: MyToolipProps) => {
+const MyTooltip = ({
+  children,
+  contents,
+  placement,
+  className,
+  size,
+  arrowRounded,
+}: MyToolipProps) => {
   const { ref, isHovered } = useHoverDelay<HTMLDivElement>({
     enterDelay: 300,
     leaveDelay: 300,
@@ -19,10 +29,12 @@ const MyTooltip = ({ children, contents, placement }: MyToolipProps) => {
         rect={ref.current?.getBoundingClientRect()}
         isHovered={isHovered}
         placement={placement}
+        size={size}
+        arrowRounded={arrowRounded}
       >
         {contents}
       </PopupHover>
-      <div ref={ref} className="w-fit cursor-default">
+      <div ref={ref} className={`w-fit cursor-default ${className}`}>
         {children}
       </div>
     </>

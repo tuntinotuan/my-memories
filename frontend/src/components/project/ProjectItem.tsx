@@ -12,6 +12,7 @@ import OpenInANewTabIcon from "../icons/OpenInANewTabIcon";
 import LinkNewTabOverlay from "../overlay/link.newtab.overlay";
 import ThemeItem from "../theme/ThemeItem";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
+import MyTooltip from "../tooltip/MyTooltip";
 
 type ProjectItemProps = {
   img?: LinearOrUrl;
@@ -42,58 +43,65 @@ const ProjectItem = ({
   const path = usePathname();
   const titleInPath = path.replace("/project/", "");
   return (
-    <div
-      ref={ref}
-      className={`relative w-full group flex items-center gap-2 truncate py-2 px-2 rounded-md cursor-pointer shrink-0 transition-all ${
-        id === Number(cutIdFromSlug(path, "-id")) ||
-        replaceAllTrim(title) + "/" === titleInPath
-          ? "bg-primaryColor bg-opacity-10 hover:none"
-          : "hover:bg-primaryHover"
-      }`}
+    <MyTooltip
+      contents={<p>{title}</p>}
+      className="w-full"
+      size="small"
+      arrowRounded
     >
-      <Link
-        href={href}
-        // href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
-        className="absolute inset-0"
-      ></Link>
-      {img && (
-        <ProjectImgOrGradient
-          img={img}
-          width={24}
-          height={24}
-        ></ProjectImgOrGradient>
-      )}
-      {theme && <ThemeItem item={theme} currentTheme="" size={6}></ThemeItem>}
-      <p
-        className={`text-sm truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5 ${
+      <div
+        ref={ref}
+        className={`relative w-full group flex items-center gap-2 truncate py-2 px-2 rounded-md cursor-pointer shrink-0 transition-all ${
           id === Number(cutIdFromSlug(path, "-id")) ||
           replaceAllTrim(title) + "/" === titleInPath
-            ? "text-primaryColor"
-            : "text-primaryText"
+            ? "bg-primaryColor bg-opacity-10 hover:none"
+            : "hover:bg-primaryHover"
         }`}
       >
-        {title}
-      </p>
-      <AbsoluteControls
-        href={href}
-        disabledControl={disabledControl}
-        controlClass={controlClass}
-        id={id}
-        hiddenSettingButton={hiddenSettingButton}
-        onClickSetting={() => {
-          if (disabledControl) return;
-          selectedItem({
-            id,
-            title,
-            rect: ref.current?.getBoundingClientRect(),
-            href,
-            theme,
-            img,
-          });
-          openSetting();
-        }}
-      ></AbsoluteControls>
-    </div>
+        <Link
+          href={href}
+          // href={`/project/${id ? newTitle + "-id" + id : newTitle}`}
+          className="absolute inset-0"
+        ></Link>
+        {img && (
+          <ProjectImgOrGradient
+            img={img}
+            width={24}
+            height={24}
+          ></ProjectImgOrGradient>
+        )}
+        {theme && <ThemeItem item={theme} currentTheme="" size={6}></ThemeItem>}
+        <p
+          className={`text-sm truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5 ${
+            id === Number(cutIdFromSlug(path, "-id")) ||
+            replaceAllTrim(title) + "/" === titleInPath
+              ? "text-primaryColor"
+              : "text-primaryText"
+          }`}
+        >
+          {title}
+        </p>
+        <AbsoluteControls
+          href={href}
+          disabledControl={disabledControl}
+          controlClass={controlClass}
+          id={id}
+          hiddenSettingButton={hiddenSettingButton}
+          onClickSetting={() => {
+            if (disabledControl) return;
+            selectedItem({
+              id,
+              title,
+              rect: ref.current?.getBoundingClientRect(),
+              href,
+              theme,
+              img,
+            });
+            openSetting();
+          }}
+        ></AbsoluteControls>
+      </div>
+    </MyTooltip>
   );
 };
 
