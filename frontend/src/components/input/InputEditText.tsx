@@ -26,7 +26,7 @@ const InputEditText = ({
         <MyTooltip
           contents={<p>{title}</p>}
           size="small"
-          className="w-full"
+          className={`w-full rounded ${pClass}`}
           enterDelay={600}
           arrowRounded
         >

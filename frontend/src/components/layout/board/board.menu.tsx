@@ -34,7 +34,8 @@ const BoardMenu = () => {
         id={singleBoard.id}
         title={singleBoard.title}
         updateTitle={handleUpdateBoardTitle}
-        pClass="w-auto hover:bg-white hover:bg-opacity-25"
+        pClass="!w-auto hover:bg-white hover:bg-opacity-25"
+        inputClass="w-max"
       ></InputEditText>
       {!showMenuboard && (
         <Tooltip
