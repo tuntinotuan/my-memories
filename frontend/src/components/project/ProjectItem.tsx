@@ -43,20 +43,20 @@ const ProjectItem = ({
   const path = usePathname();
   const titleInPath = path.replace("/project/", "");
   return (
-    <MyTooltip
-      contents={<p>{title}</p>}
-      className="w-full"
-      size="small"
-      arrowRounded
+    <div
+      ref={ref}
+      className={`relative w-full group flex items-center gap-2 truncate py-2 px-2 rounded-md cursor-pointer shrink-0 transition-all ${
+        id === Number(cutIdFromSlug(path, "-id")) ||
+        replaceAllTrim(title) + "/" === titleInPath
+          ? "bg-primaryColor bg-opacity-10 hover:none"
+          : "hover:bg-primaryHover"
+      }`}
     >
-      <div
-        ref={ref}
-        className={`relative w-full group flex items-center gap-2 truncate py-2 px-2 rounded-md cursor-pointer shrink-0 transition-all ${
-          id === Number(cutIdFromSlug(path, "-id")) ||
-          replaceAllTrim(title) + "/" === titleInPath
-            ? "bg-primaryColor bg-opacity-10 hover:none"
-            : "hover:bg-primaryHover"
-        }`}
+      <MyTooltip
+        contents={<p>{title}</p>}
+        className="w-full flex items-center gap-2"
+        size="small"
+        arrowRounded
       >
         <Link
           href={href}
@@ -81,27 +81,27 @@ const ProjectItem = ({
         >
           {title}
         </p>
-        <AbsoluteControls
-          href={href}
-          disabledControl={disabledControl}
-          controlClass={controlClass}
-          id={id}
-          hiddenSettingButton={hiddenSettingButton}
-          onClickSetting={() => {
-            if (disabledControl) return;
-            selectedItem({
-              id,
-              title,
-              rect: ref.current?.getBoundingClientRect(),
-              href,
-              theme,
-              img,
-            });
-            openSetting();
-          }}
-        ></AbsoluteControls>
-      </div>
-    </MyTooltip>
+      </MyTooltip>
+      <AbsoluteControls
+        href={href}
+        disabledControl={disabledControl}
+        controlClass={controlClass}
+        id={id}
+        hiddenSettingButton={hiddenSettingButton}
+        onClickSetting={() => {
+          if (disabledControl) return;
+          selectedItem({
+            id,
+            title,
+            rect: ref.current?.getBoundingClientRect(),
+            href,
+            theme,
+            img,
+          });
+          openSetting();
+        }}
+      ></AbsoluteControls>
+    </div>
   );
 };
 
