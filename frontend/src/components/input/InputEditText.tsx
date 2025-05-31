@@ -1,5 +1,7 @@
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import React, { useState } from "react";
+import MyTooltip from "../tooltip/MyTooltip";
+import { useIsTruncated } from "@/hooks/useIsTruncated";
 type InputEditTextProps = {
   title: string;
   id: Id;
@@ -16,18 +18,29 @@ const InputEditText = ({
 }: InputEditTextProps) => {
   const [editTitle, setEditTitle] = useState(false);
   const [newTitle, setNewTitle] = useState("");
+  const { ref: textRef, isTruncated } = useIsTruncated<HTMLDivElement>();
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
   };
   return (
     <>
       {!editTitle && (
-        <p
-          onClick={() => setEditTitle(true)}
-          className={`px-3 rounded py-1 truncate cursor-pointer border border-transparent transition-all ${pClass}`}
+        <MyTooltip
+          contents={<p>{title}</p>}
+          size="small"
+          className={`w-full rounded truncate ${pClass}`}
+          enterDelay={600}
+          arrowRounded
+          isTruncated={isTruncated}
         >
-          {title}
-        </p>
+          <p
+            ref={textRef}
+            onClick={() => setEditTitle(true)}
+            className={`px-3 rounded py-1 truncate cursor-pointer border border-transparent transition-all ${pClass}`}
+          >
+            {title}
+          </p>
+        </MyTooltip>
       )}
       {editTitle && (
         <input
