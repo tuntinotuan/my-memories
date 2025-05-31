@@ -33,7 +33,7 @@ const CardItem = ({ task, className, updateTask, handleDeleteTask }: any) => {
         id={task.id}
         title={task.content}
         updateTitle={updateTask}
-        pClass="w-full h-auto"
+        pClass="!w-full"
         inputClass="w-full"
       ></InputEditText>
       <DeleteIcon

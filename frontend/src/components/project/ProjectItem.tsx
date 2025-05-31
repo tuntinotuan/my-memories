@@ -6,13 +6,14 @@ import { LinearOrUrl } from "./types";
 import { cutIdFromSlug, replaceAllTrim } from "@/utils/otherFs";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTyping } from "@/contexts/TypingStates";
 import OpenInANewTabIcon from "../icons/OpenInANewTabIcon";
 import LinkNewTabOverlay from "../overlay/link.newtab.overlay";
 import ThemeItem from "../theme/ThemeItem";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import MyTooltip from "../tooltip/MyTooltip";
+import { useIsTruncated } from "@/hooks/useIsTruncated";
 
 type ProjectItemProps = {
   img?: LinearOrUrl;
@@ -42,6 +43,8 @@ const ProjectItem = ({
     "flex items-center justify-center bg-primaryHover transition-all hover:bg-gray-300 px-2 py-2 rounded-md opacity-0 group-hover:opacity-100";
   const path = usePathname();
   const titleInPath = path.replace("/project/", "");
+  const { ref: textRef, isTruncated } = useIsTruncated<HTMLDivElement>();
+
   return (
     <div
       ref={ref}
@@ -53,10 +56,11 @@ const ProjectItem = ({
       }`}
     >
       <MyTooltip
-        contents={<p>{title}</p>}
+        contents={isTruncated ? <p>{title}</p> : "Nothing"}
         className="w-full flex items-center gap-2"
         size="small"
         arrowRounded
+        isTruncated={isTruncated}
       >
         <Link
           href={href}
@@ -72,6 +76,7 @@ const ProjectItem = ({
         )}
         {theme && <ThemeItem item={theme} currentTheme="" size={6}></ThemeItem>}
         <p
+          ref={textRef}
           className={`text-sm truncate text-ellipsis overflow-hidden w-full group-hover:w-3/5 ${
             id === Number(cutIdFromSlug(path, "-id")) ||
             replaceAllTrim(title) + "/" === titleInPath

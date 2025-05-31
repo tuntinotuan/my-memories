@@ -11,6 +11,7 @@ type MyToolipProps = {
   arrowRounded?: boolean;
   enterDelay?: number;
   leaveDelay?: number;
+  isTruncated?: boolean;
 };
 
 const MyTooltip = ({
@@ -22,6 +23,7 @@ const MyTooltip = ({
   arrowRounded,
   enterDelay = 300,
   leaveDelay = 300,
+  isTruncated = true,
 }: MyToolipProps) => {
   const { ref, isHovered } = useHoverDelay<HTMLDivElement>({
     enterDelay: enterDelay,
@@ -29,15 +31,17 @@ const MyTooltip = ({
   });
   return (
     <>
-      <PopupHover
-        rect={ref.current?.getBoundingClientRect()}
-        isHovered={isHovered}
-        placement={placement}
-        size={size}
-        arrowRounded={arrowRounded}
-      >
-        {contents}
-      </PopupHover>
+      {isTruncated && (
+        <PopupHover
+          rect={ref.current?.getBoundingClientRect()}
+          isHovered={isHovered}
+          placement={placement}
+          size={size}
+          arrowRounded={arrowRounded}
+        >
+          {contents}
+        </PopupHover>
+      )}
       <div ref={ref} className={`w-fit cursor-default ${className}`}>
         {children}
       </div>
