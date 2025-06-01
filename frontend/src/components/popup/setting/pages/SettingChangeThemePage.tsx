@@ -1,6 +1,6 @@
 import { themeList } from "@/api/typing/typing.data.structure";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
-import ArrowBackIcon from "@/components/icons/ArrowBackIcon";
+import ArrowBackIcon from "@/components/icons/arrow/ArrowBackIcon";
 import ThemeItem from "@/components/theme/ThemeItem";
 import { useTyping } from "@/contexts/TypingStates";
 import { useTypingTheme } from "@/contexts/typingThemeStates";

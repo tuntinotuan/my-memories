@@ -9,7 +9,7 @@ import { BoardSidebarProps } from "./type";
 import DoDisturbOnRoundedIcon from "@mui/icons-material/DoDisturbOnRounded";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
-import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
+import ArrowLeftIcon from "@/components/icons/arrow/ArrowLeftIcon";
 import Image from "next/image";
 import SearchMenuHeader from "@/components/search/SearchMenuHeader";
 import { getUnsplashImage } from "@/app/apiActions";

@@ -12,7 +12,7 @@ import ThemeItem from "@/components/theme/ThemeItem";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import SettingRootPage from "@/components/popup/setting/pages/SettingRootPage";
 import { SettingChangeThemePage } from "@/components/popup/setting/pages/SettingChangeThemePage";
-import HomeSidebarTop from "./home.sidebar.top";
+import HomeSidebarTop from "./components/HomeSidebarTop";
 import HomeSidebarTypingList from "./components/HomeSidebarTypingList";
 
 const HomeSidebarForTyping = () => {

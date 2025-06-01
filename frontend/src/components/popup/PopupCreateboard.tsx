@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CloseIcon from "@/components/icons/CloseIcon";
-import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
+import ArrowLeftIcon from "@/components/icons/arrow/ArrowLeftIcon";
 import ButtonCreate from "@/components/button/ButtonCreate";
 import Image from "next/image";
 import PopupOverlay from "../overlay/popup.overlay";

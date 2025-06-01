@@ -5,7 +5,7 @@ import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import ButtonCreate from "@/components/button/ButtonCreate";
 import PlusIcon from "@/components/icons/PlusIcon";
 import CrownIcon from "@/components/icons/CrownIcon";
-import HomeSidebarTop from "./home.sidebar.top";
+import HomeSidebarTop from "./components/HomeSidebarTop";
 import HomeSidebarExampleDesign from "./components/HomeSidebarExampleDesign";
 import HomeSidebarRecentDesign from "./components/HomeSidebarRecentDesign";
 import HomeSidebarLoadingSkeleton from "./components/HomeSidebarLoadingSkeleton";

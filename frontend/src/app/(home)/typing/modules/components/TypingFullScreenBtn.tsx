@@ -1,4 +1,4 @@
-import FullScreenIcon from "@/components/icons/FullScreenIcon";
+import FullScreenIcon from "@/components/icons/typing/FullScreenIcon";
 import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 

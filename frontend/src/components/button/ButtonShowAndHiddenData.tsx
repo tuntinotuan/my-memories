@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
-import ArrowDownIcon from "../icons/ArrowDownIcon";
-import ArrowRightIcon from "../icons/ArrowRightIcon";
+import ArrowDownIcon from "../icons/arrow/ArrowDownIcon";
+import ArrowRightIcon from "../icons/arrow/ArrowRightIcon";
 
 type ButtonShowAndHiddenDataProps = {
   list: any[];

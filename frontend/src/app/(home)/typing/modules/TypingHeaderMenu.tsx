@@ -1,17 +1,17 @@
 import { Tooltip } from "@nextui-org/tooltip";
-import ClockIcon from "@/components/icons/ClockIcon";
-import WordIcon from "@/components/icons/WordIcon";
-import SplitscreenRoundedIcon from "@mui/icons-material/SplitscreenRounded";
+import ClockIcon from "@/components/icons/typing/ClockIcon";
+import WordIcon from "@/components/icons/typing/WordIcon";
 import { typingStylesType, useTyping } from "@/contexts/TypingStates";
 import React from "react";
 import { WordAmountType, WordTimeType } from "./types";
-import PaletteRoundedIcon from "@mui/icons-material/PaletteRounded";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import PopupTypingTheme, {
   changeFor,
 } from "@/components/popup/PopupTypingTheme";
 import PopupCreateTypingList from "@/components/popup/PopupCreateTypingList";
-import KeyboardOutlinedIcon from "@mui/icons-material/KeyboardOutlined";
+import KeyboardIcon from "@/components/icons/typing/KeyboardIcon";
+import CombineIcon from "@/components/icons/typing/CombineIcon";
+import ThemeIcon from "@/components/icons/typing/ThemeIcon";
 
 export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
   const { typingStyles, showPopupCreate, setShowPopupCreate } = useTyping();
@@ -32,7 +32,7 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
         shadow="sm"
       >
         <h1 className="flex items-center gap-1 cursor-default">
-          <KeyboardOutlinedIcon fontSize="small" />
+          <KeyboardIcon />
           Typing
         </h1>
       </Tooltip>
@@ -168,7 +168,7 @@ const ListBtnTypingStyles = () => {
     },
     {
       text: "combine",
-      icon: <SplitscreenRoundedIcon fontSize="inherit" />,
+      icon: <CombineIcon />,
       style: "combine",
       onClick: () => setTypingStyles("combine"),
       tooltipText: "Keyword above & meaning below",
@@ -204,7 +204,7 @@ const BtnChangeTheme = () => {
       onClick={() => setThemePopup(true)}
     >
       theme
-      <PaletteRoundedIcon fontSize="inherit"></PaletteRoundedIcon>
+      <ThemeIcon />
     </div>
   );
 };
