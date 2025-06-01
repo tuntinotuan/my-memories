@@ -25,20 +25,22 @@ const HomeSidebarForTyping = () => {
 
   return (
     <HomeSidebar>
-      <HomeSidebarTop />
-      <ButtonCreate
-        className="bg-typingBg !text-typingTextNormal !w-full my-2"
-        styles="primary"
-        onClick={() => setShowPopupCreate(true)}
-      >
-        <PlusIcon />
-        Create a typing list
-      </ButtonCreate>
-      <ButtonCreate className="!w-full" styles="secondary" disable>
-        <CrownIcon />
-        Try Pro for 30 days
-      </ButtonCreate>
-      <div className="overflow-auto max-h-[65vh] px-1 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm mt-3">
+      <div className="pt-4 px-4">
+        <HomeSidebarTop />
+        <ButtonCreate
+          className="bg-typingBg !text-typingTextNormal !w-full my-2"
+          styles="primary"
+          onClick={() => setShowPopupCreate(true)}
+        >
+          <PlusIcon />
+          Create a typing list
+        </ButtonCreate>
+        <ButtonCreate className="!w-full" styles="secondary" disable>
+          <CrownIcon />
+          Try Pro for 30 days
+        </ButtonCreate>
+      </div>
+      <div className="overflow-auto max-h-[65vh] px-4 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm mt-3">
         <HomeSidebarTypingList />
       </div>
       <PopupDotsSetting

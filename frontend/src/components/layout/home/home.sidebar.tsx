@@ -21,7 +21,7 @@ const HomeSidebar = ({ children }: { children: React.ReactNode }) => {
       ></PopupCreateboard>
       {/* Popup ^ */}
       {showHomeSidebar && (
-        <div className={`home-sidebar relative p-4 shrink-0 w-[260px]`}>
+        <div className={`home-sidebar relative shrink-0 w-[260px]`}>
           {children}
           <div className="bg-f2Color absolute bottom-2 left-0 right-0 px-4">
             <Button

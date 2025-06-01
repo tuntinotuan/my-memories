@@ -16,8 +16,8 @@ const ButtonShowAndHiddenData = ({
 }: ButtonShowAndHiddenDataProps) => {
   const [show, setShow] = useState(true);
   return (
-    <div className="mb-8">
-      {list.length > 0 && (
+    list.length > 0 && (
+      <div className="mb-8">
         <Button
           className="group text-xs !gap-1 !py-[6px] !px-2 !rounded-[4px] mb-[14px] text-primaryText"
           hover="hover:bg-primaryHover"
@@ -26,21 +26,21 @@ const ButtonShowAndHiddenData = ({
           <p>{title}</p>
           {show ? <ArrowDownIcon /> : <ArrowRightIcon />}
         </Button>
-      )}
-      {show && list.length > 0 && (
-        <>
-          {children}
-          {list.length > 4 && (
-            <Button
-              className="w-full hover:bg-primaryHover text-primaryColor"
-              disable
-            >
-              See all
-            </Button>
-          )}
-        </>
-      )}
-    </div>
+        {show && list.length > 0 && (
+          <>
+            {children}
+            {list.length > 4 && (
+              <Button
+                className="w-full hover:bg-primaryHover text-primaryColor"
+                disable
+              >
+                See all
+              </Button>
+            )}
+          </>
+        )}
+      </div>
+    )
   );
 };
 
