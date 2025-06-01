@@ -16,7 +16,7 @@ const ButtonShowAndHiddenData = ({
 }: ButtonShowAndHiddenDataProps) => {
   const [show, setShow] = useState(true);
   return (
-    <>
+    <div className="mb-8">
       {list.length > 0 && (
         <Button
           className="group text-xs !gap-1 !py-[6px] !px-2 !rounded-[4px] mb-[14px] text-primaryText"
@@ -40,7 +40,7 @@ const ButtonShowAndHiddenData = ({
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 
