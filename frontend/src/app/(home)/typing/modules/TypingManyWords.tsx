@@ -118,6 +118,16 @@ export const TypingManyWords = ({
     if (types === "words") setSecondsOfManyWords(true);
     if (types === "time") setIsCountDown(true);
 
+    // Show Results for words type
+    if (
+      types === "words" &&
+      countNextWord + 1 === newArrWords.length &&
+      newArrWords[countNextWord]?.word.length <= text.length + 1
+    ) {
+      setSecondsOfManyWords(false);
+      setShowResults(true);
+    }
+
     // Finished per word
     if (
       e.key === " " &&
@@ -140,7 +150,7 @@ export const TypingManyWords = ({
       }
 
       // Show Results for words type
-      if (countNextWord + 1 === wordAmount && types === "words") {
+      if (types === "words" && countNextWord + 1 === newArrWords.length) {
         setSecondsOfManyWords(false);
         setShowResults(true);
       }
@@ -174,6 +184,9 @@ export const TypingManyWords = ({
   return (
     <>
       {/* {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`} */}
+      {`${countNextWord + 1 === newArrWords.length} || ${countNextWord} ||${
+        newArrWords[countNextWord]?.word
+      } || ${newArrWords[countNextWord]?.word.length} || ${text.length}`}
       <label
         className={`flex items-start h-[130px] w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
