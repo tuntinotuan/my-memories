@@ -261,6 +261,10 @@ const LocalContent = () => {
     let newTask = tasks.filter((task) => task.id !== id);
     setTasks(newTask);
   }
+  function handleDeleteList(id: Id) {
+    let newList = lists.filter((lists) => lists.id !== id);
+    setLists(newList);
+  }
   return (
     <div
       ref={scrollRef}
@@ -284,6 +288,7 @@ const LocalContent = () => {
                 updateTask={updateTask}
                 createNewTask={createNewTask}
                 handleDeleteTask={handleDeleteTask}
+                handleDeleteList={handleDeleteList}
                 tasks={tasks.filter((task) => task.listId === list.id)}
               ></List>
             ))}
@@ -297,6 +302,7 @@ const LocalContent = () => {
                 updateTask={updateTask}
                 createNewTask={createNewTask}
                 handleDeleteTask={handleDeleteTask}
+                handleDeleteList={handleDeleteList}
                 tasks={tasks.filter((task) => task.listId === activeList.id)}
               ></List>
             )}

@@ -7,12 +7,14 @@ import { Id, ListType, Task } from "./types";
 import AddBox from "./AddBox";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 import InputEditText from "@/components/input/InputEditText";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 
 type ListProps = {
   list: ListType;
   tasks: Task[];
   updateList: (id: Id, title: string) => void;
   handleDeleteTask: (id: Id) => void;
+  handleDeleteList: (id: Id) => void;
   updateTask: (id: Id, title: string) => void;
   createNewTask: (id: Id, content: string) => void;
 };
@@ -23,6 +25,7 @@ const List = ({
   updateTask,
   createNewTask,
   handleDeleteTask,
+  handleDeleteList,
   tasks,
 }: ListProps) => {
   const tasksId = useMemo(() => tasks.map((task) => task.id), [tasks]);
@@ -62,7 +65,7 @@ const List = ({
           isDragging ? "bg-opacity-60 border-2 border-secondaryColor" : ""
         }`}
       >
-        <div className="flex items-center text-sm font-bold box-border">
+        <div className="group flex items-center text-sm font-bold box-border">
           <InputEditText
             title={list.title}
             id={list.id}
@@ -70,6 +73,10 @@ const List = ({
             pClass="w-full !pr-0"
             inputClass="w-full"
           ></InputEditText>
+          <DeleteIcon
+            className="transition-all opacity-0 group-hover:opacity-100"
+            onClick={() => handleDeleteList(list.id)}
+          />
           <ThreeDotsIcon
             className="shrink-0 p-2 hover:bg-gray-300 rounded"
             disabled

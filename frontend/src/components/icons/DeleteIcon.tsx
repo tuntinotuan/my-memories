@@ -6,7 +6,7 @@ const DeleteIcon = ({
   onClick,
 }: {
   className?: string;
-  onClick?: () => {};
+  onClick?: () => void;
 }) => {
   return (
     <div className={`cursor-pointer ${className}`} onClick={onClick}>

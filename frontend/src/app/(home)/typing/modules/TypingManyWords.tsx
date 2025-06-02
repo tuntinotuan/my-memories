@@ -184,9 +184,9 @@ export const TypingManyWords = ({
   return (
     <>
       {/* {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`} */}
-      {`${countNextWord + 1 === newArrWords.length} || ${countNextWord} ||${
+      {/* {`${countNextWord + 1 === newArrWords.length} || ${countNextWord} ||${
         newArrWords[countNextWord]?.word
-      } || ${newArrWords[countNextWord]?.word.length} || ${text.length}`}
+      } || ${newArrWords[countNextWord]?.word.length} || ${text.length}`} */}
       <label
         className={`flex items-start h-[130px] w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
