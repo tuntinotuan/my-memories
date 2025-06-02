@@ -22,7 +22,14 @@ export default function TrashPage() {
           handleViewListOrGrid={handleViewListOrGrid}
         ></ButtonGridOrListView>
       </div>
-      <NavRow navList={["Designs", "Images", "Videos"]}></NavRow>
+      <NavRow
+        navList={["Designs", "Images", "Videos", "Photos"]}
+        pageDatas={[
+          { data: <p>Designs</p> },
+          { data: <p>Images</p> },
+          { data: <p>Videos</p> },
+        ]}
+      ></NavRow>
       <div className="flex flex-col items-center w-full justify-center mx-auto mt-5">
         <Image
           src={"/trash.png"}

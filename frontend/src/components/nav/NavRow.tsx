@@ -4,9 +4,10 @@ import { FuncCaculatePlacement } from "./process.functions";
 type NavProps = {
   navList: string[];
   gap?: number;
+  pageDatas: any[];
 };
 
-const NavRow = ({ navList, gap = 8 }: NavProps) => {
+const NavRow = ({ navList, gap = 8, pageDatas }: NavProps) => {
   let currentCorArray = useRef<number[]>([]);
   const [currentPage, setCurrentPage] = useState<string>(navList[0]);
 
@@ -18,27 +19,36 @@ const NavRow = ({ navList, gap = 8 }: NavProps) => {
   );
 
   return (
-    <div className="relative flex items-center" style={{ gap }}>
-      {navList.map((item, index) => (
-        <NavItem
-          key={item}
-          title={item}
-          index={index}
-          navLength={navList.length}
-          currentCor={currentCorArray.current}
-          setCurrentPage={setCurrentPage}
-        ></NavItem>
+    <>
+      <div className="relative flex items-center" style={{ gap }}>
+        {navList.map((item, index) => (
+          <NavItem
+            key={item}
+            title={item}
+            index={index}
+            navLength={navList.length}
+            currentCor={currentCorArray.current}
+            setCurrentPage={setCurrentPage}
+          ></NavItem>
+        ))}
+        <div
+          className="absolute h-[3px] rounded bg-primaryColor transition-all"
+          style={{
+            width: placement?.width,
+            left: 0,
+            bottom: 0,
+            transform: `translateX(${placement?.translate}px)`,
+          }}
+        ></div>
+      </div>
+      {pageDatas.map((item, index) => (
+        <>
+          {index === navList.indexOf(currentPage) && (
+            <div key={index}>{item?.data}</div>
+          )}
+        </>
       ))}
-      <div
-        className="absolute h-[3px] rounded bg-primaryColor transition-all"
-        style={{
-          width: placement?.width,
-          left: 0,
-          bottom: 0,
-          transform: `translateX(${placement?.translate}px)`,
-        }}
-      ></div>
-    </div>
+    </>
   );
 };
 
