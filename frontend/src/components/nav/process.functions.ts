@@ -7,7 +7,10 @@ export function FuncCaculatePlacement(
   currentCorArray: number[],
   gap: number
 ) {
-  const [placement, setPlacement] = useState<PlacementProps>();
+  const [placement, setPlacement] = useState<PlacementProps>({
+    width: 0,
+    translate: 0,
+  });
 
   useEffect(() => {
     const currentPageIndex = navList.indexOf(currentPage);

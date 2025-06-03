@@ -4,11 +4,11 @@ import Button from "@/components/button/Button";
 import ButtonGridOrListView from "@/components/button/ButtonGridOrListView";
 import NavRow from "@/components/nav/NavRow";
 import { useNotify } from "@/contexts/notifyStates";
-import Image from "next/image";
 import { useState } from "react";
 import PageAll from "./pages/page.all";
 import PageTask from "./pages/page.task";
 import TrashEmpty from "./components/TrashEmpty";
+import CloseIcon from "@/components/icons/CloseIcon";
 
 export default function TrashPage() {
   const { setTitle, setActiveComeBack } = useNotify();
@@ -17,31 +17,21 @@ export default function TrashPage() {
     listOrGrid === "list" ? setListOrGrid("grid") : setListOrGrid("list");
   };
   const pageList = [
-    { data: <PageAll /> },
-    { data: <PageTask /> },
-    {
-      data: (
-        <>
-          <Button
-            onClick={() => {
-              setTitle("Task deleted"), setActiveComeBack(true);
-            }}
-          >
-            Test notify
-          </Button>
-          <input type="text" className="border border-gray-300 rounded" />
-        </>
-      ),
-    },
-    {
-      data: <TrashEmpty />,
-    },
-    {
-      data: <TrashEmpty />,
-    },
-    {
-      data: <TrashEmpty />,
-    },
+    <PageAll key={0} />,
+    <PageTask key={1} />,
+    <>
+      <Button
+        onClick={() => {
+          setTitle("Task deleted"), setActiveComeBack(true);
+        }}
+      >
+        Test notify
+      </Button>
+      <input type="text" className="border border-gray-300 rounded" />
+    </>,
+    <TrashEmpty key={2} />,
+    <TrashEmpty key={3} />,
+    <TrashEmpty key={4} />,
   ];
   return (
     <div className="w-full px-5">
@@ -56,6 +46,7 @@ export default function TrashPage() {
         navList={["All", "Tasks", "Designs", "Images", "Videos", "Photos"]}
         pageDatas={pageList}
         classNameCoverAllPage="flex flex-col items-center w-full justify-center mx-auto mt-5"
+        // rightElementOthers={<CloseIcon fontSize="small"></CloseIcon>}
       ></NavRow>
     </div>
   );
