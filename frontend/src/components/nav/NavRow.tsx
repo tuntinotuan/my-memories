@@ -5,9 +5,15 @@ type NavProps = {
   navList: string[];
   gap?: number;
   pageDatas: any[];
+  classNameCoverAllPage?: string;
 };
 
-const NavRow = ({ navList, gap = 8, pageDatas }: NavProps) => {
+const NavRow = ({
+  navList,
+  gap = 8,
+  pageDatas,
+  classNameCoverAllPage,
+}: NavProps) => {
   let currentCorArray = useRef<number[]>([]);
   const [currentPage, setCurrentPage] = useState<string>(navList[0]);
 
@@ -17,7 +23,6 @@ const NavRow = ({ navList, gap = 8, pageDatas }: NavProps) => {
     currentCorArray.current,
     gap
   );
-
   return (
     <>
       <div className="relative flex items-center" style={{ gap }}>
@@ -44,7 +49,9 @@ const NavRow = ({ navList, gap = 8, pageDatas }: NavProps) => {
       {pageDatas.map((item, index) => (
         <>
           {index === navList.indexOf(currentPage) && (
-            <div key={index}>{item?.data}</div>
+            <div key={index} className={`${classNameCoverAllPage}`}>
+              {item?.data}
+            </div>
           )}
         </>
       ))}
@@ -78,7 +85,7 @@ function NavItem({
   return (
     <div
       ref={ref}
-      className="text-sm hover:bg-gray-100 rounded-lg cursor-pointer transition-all px-2 py-[10px] mt-2"
+      className={`text-sm hover:bg-gray-100 rounded-lg cursor-pointer transition-all px-2 py-[10px] mt-2`}
       onClick={() => setCurrentPage(title)}
     >
       {title}

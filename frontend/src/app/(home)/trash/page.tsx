@@ -6,6 +6,9 @@ import NavRow from "@/components/nav/NavRow";
 import { useNotify } from "@/contexts/notifyStates";
 import Image from "next/image";
 import { useState } from "react";
+import PageAll from "./pages/page.all";
+import PageTask from "./pages/page.task";
+import TrashEmpty from "./components/TrashEmpty";
 
 export default function TrashPage() {
   const { setTitle, setActiveComeBack } = useNotify();
@@ -13,6 +16,33 @@ export default function TrashPage() {
   const handleViewListOrGrid = () => {
     listOrGrid === "list" ? setListOrGrid("grid") : setListOrGrid("list");
   };
+  const pageList = [
+    { data: <PageAll /> },
+    { data: <PageTask /> },
+    {
+      data: (
+        <>
+          <Button
+            onClick={() => {
+              setTitle("Task deleted"), setActiveComeBack(true);
+            }}
+          >
+            Test notify
+          </Button>
+          <input type="text" className="border border-gray-300 rounded" />
+        </>
+      ),
+    },
+    {
+      data: <TrashEmpty />,
+    },
+    {
+      data: <TrashEmpty />,
+    },
+    {
+      data: <TrashEmpty />,
+    },
+  ];
   return (
     <div className="w-full px-5">
       <div className="flex items-center justify-between">
@@ -23,30 +53,10 @@ export default function TrashPage() {
         ></ButtonGridOrListView>
       </div>
       <NavRow
-        navList={["Designs", "Images", "Videos", "Photos"]}
-        pageDatas={[
-          { data: <p>Designs</p> },
-          { data: <p>Images</p> },
-          { data: <p>Videos</p> },
-        ]}
+        navList={["All", "Tasks", "Designs", "Images", "Videos", "Photos"]}
+        pageDatas={pageList}
+        classNameCoverAllPage="flex flex-col items-center w-full justify-center mx-auto mt-5"
       ></NavRow>
-      <div className="flex flex-col items-center w-full justify-center mx-auto mt-5">
-        <Image
-          src={"/trash.png"}
-          alt="trash image"
-          width={160}
-          height={300}
-        ></Image>
-        <p className="font-bold">{`There's not thing in your trash`}</p>
-        <Button
-          onClick={() => {
-            setTitle("Task deleted"), setActiveComeBack(true);
-          }}
-        >
-          Test notify
-        </Button>
-        <input type="text" className="border border-gray-300 rounded" />
-      </div>
     </div>
   );
 }
