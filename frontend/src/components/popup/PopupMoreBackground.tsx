@@ -5,10 +5,15 @@ import {
   BoardPhotosFromUnsplash,
 } from "../layout/board/board.sidebar";
 import CloseIcon from "../icons/CloseIcon";
+import NavRow from "../nav/NavRow";
 export type navPage = "photo" | "color";
 
 const PopupMoreBackground = ({ show, onClose, rect, update }: any) => {
   const [page, setPage] = useState<navPage>("photo");
+  const pageList = [
+    <BoardPhotosFromUnsplash key={0} update={update} />,
+    <BoardColors key={1} sketchPickerView="below" update={update} />,
+  ];
   return (
     <PopupFlexibleOverlay
       rect={rect}
@@ -18,8 +23,16 @@ const PopupMoreBackground = ({ show, onClose, rect, update }: any) => {
       position="right"
       onClose={onClose}
     >
-      <Top onClose={onClose} onClick={setPage} page={page}></Top>
-      <Body page={page} update={update}></Body>
+      {/* <Top onClose={onClose} onClick={setPage} page={page}></Top>
+      <Body page={page} update={update}></Body> */}
+      <NavRow
+        navList={["Photos", "Color"]}
+        pageDatas={pageList}
+        classNameCoverAllPage="flex flex-col items-center w-full justify-center mx-auto mt-5 h-auto overflow-y-auto"
+        rightElementOthers={
+          <CloseIcon fontSize="small" onClick={onClose}></CloseIcon>
+        }
+      ></NavRow>
     </PopupFlexibleOverlay>
   );
 };
