@@ -28,7 +28,7 @@ const PopupMoreBackground = ({ show, onClose, rect, update }: any) => {
       <NavRow
         navList={["Photos", "Color"]}
         pageDatas={pageList}
-        classNameCoverAllPage="flex flex-col items-center w-full justify-center mx-auto mt-5 h-auto overflow-y-auto"
+        classNameCoverAllPage="flex flex-col w-full mt-2 h-full overflow-y-auto"
         rightElementOthers={
           <CloseIcon fontSize="small" onClick={onClose}></CloseIcon>
         }

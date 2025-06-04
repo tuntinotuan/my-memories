@@ -217,7 +217,7 @@ export const BoardPhotosFromUnsplash = ({ update }: any) => {
   }, [searchValues]);
 
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="h-full">
       <div className="bg-white sticky top-0 z-[1] pb-2">
         <SearchMenuHeader
           placeholder="Photos"
