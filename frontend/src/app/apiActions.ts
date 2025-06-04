@@ -1,9 +1,9 @@
 "use server";
 
-export async function getUnsplashImage(query: string) {
+export async function getUnsplashImage(query: string, page: number) {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
   const res = await fetch(
-    `https://api.unsplash.com/search/photos?query=${query}&client_id=${accessKey}&count=20`,
+    `https://api.unsplash.com/search/photos?query=${query}&client_id=${accessKey}&page=${page}`,
     {
       cache: "no-store",
     }
