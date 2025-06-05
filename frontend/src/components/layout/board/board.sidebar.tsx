@@ -23,7 +23,7 @@ import PopupSketchPicker, {
 } from "@/components/popup/PopupSketchPicker";
 import Link from "next/link";
 import { useScrollToEnd } from "@/hooks/useScrollToEnd";
-import InfiniteScroll from "react-infinite-scroll-component";
+import Button from "@/components/button/Button";
 
 type PageProps = {
   page: PageBoardSidebarType;
@@ -205,21 +205,24 @@ export const BoardPhotosFromUnsplash = ({ update }: any) => {
   const [photos, setPhotos] = useState<any>();
   const [loadingUnsplash, setLoadingUnsplash] = useState(false);
   const [searchValues, setSearchValues] = useState<string>("");
+
+  const [page, setPage] = useState(1);
   useEffect(() => {
     async function fetchData() {
       setLoadingUnsplash(true);
-      const data = await getUnsplashImage(searchValues || "nature", 1);
-      setPhotos(data);
+      const data = await getUnsplashImage(searchValues || "nature", page);
+      photos ? setPhotos((prev: any) => [...prev, ...data]) : setPhotos(data);
       console.log("data", data);
       setTimeout(() => {
         setLoadingUnsplash(false);
       }, 400);
     }
     fetchData();
-  }, [searchValues]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValues, page]);
 
   return (
-    <div className="h-full">
+    <div className="h-auto pb-8">
       <div className="bg-white sticky top-0 z-[1] pb-2">
         <SearchMenuHeader
           placeholder="Photos"
@@ -228,16 +231,20 @@ export const BoardPhotosFromUnsplash = ({ update }: any) => {
           setValues={setSearchValues}
         ></SearchMenuHeader>
       </div>
-      <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 overflow-y-auto pb-4">
-        {loadingUnsplash && <UnsplashPhotosSkeleton />}
-
+      <div className="h-auto grid grid-cols-2 items-center justify-start gap-2 overflow-y-auto mb-2">
         <UnsplashPhotos
           photos={photos}
-          setPhotos={setPhotos}
-          transparent={loadingUnsplash}
+          // transparent={loadingUnsplash}
           update={update}
         />
+        {loadingUnsplash && <UnsplashPhotosSkeleton />}
       </div>
+      <Button
+        className={`!justify-center gap-3 w-full hover:bg-primaryHover hover:text-primaryColor transition-all`}
+        onClick={() => setPage(page + 1)}
+      >
+        Load more
+      </Button>
     </div>
   );
 };
@@ -457,11 +464,9 @@ const UnsplashPhotos = ({
   photos,
   transparent,
   update,
-  setPhotos,
 }: {
   photos: any;
-  setPhotos: any;
-  transparent: boolean;
+  transparent?: boolean;
   update: any;
 }) => {
   const { boards, singleBoard, setSingleBoard, setBoards } =
@@ -485,71 +490,49 @@ const UnsplashPhotos = ({
     });
     setBoards(newLists);
   };
-  const [hasMore, setHasMore] = useState(true);
-
-  const fetchMoreData = async () => {
-    const data = await getUnsplashImage("nature", 2);
-    console.log("photos", photos);
-    // setTimeout(() => {
-    setPhotos((prev: any) => [...prev, ...data]);
-    // }, 2000);
-    // if (photos?.length >= 27) {
-    //   setHasMore(false);
-    //   return;
-    // }
-  };
   return (
     <>
-      <InfiniteScroll
-        dataLength={photos?.length || 9}
-        next={fetchMoreData}
-        hasMore={hasMore}
-        loader={<UnsplashPhotosSkeleton />}
-        endMessage={<p></p>}
-        className="hide-scrollbar flex items-start gap-5 flex-wrap mt-5 overflow-y-hidden overflow-x-hidden"
-      >
-        {photos &&
-          photos.map((img: any) => (
-            <div className="relative w-full overflow-hidden" key={img.id}>
-              <Image
-                key={img.id}
-                src={img.urls.small}
-                alt={img.alt_description}
-                width={100}
-                height={100}
-                className={`w-full cursor-pointer rounded-lg border border-gray-200 object-cover ${
-                  transparent ? "opacity-0" : ""
-                }`}
-                unoptimized
-                style={{ height: 100 }}
-              ></Image>
+      {photos &&
+        photos.map((img: any) => (
+          <div className="relative w-full overflow-hidden" key={img.id}>
+            <Image
+              key={img.id}
+              src={img.urls.small}
+              alt={img.alt_description}
+              width={100}
+              height={100}
+              className={`w-full cursor-pointer rounded-lg border border-gray-200 object-cover ${
+                transparent ? "opacity-0" : ""
+              }`}
+              unoptimized
+              style={{ height: 100 }}
+            ></Image>
+            <div
+              className={`absolute inset-0 bg-gray-200 bg-opacity-20 opacity-0 hover:opacity-100 transition-all cursor-pointer`}
+            >
               <div
-                className={`absolute inset-0 bg-gray-200 bg-opacity-20 opacity-0 hover:opacity-100 transition-all cursor-pointer`}
+                className="h-[75%] w-full hover:bg-gray-200 hover:bg-opacity-25 transition-all"
+                onClick={() =>
+                  update
+                    ? update({
+                        type: "imageUrl",
+                        url: img.urls.regular,
+                        alt: img.alt_description,
+                      })
+                    : updatePhotos(img.urls.regular, img.alt_description)
+                }
+              ></div>
+              <Link
+                href={img.user.links.html}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="block h-[25%] w-full bg-black bg-opacity-25 px-2 py-1 truncate text-white text-xs rounded-br-lg rounded-bl-lg hover:underline transition-all"
               >
-                <div
-                  className="h-[75%] w-full hover:bg-gray-200 hover:bg-opacity-25 transition-all"
-                  onClick={() =>
-                    update
-                      ? update({
-                          type: "imageUrl",
-                          url: img.urls.regular,
-                          alt: img.alt_description,
-                        })
-                      : updatePhotos(img.urls.regular, img.alt_description)
-                  }
-                ></div>
-                <Link
-                  href={img.user.links.html}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  className="block h-[25%] w-full bg-black bg-opacity-25 px-2 py-1 truncate text-white text-xs rounded-br-lg rounded-bl-lg hover:underline transition-all"
-                >
-                  {img.user.first_name}
-                </Link>
-              </div>
+                {img.user.first_name}
+              </Link>
             </div>
-          ))}
-      </InfiniteScroll>
+          </div>
+        ))}
     </>
   );
 };
