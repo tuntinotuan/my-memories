@@ -222,7 +222,7 @@ export const BoardPhotosFromUnsplash = ({ update }: any) => {
   }, [searchValues, page]);
 
   return (
-    <div className="h-auto pb-8">
+    <div className="h-auto pb-4">
       <div className="bg-white sticky top-0 z-[1] py-2">
         <SearchMenuHeader
           placeholder="Photos"
@@ -323,7 +323,7 @@ export const BoardColors = ({
   };
   useScrollToEnd(ref, colorPicker);
   return (
-    <div className="h-full overflow-y-auto pb-4 mt-2" ref={ref}>
+    <div className="h-auto overflow-y-auto pb-4 mt-2" ref={ref}>
       <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-transparent border-b-gray-200">
         {gradientLists.map((item, index) => (
           <div
