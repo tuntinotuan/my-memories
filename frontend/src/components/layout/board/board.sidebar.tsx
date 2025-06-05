@@ -95,7 +95,7 @@ const BoardTopControl = ({ handleShowMenuboard }: any) => {
 };
 const Body = ({ page }: PageProps) => {
   return (
-    <div className="h-full overflow-auto border border-transparent border-y-gray-200 py-2">
+    <div className="h-full overflow-auto border border-transparent border-y-gray-200 pb-2">
       {page === "menu" && <BoardMenu />}
       {page === "background" && <BoardChangeBackground />}
       {page === "unsplash" && <BoardPhotosFromUnsplash />}
@@ -173,7 +173,7 @@ const BoardMenu = () => {
 const BoardChangeBackground = () => {
   const { setPageBoardSidebar } = useLayoutStates();
   return (
-    <div className="flex items-cemter gap-2">
+    <div className="flex items-cemter gap-2 mt-2">
       <div
         className="w-1/2 h-auto flex flex-col items-center gap-2"
         onClick={() => setPageBoardSidebar("unsplash")}
@@ -223,7 +223,7 @@ export const BoardPhotosFromUnsplash = ({ update }: any) => {
 
   return (
     <div className="h-auto pb-8">
-      <div className="bg-white sticky top-0 z-[1] pb-2">
+      <div className="bg-white sticky top-0 z-[1] py-2">
         <SearchMenuHeader
           placeholder="Photos"
           width="auto"
@@ -323,7 +323,7 @@ export const BoardColors = ({
   };
   useScrollToEnd(ref, colorPicker);
   return (
-    <div className="h-full overflow-y-auto pb-4" ref={ref}>
+    <div className="h-full overflow-y-auto pb-4 mt-2" ref={ref}>
       <div className="grid grid-cols-2 gap-2 mb-2 pb-2 border border-transparent border-b-gray-200">
         {gradientLists.map((item, index) => (
           <div
