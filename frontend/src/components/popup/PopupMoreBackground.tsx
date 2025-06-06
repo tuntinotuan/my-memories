@@ -1,16 +1,14 @@
 import React from "react";
 import PopupFlexibleOverlay from "./PopupFlexibleOverlay";
-import {
-  BoardColors,
-  BoardPhotosFromUnsplash,
-} from "../layout/board/board.sidebar";
 import CloseIcon from "../icons/CloseIcon";
 import NavRow from "../nav/NavRow";
+import BoardPhotoFromUnsplash from "../board/BoardPhotoFromUnsplash";
+import BoardColor from "../board/BoardColor";
 
 const PopupMoreBackground = ({ show, onClose, rect, update }: any) => {
   const pageList = [
-    <BoardPhotosFromUnsplash key={0} update={update} />,
-    <BoardColors key={1} sketchPickerView="below" update={update} />,
+    <BoardPhotoFromUnsplash key={0} update={update} />,
+    <BoardColor key={1} sketchPickerView="below" update={update} />,
   ];
   return (
     <PopupFlexibleOverlay
