@@ -48,6 +48,7 @@ const InputEditText = ({
           defaultValue={title}
           className={`border focus:border-secondaryColor px-3 py-1 rounded transition-all ${inputClass}`}
           onChange={handleChangeTitle}
+          onFocus={(e) => e.target.select()}
           autoFocus
           onBlur={() => {
             setEditTitle(false);
