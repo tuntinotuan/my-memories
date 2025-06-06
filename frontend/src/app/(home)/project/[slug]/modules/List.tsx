@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import CardItem from "./CardItem";
 import AddBtn from "./AddBtn";
@@ -8,6 +8,7 @@ import AddBox from "./AddBox";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 import InputEditText from "@/components/input/InputEditText";
 import DeleteIcon from "@/components/icons/DeleteIcon";
+import { useScrollToEnd } from "@/hooks/useScrollToEnd";
 
 type ListProps = {
   list: ListType;
@@ -45,8 +46,10 @@ const List = ({
     transition,
   };
   const [newTask, setNewTask] = useState("");
-
+  const refList = useRef<HTMLDivElement>(null);
   const [showBoxAddTask, setShowBoxAddTask] = useState(false);
+  useScrollToEnd(refList, newTask);
+
   const handleCloseBoxAddTask = () => {
     setShowBoxAddTask(false);
   };
@@ -82,7 +85,7 @@ const List = ({
             disabled
           ></ThreeDotsIcon>
         </div>
-        <div className="flex flex-col gap-2 overflow-y-auto">
+        <div ref={refList} className="flex flex-col gap-2 overflow-y-auto">
           <SortableContext items={tasksId}>
             {tasks.map((task) => (
               <CardItem
