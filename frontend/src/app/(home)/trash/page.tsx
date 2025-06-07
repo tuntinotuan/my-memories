@@ -9,6 +9,7 @@ import PageAll from "./pages/page.all";
 import PageTask from "./pages/page.task";
 import TrashEmpty from "./components/TrashEmpty";
 import CloseIcon from "@/components/icons/CloseIcon";
+import Toggle from "@/components/toggle/Toggle";
 
 export default function TrashPage() {
   const { setTitle, setActiveComeBack } = useNotify();
@@ -46,7 +47,7 @@ export default function TrashPage() {
         navList={["All", "Tasks", "Designs", "Images", "Videos", "Photos"]}
         pageDatas={pageList}
         classNameCoverAllPage="flex flex-col items-center w-full justify-center mx-auto mt-5"
-        // rightElementOthers={<CloseIcon fontSize="small"></CloseIcon>}
+        rightElementOthers={<Toggle></Toggle>}
       ></NavRow>
     </div>
   );
