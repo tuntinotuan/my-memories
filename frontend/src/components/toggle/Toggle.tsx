@@ -2,19 +2,24 @@ import React, { useState } from "react";
 
 const Toggle = () => {
   const [isON, setIsON] = useState<boolean>(false);
+  let btnW = 90;
+  let btnH = 50;
+  let distance = 10;
   return (
     <div
-      className={`relative flex items-center w-[90px] h-[50px] rounded-full transition-all p-[4px] cursor-pointer ${
-        isON
-          ? "bg-green-400 border-2 border-green-700"
-          : "bg-gray-300 border-2 border-gray-500"
+      className={`flex items-center rounded-full transition-all cursor-pointer ${
+        isON ? "bg-green-400 " : "bg-gray-300"
       }`}
+      style={{ width: btnW, height: btnH, padding: distance / 2 }}
       onClick={() => setIsON((pre) => !pre)}
     >
       <div
-        className={`w-[40px] h-full rounded-full bg-white border border-gray-100 transition-all ${
-          isON ? "translate-x-full" : ""
-        }`}
+        className={`rounded-full bg-white transition-all `}
+        style={{
+          width: btnH - distance,
+          height: btnH - distance,
+          ...(isON ? { translateY: 0 } : { translate: btnH - distance }),
+        }}
       ></div>
     </div>
   );
