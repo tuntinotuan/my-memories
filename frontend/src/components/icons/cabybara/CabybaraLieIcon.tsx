@@ -1,16 +1,14 @@
-import Image from "next/image";
 import React from "react";
 import cabybara from "@/components/icons/cabybara/images/cabybara-lie.png";
+import CabybaraCore from "./cabybara.core";
 
 const CabybaraLieIcon = ({ className }: { className?: string }) => {
   return (
-    <Image
+    <CabybaraCore
       src={cabybara}
       alt="cabybara-lie"
-      width={30}
-      height={20}
       className={className}
-    ></Image>
+    ></CabybaraCore>
   );
 };
 

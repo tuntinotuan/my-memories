@@ -9,18 +9,23 @@ const Toggle = () => {
   let distance = 10;
   return (
     <div
-      className={`relative flex items-center rounded-full transition-all cursor-pointer ${
+      className={`relative flex items-center rounded-full transition-all cursor-pointer mt-10 ${
         isON ? "bg-green-400 " : "bg-gray-300"
       }`}
       style={{ width: btnW, height: btnH, padding: distance / 2 }}
       onClick={() => setIsON((pre) => !pre)}
     >
+      {isON ? (
+        <CabybaraWorkingIcon className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2" />
+      ) : (
+        <CabybaraLieIcon className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2" />
+      )}
       <div
         className={`rounded-full bg-white transition-all `}
         style={{
           width: btnH - distance,
           height: btnH - distance,
-          ...(isON ? { translateY: 0 } : { translate: btnH - distance }),
+          ...(isON ? { translate: btnH - distance } : { translateY: 0 }),
         }}
       ></div>
     </div>
