@@ -5,14 +5,20 @@ type CabybaraCoreProps = {
   src: StaticImageData;
   alt: string;
   className?: string;
+  width?: number;
 };
 
-const CabybaraCore = ({ src, alt, className }: CabybaraCoreProps) => {
+const CabybaraCore = ({
+  src,
+  alt,
+  className,
+  width = 40,
+}: CabybaraCoreProps) => {
   return (
     <Image
       src={src}
       alt={alt}
-      width={40}
+      width={width}
       height={20}
       className={className}
     ></Image>
