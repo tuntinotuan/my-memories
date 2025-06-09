@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import CabybaraWorkingIcon from "../icons/cabybara/CabybaraWorkingIcon";
 import CabybaraLieIcon from "../icons/cabybara/CabybaraLieIcon";
 import CabybaraDriveIcon from "../icons/cabybara/CabybaraDriveIcon";
+import CabybaraLoverIcon from "../icons/cabybara/CabybaraLoverIcon";
 
-const Toggle = ({
-  size = "medium",
-  cabybaraType = 1,
-}: {
+type ToggleProps = {
   size?: "small" | "medium" | "large";
   cabybaraType?: 1 | 2 | 3;
-}) => {
+};
+
+const Toggle = ({ size = "medium", cabybaraType = 2 }: ToggleProps) => {
   const [isON, setIsON] = useState<boolean>(false);
   const [styles, setStyles] = useState({
     btnW: 0,
@@ -52,34 +52,20 @@ const Toggle = ({
     switch (cabybaraType) {
       case 1:
         currentCabybaraStyles = {
-          on: (
-            <CabybaraWorkingIcon
-              className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
-              cabyWidth={iconW}
-            />
-          ),
-          off: (
-            <CabybaraLieIcon
-              className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
-              cabyWidth={iconW}
-            />
-          ),
+          on: <CabybaraWorkingIcon cabyWidth={iconW} />,
+          off: <CabybaraLieIcon cabyWidth={iconW} />,
         };
         break;
       case 2:
         currentCabybaraStyles = {
-          on: (
-            <CabybaraDriveIcon
-              className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
-              cabyWidth={iconW}
-            />
-          ),
-          off: (
-            <CabybaraLieIcon
-              className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
-              cabyWidth={iconW}
-            />
-          ),
+          on: <CabybaraDriveIcon cabyWidth={iconW} />,
+          off: <CabybaraLieIcon cabyWidth={iconW} />,
+        };
+        break;
+      case 3:
+        currentCabybaraStyles = {
+          on: <CabybaraLoverIcon cabyWidth={iconW} />,
+          off: <CabybaraLieIcon cabyWidth={iconW} />,
         };
         break;
       default:
@@ -96,7 +82,9 @@ const Toggle = ({
       style={{ width: btnW, height: btnH, padding: distance / 2 }}
       onClick={() => setIsON((pre) => !pre)}
     >
-      {isON ? cabybaraStyles.on : cabybaraStyles.off}
+      <div className="absolute top-0 left-1/2 -translate-y-[95%] -translate-x-1/2">
+        {isON ? cabybaraStyles.on : cabybaraStyles.off}
+      </div>
       <div
         className={`rounded-full bg-white transition-all `}
         style={{

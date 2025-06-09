@@ -46,7 +46,7 @@ export default function TrashPage() {
         navList={["All", "Tasks", "Designs", "Images", "Videos", "Photos"]}
         pageDatas={pageList}
         classNameCoverAllPage="flex flex-col items-center w-full justify-center mx-auto mt-5"
-        rightElementOthers={<Toggle size="medium" cabybaraType={1}></Toggle>}
+        rightElementOthers={<Toggle size="large"></Toggle>}
       ></NavRow>
     </div>
   );
