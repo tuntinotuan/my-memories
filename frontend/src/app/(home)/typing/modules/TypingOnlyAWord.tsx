@@ -68,6 +68,20 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
       </label>
       <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
       <TypingOverlayBlur htmlFor={"typingCursorId"}></TypingOverlayBlur>
+      {/* <label className="flex items-center gap-4 translate-x-1/2 overflow-hidden">
+        {Array(5)
+          .fill(null)
+          .map((item, index) => (
+            <TypingWord
+              key={index}
+              currentTyping={currentTyping}
+              text={text}
+              onChange={handleChangeInput}
+              onKeyDown={handleOnKeyDown}
+              cursorPosition={cursorPosition}
+            ></TypingWord>
+          ))}
+      </label> */}
     </>
   );
 };
