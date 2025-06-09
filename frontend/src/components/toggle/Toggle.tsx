@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import CabybaraWorkingIcon from "../icons/cabybara/CabybaraWorkingIcon";
 import CabybaraLieIcon from "../icons/cabybara/CabybaraLieIcon";
+import CabybaraDriveIcon from "../icons/cabybara/CabybaraDriveIcon";
 
 const Toggle = ({
   size = "medium",
+  cabybaraType = 1,
 }: {
   size?: "small" | "medium" | "large";
+  cabybaraType?: 1 | 2 | 3;
 }) => {
   const [isON, setIsON] = useState<boolean>(false);
   const [styles, setStyles] = useState({
@@ -13,6 +16,10 @@ const Toggle = ({
     btnH: 0,
     distance: 0,
     iconW: 0,
+  });
+  const [cabybaraStyles, setCabybaraStyles] = useState({
+    on: <p></p>,
+    off: <p></p>,
   });
   const { btnH, btnW, distance, iconW } = styles;
   useEffect(() => {
@@ -35,9 +42,52 @@ const Toggle = ({
       default:
         break;
     }
+
     setStyles(currentStyles);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size]);
+  useEffect(() => {
+    let currentCabybaraStyles = { on: <p></p>, off: <p></p> };
+
+    switch (cabybaraType) {
+      case 1:
+        currentCabybaraStyles = {
+          on: (
+            <CabybaraWorkingIcon
+              className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
+              cabyWidth={iconW}
+            />
+          ),
+          off: (
+            <CabybaraLieIcon
+              className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
+              cabyWidth={iconW}
+            />
+          ),
+        };
+        break;
+      case 2:
+        currentCabybaraStyles = {
+          on: (
+            <CabybaraDriveIcon
+              className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
+              cabyWidth={iconW}
+            />
+          ),
+          off: (
+            <CabybaraLieIcon
+              className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
+              cabyWidth={iconW}
+            />
+          ),
+        };
+        break;
+      default:
+        break;
+    }
+    setCabybaraStyles(currentCabybaraStyles);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cabybaraType, iconW]);
   return (
     <div
       className={`relative flex items-center rounded-full transition-all cursor-pointer mt-10 ${
@@ -46,17 +96,7 @@ const Toggle = ({
       style={{ width: btnW, height: btnH, padding: distance / 2 }}
       onClick={() => setIsON((pre) => !pre)}
     >
-      {isON ? (
-        <CabybaraWorkingIcon
-          className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
-          cabyWidth={iconW}
-        />
-      ) : (
-        <CabybaraLieIcon
-          className="absolute top-0 left-1/2 -translate-y-full -translate-x-1/2"
-          cabyWidth={iconW}
-        />
-      )}
+      {isON ? cabybaraStyles.on : cabybaraStyles.off}
       <div
         className={`rounded-full bg-white transition-all `}
         style={{
