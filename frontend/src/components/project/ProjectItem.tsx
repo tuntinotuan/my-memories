@@ -56,7 +56,7 @@ const ProjectItem = ({
       }`}
     >
       <MyTooltip
-        contents={isTruncated ? <p>{title}</p> : "Nothing"}
+        contents={<p className="max-w-[200px] text-center">{title}</p>}
         className="w-full flex items-center gap-2"
         size="small"
         arrowRounded
