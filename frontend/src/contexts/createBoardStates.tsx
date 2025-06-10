@@ -11,6 +11,8 @@ type CreateBoardStatesType = {
   showCreateboard: boolean;
   showSetting: boolean;
   pickedSetting: settingType;
+  loadingFetchLists: boolean;
+  setLoadingFetchLists: (val: boolean) => void;
   setPickedSetting: ({ id, title, rect }: settingType) => void;
   setShowSetting: (value: boolean) => void;
   handleOpenAndClosePopupCreateboard: () => void;
@@ -30,7 +32,9 @@ const createBoardStatesDefaultValues: CreateBoardStatesType = {
   boardName: false,
   showCreateboard: false,
   showSetting: false,
+  loadingFetchLists: false,
   pickedSetting: { id: 0, title: "nothing", theme: "" },
+  setLoadingFetchLists: () => {},
   setPickedSetting: () => {},
   setShowSetting: () => {},
   handleOpenAndClosePopupCreateboard: () => {},
@@ -50,6 +54,7 @@ export const CreateBoardProvider = ({
   const [boardName, setBoardName] = useState(false);
   const [boards, setBoards] = useState<Board[]>([]);
   const [loadingFetchBoards, setLoadingFetchBoards] = useState<boolean>(true);
+  const [loadingFetchLists, setLoadingFetchLists] = useState<boolean>(true);
   const [singleBoard, setSingleBoard] = useState<Board>({
     id: 1,
     title: "2",
@@ -99,6 +104,8 @@ export const CreateBoardProvider = ({
         singleBoard,
         setSingleBoard,
         loadingFetchBoards,
+        loadingFetchLists,
+        setLoadingFetchLists,
         showSetting,
         setShowSetting,
         showCreateboard,

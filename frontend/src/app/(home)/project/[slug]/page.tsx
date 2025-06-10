@@ -23,6 +23,7 @@ import CardItem from "./modules/CardItem";
 import { initialLists, initialTasks, projectList } from "@/api/board/mock.data";
 import { cutIdFromSlug, generateId, replaceAllTrim } from "@/utils/otherFs";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
+import BoardListSkeleton from "@/components/skeleton/BoardListSkeleton";
 
 export default function Page({ params }: any) {
   const { boards, setSingleBoard } = useCreateBoardStates();
@@ -75,24 +76,29 @@ const LocalContent = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const listsId = useMemo(() => lists.map((item) => item.id), [lists]);
   const [newTitle, setNewTitle] = useState<string>("");
-  const { singleBoard } = useCreateBoardStates();
+  const { singleBoard, setLoadingFetchLists, loadingFetchLists } =
+    useCreateBoardStates();
 
   // get lists from localStorage
   useEffect(() => {
     async function fetchListsFromLocalStorage() {
+      setLoadingFetchLists(true);
       let list = null;
       try {
         const stored = localStorage.getItem("lists");
         if (stored) list = await JSON.parse(stored);
       } catch (error) {
         console.error("Invalid JSON:", error);
+        setLoadingFetchLists(false);
       }
       if (list !== null && list.length > 0) {
         setLists(list);
       }
       if (list === null) setLists(initialLists);
+      setLoadingFetchLists(false);
     }
     fetchListsFromLocalStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // save lists to localStorage after update list
   useEffect(() => {
@@ -271,51 +277,54 @@ const LocalContent = () => {
       className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden"
       onScroll={handleScroll}
     >
-      <DndContext
-        sensors={sensors}
-        onDragEnd={handleDragEnd}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-      >
-        <SortableContext items={listsId}>
-          {lists
-            .filter((list) => list.boardId === singleBoard.id)
-            .map((list) => (
-              <List
-                list={list}
-                key={list.id}
-                updateList={updateList}
-                updateTask={updateTask}
-                createNewTask={createNewTask}
-                handleDeleteTask={handleDeleteTask}
-                handleDeleteList={handleDeleteList}
-                tasks={tasks.filter((task) => task.listId === list.id)}
-              ></List>
-            ))}
-        </SortableContext>
-        {createPortal(
-          <DragOverlay>
-            {activeList && (
-              <List
-                list={activeList}
-                updateList={updateList}
-                updateTask={updateTask}
-                createNewTask={createNewTask}
-                handleDeleteTask={handleDeleteTask}
-                handleDeleteList={handleDeleteList}
-                tasks={tasks.filter((task) => task.listId === activeList.id)}
-              ></List>
-            )}
-            {activeTask && (
-              <CardItem
-                task={activeTask}
-                className="!bg-gray-400 bg-opacity-75 skew-x-2 rotate-6 opacity-60"
-              ></CardItem>
-            )}
-          </DragOverlay>,
-          document.body
-        )}
-      </DndContext>
+      {loadingFetchLists && <BoardListSkeleton />}
+      {!loadingFetchLists && (
+        <DndContext
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+        >
+          <SortableContext items={listsId}>
+            {lists
+              .filter((list) => list.boardId === singleBoard.id)
+              .map((list) => (
+                <List
+                  list={list}
+                  key={list.id}
+                  updateList={updateList}
+                  updateTask={updateTask}
+                  createNewTask={createNewTask}
+                  handleDeleteTask={handleDeleteTask}
+                  handleDeleteList={handleDeleteList}
+                  tasks={tasks.filter((task) => task.listId === list.id)}
+                ></List>
+              ))}
+          </SortableContext>
+          {createPortal(
+            <DragOverlay>
+              {activeList && (
+                <List
+                  list={activeList}
+                  updateList={updateList}
+                  updateTask={updateTask}
+                  createNewTask={createNewTask}
+                  handleDeleteTask={handleDeleteTask}
+                  handleDeleteList={handleDeleteList}
+                  tasks={tasks.filter((task) => task.listId === activeList.id)}
+                ></List>
+              )}
+              {activeTask && (
+                <CardItem
+                  task={activeTask}
+                  className="!bg-gray-400 bg-opacity-75 skew-x-2 rotate-6 opacity-60"
+                ></CardItem>
+              )}
+            </DragOverlay>,
+            document.body
+          )}
+        </DndContext>
+      )}
       <ListContainer>
         {!showBoxAddList && (
           <AddBtn text="Add a list" onClick={handleOpenBoxAddList} />
