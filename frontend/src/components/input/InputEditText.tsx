@@ -50,6 +50,7 @@ const InputEditText = ({
           onChange={handleChangeTitle}
           onFocus={(e) => e.target.select()}
           autoFocus
+          onPointerDown={(e) => e.stopPropagation()} // 👈 optional safety
           onBlur={() => {
             setEditTitle(false);
             if (title === newTitle || !newTitle) return;
