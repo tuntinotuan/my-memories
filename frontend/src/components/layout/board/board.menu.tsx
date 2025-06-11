@@ -3,6 +3,7 @@ import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import Button from "@/components/button/Button";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 import InputEditText from "@/components/input/InputEditText";
+import BoardMenuSkeleton from "@/components/skeleton/BoardMenuSkeleton";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { Tooltip } from "@nextui-org/tooltip";
@@ -10,7 +11,7 @@ import { useRef } from "react";
 
 const BoardMenu = () => {
   const { showMenuboard, handleShowMenuboard } = useLayoutStates();
-  const { boards, setBoards, singleBoard, setSingleBoard } =
+  const { boards, setBoards, singleBoard, setSingleBoard, loadingFetchLists } =
     useCreateBoardStates();
   const handleUpdateBoardTitle = (id: Id, title: string) => {
     // updated current page data
@@ -30,13 +31,16 @@ const BoardMenu = () => {
   };
   return (
     <div className="flex items-center justify-between h-[8%] w-auto bg-black bg-opacity-20 p-2 backdrop-blur-sm">
-      <InputEditText
-        id={singleBoard.id}
-        title={singleBoard.title}
-        updateTitle={handleUpdateBoardTitle}
-        pClass="!w-auto hover:bg-white hover:bg-opacity-25"
-        inputClass="w-max"
-      ></InputEditText>
+      {loadingFetchLists && <BoardMenuSkeleton />}
+      {!loadingFetchLists && (
+        <InputEditText
+          id={singleBoard.id}
+          title={singleBoard.title}
+          updateTitle={handleUpdateBoardTitle}
+          pClass="!w-auto hover:bg-white hover:bg-opacity-25"
+          inputClass="w-max"
+        ></InputEditText>
+      )}
       {!showMenuboard && (
         <Tooltip
           showArrow

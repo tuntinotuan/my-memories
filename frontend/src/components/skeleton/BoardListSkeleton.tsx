@@ -1,7 +1,7 @@
 import React from "react";
 
 const BoardListSkeleton = () => {
-  return Array(4)
+  return Array(3)
     .fill(null)
     .map((item, index) => (
       <div

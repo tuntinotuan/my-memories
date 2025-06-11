@@ -277,8 +277,8 @@ const LocalContent = () => {
       className="flex gap-2 h-[92%] w-full p-2 overflow-x-auto overflow-y-hidden"
       onScroll={handleScroll}
     >
-      {true && <BoardListSkeleton />}
-      {!true && (
+      {loadingFetchLists && <BoardListSkeleton />}
+      {!loadingFetchLists && (
         <DndContext
           sensors={sensors}
           onDragEnd={handleDragEnd}
