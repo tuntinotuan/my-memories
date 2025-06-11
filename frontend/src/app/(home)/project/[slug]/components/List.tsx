@@ -3,7 +3,7 @@ import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import CardItem from "./CardItem";
 import AddBtn from "./AddBtn";
 import { CSS } from "@dnd-kit/utilities";
-import { Id, ListType, Task } from "./types";
+import { Id, ListType, Task } from "../modules/types";
 import AddBox from "./AddBox";
 import ThreeDotsIcon from "@/components/icons/ThreeDotsIcon";
 import InputEditText from "@/components/input/InputEditText";
