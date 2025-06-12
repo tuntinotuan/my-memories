@@ -1,15 +1,12 @@
 import React from "react";
 import {
   DndContext,
-  DragEndEvent,
-  DragOverEvent,
   DragOverlay,
-  DragStartEvent,
   PointerSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import { SortableContext } from "@dnd-kit/sortable";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { initialLists, initialTasks } from "@/api/board/mock.data";
@@ -22,6 +19,7 @@ import CardItem from "../components/CardItem";
 import AddBox from "../components/AddBox";
 import AddBtn from "../components/AddBtn";
 import ListContainer from "../components/ListContainer";
+import { handleDrag } from "../func/handleDrag";
 
 const BoardContainList = () => {
   const [showBoxAddList, setShowBoxAddList] = useState(false);
@@ -35,6 +33,16 @@ const BoardContainList = () => {
     loadingFetchLists,
     setIsDragging,
   } = useCreateBoardStates();
+
+  const [activeList, setActiveList] = useState<ListType | null>(null);
+  const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 0,
+      },
+    })
+  );
 
   // get lists from localStorage
   useEffect(() => {
@@ -115,16 +123,6 @@ const BoardContainList = () => {
     }
   }, [lists]); // Runs when `listData` update
 
-  const [activeList, setActiveList] = useState<ListType | null>(null);
-  const [activeTask, setActiveTask] = useState<Task | null>(null);
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 0,
-      },
-    })
-  );
-
   function createNewList(boardId: Id, title: string) {
     const listToAdd: ListType = {
       id: generateId(),
@@ -156,72 +154,14 @@ const BoardContainList = () => {
     };
     setTasks([...tasks, newTask]);
   }
-  function handleDragStart(event: DragStartEvent) {
-    setIsDragging(true);
-    if (event.active.data.current?.type === "List") {
-      setActiveList(event.active.data.current.list);
-      return;
-    }
-    if (event.active.data.current?.type === "Task") {
-      setActiveTask(event.active.data.current.task);
-      return;
-    }
-  }
-  function handleDragEnd(event: DragEndEvent) {
-    setIsDragging(false);
-    setActiveList(null);
-    setActiveTask(null);
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeListId = active.id;
-    const overListId = over.id;
-    if (activeListId === overListId) return;
-
-    setLists((board) => {
-      const activeListIndex = board.findIndex(
-        (item) => item.id === activeListId
-      );
-      const overListIndex = board.findIndex((item) => item.id === overListId);
-      return arrayMove(lists, activeListIndex, overListIndex);
-    });
-  }
-  function handleDragOver(event: DragOverEvent) {
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeId = active.id;
-    const overId = over.id;
-    if (activeId === overId) return;
-
-    const isActiveTask = active.data.current?.type === "Task";
-    const isOverTask = over.data.current?.type === "Task";
-    if (!isActiveTask) return;
-
-    // I'm dropping a Task over another Task
-    if (isActiveTask && isOverTask) {
-      setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        const overIndex = tasks.findIndex((t) => t.id === overId);
-        tasks[activeIndex].listId = tasks[overIndex].listId;
-        return arrayMove(tasks, activeIndex, overIndex);
-      });
-    }
-
-    const isOverAList = over.data.current?.type === "List";
-
-    // I'm dropping a Task over a column
-    if (isActiveTask && isOverAList) {
-      setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        tasks[activeIndex].listId = overId;
-        // console.log(
-        //   `$List$ | activeIndex ${activeIndex}, overId ${overId}, tasks[activeIndex].listId ${tasks[activeIndex].listId} `
-        // );
-        return arrayMove(tasks, activeIndex, activeIndex);
-      });
-    }
-  }
+  const { handleDragStart, handleDragEnd, handleDragOver } = handleDrag(
+    setIsDragging,
+    setActiveList,
+    setActiveTask,
+    setLists,
+    lists,
+    setTasks
+  );
   function handleDeleteTask(id: Id) {
     let newTask = tasks.filter((task) => task.id !== id);
     setTasks(newTask);
