@@ -22,9 +22,10 @@ const InputEditText = ({
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
   };
+  const isClient = typeof window !== "undefined";
   return (
     <>
-      {!editTitle && (
+      {!editTitle && isClient && (
         <MyTooltip
           contents={<p>{title}</p>}
           size="small"
