@@ -2,6 +2,7 @@ import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import React, { useState } from "react";
 import MyTooltip from "../tooltip/MyTooltip";
 import { useIsTruncated } from "@/hooks/useIsTruncated";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
 type InputEditTextProps = {
   title: string;
   id: Id;
@@ -22,6 +23,7 @@ const InputEditText = ({
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
   };
+  const { isDragging } = useCreateBoardStates();
   const isClient = typeof window !== "undefined";
   return (
     <>
@@ -32,7 +34,7 @@ const InputEditText = ({
           className={`w-full rounded truncate ${pClass}`}
           enterDelay={600}
           arrowRounded
-          isTruncated={isTruncated}
+          isTruncated={isTruncated && !isDragging}
         >
           <p
             ref={textRef}

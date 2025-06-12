@@ -29,8 +29,12 @@ const BoardContainList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const listsId = useMemo(() => lists.map((item) => item.id), [lists]);
   const [newTitle, setNewTitle] = useState<string>("");
-  const { singleBoard, setLoadingFetchLists, loadingFetchLists } =
-    useCreateBoardStates();
+  const {
+    singleBoard,
+    setLoadingFetchLists,
+    loadingFetchLists,
+    setIsDragging,
+  } = useCreateBoardStates();
 
   // get lists from localStorage
   useEffect(() => {
@@ -153,6 +157,7 @@ const BoardContainList = () => {
     setTasks([...tasks, newTask]);
   }
   function handleDragStart(event: DragStartEvent) {
+    setIsDragging(true);
     if (event.active.data.current?.type === "List") {
       setActiveList(event.active.data.current.list);
       return;
@@ -163,6 +168,7 @@ const BoardContainList = () => {
     }
   }
   function handleDragEnd(event: DragEndEvent) {
+    setIsDragging(false);
     setActiveList(null);
     setActiveTask(null);
     const { active, over } = event;
