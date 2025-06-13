@@ -21,6 +21,7 @@ import AddBtn from "../components/AddBtn";
 import ListContainer from "../components/ListContainer";
 import { handleDrag } from "../func/handleDrag";
 import { listFuncs } from "../func/listFuncs";
+import { taskFuncs } from "../func/taskFuncs";
 
 const BoardContainList = () => {
   const [showBoxAddList, setShowBoxAddList] = useState(false);
@@ -127,37 +128,6 @@ const BoardContainList = () => {
     setLists,
     lists
   );
-  // function createNewList(boardId: Id, title: string) {
-  //   const listToAdd: ListType = {
-  //     id: generateId(),
-  //     title: title,
-  //     boardId: boardId,
-  //   };
-  //   setLists([...lists, listToAdd]);
-  // }
-  // function updateList(id: Id, title: string) {
-  //   const newLists = lists.map((item) => {
-  //     if (item.id !== id) return item;
-  //     return { ...item, title };
-  //   });
-  //   setLists(newLists);
-  // }
-  function updateTask(id: Id, content: string) {
-    console.log("new taskssssss", id, content);
-    const newTasks = tasks.map((item) => {
-      if (item.id !== id) return item;
-      return { ...item, content };
-    });
-    setTasks(newTasks);
-  }
-  function createNewTask(listId: Id, content: string) {
-    const newTask = {
-      id: generateId(),
-      listId: listId,
-      content: content,
-    };
-    setTasks([...tasks, newTask]);
-  }
   const { handleDragStart, handleDragEnd, handleDragOver } = handleDrag(
     setIsDragging,
     setActiveList,
@@ -166,13 +136,29 @@ const BoardContainList = () => {
     lists,
     setTasks
   );
-  function handleDeleteTask(id: Id) {
-    let newTask = tasks.filter((task) => task.id !== id);
-    setTasks(newTask);
-  }
-  // function handleDeleteList(id: Id) {
-  //   let newList = lists.filter((lists) => lists.id !== id);
-  //   setLists(newList);
+  const { createNewTask, updateTask, handleDeleteTask } = taskFuncs(
+    setTasks,
+    tasks
+  );
+  // function updateTask(id: Id, content: string) {
+  //   console.log("new taskssssss", id, content);
+  //   const newTasks = tasks.map((item) => {
+  //     if (item.id !== id) return item;
+  //     return { ...item, content };
+  //   });
+  //   setTasks(newTasks);
+  // }
+  // function createNewTask(listId: Id, content: string) {
+  //   const newTask = {
+  //     id: generateId(),
+  //     listId: listId,
+  //     content: content,
+  //   };
+  //   setTasks([...tasks, newTask]);
+  // }
+  // function handleDeleteTask(id: Id) {
+  //   let newTask = tasks.filter((task) => task.id !== id);
+  //   setTasks(newTask);
   // }
   return (
     <div
