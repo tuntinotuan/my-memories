@@ -20,6 +20,7 @@ import AddBox from "../components/AddBox";
 import AddBtn from "../components/AddBtn";
 import ListContainer from "../components/ListContainer";
 import { handleDrag } from "../func/handleDrag";
+import { listFuncs } from "../func/listFuncs";
 
 const BoardContainList = () => {
   const [showBoxAddList, setShowBoxAddList] = useState(false);
@@ -122,22 +123,25 @@ const BoardContainList = () => {
       scrollRef.current.scrollLeft = scrollPosition.current;
     }
   }, [lists]); // Runs when `listData` update
-
-  function createNewList(boardId: Id, title: string) {
-    const listToAdd: ListType = {
-      id: generateId(),
-      title: title,
-      boardId: boardId,
-    };
-    setLists([...lists, listToAdd]);
-  }
-  function updateList(id: Id, title: string) {
-    const newLists = lists.map((item) => {
-      if (item.id !== id) return item;
-      return { ...item, title };
-    });
-    setLists(newLists);
-  }
+  const { createNewList, updateList, handleDeleteList } = listFuncs(
+    setLists,
+    lists
+  );
+  // function createNewList(boardId: Id, title: string) {
+  //   const listToAdd: ListType = {
+  //     id: generateId(),
+  //     title: title,
+  //     boardId: boardId,
+  //   };
+  //   setLists([...lists, listToAdd]);
+  // }
+  // function updateList(id: Id, title: string) {
+  //   const newLists = lists.map((item) => {
+  //     if (item.id !== id) return item;
+  //     return { ...item, title };
+  //   });
+  //   setLists(newLists);
+  // }
   function updateTask(id: Id, content: string) {
     console.log("new taskssssss", id, content);
     const newTasks = tasks.map((item) => {
@@ -166,10 +170,10 @@ const BoardContainList = () => {
     let newTask = tasks.filter((task) => task.id !== id);
     setTasks(newTask);
   }
-  function handleDeleteList(id: Id) {
-    let newList = lists.filter((lists) => lists.id !== id);
-    setLists(newList);
-  }
+  // function handleDeleteList(id: Id) {
+  //   let newList = lists.filter((lists) => lists.id !== id);
+  //   setLists(newList);
+  // }
   return (
     <div
       ref={scrollRef}
