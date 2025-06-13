@@ -10,17 +10,16 @@ import { SortableContext } from "@dnd-kit/sortable";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { initialLists, initialTasks } from "@/api/board/mock.data";
-import { generateId } from "@/utils/otherFs";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import BoardListSkeleton from "@/components/skeleton/BoardListSkeleton";
-import { Id, ListType, Task } from "./types";
+import { ListType, Task } from "./types";
 import List from "../components/List";
 import CardItem from "../components/CardItem";
 import AddBox from "../components/AddBox";
 import AddBtn from "../components/AddBtn";
 import ListContainer from "../components/ListContainer";
 import { handleDrag } from "../func/handleDrag";
-import { listFuncs } from "../func/listFuncs";
+import { useListFuncs } from "../func/listFuncs";
 import { taskFuncs } from "../func/taskFuncs";
 
 const BoardContainList = () => {
@@ -45,33 +44,6 @@ const BoardContainList = () => {
       },
     })
   );
-
-  // get lists from localStorage
-  useEffect(() => {
-    async function fetchListsFromLocalStorage() {
-      setLoadingFetchLists(true);
-      let list = null;
-      try {
-        const stored = localStorage.getItem("lists");
-        if (stored) list = await JSON.parse(stored);
-      } catch (error) {
-        console.error("Invalid JSON:", error);
-        setLoadingFetchLists(false);
-      }
-      if (list !== null && list.length > 0) {
-        setLists(list);
-      }
-      if (list === null) setLists(initialLists);
-      setLoadingFetchLists(false);
-    }
-    fetchListsFromLocalStorage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // save lists to localStorage after update list
-  useEffect(() => {
-    if (lists.length <= 0) return;
-    localStorage.setItem("lists", JSON.stringify(lists));
-  }, [lists]);
   // get tasks from localStorage
   useEffect(() => {
     async function fetchListsFromLocalStorage() {
@@ -124,10 +96,6 @@ const BoardContainList = () => {
       scrollRef.current.scrollLeft = scrollPosition.current;
     }
   }, [lists]); // Runs when `listData` update
-  const { createNewList, updateList, handleDeleteList } = listFuncs(
-    setLists,
-    lists
-  );
   const { handleDragStart, handleDragEnd, handleDragOver } = handleDrag(
     setIsDragging,
     setActiveList,
@@ -136,30 +104,15 @@ const BoardContainList = () => {
     lists,
     setTasks
   );
+  const { createNewList, updateList, handleDeleteList } = useListFuncs(
+    setLists,
+    lists,
+    setLoadingFetchLists
+  );
   const { createNewTask, updateTask, handleDeleteTask } = taskFuncs(
     setTasks,
     tasks
   );
-  // function updateTask(id: Id, content: string) {
-  //   console.log("new taskssssss", id, content);
-  //   const newTasks = tasks.map((item) => {
-  //     if (item.id !== id) return item;
-  //     return { ...item, content };
-  //   });
-  //   setTasks(newTasks);
-  // }
-  // function createNewTask(listId: Id, content: string) {
-  //   const newTask = {
-  //     id: generateId(),
-  //     listId: listId,
-  //     content: content,
-  //   };
-  //   setTasks([...tasks, newTask]);
-  // }
-  // function handleDeleteTask(id: Id) {
-  //   let newTask = tasks.filter((task) => task.id !== id);
-  //   setTasks(newTask);
-  // }
   return (
     <div
       ref={scrollRef}
