@@ -9,7 +9,6 @@ import {
 import { SortableContext } from "@dnd-kit/sortable";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { initialLists, initialTasks } from "@/api/board/mock.data";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import BoardListSkeleton from "@/components/skeleton/BoardListSkeleton";
 import { ListType, Task } from "./types";
@@ -20,14 +19,17 @@ import AddBtn from "../components/AddBtn";
 import ListContainer from "../components/ListContainer";
 import { handleDrag } from "../func/handleDrag";
 import { useListFuncs } from "../func/listFuncs";
-import { taskFuncs } from "../func/taskFuncs";
+import { useTaskFuncs } from "../func/taskFuncs";
 
 const BoardContainList = () => {
   const [showBoxAddList, setShowBoxAddList] = useState(false);
+
   const [lists, setLists] = useState<ListType[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const listsId = useMemo(() => lists.map((item) => item.id), [lists]);
+
   const [newTitle, setNewTitle] = useState<string>("");
+
   const {
     singleBoard,
     setLoadingFetchLists,
@@ -44,28 +46,6 @@ const BoardContainList = () => {
       },
     })
   );
-  // get tasks from localStorage
-  useEffect(() => {
-    async function fetchListsFromLocalStorage() {
-      let task = null;
-      try {
-        const stored = localStorage.getItem("tasks");
-        if (stored) task = await JSON.parse(stored);
-      } catch (error) {
-        console.error("Invalid JSON:", error);
-      }
-      if (task !== null && task.length > 0) {
-        setTasks(task);
-      }
-      if (task === null) setTasks(initialTasks);
-    }
-    fetchListsFromLocalStorage();
-  }, []);
-  // save tasks to localStorage after update task
-  useEffect(() => {
-    if (tasks.length <= 0) return;
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
 
   const handleOpenBoxAddList = () => {
     setShowBoxAddList(true);
@@ -109,7 +89,7 @@ const BoardContainList = () => {
     lists,
     setLoadingFetchLists
   );
-  const { createNewTask, updateTask, handleDeleteTask } = taskFuncs(
+  const { createNewTask, updateTask, handleDeleteTask } = useTaskFuncs(
     setTasks,
     tasks
   );
