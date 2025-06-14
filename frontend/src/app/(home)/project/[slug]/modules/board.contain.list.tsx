@@ -7,7 +7,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import BoardListSkeleton from "@/components/skeleton/BoardListSkeleton";
@@ -20,6 +20,7 @@ import ListContainer from "../components/ListContainer";
 import { handleDrag } from "../func/handleDrag";
 import { useListFuncs } from "../func/listFuncs";
 import { useTaskFuncs } from "../func/taskFuncs";
+import { useHandleScroll } from "../func/handleScroll";
 
 const BoardContainList = () => {
   const [showBoxAddList, setShowBoxAddList] = useState(false);
@@ -61,21 +62,7 @@ const BoardContainList = () => {
       scrollPosition.current = scrollRef.current.scrollLeft;
     }
   };
-
-  // Restore scroll position after `AddBox UI` update
-  useEffect(() => {
-    const scrollCur = scrollRef.current;
-    if (scrollCur) {
-      const maxScrollLeft = scrollCur.scrollWidth - scrollCur.clientWidth;
-      scrollCur.scrollLeft = maxScrollLeft;
-    }
-  }, [showBoxAddList, newTitle]); // Runs when `AddBox UI` update
-  // Restore scroll position after `listData` update
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollPosition.current;
-    }
-  }, [lists]); // Runs when `listData` update
+  useHandleScroll(scrollRef, scrollPosition, lists, showBoxAddList, newTitle);
   const { handleDragStart, handleDragEnd, handleDragOver } = handleDrag(
     setIsDragging,
     setActiveList,
