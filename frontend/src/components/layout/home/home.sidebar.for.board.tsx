@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import HomeSidebar from "./home.sidebar";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import ButtonCreate from "@/components/button/ButtonCreate";
@@ -11,12 +11,12 @@ import HomeSidebarRecentDesign from "./components/HomeSidebarRecentDesign";
 import HomeSidebarLoadingSkeleton from "./components/HomeSidebarLoadingSkeleton";
 import { PopupDotsSetting } from "@/components/popup/setting/PopupDotsSetting";
 import OpenInANewTabIcon from "@/components/icons/OpenInANewTabIcon";
-import { useTyping } from "@/contexts/TypingStates";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import SettingRootPage from "@/components/popup/setting/pages/SettingRootPage";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import ProjectImgOrGradient from "@/components/project/ProjectImgOrGradient";
+import { SettingChangeBgPage } from "@/components/popup/setting/pages/SettingChangeBgPage";
 
 const HomeSidebarForBoard = () => {
   const {
@@ -112,12 +112,13 @@ const BodySetting = ({ onClose }: any) => {
   };
   return (
     <>
-      <SettingRootPage
+      {/* <SettingRootPage
         listControls={listItem}
         title={pickedSetting.title}
         id={pickedSetting.id}
         handleUpdateTitle={handleUpdateBoardName}
-      ></SettingRootPage>
+      ></SettingRootPage> */}
+      <SettingChangeBgPage></SettingChangeBgPage>
     </>
   );
 };
