@@ -1,25 +1,30 @@
-import { Id } from "@/app/(home)/project/[slug]/modules/types";
-import { useTyping } from "@/contexts/TypingStates";
-import { useTypingTheme } from "@/contexts/typingThemeStates";
 import SettingTopControl from "../components/SettingTopControl";
 import BoardPhotoFromUnsplash from "@/components/board/BoardPhotoFromUnsplash";
 import BoardColor from "@/components/board/BoardColor";
 import NavRow from "@/components/nav/NavRow";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
+import { LinearOrUrl } from "@/components/project/types";
 
 export const SettingChangeBgPage = ({ onBackRootPage, onClose }: any) => {
-  const { wordList, setWordList, currentlyPickedSetting } = useTyping();
-  const { setSingleTheme } = useTypingTheme();
-  const updateSingleTheme = (id: Id, theme: string) => {
-    const newSingleTheme = wordList.map((item: any) => {
-      if (item.id !== id) return item;
-      return { ...item, theme };
+  const { pickedSetting, setPickedSetting, boards, setBoards } =
+    useCreateBoardStates();
+
+  const updateSingleBackground = (bg: LinearOrUrl) => {
+    const newSingleBoard = boards.map((item: any) => {
+      if (item.id !== pickedSetting.id) return item;
+      return { ...item, img: bg };
     });
-    setSingleTheme(theme);
-    setWordList(newSingleTheme);
+    setPickedSetting({ ...pickedSetting, img: bg });
+    setBoards(newSingleBoard);
+    onClose();
   };
   const pageList = [
-    <BoardPhotoFromUnsplash key={0} />,
-    <BoardColor key={1} sketchPickerView="below" />,
+    <BoardPhotoFromUnsplash key={0} update={updateSingleBackground} />,
+    <BoardColor
+      key={1}
+      sketchPickerView="below"
+      update={updateSingleBackground}
+    />,
   ];
   return (
     <div className="h-[400px] p-2">
