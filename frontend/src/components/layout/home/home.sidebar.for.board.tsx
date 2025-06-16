@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import HomeSidebar from "./home.sidebar";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import ButtonCreate from "@/components/button/ButtonCreate";
@@ -14,7 +14,6 @@ import OpenInANewTabIcon from "@/components/icons/OpenInANewTabIcon";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import SettingRootPage from "@/components/popup/setting/pages/SettingRootPage";
-import { useLayoutStates } from "@/contexts/layoutStates";
 import ProjectImgOrGradient from "@/components/project/ProjectImgOrGradient";
 import { SettingChangeBgPage } from "@/components/popup/setting/pages/SettingChangeBgPage";
 
@@ -62,7 +61,8 @@ const HomeSidebarForBoard = () => {
 const BodySetting = ({ onClose }: any) => {
   const { pickedSetting, boards, setBoards, setPickedSetting } =
     useCreateBoardStates();
-  const { handleShowMenuboard, setPageBoardSidebar } = useLayoutStates();
+  const [currentPage, setCurrentPage] = useState<"root" | "background">("root");
+
   const listItem = [
     {
       icon: <OpenInANewTabIcon size="medium"></OpenInANewTabIcon>,
@@ -85,8 +85,7 @@ const BodySetting = ({ onClose }: any) => {
       ),
       title: "Change background",
       onClick: () => {
-        // handleShowMenuboard();
-        // setPageBoardSidebar("background");
+        setCurrentPage("background");
       },
     },
     {
@@ -112,13 +111,20 @@ const BodySetting = ({ onClose }: any) => {
   };
   return (
     <>
-      {/* <SettingRootPage
-        listControls={listItem}
-        title={pickedSetting.title}
-        id={pickedSetting.id}
-        handleUpdateTitle={handleUpdateBoardName}
-      ></SettingRootPage> */}
-      <SettingChangeBgPage></SettingChangeBgPage>
+      {currentPage === "root" && (
+        <SettingRootPage
+          listControls={listItem}
+          title={pickedSetting.title}
+          id={pickedSetting.id}
+          handleUpdateTitle={handleUpdateBoardName}
+        ></SettingRootPage>
+      )}
+      {currentPage === "background" && (
+        <SettingChangeBgPage
+          onBackRootPage={() => setCurrentPage("root")}
+          onClose={onClose}
+        ></SettingChangeBgPage>
+      )}
     </>
   );
 };
