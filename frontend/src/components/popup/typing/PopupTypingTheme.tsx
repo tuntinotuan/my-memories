@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import PopupOverlay from "../overlay/popup.overlay";
-import { TopControl } from "./board/PopupCreateboard";
+import PopupOverlay from "../../overlay/popup.overlay";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
-import ThemeItem from "../theme/ThemeItem";
+import ThemeItem from "../../theme/ThemeItem";
 import { useTyping } from "@/contexts/TypingStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import { themeList } from "@/api/typing/typing.data.structure";
+import { TopControl } from "../components/TopControl";
 export type changeFor = "global" | "single";
 
 type PopupTypingThemeProps = {

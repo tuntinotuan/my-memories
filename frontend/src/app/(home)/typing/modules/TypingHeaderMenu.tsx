@@ -7,8 +7,8 @@ import { WordAmountType, WordTimeType } from "./types";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import PopupTypingTheme, {
   changeFor,
-} from "@/components/popup/PopupTypingTheme";
-import PopupCreateTypingList from "@/components/popup/PopupCreateTypingList";
+} from "@/components/popup/typing/PopupTypingTheme";
+import PopupCreateTypingList from "@/components/popup/typing/PopupCreateTypingList";
 import KeyboardIcon from "@/components/icons/typing/KeyboardIcon";
 import CombineIcon from "@/components/icons/typing/CombineIcon";
 import ThemeIcon from "@/components/icons/typing/ThemeIcon";

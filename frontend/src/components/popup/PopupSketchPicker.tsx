@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import ButtonCreate from "../button/ButtonCreate";
 import PopupOverlay from "../overlay/popup.overlay";
 import { SketchPicker } from "react-color";
-import { TopControl } from "./board/PopupCreateboard";
 import PlusIcon from "../icons/PlusIcon";
+import { TopControl } from "./components/TopControl";
 
 type PopupSketchPickerProps = {
   show?: boolean;
