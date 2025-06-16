@@ -1,5 +1,5 @@
 "use client";
-import { Board } from "@/components/popup/PopupCreateboard";
+import { Board } from "@/components/popup/board/PopupCreateboard";
 import { useContext, useState, createContext, useEffect } from "react";
 import { settingType } from "./TypingStates";
 

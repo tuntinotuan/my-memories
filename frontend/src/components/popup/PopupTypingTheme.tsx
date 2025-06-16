@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PopupOverlay from "../overlay/popup.overlay";
-import { TopControl } from "./PopupCreateboard";
+import { TopControl } from "./board/PopupCreateboard";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import ThemeItem from "../theme/ThemeItem";
 import { useTyping } from "@/contexts/TypingStates";

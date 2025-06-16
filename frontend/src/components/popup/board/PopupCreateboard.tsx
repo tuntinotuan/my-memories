@@ -2,25 +2,21 @@ import React, { useState } from "react";
 import CloseIcon from "@/components/icons/CloseIcon";
 import ArrowLeftIcon from "@/components/icons/arrow/ArrowLeftIcon";
 import ButtonCreate from "@/components/button/ButtonCreate";
-import Image from "next/image";
-import PopupOverlay from "../overlay/popup.overlay";
-import { Id } from "@/app/(home)/project/[slug]/modules/types";
-import { LinearOrUrl } from "../project/types";
+import PopupOverlay from "../../overlay/popup.overlay";
+import { LinearOrUrl } from "../../project/types";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { generateId } from "@/utils/otherFs";
-import GradientImage from "./GradientImage";
-import UrlImage from "./UrlImage";
+import GradientImage from "./components/GradientImage";
+import UrlImage from "./components/UrlImage";
 import { useRouter } from "next/navigation";
+import { DisplayImage } from "./components/DisplayImage";
+import { gradientList, imageList } from "./initialValues";
 
 type PopupCreateboardProps = {
   show: boolean;
   onClose: () => void;
 };
-export type Board = {
-  id: Id;
-  title: string;
-  img: LinearOrUrl;
-};
+
 const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
   return (
     <PopupOverlay show={show} selector="myportal" width={400} onClick={onClose}>
@@ -48,19 +44,6 @@ const Body = ({ onClose }: any) => {
   const { boards, setBoards } = useCreateBoardStates();
   const router = useRouter();
   console.log("boards", boards);
-  const imageList: LinearOrUrl[] = [
-    { type: "imageUrl", url: "/moment.png", alt: "moment" },
-    { type: "imageUrl", url: "/purple.png", alt: "purple" },
-    { type: "imageUrl", url: "/pinksky.jpg", alt: "pinksky" },
-    { type: "imageUrl", url: "/sunset.png", alt: "purple" },
-  ];
-  let gradientList: LinearOrUrl[] = [
-    { type: "linearGradient", from: "#7731d8", to: "#01C4CD" },
-    { type: "linearGradient", from: "#0c66e3", to: "#09336f" },
-    { type: "linearGradient", from: "#09326c", to: "#c7509b" },
-    { type: "linearGradient", from: "#6f5dc6", to: "#e374bc" },
-    { type: "linearGradient", from: "#e34935", to: "#f9a13d" },
-  ];
   const autoDefaultGradient =
     boards.length < 4 ? imageList[boards.length] : gradientList[0];
   let defaultGradient: LinearOrUrl = autoDefaultGradient;
@@ -123,34 +106,6 @@ const Body = ({ onClose }: any) => {
       >
         Create
       </ButtonCreate>
-    </div>
-  );
-};
-const DisplayImage = ({
-  currentGradient,
-}: {
-  currentGradient: LinearOrUrl;
-}) => {
-  return (
-    <div
-      className={`flex items-center justify-center w-5/6 h-[200px] rounded mx-auto p-4 bg-gradient-to-br bg-cover`}
-      style={
-        currentGradient?.type === "imageUrl"
-          ? { backgroundImage: `url(${currentGradient.url})` }
-          : currentGradient?.type === "linearGradient"
-          ? {
-              backgroundImage: `linear-gradient(to bottom right, ${currentGradient.from}, ${currentGradient.to})`,
-            }
-          : { background: currentGradient.code }
-      }
-    >
-      <Image
-        src={`/14cda5dc635d1f13bc48.svg`}
-        alt="at layout"
-        width={2000}
-        height={200}
-        unoptimized
-      ></Image>
     </div>
   );
 };

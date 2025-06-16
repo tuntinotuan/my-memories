@@ -1,5 +1,5 @@
 import React from "react";
-import { LinearOrUrl } from "../project/types";
+import { LinearOrUrl } from "../../../project/types";
 import Image from "next/image";
 type UrlImageProps = {
   imageList: LinearOrUrl[];

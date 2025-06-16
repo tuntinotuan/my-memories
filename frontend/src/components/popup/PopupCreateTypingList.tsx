@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import PopupOverlay from "../overlay/popup.overlay";
-import { TopControl } from "./PopupCreateboard";
+import { TopControl } from "./board/PopupCreateboard";
 import Button from "../button/Button";
 import PlusIcon from "../icons/PlusIcon";
 import { typingWordsTypes } from "@/api/typing/typing.type";

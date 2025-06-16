@@ -1,8 +1,6 @@
 import { useOnClickOutside } from "usehooks-ts";
 import { useRef } from "react";
 import PortalOverlay from "../../overlay/portal.overlay";
-import { SettingChangeThemePage } from "./pages/SettingChangeThemePage";
-import SettingRootPage from "./pages/SettingRootPage";
 
 type PopupDotsSettingProps = {
   show: boolean;

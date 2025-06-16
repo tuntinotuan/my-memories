@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { LinearOrUrl } from "../project/types";
-import ThreeDotsIcon from "../icons/ThreeDotsIcon";
-import PopupMoreBackground from "./PopupMoreBackground";
+import { LinearOrUrl } from "../../../project/types";
+import ThreeDotsIcon from "../../../icons/ThreeDotsIcon";
+import PopupMoreBackground from "../../PopupMoreBackground";
 
 type GradientImageProps = {
   gradientList: LinearOrUrl[];

@@ -1,6 +1,6 @@
 "use client";
 import Button from "../../button/Button";
-import PopupCreateboard from "../../popup/PopupCreateboard";
+import PopupCreateboard from "../../popup/board/PopupCreateboard";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { useCreateBoardStates } from "@/contexts/createBoardStates";
 import { usePathname } from "next/navigation";
