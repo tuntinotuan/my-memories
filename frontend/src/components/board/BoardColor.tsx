@@ -3,8 +3,9 @@ import React, { useRef, useState } from "react";
 import { LinearOrUrl } from "../project/types";
 import { useScrollToEnd } from "@/hooks/useScrollToEnd";
 import PlusIcon from "../icons/PlusIcon";
-import PopupSketchPicker, { MySketchPicker } from "../popup/PopupSketchPicker";
+import PopupSketchPicker from "../popup/PopupSketchPicker";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
+import { MySketchPicker } from "../popup/components/MySketchPicker";
 
 const BoardColor = ({
   sketchPickerView = "popup",

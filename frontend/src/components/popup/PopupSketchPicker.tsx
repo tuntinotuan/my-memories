@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import ButtonCreate from "../button/ButtonCreate";
 import PopupOverlay from "../overlay/popup.overlay";
-import { SketchPicker } from "react-color";
-import PlusIcon from "../icons/PlusIcon";
-import { TopControl } from "./components/TopControl";
+import { MySketchPicker } from "./components/MySketchPicker";
 
-type PopupSketchPickerProps = {
+export type PopupSketchPickerProps = {
   show?: boolean;
   onClose: () => void;
   updateColor: (code: string) => void;
@@ -36,47 +33,6 @@ const PopupSketchPicker = ({
       ></MySketchPicker>
     </PopupOverlay>
   );
-};
-
-export const MySketchPicker = ({
-  show,
-  onClose,
-  updateColor,
-  SetColorList,
-  colorList,
-  hiddenTopControl = false,
-}: PopupSketchPickerProps & { hiddenTopControl?: boolean }) => {
-  const [color, setColor] = useState("#0088ff");
-  return show ? (
-    <>
-      {!hiddenTopControl && (
-        <TopControl title="Color picker" onClose={onClose}></TopControl>
-      )}
-      <SketchPicker
-        color={color}
-        onChange={(updatedColor) => setColor(updatedColor.hex)}
-        className="w-full"
-        styles={{
-          default: {
-            picker: {
-              width: "auto", // Adjust width
-            },
-          },
-        }}
-      />
-      <ButtonCreate
-        styles="primary"
-        className="w-[150px] mt-2"
-        onClick={() => {
-          updateColor(color);
-          SetColorList([...colorList, color]);
-        }}
-      >
-        <PlusIcon></PlusIcon>
-        Add color
-      </ButtonCreate>
-    </>
-  ) : null;
 };
 
 export default PopupSketchPicker;
