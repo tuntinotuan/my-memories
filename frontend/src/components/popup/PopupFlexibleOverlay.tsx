@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import PortalOverlay from "../overlay/portal.overlay";
+import { RectType } from "./types";
 
 type PopupFlexibleOverlayProps = {
   children: React.ReactNode;
@@ -10,16 +11,6 @@ type PopupFlexibleOverlayProps = {
   position?: "top" | "bottom" | "left" | "right";
   width: number;
   height: number;
-};
-type RectType = {
-  bottom: number;
-  height: number;
-  left: number;
-  right: number;
-  top: number;
-  width: number;
-  x: number;
-  y: number;
 };
 
 const PopupFlexibleOverlay = ({

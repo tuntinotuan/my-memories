@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Placement } from "../tooltip/MyTooltip";
 import PortalOverlay from "../overlay/portal.overlay";
-interface DOMRect {
-  readonly x: number;
-  readonly y: number;
-  readonly width: number;
-  readonly height: number;
-  readonly top: number;
-  readonly right: number;
-  readonly bottom: number;
-  readonly left: number;
-  toJSON(): any;
-}
+
+type PopupHoverProps = {
+  children: React.ReactNode;
+  rect?: DOMRect;
+  isHovered: boolean;
+  placement?: Placement;
+  size?: "small" | "medium" | "large";
+  arrowRounded?: boolean;
+};
+
 const PopupHover = ({
   size = "medium",
   children,
@@ -19,14 +18,7 @@ const PopupHover = ({
   isHovered,
   placement = "top",
   arrowRounded = false,
-}: {
-  children: React.ReactNode;
-  rect?: DOMRect;
-  isHovered: boolean;
-  placement?: Placement;
-  size?: "small" | "medium" | "large";
-  arrowRounded?: boolean;
-}) => {
+}: PopupHoverProps) => {
   const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
   let newSize = "";
   useEffect(() => {
