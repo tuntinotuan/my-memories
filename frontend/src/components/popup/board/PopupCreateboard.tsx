@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { DisplayImage } from "./components/DisplayImage";
 import { gradientList, imageList } from "./initialValues";
 import { TopControl } from "../components/TopControl";
+import InputValidation from "@/components/input/InputValidation";
 
 type PopupCreateboardProps = {
   show: boolean;
@@ -72,7 +73,7 @@ const Body = ({ onClose }: any) => {
       <label htmlFor="" className="font-bold">
         Board title
       </label>
-      <input
+      {/* <input
         type="text"
         autoFocus
         value={boardTitle}
@@ -89,7 +90,15 @@ const Body = ({ onClose }: any) => {
       />
       {boardTitle === "" && inputRequire && (
         <p className="text-[10px] text-red-500">👋 Board title is required *</p>
-      )}
+      )} */}
+      <InputValidation
+        value={boardTitle}
+        setValue={setBoardTitle}
+        errText="👋 Board title is required *"
+        onKeyDown={(e) => {
+          e.key === "Enter" && handleCreateABoard();
+        }}
+      ></InputValidation>
       <ButtonCreate
         className="w-full"
         styles="primary"
