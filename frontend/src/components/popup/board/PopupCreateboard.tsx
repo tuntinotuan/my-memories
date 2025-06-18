@@ -28,7 +28,6 @@ const PopupCreateboard = ({ show, onClose }: PopupCreateboardProps) => {
 
 const Body = ({ onClose }: any) => {
   const [boardTitle, setBoardTitle] = useState("");
-  const [inputRequire, setInputRequire] = useState(false);
   const { boards, setBoards } = useCreateBoardStates();
   const router = useRouter();
   console.log("boards", boards);
@@ -73,24 +72,6 @@ const Body = ({ onClose }: any) => {
       <label htmlFor="" className="font-bold">
         Board title
       </label>
-      {/* <input
-        type="text"
-        autoFocus
-        value={boardTitle}
-        className={`border border-gray-200 rounded w-full px-3 py-2 ${
-          boardTitle === ""
-            ? "focus:border-red-400"
-            : "focus:border-primaryColor"
-        }`}
-        onFocus={() => setInputRequire(true)}
-        onChange={(e) => setBoardTitle(e.target.value)}
-        onKeyDown={(e) => {
-          e.key === "Enter" && handleCreateABoard();
-        }}
-      />
-      {boardTitle === "" && inputRequire && (
-        <p className="text-[10px] text-red-500">👋 Board title is required *</p>
-      )} */}
       <InputValidation
         value={boardTitle}
         setValue={setBoardTitle}
