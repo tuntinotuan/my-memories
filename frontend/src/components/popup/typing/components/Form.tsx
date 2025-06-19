@@ -1,8 +1,9 @@
 import Button from "@/components/button/Button";
 import PlusIcon from "@/components/icons/PlusIcon";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { TypingItem } from "./TypingItem";
 import { useScrollToEnd } from "@/hooks/useScrollToEnd";
+import InputValidation from "@/components/input/InputValidation";
 
 export const Form = ({
   word,
@@ -38,29 +39,25 @@ export const Form = ({
             id="listName"
           />
         </div>
-        <input
-          value={word}
-          type="text"
-          className="border border-gray-300 rounded w-full px-3 py-2 focus:border-typingColorActive transition-all"
+        <InputValidation
+          errText="👋 Word name is required"
           placeholder="word name..."
-          onChange={(e) => setWord(e.target.value)}
+          value={word}
+          setValue={setWord}
           id="wordName"
-          required
-        />
-        <input
-          value={meaning}
-          type="text"
-          className="border border-gray-300 rounded w-full px-3 py-2 focus:border-typingColorActive transition-all"
+        ></InputValidation>
+        <InputValidation
+          errText="👋 Meaning is required"
           placeholder="meaning of word..."
-          onChange={(e) => setMeaning(e.target.value)}
+          value={meaning}
+          setValue={setMeaning}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               handleAddAPairOfWord();
             }
           }}
           id="wordMeaning"
-          required
-        />
+        ></InputValidation>
         <Button
           className="bg-typingBgControlMenu"
           hover=" hover:bg-typingColorActive"
