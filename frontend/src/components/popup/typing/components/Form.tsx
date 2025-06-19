@@ -2,6 +2,7 @@ import Button from "@/components/button/Button";
 import PlusIcon from "@/components/icons/PlusIcon";
 import { useEffect, useRef } from "react";
 import { TypingItem } from "./TypingItem";
+import { useScrollToEnd } from "@/hooks/useScrollToEnd";
 
 export const Form = ({
   word,
@@ -17,14 +18,8 @@ export const Form = ({
   setTypingList,
 }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
+  useScrollToEnd(ref, typingList);
 
-  // auto scroll to end after add a new pair of word
-  useEffect(() => {
-    const scrollCur = ref.current;
-    if (scrollCur) {
-      scrollCur.scrollTop = scrollCur.scrollHeight;
-    }
-  }, [typingList]);
   const handleClearData = () => {
     setTypingList([]);
     setFileName("");
