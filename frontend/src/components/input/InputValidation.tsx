@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useLayoutStates } from "@/contexts/layoutStates";
+import React, { useEffect, useState } from "react";
 
 type InputValidationProps = {
   onKeyDown?: (val: any) => void;
@@ -26,6 +27,17 @@ const InputValidation = ({
   inputClass,
 }: InputValidationProps) => {
   const [inputRequire, setInputRequire] = useState(false);
+  const { resetAllInputRequired, setResetAllInputRequired } = useLayoutStates();
+  useEffect(() => {
+    if (resetAllInputRequired) {
+      setInputRequire(false);
+    }
+    return () => {
+      setResetAllInputRequired(false);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetAllInputRequired]);
+
   return (
     <>
       <input

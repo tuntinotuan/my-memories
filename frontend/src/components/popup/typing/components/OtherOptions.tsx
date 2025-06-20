@@ -1,5 +1,6 @@
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import FileUpload from "@/components/file/FileUpload";
+import { useLayoutStates } from "@/contexts/layoutStates";
 import * as XLSX from "xlsx";
 
 export const OtherOptions = ({
@@ -8,6 +9,7 @@ export const OtherOptions = ({
   setFileName,
   setListName,
 }: any) => {
+  const { setResetAllInputRequired } = useLayoutStates();
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -57,6 +59,7 @@ export const OtherOptions = ({
 
     isTxt && reader.readAsText(file);
     isXlsx && reader.readAsArrayBuffer(file);
+    setResetAllInputRequired(true);
   };
   return (
     <>
