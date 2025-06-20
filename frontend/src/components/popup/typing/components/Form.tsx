@@ -24,6 +24,7 @@ export const Form = ({
   const handleClearData = () => {
     setTypingList([]);
     setFileName("");
+    setListName("");
   };
   return (
     <div className="flex items-start gap-2 w-full">
