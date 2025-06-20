@@ -28,16 +28,18 @@ export const Form = ({
   return (
     <div className="flex items-start gap-2 w-full">
       <div className="flex-1 flex flex-col gap-1">
-        <div className="flex items-center gap-1">
-          <input
-            defaultValue={fileName.replace(/\.[^/.]+$/, "")}
-            value={listName}
-            type="text"
-            className="w-full text-typingColorActive border border-transparent focus:border-typingColorActive transition-all px-2 py-1 rounded"
+        <div className="flex flex-col items-center gap-1">
+          <InputValidation
+            errText="👋 List name is required"
             placeholder="Typing your list name..."
-            onChange={(e) => setListName(e.target.value)}
+            value={listName}
+            defaultValue={fileName.replace(/\.[^/.]+$/, "")}
+            setValue={setListName}
             id="listName"
-          />
+            focusBorder="focus:border-typingColorActive"
+            inputClass="!px-2 !py-1 text-typingColorActive"
+            nonBorder
+          ></InputValidation>
         </div>
         <InputValidation
           errText="👋 Word name is required"
@@ -45,6 +47,7 @@ export const Form = ({
           value={word}
           setValue={setWord}
           id="wordName"
+          focusBorder="focus:border-typingColorActive"
         ></InputValidation>
         <InputValidation
           errText="👋 Meaning is required"
@@ -57,6 +60,7 @@ export const Form = ({
             }
           }}
           id="wordMeaning"
+          focusBorder="focus:border-typingColorActive"
         ></InputValidation>
         <Button
           className="bg-typingBgControlMenu"
