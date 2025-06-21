@@ -7,6 +7,7 @@ import { useTyping } from "@/contexts/TypingStates";
 import { TopControl } from "../components/TopControl";
 import { Form } from "./components/Form";
 import { OtherOptions } from "./components/OtherOptions";
+import { useLayoutStates } from "@/contexts/layoutStates";
 
 type PopupCreateTypingListProps = {
   show: boolean;
@@ -38,6 +39,8 @@ const Body = ({ onClose }: any) => {
   const { wordList, setWordList } = useTyping();
   const [fileName, setFileName] = useState("");
 
+  const { setResetAllInputRequired } = useLayoutStates();
+
   const handleAddAPairOfWord = () => {
     if (!word) return document.getElementById("wordName")?.focus();
     if (!meaning) return document.getElementById("wordMeaning")?.focus();
@@ -48,6 +51,7 @@ const Body = ({ onClose }: any) => {
     setTypingList([...typingList, newWord]);
     setWord("");
     setMeaning("");
+    setResetAllInputRequired(true);
     document.getElementById("wordName")?.focus();
   };
   const handleCreateTypingList = () => {
