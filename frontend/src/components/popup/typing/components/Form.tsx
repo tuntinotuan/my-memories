@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { TypingItem } from "./TypingItem";
 import { useScrollToEnd } from "@/hooks/useScrollToEnd";
 import InputValidation from "@/components/input/InputValidation";
+import { useLayoutStates } from "@/contexts/layoutStates";
 
 export const Form = ({
   word,
@@ -20,11 +21,13 @@ export const Form = ({
 }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
   useScrollToEnd(ref, typingList);
+  const { setResetAllInputRequired } = useLayoutStates();
 
   const handleClearData = () => {
     setTypingList([]);
     setFileName("");
     setListName("");
+    setResetAllInputRequired(true);
   };
   return (
     <div className="flex items-start gap-2 w-full">
