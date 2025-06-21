@@ -49,6 +49,7 @@ export const Form = ({
           setValue={setWord}
           id="wordName"
           focusBorder="focus:border-typingColorActive"
+          inputClass="text-typingColorActive"
         ></InputValidation>
         <InputValidation
           errText="👋 Meaning is required"
@@ -62,6 +63,7 @@ export const Form = ({
           }}
           id="wordMeaning"
           focusBorder="focus:border-typingColorActive"
+          inputClass="text-typingColorActive"
         ></InputValidation>
         <Button
           className="bg-typingBgControlMenu"
