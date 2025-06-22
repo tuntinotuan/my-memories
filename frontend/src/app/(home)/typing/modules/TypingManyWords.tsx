@@ -1,7 +1,6 @@
 import TypingWord from "./components/TypingWord";
 import { getTextWidth } from "@/utils/stringFs";
 import { useEffect, useRef, useState } from "react";
-import { typingwords } from "@/api/typing/typing.data.structure";
 import TypingOverlayBlur from "./TypingOverlayBlur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
