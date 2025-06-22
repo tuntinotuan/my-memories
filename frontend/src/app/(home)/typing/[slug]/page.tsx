@@ -1,8 +1,8 @@
 "use client";
 import { useTyping } from "@/contexts/TypingStates";
-import { TypingHeaderMenu } from "../modules/TypingHeaderMenu";
-import { TypingResults } from "../modules/TypingResults";
-import { TypingContent } from "../modules/TypingContent";
+import { TypingHeaderMenu } from "../modules/typing.header.menu";
+import { TypingResults } from "../modules/typing.results";
+import { TypingContent } from "../modules/typing.content";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useState } from "react";
 import { useFetchSingleTypingPage } from "../func/fetchSingleTyping";

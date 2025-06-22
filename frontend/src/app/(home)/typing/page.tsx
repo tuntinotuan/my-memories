@@ -1,7 +1,7 @@
 "use client";
-import { TypingContent } from "./modules/TypingContent";
-import { TypingResults } from "./modules/TypingResults";
-import { TypingHeaderMenu } from "./modules/TypingHeaderMenu";
+import { TypingContent } from "./modules/typing.content";
+import { TypingResults } from "./modules/typing.results";
+import { TypingHeaderMenu } from "./modules/typing.header.menu";
 import { useTyping } from "@/contexts/TypingStates";
 import { typingwords } from "@/api/typing/typing.data.structure";
 import { useEffect } from "react";
