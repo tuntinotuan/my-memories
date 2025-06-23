@@ -1,5 +1,4 @@
 "use client";
-import { getRandomWordApi } from "@/api/typing/random.word.api";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import {
   WordAmountType,

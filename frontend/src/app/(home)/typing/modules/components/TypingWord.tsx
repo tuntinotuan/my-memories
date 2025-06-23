@@ -32,9 +32,6 @@ const TypingWord = ({
     if (next === wordIndex) {
       setNewText(text);
     }
-    // get correct key word
-    const correct = document.getElementsByClassName("correct");
-    console.log("correct", correct.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 

@@ -1,6 +1,15 @@
 import { typingStylesType, useTyping } from "@/contexts/TypingStates";
 import { Tooltip } from "@nextui-org/tooltip";
 
+type BtnTypingStylesProps = {
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  onClick: () => void;
+  style: typingStylesType;
+  tooltipText?: string;
+  className?: string;
+};
+
 export const BtnTypingStyles = ({
   icon,
   children,
@@ -8,14 +17,7 @@ export const BtnTypingStyles = ({
   className,
   tooltipText,
   style,
-}: {
-  icon: React.ReactNode;
-  children: React.ReactNode;
-  onClick: () => void;
-  style: typingStylesType;
-  tooltipText?: string;
-  className?: string;
-}) => {
+}: BtnTypingStylesProps) => {
   const { typingStyles } = useTyping();
   const Main = () => {
     return (

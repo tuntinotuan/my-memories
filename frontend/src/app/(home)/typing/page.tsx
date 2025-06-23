@@ -1,7 +1,7 @@
 "use client";
-import { TypingContent } from "./modules/typing.content";
-import { TypingResults } from "./modules/typing.results";
-import { TypingHeaderMenu } from "./modules/typing.header.menu";
+import { TypingContent } from "./modules/layout/typing.content";
+import { TypingResults } from "./modules/layout/typing.results";
+import { TypingHeaderMenu } from "./modules/layout/typing.header.menu";
 import { useTyping } from "@/contexts/TypingStates";
 import { typingwords } from "@/api/typing/typing.data.structure";
 import { useEffect } from "react";
@@ -12,6 +12,7 @@ export default function TypingPage() {
   const { setSingleTheme } = useTypingTheme();
   useEffect(() => {
     setSingleTheme("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

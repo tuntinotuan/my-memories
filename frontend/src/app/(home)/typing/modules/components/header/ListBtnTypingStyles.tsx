@@ -1,18 +1,13 @@
 import ClockIcon from "@/components/icons/typing/ClockIcon";
 import CombineIcon from "@/components/icons/typing/CombineIcon";
 import WordIcon from "@/components/icons/typing/WordIcon";
-import { typingStylesType, useTyping } from "@/contexts/TypingStates";
+import { useTyping } from "@/contexts/TypingStates";
 import { BtnTypingStyles } from "./BtnTypingStyles";
+import { ListBtnTypes } from "../../types";
 
 export const ListBtnTypingStyles = () => {
   const { setTypingStyles } = useTyping();
-  const listBtn: {
-    text: string;
-    icon: React.ReactNode;
-    style: typingStylesType;
-    onClick: () => void;
-    tooltipText?: string;
-  }[] = [
+  const listBtn: ListBtnTypes = [
     {
       text: "time",
       icon: <ClockIcon />,

@@ -1,4 +1,4 @@
-import TypingWord from "./components/TypingWord";
+import TypingWord from "../components/TypingWord";
 import { getTextWidth } from "@/utils/stringFs";
 import { useEffect, useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";

@@ -5,8 +5,8 @@ import { TypingOnlyAWord } from "./typing.only.a.word";
 import { TypingManyWords } from "./typing.many.words";
 import { useTyping } from "@/contexts/TypingStates";
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import TypingViewAmountOrTime from "./components/TypingViewAmountOrTime";
-import { useHydrate } from "../func/useHydrate";
+import TypingViewAmountOrTime from "../components/TypingViewAmountOrTime";
+import { useHydrate } from "../../func/useHydrate";
 
 export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   const {

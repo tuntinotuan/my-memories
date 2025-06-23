@@ -6,11 +6,11 @@ import PopupTypingTheme, {
 } from "@/components/popup/typing/PopupTypingTheme";
 import PopupCreateTypingList from "@/components/popup/typing/PopupCreateTypingList";
 import KeyboardIcon from "@/components/icons/typing/KeyboardIcon";
-import { SplitElement } from "./components/header/SplitElement";
-import { WordAmount } from "./components/header/WordAmount";
-import { WordTime } from "./components/header/WordTime";
-import { ListBtnTypingStyles } from "./components/header/ListBtnTypingStyles";
-import { BtnChangeTheme } from "./components/header/BtnChangeTheme";
+import { SplitElement } from "../components/header/SplitElement";
+import { WordAmount } from "../components/header/WordAmount";
+import { WordTime } from "../components/header/WordTime";
+import { ListBtnTypingStyles } from "../components/header/ListBtnTypingStyles";
+import { BtnChangeTheme } from "../components/header/BtnChangeTheme";
 
 export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
   const { typingStyles, showPopupCreate, setShowPopupCreate } = useTyping();

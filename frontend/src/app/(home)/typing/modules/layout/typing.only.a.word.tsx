@@ -1,6 +1,6 @@
 import { getTextWidth } from "@/utils/stringFs";
-import TypingMeaning from "./components/TypingMeaning";
-import TypingWord from "./components/TypingWord";
+import TypingMeaning from "../components/TypingMeaning";
+import TypingWord from "../components/TypingWord";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { useRef, useState } from "react";
 import { shuffleArray } from "@/api/card/utils/f";
