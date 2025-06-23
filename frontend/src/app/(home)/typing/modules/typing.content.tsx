@@ -6,6 +6,7 @@ import { TypingManyWords } from "./typing.many.words";
 import { useTyping } from "@/contexts/TypingStates";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import TypingViewAmountOrTime from "./components/TypingViewAmountOrTime";
+import { useHydrate } from "../func/useHydrate";
 
 export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   const {
@@ -17,10 +18,7 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
     setIsCountDown,
     resetCountDownIsInitial,
   } = useTyping();
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
+  const { hydrated, setHydrated } = useHydrate();
   if (!hydrated) return null; // or a skeleton/placeholder
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
