@@ -5,6 +5,7 @@ import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
+import { useTimeShowResults } from "../../func/word/timeResults";
 
 export const TypingManyWords = ({
   types,
@@ -23,7 +24,6 @@ export const TypingManyWords = ({
     setCursorIsTyping,
     setIsCountDown,
     resetCountDownIsInitial,
-    secondsOfTimeWords,
     wordTime,
     typingStyles,
   } = useTyping();
@@ -99,14 +99,7 @@ export const TypingManyWords = ({
   useEffect(() => {
     document.getElementById(`typingCursorId${countNextWord}`)?.focus();
   }, [countNextWord]);
-  // Show results for time type
-  useEffect(() => {
-    if (secondsOfTimeWords === 0 && types === "time") {
-      setIsCountDown(false);
-      setShowResults(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [secondsOfTimeWords]);
+  useTimeShowResults(types);
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
     setText(e.target.value.trim());

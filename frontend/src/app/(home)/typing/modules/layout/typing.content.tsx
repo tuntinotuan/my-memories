@@ -1,6 +1,5 @@
 "use client";
-import TypingRestart from "@/components/typing/TypingRestart";
-import { useEffect, useState } from "react";
+import TypingRestart from "@/app/(home)/typing/modules/components/TypingRestart";
 import { TypingOnlyAWord } from "./typing.only.a.word";
 import { TypingManyWords } from "./typing.many.words";
 import { useTyping } from "@/contexts/TypingStates";

@@ -1,5 +1,5 @@
 import MyTooltip from "@/components/tooltip/MyTooltip";
-import TypingRestart from "@/components/typing/TypingRestart";
+import TypingRestart from "@/app/(home)/typing/modules/components/TypingRestart";
 import { useTyping } from "@/contexts/TypingStates";
 import {
   typingCaculateResultWithWordAmount,
