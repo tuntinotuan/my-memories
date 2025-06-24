@@ -1,4 +1,4 @@
-import { getUnsplashImage } from "@/app/apiActions";
+import { getUnsplashImage } from "@/api/unsplash/get.api";
 import React, { useEffect, useState } from "react";
 import SearchMenuHeader from "../search/SearchMenuHeader";
 import UnsplashPhotosSkeleton from "../skeleton/UnsplashPhotosSkeleton";
