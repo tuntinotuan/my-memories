@@ -6,6 +6,7 @@ import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
 import { useTimeShowResults } from "../../func/word/timeResults";
+import { useDetectLastInRows } from "../../func/word/detectLastInRows";
 
 export const TypingManyWords = ({
   types,
@@ -73,32 +74,9 @@ export const TypingManyWords = ({
   const containerRef = useRef<HTMLLabelElement>(null);
   const [lastInRowIndexes, setLastInRowIndexes] = useState<number[]>([]);
   useEffect(() => {
-    const detectLastInRows = () => {
-      const children = containerRef.current?.children;
-      if (!children) return;
-
-      const rowMap: Record<number, number> = {};
-      const newLastIndexes: number[] = [];
-
-      Array.from(children).forEach((child, index) => {
-        const top = (child as HTMLElement).offsetTop;
-        rowMap[top] = index; // the latest index on this row
-      });
-
-      newLastIndexes.push(...Object.values(rowMap));
-      setLastInRowIndexes(newLastIndexes);
-      const rowCount = Object.keys(rowMap).length;
-      setRowCount(rowCount);
-    };
-
-    detectLastInRows();
-    window.addEventListener("resize", detectLastInRows);
-
-    return () => window.removeEventListener("resize", detectLastInRows);
-  }, [wordAmount, countNextWord]);
-  useEffect(() => {
     document.getElementById(`typingCursorId${countNextWord}`)?.focus();
   }, [countNextWord]);
+  useDetectLastInRows(containerRef, setLastInRowIndexes, setRowCount);
   useTimeShowResults(types);
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
