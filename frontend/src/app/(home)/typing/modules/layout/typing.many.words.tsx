@@ -8,6 +8,7 @@ import { useTyping } from "@/contexts/TypingStates";
 import { useTimeShowResults } from "../../func/word/timeResults";
 import { useDetectLastInRows } from "../../func/word/detectLastInRows";
 import { useCursorMoveNextWord } from "../../func/word/cursorMoveNextWord";
+import { useResetAfterWordOrTimeSettingChange } from "../../func/word/resetAfterWordOrTimeSettingChange";
 
 export const TypingManyWords = ({
   types,
@@ -22,10 +23,8 @@ export const TypingManyWords = ({
     setCountNextWord,
     setShowResults,
     setSecondsOfManyWords,
-    resetRunningManyWords,
     setCursorIsTyping,
     setIsCountDown,
-    resetCountDownIsInitial,
     wordTime,
     typingStyles,
   } = useTyping();
@@ -43,36 +42,16 @@ export const TypingManyWords = ({
   const [newArrWords, setNewArrWords] = useState<typingWordsTypes[]>(
     refWords.current
   );
-  useEffect(() => {
-    setNewArrWords(
-      creationNewArrWithQuantityBigger(refWords.current, wordAmount)
-    );
-    setCursorPosition(0);
-    setText("");
-    setCountNextWord(0);
-    setHeightFlexible(0);
-    setRowTyped(0);
-    setSecondsOfManyWords(false);
-    resetRunningManyWords();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wordAmount]);
-  useEffect(() => {
-    setNewArrWords(
-      creationNewArrWithQuantityBigger(
-        refWords.current,
-        types === "words" ? wordAmount : wordTime * 2.5
-      )
-    );
-    setCursorPosition(0);
-    setText("");
-    setCountNextWord(0);
-    setHeightFlexible(0);
-    setRowTyped(0);
-    setIsCountDown(false);
-    resetCountDownIsInitial();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wordTime]);
   const containerRef = useRef<HTMLLabelElement>(null);
+  useResetAfterWordOrTimeSettingChange(
+    types,
+    refWords,
+    setNewArrWords,
+    setText,
+    setCursorPosition,
+    setHeightFlexible,
+    setRowTyped
+  );
   useCursorMoveNextWord();
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
