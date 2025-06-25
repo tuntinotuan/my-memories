@@ -72,11 +72,10 @@ export const TypingManyWords = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordTime]);
   const containerRef = useRef<HTMLLabelElement>(null);
-  const [lastInRowIndexes, setLastInRowIndexes] = useState<number[]>([]);
   useEffect(() => {
     document.getElementById(`typingCursorId${countNextWord}`)?.focus();
   }, [countNextWord]);
-  useDetectLastInRows(containerRef, setLastInRowIndexes, setRowCount);
+  const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;

@@ -1,12 +1,13 @@
 import { useTyping } from "@/contexts/TypingStates";
-import { RefObject, useEffect } from "react";
+import { RefObject, useEffect, useState } from "react";
 
 export function useDetectLastInRows<T extends HTMLElement = HTMLElement>(
   containerRef: RefObject<T>,
-  setLastInRowIndexes: any,
   setRowCount: any
 ) {
   const { wordAmount, countNextWord } = useTyping();
+  const [lastInRowIndexes, setLastInRowIndexes] = useState<number[]>([]);
+
   useEffect(() => {
     const detectLastInRows = () => {
       const children = containerRef.current?.children;
@@ -32,4 +33,5 @@ export function useDetectLastInRows<T extends HTMLElement = HTMLElement>(
     return () => window.removeEventListener("resize", detectLastInRows);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordAmount, countNextWord]);
+  return { lastInRowIndexes };
 }
