@@ -7,6 +7,7 @@ import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
 import { useTimeShowResults } from "../../func/word/timeResults";
 import { useDetectLastInRows } from "../../func/word/detectLastInRows";
+import { useCursorMoveNextWord } from "../../func/word/cursorMoveNextWord";
 
 export const TypingManyWords = ({
   types,
@@ -72,9 +73,7 @@ export const TypingManyWords = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordTime]);
   const containerRef = useRef<HTMLLabelElement>(null);
-  useEffect(() => {
-    document.getElementById(`typingCursorId${countNextWord}`)?.focus();
-  }, [countNextWord]);
+  useCursorMoveNextWord();
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
   const handleChangeInput = (e: any) => {
