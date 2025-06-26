@@ -10,3 +10,4 @@ export type ListBtnTypes = {
   onClick: () => void;
   tooltipText?: string;
 }[];
+export type TypeOfTypingManyWordProps = "time" | "words";
