@@ -1,6 +1,7 @@
 import { useTyping } from "@/contexts/TypingStates";
 import { TypeOfTypingManyWordProps } from "../../modules/types";
 import { getTextWidth } from "@/utils/stringFs";
+import { showWordResultsWhenTypedLastWord } from "./wordResults";
 
 export function useKeyDown(
   types: TypeOfTypingManyWordProps,
@@ -30,15 +31,14 @@ export function useKeyDown(
     if (types === "words") setSecondsOfManyWords(true);
     if (types === "time") setIsCountDown(true);
 
-    // Show Results for words type
-    if (
-      types === "words" &&
-      countNextWord + 1 === newArrWords.length &&
-      newArrWords[countNextWord]?.word.length <= text.length + 1
-    ) {
-      setSecondsOfManyWords(false);
-      setShowResults(true);
-    }
+    showWordResultsWhenTypedLastWord(
+      types,
+      newArrWords,
+      text,
+      countNextWord,
+      setSecondsOfManyWords,
+      setShowResults
+    );
 
     // Finished per word
     if (
