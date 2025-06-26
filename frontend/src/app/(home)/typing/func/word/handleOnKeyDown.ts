@@ -2,6 +2,7 @@ import { useTyping } from "@/contexts/TypingStates";
 import { TypeOfTypingManyWordProps } from "../../modules/types";
 import { getTextWidth } from "@/utils/stringFs";
 import { showWordResultsWhenTypedLastWord } from "./wordResults";
+import { startTyping } from "./startTyping";
 
 export function useKeyDown(
   types: TypeOfTypingManyWordProps,
@@ -26,10 +27,12 @@ export function useKeyDown(
     setIsCountDown,
   } = useTyping();
   const handleOnKeyDown = (e: any) => {
-    // Run count down time
-    setCursorIsTyping(true);
-    if (types === "words") setSecondsOfManyWords(true);
-    if (types === "time") setIsCountDown(true);
+    startTyping(
+      types,
+      setCursorIsTyping,
+      setSecondsOfManyWords,
+      setIsCountDown
+    );
 
     showWordResultsWhenTypedLastWord(
       types,
