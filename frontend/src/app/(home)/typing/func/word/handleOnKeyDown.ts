@@ -62,23 +62,14 @@ export function useKeyDown(
       setSecondsOfManyWords,
       setShowResults
     );
-
-    const { cursorPositionIncrease, cursorPositionDecrease } =
-      cursorPositionPerTyped(newArrWords, countNextWord, text);
-    // Increase & Decrease cursor position
-    if (
-      text.length < newArrWords[countNextWord].word.length &&
-      e.key.length === 1 &&
-      !e.ctrlKey &&
-      !e.metaKey &&
-      !e.altKey &&
-      e.key !== " "
-    ) {
-      e.key !== "Backspace" &&
-        setCursorPosition(cursorPosition + cursorPositionIncrease);
-    }
-    if (e.key === "Backspace" && text.length > 0)
-      setCursorPosition(cursorPosition - cursorPositionDecrease);
+    cursorPositionPerTyped(
+      e,
+      newArrWords,
+      countNextWord,
+      text,
+      setCursorPosition,
+      cursorPosition
+    );
   };
   return { handleOnKeyDown };
 }
