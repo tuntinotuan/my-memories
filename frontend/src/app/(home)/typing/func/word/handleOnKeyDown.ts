@@ -3,6 +3,7 @@ import { TypeOfTypingManyWordProps } from "../../modules/types";
 import { getTextWidth } from "@/utils/stringFs";
 import { showWordResultsWhenTypedLastWord } from "./wordResults";
 import { startTyping } from "./startTyping";
+import { cursorPositionPerTyped } from "./cursorPositionPerTyped";
 
 export function useKeyDown(
   types: TypeOfTypingManyWordProps,
@@ -72,15 +73,16 @@ export function useKeyDown(
     }
 
     // Caculate TextWidth
-    const textWidthIncrease = getTextWidth(
-      newArrWords[countNextWord].word[text ? text.length : 0],
-      "24px monospace"
-    );
-    const textWidthDecrease = getTextWidth(
-      newArrWords[countNextWord].word[text ? text.length - 1 : 0],
-      "24px monospace"
-    );
-
+    // const textWidthIncrease = getTextWidth(
+    //   newArrWords[countNextWord].word[text ? text.length : 0],
+    //   "24px monospace"
+    // );
+    // const textWidthDecrease = getTextWidth(
+    //   newArrWords[countNextWord].word[text ? text.length - 1 : 0],
+    //   "24px monospace"
+    // );
+    const { cursorPositionIncrease, cursorPositionDecrease } =
+      cursorPositionPerTyped(newArrWords, countNextWord, text);
     // Increase & Decrease cursor position
     if (
       text.length < newArrWords[countNextWord].word.length &&
@@ -91,10 +93,10 @@ export function useKeyDown(
       e.key !== " "
     ) {
       e.key !== "Backspace" &&
-        setCursorPosition(cursorPosition + textWidthIncrease);
+        setCursorPosition(cursorPosition + cursorPositionIncrease);
     }
     if (e.key === "Backspace" && text.length > 0)
-      setCursorPosition(cursorPosition - textWidthDecrease);
+      setCursorPosition(cursorPosition - cursorPositionDecrease);
   };
   return { handleOnKeyDown };
 }
