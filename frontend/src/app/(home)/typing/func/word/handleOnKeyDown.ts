@@ -1,9 +1,9 @@
 import { useTyping } from "@/contexts/TypingStates";
 import { TypeOfTypingManyWordProps } from "../../modules/types";
-import { getTextWidth } from "@/utils/stringFs";
 import { showWordResultsWhenTypedLastWord } from "./wordResults";
 import { startTyping } from "./startTyping";
 import { cursorPositionPerTyped } from "./cursorPositionPerTyped";
+import { finishedPerWord } from "./finishedPerWord";
 
 export function useKeyDown(
   types: TypeOfTypingManyWordProps,
@@ -44,43 +44,25 @@ export function useKeyDown(
       setShowResults
     );
 
-    // Finished per word
-    if (
-      e.key === " " &&
-      text.length > 0 &&
-      countNextWord <= newArrWords.length
-    ) {
-      setCursorPosition(0);
-      setText("");
-      setCountNextWord(countNextWord + 1);
-      lastInRowIndexes.includes(countNextWord) && setRowTyped(rowTyped + 1);
+    finishedPerWord(
+      e,
+      types,
+      text,
+      newArrWords,
+      countNextWord,
+      setCursorPosition,
+      setText,
+      setCountNextWord,
+      lastInRowIndexes,
+      setRowTyped,
+      rowCount,
+      rowTyped,
+      setHeightFlexible,
+      heightFlexible,
+      setSecondsOfManyWords,
+      setShowResults
+    );
 
-      // words dynamic per row
-      if (
-        lastInRowIndexes.includes(countNextWord) &&
-        rowCount > 3 &&
-        rowTyped > 0 &&
-        rowTyped + 2 < rowCount
-      ) {
-        setHeightFlexible(heightFlexible + 48);
-      }
-
-      // Show Results for words type
-      if (types === "words" && countNextWord + 1 === newArrWords.length) {
-        setSecondsOfManyWords(false);
-        setShowResults(true);
-      }
-    }
-
-    // Caculate TextWidth
-    // const textWidthIncrease = getTextWidth(
-    //   newArrWords[countNextWord].word[text ? text.length : 0],
-    //   "24px monospace"
-    // );
-    // const textWidthDecrease = getTextWidth(
-    //   newArrWords[countNextWord].word[text ? text.length - 1 : 0],
-    //   "24px monospace"
-    // );
     const { cursorPositionIncrease, cursorPositionDecrease } =
       cursorPositionPerTyped(newArrWords, countNextWord, text);
     // Increase & Decrease cursor position
