@@ -1,6 +1,5 @@
 import TypingWord from "../components/TypingWord";
-import { getTextWidth } from "@/utils/stringFs";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -20,10 +19,13 @@ type TypingManyWordsProps = {
 export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
   const { wordAmount, countNextWord, wordTime, typingStyles } = useTyping();
   const [text, setText] = useState<string>("");
+
   const [cursorPosition, setCursorPosition] = useState<number>(0);
-  const [heightFlexible, setHeightFlexible] = useState(0);
+
   const [rowCount, setRowCount] = useState<number>(0);
   const [rowTyped, setRowTyped] = useState<number>(0);
+  const [heightFlexible, setHeightFlexible] = useState(0);
+
   const refWords = useRef(
     creationNewArrWithQuantityBigger(
       data,
@@ -34,6 +36,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
     refWords.current
   );
   const containerRef = useRef<HTMLLabelElement>(null);
+
   useResetAfterWordOrTimeSettingChange(
     types,
     refWords,
