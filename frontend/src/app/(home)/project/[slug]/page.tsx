@@ -1,25 +1,26 @@
+import { Metadata } from "next";
 import BoardMainPage from "./modules/board.main.page";
 
 // Simulate fetching blog data based on slug
-// async function getBlogPost(slug: string) {
-//   return {
-//     title: `Awesome Blog: ${slug}`,
-//     description: "This is a dynamic blog post.",
-//   };
-// }
+async function getBlogPost(slug: string) {
+  return {
+    title: `Board: ${slug}`,
+    description: "This is a dynamic blog post.",
+  };
+}
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { slug: string };
-// }): Promise<Metadata> {
-//   const post = await getBlogPost(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = await getBlogPost(params.slug);
 
-//   return {
-//     title: post.title,
-//     description: post.description,
-//   };
-// }
+  return {
+    title: post.title,
+    description: post.description,
+  };
+}
 
 export default function Page({ params }: any) {
   // useFetchSingleBoard(params);
