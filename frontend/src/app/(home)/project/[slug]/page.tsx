@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import BoardMainPage from "./modules/board.main.page";
-import { useCreateBoardStates } from "@/contexts/createBoardStates";
-import { capitalizeFirstLetter, replaceAllTrim } from "@/utils/otherFs";
+import { capitalizeFirstLetter } from "@/utils/otherFs";
 
 // Simulate fetching blog data based on slug
 async function getBlogPost(slug: string) {
