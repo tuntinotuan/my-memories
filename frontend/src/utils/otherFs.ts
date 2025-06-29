@@ -10,3 +10,6 @@ export function cutIdFromSlug(str: string, key: string) {
   const getIndex = str.lastIndexOf(key);
   return str.slice(getIndex).replace(/\D/g, "");
 }
+export function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
