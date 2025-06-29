@@ -1,10 +1,14 @@
 import { Metadata } from "next";
 import BoardMainPage from "./modules/board.main.page";
+import { useCreateBoardStates } from "@/contexts/createBoardStates";
+import { capitalizeFirstLetter, replaceAllTrim } from "@/utils/otherFs";
 
 // Simulate fetching blog data based on slug
 async function getBlogPost(slug: string) {
+  const textId = slug.slice(slug.lastIndexOf("id"));
+  const newSlug = slug.replace("-", " ").replace(textId, "");
   return {
-    title: `Board: ${slug}`,
+    title: `Board: ${capitalizeFirstLetter(newSlug)}`,
     description: "This is a dynamic blog post.",
   };
 }
