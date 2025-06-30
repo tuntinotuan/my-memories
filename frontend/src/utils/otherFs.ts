@@ -13,3 +13,9 @@ export function cutIdFromSlug(str: string, key: string) {
 export function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function convertSlug(str: string) {
+  const textId = str.slice(str.lastIndexOf("id"));
+  const removeId = str.replaceAll("-", " ").replace(textId, "");
+  return capitalizeFirstLetter(removeId);
+}

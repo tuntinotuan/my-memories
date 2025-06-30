@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import BoardMainPage from "./modules/board.main.page";
-import { capitalizeFirstLetter } from "@/utils/otherFs";
+import { capitalizeFirstLetter, convertSlug } from "@/utils/otherFs";
 
 // Simulate fetching blog data based on slug
 async function getBoard(slug: string) {
-  const textId = slug.slice(slug.lastIndexOf("id"));
-  const newSlug = slug.replaceAll("-", " ").replace(textId, "");
   return {
-    title: `Board: ${capitalizeFirstLetter(newSlug)}`,
+    title: `Board: ${convertSlug(slug)}`,
     description: "This is a dynamic board title.",
   };
 }
