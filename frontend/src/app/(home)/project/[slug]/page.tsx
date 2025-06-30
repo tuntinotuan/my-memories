@@ -3,9 +3,9 @@ import BoardMainPage from "./modules/board.main.page";
 import { capitalizeFirstLetter } from "@/utils/otherFs";
 
 // Simulate fetching blog data based on slug
-async function getBlogPost(slug: string) {
+async function getBoard(slug: string) {
   const textId = slug.slice(slug.lastIndexOf("id"));
-  const newSlug = slug.replace("-", " ").replace(textId, "");
+  const newSlug = slug.replaceAll("-", " ").replace(textId, "");
   return {
     title: `Board: ${capitalizeFirstLetter(newSlug)}`,
     description: "This is a dynamic blog post.",
@@ -17,7 +17,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const post = await getBlogPost(params.slug);
+  const post = await getBoard(params.slug);
 
   return {
     title: post.title,
