@@ -8,7 +8,7 @@ async function getBoard(slug: string) {
   const newSlug = slug.replaceAll("-", " ").replace(textId, "");
   return {
     title: `Board: ${capitalizeFirstLetter(newSlug)}`,
-    description: "This is a dynamic blog post.",
+    description: "This is a dynamic board title.",
   };
 }
 
@@ -17,42 +17,14 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const post = await getBoard(params.slug);
+  const board = await getBoard(params.slug);
 
   return {
-    title: post.title,
-    description: post.description,
+    title: board.title,
+    description: board.description,
   };
 }
 
 export default function Page({ params }: any) {
-  // useFetchSingleBoard(params);
-  return (
-    // <div className="flex w-full overflow-hidden">
-    //   <LocalBody></LocalBody>
-    //   <BoardSidebar />
-    // </div>
-    <BoardMainPage params={params}></BoardMainPage>
-  );
+  return <BoardMainPage params={params}></BoardMainPage>;
 }
-
-// function LocalBody() {
-//   const { singleBoard } = useCreateBoardStates();
-//   return (
-//     <div
-//       className={`overflow-hidden w-full h-full text-white bg-no-repeat bg-cover bg-center`}
-//       style={
-//         singleBoard.img.type === "imageUrl"
-//           ? { backgroundImage: `url(${singleBoard.img.url})` }
-//           : singleBoard.img.type === "linearGradient"
-//           ? {
-//               backgroundImage: `linear-gradient(to bottom right, ${singleBoard.img.from}, ${singleBoard.img.to})`,
-//             }
-//           : { background: singleBoard.img.code }
-//       }
-//     >
-//       <BoardMenu />
-//       <BoardContainList />
-//     </div>
-//   );
-// }
