@@ -1,18 +1,18 @@
 import { getTextWidth } from "@/utils/stringFs";
 
 export function calculatePositionForCursor(
-  newArrWords: any,
-  countNextWord: any,
-  text: string
+  currentTyping: any,
+  text: string,
+  fontSize: string
 ) {
   const cursorPositionIncrease = getTextWidth(
-    newArrWords[countNextWord].word[text ? text.length : 0],
-    "24px monospace"
+    currentTyping.word[text ? text.length : 0],
+    `${fontSize} monospace`
   );
   const cursorPositionDecrease = getTextWidth(
-    newArrWords[countNextWord].word[text ? text.length - 1 : 0],
-    "24px monospace"
+    currentTyping.word[text ? text.length - 1 : 0],
+    `${fontSize} monospace`
   );
-
+  // newArrWords[countNextWord]
   return { cursorPositionIncrease, cursorPositionDecrease };
 }

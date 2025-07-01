@@ -1,5 +1,6 @@
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { getTextWidth } from "@/utils/stringFs";
+import { calculatePositionForCursor } from "../word/calculatePositionForCursor";
 
 export function onlyHandleOnKeyDown(
   text: string,
@@ -25,14 +26,8 @@ export function onlyHandleOnKeyDown(
         setCurrentTyping(typingwordsRandom[0]);
       }
     }
-    const textWidthIncrease = getTextWidth(
-      currentTyping.word[text ? text.length : 0],
-      "36px monospace"
-    );
-    const textWidthDecrease = getTextWidth(
-      currentTyping.word[text ? text.length - 1 : 0],
-      "36px monospace"
-    );
+    const { cursorPositionIncrease, cursorPositionDecrease } =
+      calculatePositionForCursor(currentTyping, text, "36px");
     if (
       text.length < currentTyping.word.length &&
       e.key.length === 1 &&
@@ -42,10 +37,10 @@ export function onlyHandleOnKeyDown(
       e.key !== " "
     ) {
       e.key !== "Backspace" &&
-        setCursorPosition(cursorPosition + textWidthIncrease);
+        setCursorPosition(cursorPosition + cursorPositionIncrease);
     }
     if (e.key === "Backspace" && text.length > 0)
-      setCursorPosition(cursorPosition - textWidthDecrease);
+      setCursorPosition(cursorPosition - cursorPositionDecrease);
   };
 
   return { handleOnKeyDown };
