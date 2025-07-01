@@ -5,6 +5,7 @@ import { TypingItem } from "./TypingItem";
 import { useScrollToEnd } from "@/hooks/useScrollToEnd";
 import InputValidation from "@/components/input/InputValidation";
 import { useLayoutStates } from "@/contexts/layoutStates";
+import { handYellowIcon } from "@/components/icons/string-icons/handYellowIcon";
 
 export const Form = ({
   word,
@@ -34,7 +35,7 @@ export const Form = ({
       <div className="flex-1 flex flex-col gap-1">
         <div className="flex flex-col items-center gap-1">
           <InputValidation
-            errText="👋 List name is required"
+            errText={`${handYellowIcon()} List name is required`}
             placeholder="Typing your list name..."
             value={listName}
             defaultValue={fileName.replace(/\.[^/.]+$/, "")}
@@ -46,7 +47,7 @@ export const Form = ({
           ></InputValidation>
         </div>
         <InputValidation
-          errText="👋 Word name is required"
+          errText={`${handYellowIcon()} Word name is required`}
           placeholder="word name..."
           value={word}
           setValue={setWord}
@@ -55,7 +56,7 @@ export const Form = ({
           inputClass="text-typingColorActive"
         ></InputValidation>
         <InputValidation
-          errText="👋 Meaning is required"
+          errText={`${handYellowIcon()} Meaning is required`}
           placeholder="meaning of word..."
           value={meaning}
           setValue={setMeaning}
