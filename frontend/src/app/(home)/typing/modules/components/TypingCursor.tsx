@@ -1,5 +1,5 @@
-import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
+import LineCursor from "./cursor/LineCursor";
 
 type TypingCursorProps = {
   value: string;
@@ -16,18 +16,14 @@ const TypingCursor = ({
   onKeyDown,
   cursorPosition,
 }: TypingCursorProps) => {
-  const { cursorIsTyping } = useTyping();
   return (
-    <input
+    <LineCursor
       value={value}
-      className={`absolute top-0 bottom-0 w-[2px] rounded h-full bg-typingColorActive text-transparent opacity-0 focus:opacity-100  transition-all ${
-        cursorIsTyping ? "" : "focus:animate-careFlashSmooth"
-      }`}
       id={id}
       onChange={onChange}
-      style={{ left: cursorPosition }}
+      cursorPosition={cursorPosition}
       onKeyDown={onKeyDown}
-    />
+    ></LineCursor>
   );
 };
 
