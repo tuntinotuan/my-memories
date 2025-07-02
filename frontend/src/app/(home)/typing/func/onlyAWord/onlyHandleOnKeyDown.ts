@@ -1,5 +1,4 @@
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { getTextWidth } from "@/utils/stringFs";
 import { calculatePositionForCursor } from "../word/calculatePositionForCursor";
 
 export function onlyHandleOnKeyDown(

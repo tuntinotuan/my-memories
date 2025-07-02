@@ -1,4 +1,3 @@
-import { getTextWidth } from "@/utils/stringFs";
 import TypingMeaning from "../components/TypingMeaning";
 import TypingWord from "../components/TypingWord";
 import TypingOverlayBlur from "./typing.overlay.blur";
@@ -12,8 +11,8 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
   const [cursorPosition, setCursorPosition] = useState<number>(0);
 
   const typingwordsRandom: typingWordsTypes[] = shuffleArray(data, "short");
-
   const [currentTyping, setCurrentTyping] = useState(typingwordsRandom[0]);
+
   const refCountIndexArray = useRef(1);
   const refNextWord = useRef(0);
 
