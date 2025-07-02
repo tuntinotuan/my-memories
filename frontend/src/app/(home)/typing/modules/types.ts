@@ -11,3 +11,5 @@ export type ListBtnTypes = {
   tooltipText?: string;
 }[];
 export type TypeOfTypingManyWordProps = "time" | "words";
+
+export type CursorStyles = "line" | "underline" | "box" | "block";

@@ -1,5 +1,7 @@
 import React from "react";
 import LineCursor from "./cursor/LineCursor";
+import { CursorStyles } from "../types";
+import BoxCursor from "./cursor/BoxCursor";
 
 type TypingCursorProps = {
   value: string;
@@ -7,6 +9,7 @@ type TypingCursorProps = {
   onChange: (e: any) => void;
   onKeyDown: (e: any) => void;
   cursorPosition: number;
+  styles?: CursorStyles;
 };
 
 const TypingCursor = ({
@@ -15,15 +18,21 @@ const TypingCursor = ({
   onChange,
   onKeyDown,
   cursorPosition,
+  styles = "line",
 }: TypingCursorProps) => {
   return (
-    <LineCursor
-      value={value}
-      id={id}
-      onChange={onChange}
-      cursorPosition={cursorPosition}
-      onKeyDown={onKeyDown}
-    ></LineCursor>
+    <>
+      {styles === "line" && (
+        <LineCursor
+          value={value}
+          id={id}
+          onChange={onChange}
+          cursorPosition={cursorPosition}
+          onKeyDown={onKeyDown}
+        ></LineCursor>
+      )}
+      {styles === "box" && <BoxCursor></BoxCursor>}
+    </>
   );
 };
 
