@@ -13,6 +13,14 @@ export function onlyHandleOnKeyDown(
   refNextWord: any
 ) {
   const handleOnKeyDown = (e: any) => {
+    // if (currentTyping.word.length <= text.length + 1) {
+    //   setCurrentTyping(typingwordsRandom[0]);
+    //   setCursorPosition(0);
+    //   setText("");
+    //   refCountIndexArray.current = refCountIndexArray.current + 1;
+    //   return;
+    // }
+
     if (e.key === " " && text.length >= currentTyping.word.length) {
       setCurrentTyping(typingwordsRandom[refCountIndexArray.current]);
       setCursorPosition(0);
