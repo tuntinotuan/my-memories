@@ -10,6 +10,7 @@ type TypingCursorProps = {
   onKeyDown: (e: any) => void;
   cursorPosition: number;
   styles?: CursorStyles;
+  cursorWidth: any;
 };
 
 const TypingCursor = ({
@@ -19,6 +20,7 @@ const TypingCursor = ({
   onKeyDown,
   cursorPosition,
   styles = "line",
+  cursorWidth,
 }: TypingCursorProps) => {
   return (
     <>
@@ -38,6 +40,7 @@ const TypingCursor = ({
           onChange={onChange}
           cursorPosition={cursorPosition}
           onKeyDown={onKeyDown}
+          cursorWidth={cursorWidth}
         ></BoxCursor>
       )}
     </>

@@ -1,10 +1,11 @@
 import TypingMeaning from "../components/TypingMeaning";
 import TypingWord from "../components/TypingWord";
 import TypingOverlayBlur from "./typing.overlay.blur";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { shuffleArray } from "@/api/card/utils/f";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { onlyHandleOnKeyDown } from "../../func/onlyAWord/onlyHandleOnKeyDown";
+import { getTextWidth } from "@/utils/stringFs";
 
 export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
   const [text, setText] = useState<string>("");
@@ -15,6 +16,17 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
 
   const refCountIndexArray = useRef(1);
   const refNextWord = useRef(0);
+
+  const [cursorWidth, setCursorWidth] = useState(0);
+
+  useEffect(() => {
+    const newWidth = getTextWidth(
+      currentTyping.word[text ? text.length : 0],
+      `36px monospace`
+    );
+    setCursorWidth(newWidth);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text]);
 
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
@@ -40,6 +52,7 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
           onChange={handleChangeInput}
           onKeyDown={handleOnKeyDown}
           cursorPosition={cursorPosition}
+          cursorWidth={cursorWidth}
         ></TypingWord>
       </label>
       <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
