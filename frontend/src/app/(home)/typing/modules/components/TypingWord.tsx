@@ -72,6 +72,7 @@ const TypingWord = ({
           onChange={onChange}
           onKeyDown={onKeyDown}
           cursorPosition={cursorPosition}
+          styles="box"
         />
       )}
 

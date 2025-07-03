@@ -31,7 +31,15 @@ const TypingCursor = ({
           onKeyDown={onKeyDown}
         ></LineCursor>
       )}
-      {styles === "box" && <BoxCursor></BoxCursor>}
+      {styles === "box" && (
+        <BoxCursor
+          value={value}
+          id={id}
+          onChange={onChange}
+          cursorPosition={cursorPosition}
+          onKeyDown={onKeyDown}
+        ></BoxCursor>
+      )}
     </>
   );
 };
