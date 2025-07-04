@@ -12,7 +12,6 @@ type TypingWordProps = {
   next?: number;
   wordIndex?: number;
   textSize?: string;
-  // cursorWidth: any;
   fontSize?: string;
 };
 
@@ -26,8 +25,7 @@ const TypingWord = ({
   onKeyDown,
   cursorPosition,
   fontSize,
-}: // cursorWidth,
-TypingWordProps) => {
+}: TypingWordProps) => {
   const cursorId: string = "typingCursorId";
   const [newText, setNewText] = useState<string>(text);
   const { wordAmount } = useTyping();

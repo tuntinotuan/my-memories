@@ -1,7 +1,8 @@
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { calculatePositionForCursor } from "../word/calculatePositionForCursor";
+import { useTyping } from "@/contexts/TypingStates";
 
-export function onlyHandleOnKeyDown(
+export function useOnlyHandleOnKeyDown(
   text: string,
   setText: any,
   currentTyping: any,
@@ -12,6 +13,7 @@ export function onlyHandleOnKeyDown(
   refCountIndexArray: any,
   refNextWord: any
 ) {
+  const { setCursorIsTyping } = useTyping();
   const handleOnKeyDown = (e: any) => {
     // if (currentTyping.word.length <= text.length + 1) {
     //   setCurrentTyping(typingwordsRandom[0]);
@@ -20,6 +22,8 @@ export function onlyHandleOnKeyDown(
     //   refCountIndexArray.current = refCountIndexArray.current + 1;
     //   return;
     // }
+
+    setCursorIsTyping(true);
 
     if (e.key === " " && text.length >= currentTyping.word.length) {
       setCurrentTyping(typingwordsRandom[refCountIndexArray.current]);
