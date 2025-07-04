@@ -1,5 +1,5 @@
 import TypingWord from "../components/TypingWord";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -10,6 +10,7 @@ import { useCursorMoveNextWord } from "../../func/word/cursorMoveNextWord";
 import { useResetAfterWordOrTimeSettingChange } from "../../func/word/resetAfterWordOrTimeSettingChange";
 import { TypeOfTypingManyWordProps } from "../types";
 import { useKeyDown } from "../../func/word/handleOnKeyDown";
+import { getTextWidth } from "@/utils/stringFs";
 
 type TypingManyWordsProps = {
   types: TypeOfTypingManyWordProps;
@@ -94,6 +95,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
               onKeyDown={handleOnKeyDown}
               cursorPosition={cursorPosition}
               textSize="text-2xl"
+              fontSize='24px'
             ></TypingWord>
           ))}
         </label>

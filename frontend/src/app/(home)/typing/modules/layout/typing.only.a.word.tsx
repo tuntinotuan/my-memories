@@ -17,16 +17,16 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
   const refCountIndexArray = useRef(1);
   const refNextWord = useRef(0);
 
-  const [cursorWidth, setCursorWidth] = useState(0);
+  // const [cursorWidth, setCursorWidth] = useState(0);
 
-  useEffect(() => {
-    const newWidth = getTextWidth(
-      currentTyping.word[text ? text.length : 0],
-      `36px monospace`
-    );
-    setCursorWidth(newWidth);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text]);
+  // useEffect(() => {
+  //   const newWidth = getTextWidth(
+  //     currentTyping.word[text ? text.length : 0],
+  //     `36px monospace`
+  //   );
+  //   setCursorWidth(newWidth);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [text]);
 
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
@@ -52,7 +52,8 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
           onChange={handleChangeInput}
           onKeyDown={handleOnKeyDown}
           cursorPosition={cursorPosition}
-          cursorWidth={cursorWidth}
+          fontSize="36px"
+          // cursorWidth={cursorWidth}
         ></TypingWord>
       </label>
       <TypingMeaning>{currentTyping.meaning}</TypingMeaning>

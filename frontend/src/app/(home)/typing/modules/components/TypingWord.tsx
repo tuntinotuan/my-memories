@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TypingCursor from "./TypingCursor";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
+import { getTextWidth } from "@/utils/stringFs";
 type TypingWordProps = {
   currentTyping: typingWordsTypes;
   text: string;
@@ -11,8 +12,10 @@ type TypingWordProps = {
   next?: number;
   wordIndex?: number;
   textSize?: string;
-  cursorWidth: any;
+  // cursorWidth: any;
+  fontSize?: string;
 };
+
 const TypingWord = ({
   next,
   textSize,
@@ -22,11 +25,14 @@ const TypingWord = ({
   onChange,
   onKeyDown,
   cursorPosition,
-  cursorWidth,
-}: TypingWordProps) => {
+  fontSize,
+}: // cursorWidth,
+TypingWordProps) => {
   const cursorId: string = "typingCursorId";
   const [newText, setNewText] = useState<string>(text);
   const { wordAmount } = useTyping();
+  const [cursorWidth, setCursorWidth] = useState(0);
+
   useEffect(() => {
     setNewText("");
   }, [wordAmount]);
@@ -34,6 +40,17 @@ const TypingWord = ({
     if (next === wordIndex) {
       setNewText(text);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text]);
+
+  useEffect(() => {
+    const newWidth = getTextWidth(
+      currentTyping.word[text ? text.length : 0],
+      `${fontSize} monospace`
+    );
+    text.length >= currentTyping.word.length
+      ? setCursorWidth(18)
+      : setCursorWidth(newWidth);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
