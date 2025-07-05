@@ -9,7 +9,13 @@ type PopupTypingSettingProps = {
 
 const PopupTypingSetting = ({ show, onClose }: PopupTypingSettingProps) => {
   return (
-    <PopupOverlay show={show} selector="myportal" width={700} onClick={onClose}>
+    <PopupOverlay
+      show={show}
+      selector="myportal"
+      width={700}
+      onClick={onClose}
+      className="bg-typingBg text-typingTextCorrect"
+    >
       <TopControl onClose={onClose} title="Typing setting" />
       <Body onClose={onClose} />
     </PopupOverlay>
