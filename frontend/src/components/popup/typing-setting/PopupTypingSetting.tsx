@@ -18,9 +18,9 @@ const PopupTypingSetting = ({ show, onClose }: PopupTypingSettingProps) => {
 
 const Body = ({ onClose }: any) => {
   return (
-    <div className="w-full">
+    <>
       <TextAppearance></TextAppearance>
-    </div>
+    </>
   );
 };
 

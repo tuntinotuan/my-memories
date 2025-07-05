@@ -6,6 +6,8 @@ import HomeSidebarForTyping from "@/components/layout/home/home.sidebar.for.typi
 import { TypingProvider, useTyping } from "@/contexts/TypingStates";
 import TypingCapsLockBtn from "./modules/components/TypingCapsLockBtn";
 import TypingFullScreenBtn from "./modules/components/TypingFullScreenBtn";
+import PopupTypingSetting from "@/components/popup/typing-setting/PopupTypingSetting";
+import { useLayoutStates } from "@/contexts/layoutStates";
 
 export default function TypingLayout({
   children,
@@ -21,6 +23,7 @@ export default function TypingLayout({
 
 const BodyLocal = ({ children }: { children: React.ReactNode }) => {
   const { typingFullScreen } = useTyping();
+  const { showTypingSetting, setShowTypingSetting } = useLayoutStates();
   return (
     <>
       <HomeMenuSidebar />
@@ -29,6 +32,10 @@ const BodyLocal = ({ children }: { children: React.ReactNode }) => {
         <HomeContentCover
           className={`${typingFullScreen ? "!fixed inset-0 h-screen" : ""}`}
         >
+          <PopupTypingSetting
+            show={showTypingSetting}
+            onClose={() => setShowTypingSetting(false)}
+          ></PopupTypingSetting>
           <TypingCapsLockBtn />
           <TypingFullScreenBtn />
           {children}
