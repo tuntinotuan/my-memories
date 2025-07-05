@@ -7,6 +7,8 @@ type LayoutStatesType = {
   showHomeSidebar: boolean;
   pageBoardSidebar: PageBoardSidebarType;
   resetAllInputRequired: boolean;
+  showTypingSetting: boolean;
+  setShowTypingSetting: (val: boolean) => void;
   setResetAllInputRequired: (val: boolean) => void;
   handleShowMenuboard: () => void;
   handleShowHomeSidebar: () => void;
@@ -18,6 +20,8 @@ const layoutStatesDefaultValues: LayoutStatesType = {
   showHomeSidebar: true,
   pageBoardSidebar: "menu",
   resetAllInputRequired: false,
+  showTypingSetting: false,
+  setShowTypingSetting: () => {},
   setResetAllInputRequired: () => {},
   handleShowMenuboard: () => {},
   handleShowHomeSidebar: () => {},
@@ -29,6 +33,7 @@ const LayoutStates = createContext(layoutStatesDefaultValues);
 export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const [showMenuboard, setShowMenuboard] = useState(false);
   const [showHomeSidebar, setShowHomeSidebar] = useState(true);
+  const [showTypingSetting, setShowTypingSetting] = useState(false);
   const [resetAllInputRequired, setResetAllInputRequired] = useState(false);
   const [pageBoardSidebar, setPageBoardSidebar] =
     useState<PageBoardSidebarType>("menu");
@@ -45,6 +50,8 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
         showMenuboard,
         showHomeSidebar,
         resetAllInputRequired,
+        showTypingSetting,
+        setShowTypingSetting,
         setResetAllInputRequired,
         handleShowHomeSidebar,
         handleShowMenuboard,

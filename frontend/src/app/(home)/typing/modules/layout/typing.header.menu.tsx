@@ -11,9 +11,12 @@ import { WordAmount } from "../components/header/WordAmount";
 import { WordTime } from "../components/header/WordTime";
 import { ListBtnTypingStyles } from "../components/header/ListBtnTypingStyles";
 import { BtnChangeTheme } from "../components/header/BtnChangeTheme";
+import SettingIcon from "@/components/icons/SettingIcon";
+import { useLayoutStates } from "@/contexts/layoutStates";
 
 export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
   const { typingStyles, showPopupCreate, setShowPopupCreate } = useTyping();
+  const { setShowTypingSetting } = useLayoutStates();
   return (
     <div className="flex items-center flex-wrap gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-2 z-20">
       <PopupCreateTypingList
@@ -51,6 +54,11 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
       )}
       <SplitElement />
       <BtnChangeTheme />
+      <SplitElement />
+      <SettingIcon
+        fontSize="small"
+        onClick={() => setShowTypingSetting(true)}
+      />
       <PopupTypingTheme changeFor={changeFor}></PopupTypingTheme>
     </div>
   );

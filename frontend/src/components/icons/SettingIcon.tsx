@@ -4,6 +4,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 type SettingIconProps = {
   className?: string;
   fontSize?: "small" | "inherit" | "large" | "medium";
+  onClick?: () => void;
 };
 
 const SettingIcon = ({
