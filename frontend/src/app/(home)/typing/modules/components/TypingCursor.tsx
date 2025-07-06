@@ -2,7 +2,6 @@ import React from "react";
 import LineCursor from "./cursor/LineCursor";
 import { CursorStyles } from "../types";
 import BoxCursor from "./cursor/BoxCursor";
-import UnderlineCursor from "./cursor/UnderlineCursor";
 
 type TypingCursorProps = {
   value: string;
@@ -44,7 +43,7 @@ const TypingCursor = ({
           cursorWidth={cursorWidth}
         ></BoxCursor>
       )}
-      {styles === "underline" && (
+      {/* {styles === "underline" && (
         <UnderlineCursor
           value={value}
           id={id}
@@ -53,7 +52,7 @@ const TypingCursor = ({
           onKeyDown={onKeyDown}
           cursorWidth={cursorWidth}
         ></UnderlineCursor>
-      )}
+      )} */}
     </>
   );
 };

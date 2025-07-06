@@ -3,33 +3,21 @@ import { CursorStyles } from "../types";
 import UnderlineCursor from "./cursor/UnderlineCursor";
 
 type TypingCursorNewProps = {
-  value: string;
-  id: string;
-  onChange: (e: any) => void;
-  onKeyDown: (e: any) => void;
-  cursorPosition: number;
   styles?: CursorStyles;
-  cursorWidth: any;
+  cursorWidth: number;
+  cursorPosition: number;
 };
 
 const TypingCursorNew = ({
-  value,
-  id,
-  onChange,
-  onKeyDown,
-  cursorPosition,
   styles = "underline",
   cursorWidth,
+  cursorPosition,
 }: TypingCursorNewProps) => {
   return (
     <>
       {styles === "underline" && (
         <UnderlineCursor
-          value={value}
-          id={id}
-          onChange={onChange}
           cursorPosition={cursorPosition}
-          onKeyDown={onKeyDown}
           cursorWidth={cursorWidth}
         ></UnderlineCursor>
       )}

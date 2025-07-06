@@ -1,8 +1,8 @@
 import TextBoxBorderOverlay from "@/components/overlay/text.box.border.overlay";
 import React from "react";
-import TypingCursor from "../TypingCursor";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import TypingWordNew from "../TypingWordNew";
+import TypingCursorNew from "../TypingCursorNew";
 
 const TextAppearance = () => {
   const wordList: typingWordsTypes[] = [
@@ -46,14 +46,10 @@ const TextAppearance = () => {
         <div className="flex ">
           Cursor shape:{" "}
           <div className="relative">
-            <TypingCursor
-              value={"a"}
-              id={""}
-              onChange={() => {}}
-              onKeyDown={() => {}}
+            <TypingCursorNew
               cursorPosition={0}
               cursorWidth={20}
-            ></TypingCursor>
+            ></TypingCursorNew>
           </div>
         </div>
       </div>
