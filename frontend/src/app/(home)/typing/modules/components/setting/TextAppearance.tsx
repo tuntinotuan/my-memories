@@ -3,6 +3,7 @@ import React from "react";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import TypingWordNew from "../TypingWordNew";
 import TypingCursorNew from "../TypingCursorNew";
+import RelativeOverlay from "@/components/overlay/relative.overlay";
 
 const TextAppearance = () => {
   const wordList: typingWordsTypes[] = [
@@ -43,14 +44,26 @@ const TextAppearance = () => {
         ))}
       </div>
       <div>
-        <div className="flex ">
+        <div className="flex gap-4">
           Cursor shape:{" "}
-          <div className="relative">
+          <RelativeOverlay>
             <TypingCursorNew
               cursorPosition={0}
-              cursorWidth={20}
+              cursorWidth={16}
             ></TypingCursorNew>
-          </div>
+          </RelativeOverlay>
+          <RelativeOverlay>
+            <TypingCursorNew
+              cursorPosition={0}
+              cursorWidth={16}
+            ></TypingCursorNew>
+          </RelativeOverlay>
+          <RelativeOverlay>
+            <TypingCursorNew
+              cursorPosition={0}
+              cursorWidth={16}
+            ></TypingCursorNew>
+          </RelativeOverlay>
         </div>
       </div>
     </TextBoxBorderOverlay>
