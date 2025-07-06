@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TypingCursor from "./TypingCursor";
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { useTyping } from "@/contexts/TypingStates";
 type TypingWordNewProps = {
   currentTyping: typingWordsTypes;
   text: string;
@@ -20,12 +18,7 @@ const TypingWordNew = ({
   fontSize,
 }: TypingWordNewProps) => {
   const [newText, setNewText] = useState<string>(text);
-  const { wordAmount } = useTyping();
-  // const [cursorWidth, setCursorWidth] = useState(0);
 
-  useEffect(() => {
-    setNewText("");
-  }, [wordAmount]);
   useEffect(() => {
     if (next === wordIndex) {
       setNewText(text);
@@ -37,10 +30,6 @@ const TypingWordNew = ({
     <div
       className={`flex items-center text-typingTextNormal cursor-default select-none ${
         textSize ? textSize : "text-4xl"
-      } ${
-        next !== wordIndex && currentTyping.word !== newText && newText !== ""
-          ? "underline decoration-typingTextWrong"
-          : ""
       }`}
     >
       {currentTyping.word.split("").map((item: string, index: number) => (
