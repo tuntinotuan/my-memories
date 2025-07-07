@@ -3,13 +3,13 @@ import { typingWordsTypes } from "@/api/typing/typing.type";
 type TypingWordNewProps = {
   currentTyping: typingWordsTypes;
   text: string;
-  next?: number;
+  typingWordIndex?: number;
   wordIndex?: number;
   textSize?: string;
 };
 
 const TypingWordNew = ({
-  next,
+  typingWordIndex,
   textSize,
   wordIndex,
   currentTyping,
@@ -18,7 +18,7 @@ const TypingWordNew = ({
   const [newText, setNewText] = useState<string>(text);
 
   useEffect(() => {
-    if (next === wordIndex) {
+    if (typingWordIndex === wordIndex) {
       setNewText(text);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,6 +28,12 @@ const TypingWordNew = ({
     <div
       className={`flex items-center text-typingTextNormal cursor-default select-none ${
         textSize ? textSize : "text-4xl"
+      } ${
+        typingWordIndex !== wordIndex &&
+        currentTyping.word.toLocaleLowerCase() !== newText &&
+        newText !== ""
+          ? "underline decoration-typingTextWrong"
+          : ""
       }`}
     >
       {currentTyping.word.split("").map((item: string, index: number) => (

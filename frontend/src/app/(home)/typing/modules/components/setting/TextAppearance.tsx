@@ -30,11 +30,19 @@ const TextAppearance = () => {
     },
   ];
   const [value, setValue] = useState("");
+  const [typingWordIndex, setTypingWordIndex] = useState(0);
+  const [preTypedWord, setPreTypedWord] = useState("");
+
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
     setValue(e.target.value);
   };
   const handleOnKeyDown = (e: any) => {
+    if (value.length > 0 && e.key === " ") {
+      setPreTypedWord(value);
+      setTypingWordIndex((pre) => pre + 1);
+      setValue("");
+    }
     if (
       e.key.length === 1 &&
       !e.ctrlKey &&
@@ -52,12 +60,13 @@ const TextAppearance = () => {
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
       ></TypingKeyboardInput>
+      {preTypedWord}
       <div className="flex flex-wrap justify-center gap-4 transition-all">
         <TypingCursorNew cursorPosition={0} cursorWidth={16}></TypingCursorNew>
         {wordList.map((word, index) => (
           <TypingWordNew
             key={index}
-            next={0}
+            typingWordIndex={typingWordIndex}
             wordIndex={index}
             currentTyping={word}
             text={value}
