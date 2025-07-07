@@ -1,9 +1,10 @@
 import TextBoxBorderOverlay from "@/components/overlay/text.box.border.overlay";
-import React from "react";
+import React, { useState } from "react";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import TypingWordNew from "../TypingWordNew";
 import TypingCursorNew from "../TypingCursorNew";
 import RelativeOverlay from "@/components/overlay/relative.overlay";
+import TypingKeyboardInput from "../TypingKeyboard";
 
 const TextAppearance = () => {
   const wordList: typingWordsTypes[] = [
@@ -28,24 +29,45 @@ const TextAppearance = () => {
       meaning: "",
     },
   ];
+  const [value, setValue] = useState("");
+  const handleOnChange = (e: any) => {
+    if (e.target.value === " ") return;
+    setValue(e.target.value);
+  };
+  const handleOnKeyDown = (e: any) => {
+    if (
+      e.key.length === 1 &&
+      !e.ctrlKey &&
+      !e.metaKey &&
+      !e.altKey &&
+      e.key !== " "
+    ) {
+    }
+  };
+
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
+      <TypingKeyboardInput
+        value={value}
+        handleOnKeyDown={handleOnKeyDown}
+        handleOnChange={handleOnChange}
+      ></TypingKeyboardInput>
       <div className="flex flex-wrap justify-center gap-4 transition-all">
+        <TypingCursorNew cursorPosition={0} cursorWidth={16}></TypingCursorNew>
         {wordList.map((word, index) => (
           <TypingWordNew
             key={index}
-            next={1}
+            next={0}
             wordIndex={index}
             currentTyping={word}
-            text={""}
+            text={value}
             textSize="text-2xl"
-            fontSize="24px"
           ></TypingWordNew>
         ))}
       </div>
       <div>
-        <div className="flex gap-4">
-          Cursor shape:{" "}
+        <div className="flex gap-10">
+          Cursor shape:
           <RelativeOverlay>
             <TypingCursorNew
               cursorPosition={0}

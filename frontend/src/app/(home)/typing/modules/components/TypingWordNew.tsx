@@ -6,7 +6,6 @@ type TypingWordNewProps = {
   next?: number;
   wordIndex?: number;
   textSize?: string;
-  fontSize?: string;
 };
 
 const TypingWordNew = ({
@@ -15,7 +14,6 @@ const TypingWordNew = ({
   wordIndex,
   currentTyping,
   text,
-  fontSize,
 }: TypingWordNewProps) => {
   const [newText, setNewText] = useState<string>(text);
 
