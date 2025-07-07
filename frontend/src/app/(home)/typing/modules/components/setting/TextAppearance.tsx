@@ -43,6 +43,16 @@ const TextAppearance = () => {
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
     }
+    if (value.length >= 0 && e.key === "Backspace") {
+      if (!value && preTypedWord !== wordList[typingWordIndex - 1].word) {
+        setValue(preTypedWord + preTypedWord.at(-1));
+        setTypingWordIndex((pre) => pre - 1);
+        setPreTypedWord(
+          typingWordIndex > 1 ? wordList[typingWordIndex - 2].word : ""
+        );
+      } else {
+      }
+    }
     if (
       e.key.length === 1 &&
       !e.ctrlKey &&
@@ -60,7 +70,8 @@ const TextAppearance = () => {
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
       ></TypingKeyboardInput>
-      {preTypedWord}
+      {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
+      {typingWordIndex} {preTypedWord}
       <div className="flex flex-wrap justify-center gap-4 transition-all">
         <TypingCursorNew cursorPosition={0} cursorWidth={16}></TypingCursorNew>
         {wordList.map((word, index) => (

@@ -30,7 +30,7 @@ const TypingWordNew = ({
         textSize ? textSize : "text-4xl"
       } ${
         typingWordIndex !== wordIndex &&
-        currentTyping.word.toLocaleLowerCase() !== newText &&
+        currentTyping.word !== newText &&
         newText !== ""
           ? "underline decoration-typingTextWrong"
           : ""
