@@ -1,5 +1,5 @@
 import TextBoxBorderOverlay from "@/components/overlay/text.box.border.overlay";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import TypingWordNew from "../TypingWordNew";
 import TypingCursorNew from "../TypingCursorNew";
@@ -31,12 +31,31 @@ const TextAppearance = () => {
   ];
   const [value, setValue] = useState("");
   const [typingWordIndex, setTypingWordIndex] = useState(0);
+  const [number, setnumber] = useState(0);
   const [preTypedWord, setPreTypedWord] = useState("");
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
     setValue(e.target.value);
   };
+  const fullText = "I love you so much".split("");
+  useEffect(() => {
+    if (number >= fullText.length) return;
+    // for (let i = 0; i < fullText.length; i++) {
+    const timeout = setTimeout(() => {
+      if (fullText[number] !== " ") {
+        setValue((pre) => pre + fullText[number]);
+      } else {
+        setPreTypedWord(value);
+        setTypingWordIndex((pre) => pre + 1);
+        setValue("");
+      }
+      setnumber((pre) => pre + 1);
+      console.log("setTimeout running", number);
+    }, 1000); // Typing speed in ms
+    return () => clearTimeout(timeout);
+    // }
+  }, [number]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
@@ -70,8 +89,8 @@ const TextAppearance = () => {
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
       ></TypingKeyboardInput>
-      {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
-      {typingWordIndex} {preTypedWord}
+      {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
+      {typingWordIndex} {preTypedWord} */}
       <div className="flex flex-wrap justify-center gap-4 transition-all">
         <TypingCursorNew cursorPosition={0} cursorWidth={16}></TypingCursorNew>
         {wordList.map((word, index) => (

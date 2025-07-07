@@ -33,7 +33,7 @@ const BodyLocal = ({ children }: { children: React.ReactNode }) => {
           className={`${typingFullScreen ? "!fixed inset-0 h-screen" : ""}`}
         >
           <PopupTypingSetting
-            show={true}
+            show={showTypingSetting}
             onClose={() => setShowTypingSetting(false)}
           ></PopupTypingSetting>
           <TypingCapsLockBtn />
