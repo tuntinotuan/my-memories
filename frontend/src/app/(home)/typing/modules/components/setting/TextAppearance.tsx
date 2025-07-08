@@ -33,6 +33,7 @@ const TextAppearance = () => {
   const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [number, setnumber] = useState(0);
   const [preTypedWord, setPreTypedWord] = useState("");
+  const [resetComponents, setResetComponents] = useState(true);
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
@@ -40,8 +41,13 @@ const TextAppearance = () => {
   };
   const fullText = "I love you so much".split("");
   useEffect(() => {
-    if (number >= fullText.length) return;
-    // for (let i = 0; i < fullText.length; i++) {
+    if (number >= fullText.length) {
+      handleResetWordComponents();
+      setnumber(0);
+      setTypingWordIndex(0);
+      setValue("");
+      return;
+    }
     const timeout = setTimeout(() => {
       if (fullText[number] !== " ") {
         setValue((pre) => pre + fullText[number]);
@@ -51,10 +57,9 @@ const TextAppearance = () => {
         setValue("");
       }
       setnumber((pre) => pre + 1);
-      console.log("setTimeout running", number);
-    }, 1000); // Typing speed in ms
+    }, 800); // Typing speed in ms
     return () => clearTimeout(timeout);
-    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [number]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
@@ -82,6 +87,13 @@ const TextAppearance = () => {
     }
   };
 
+  const handleResetWordComponents = () => {
+    setResetComponents(false);
+    setTimeout(() => {
+      setResetComponents(true);
+    }, 1);
+  };
+
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
       <TypingKeyboardInput
@@ -93,16 +105,26 @@ const TextAppearance = () => {
       {typingWordIndex} {preTypedWord} */}
       <div className="flex flex-wrap justify-center gap-4 transition-all">
         <TypingCursorNew cursorPosition={0} cursorWidth={16}></TypingCursorNew>
-        {wordList.map((word, index) => (
+        {resetComponents &&
+          wordList.map((word, index) => (
+            <TypingWordNew
+              key={index}
+              typingWordIndex={typingWordIndex}
+              wordIndex={index}
+              currentTyping={word}
+              text={value}
+              textSize="text-2xl"
+            ></TypingWordNew>
+          ))}
+        {!resetComponents && (
           <TypingWordNew
-            key={index}
             typingWordIndex={typingWordIndex}
-            wordIndex={index}
-            currentTyping={word}
+            wordIndex={0}
+            currentTyping={{ word: "a", meaning: "" }}
             text={value}
             textSize="text-2xl"
           ></TypingWordNew>
-        ))}
+        )}
       </div>
       <div>
         <div className="flex gap-10">
