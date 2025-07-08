@@ -5,6 +5,7 @@ import TypingWordNew from "../TypingWordNew";
 import TypingCursorNew from "../TypingCursorNew";
 import RelativeOverlay from "@/components/overlay/relative.overlay";
 import TypingKeyboardInput from "../TypingKeyboard";
+import { calculatePositionForCursor } from "../../../func/word/calculatePositionForCursor";
 
 const TextAppearance = () => {
   const wordList: typingWordsTypes[] = [
@@ -34,33 +35,34 @@ const TextAppearance = () => {
   const [number, setnumber] = useState(0);
   const [preTypedWord, setPreTypedWord] = useState("");
   const [resetComponents, setResetComponents] = useState(true);
+  const [cursorPosition, setCursorPosition] = useState(0);
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
     setValue(e.target.value);
   };
   const fullText = "I love you so much".split("");
-  useEffect(() => {
-    if (number >= fullText.length) {
-      handleResetWordComponents();
-      setnumber(0);
-      setTypingWordIndex(0);
-      setValue("");
-      return;
-    }
-    const timeout = setTimeout(() => {
-      if (fullText[number] !== " ") {
-        setValue((pre) => pre + fullText[number]);
-      } else {
-        setPreTypedWord(value);
-        setTypingWordIndex((pre) => pre + 1);
-        setValue("");
-      }
-      setnumber((pre) => pre + 1);
-    }, 800); // Typing speed in ms
-    return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [number]);
+  // useEffect(() => {
+  //   if (number >= fullText.length) {
+  //     handleResetWordComponents();
+  //     setnumber(0);
+  //     setTypingWordIndex(0);
+  //     setValue("");
+  //     return;
+  //   }
+  //   const timeout = setTimeout(() => {
+  //     if (fullText[number] !== " ") {
+  //       setValue((pre) => pre + fullText[number]);
+  //     } else {
+  //       setPreTypedWord(value);
+  //       setTypingWordIndex((pre) => pre + 1);
+  //       setValue("");
+  //     }
+  //     setnumber((pre) => pre + 1);
+  //   }, 800); // Typing speed in ms
+  //   return () => clearTimeout(timeout);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [number]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
@@ -68,6 +70,7 @@ const TextAppearance = () => {
       setValue("");
     }
     if (value.length >= 0 && e.key === "Backspace") {
+      // Back previous error word
       if (!value && preTypedWord !== wordList[typingWordIndex - 1].word) {
         setValue(preTypedWord + preTypedWord.at(-1));
         setTypingWordIndex((pre) => pre - 1);
@@ -77,6 +80,8 @@ const TextAppearance = () => {
       } else {
       }
     }
+    const { cursorPositionIncrease, cursorPositionDecrease } =
+      calculatePositionForCursor(wordList[typingWordIndex], value, "24px");
     if (
       e.key.length === 1 &&
       !e.ctrlKey &&
@@ -84,11 +89,17 @@ const TextAppearance = () => {
       !e.altKey &&
       e.key !== " "
     ) {
+      e.key !== "Backspace" &&
+        setCursorPosition(cursorPosition + cursorPositionIncrease);
     }
   };
 
   const handleResetWordComponents = () => {
     setResetComponents(false);
+    setValue("");
+    setTypingWordIndex(0);
+    setPreTypedWord("");
+    setCursorPosition(0);
     setTimeout(() => {
       setResetComponents(true);
     }, 1);
@@ -101,10 +112,14 @@ const TextAppearance = () => {
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
       ></TypingKeyboardInput>
+      <button onClick={handleResetWordComponents}>reset text</button>
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
-      <div className="flex flex-wrap justify-center gap-4 transition-all">
-        <TypingCursorNew cursorPosition={0} cursorWidth={16}></TypingCursorNew>
+      <div className="relative flex flex-wrap justify-center gap-4 transition-all">
+        <TypingCursorNew
+          cursorPosition={cursorPosition}
+          cursorWidth={16}
+        ></TypingCursorNew>
         {resetComponents &&
           wordList.map((word, index) => (
             <TypingWordNew
