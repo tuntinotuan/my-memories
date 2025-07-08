@@ -36,6 +36,7 @@ const TextAppearance = () => {
   const [preTypedWord, setPreTypedWord] = useState("");
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
+  const [rect, setRect] = useState<DOMRect>();
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
@@ -104,6 +105,19 @@ const TextAppearance = () => {
       setResetComponents(true);
     }, 1);
   };
+
+  useEffect(() => {
+    const getTypingCurrentWordId = document.getElementById(
+      `wordId${typingWordIndex}`
+    );
+    setRect(getTypingCurrentWordId?.getBoundingClientRect());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typingWordIndex]);
+
+  useEffect(() => {
+    console.log(`rect..... of wordId${typingWordIndex}`, rect);
+    rect && setCursorPosition(rect.left / 2 + 16);
+  }, [typingWordIndex]);
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
