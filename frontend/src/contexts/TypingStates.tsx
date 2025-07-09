@@ -46,6 +46,8 @@ type defaltValuesType = {
   showPopupCreate: boolean;
   currentlyPickedSetting: settingType;
   isCaplock: boolean;
+  rect: DOMRect | null;
+  setRect: (val: DOMRect) => void;
   setIsCaplock: (val: boolean) => void;
   setCurrentlyPickedSetting: ({ id, title, rect }: settingType) => void;
   setShowPopupCreate: (val: boolean) => void;
@@ -80,6 +82,8 @@ const defaultValues: defaltValuesType = {
   currentlyPickedSetting: { id: 0, title: "nothing", theme: "" },
   isCaplock: false,
   typingFullScreen: false,
+  rect: null,
+  setRect: () => {},
   setTypingFullScreen: () => {},
   setIsCaplock: () => {},
   setCurrentlyPickedSetting: () => {},
@@ -124,6 +128,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     useState<settingType>({ id: 0, title: "nothing", theme: "" });
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
+  const [rect, setRect] = useState<DOMRect | null>(null);
   //
   useEffect(() => {
     async function fetchWordListFromLocalStorage() {
@@ -193,6 +198,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         isCaplock,
         typingFullScreen,
         singleTypingList,
+        rect,
+        setRect,
         setSingleTypingList,
         setTypingFullScreen,
         setIsCaplock,

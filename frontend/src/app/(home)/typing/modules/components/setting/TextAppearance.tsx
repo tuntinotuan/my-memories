@@ -6,6 +6,7 @@ import TypingCursorNew from "../TypingCursorNew";
 import RelativeOverlay from "@/components/overlay/relative.overlay";
 import TypingKeyboardInput from "../TypingKeyboard";
 import { calculatePositionForCursor } from "../../../func/word/calculatePositionForCursor";
+import { useTyping } from "@/contexts/TypingStates";
 
 const TextAppearance = () => {
   const wordList: typingWordsTypes[] = [
@@ -36,7 +37,7 @@ const TextAppearance = () => {
   const [preTypedWord, setPreTypedWord] = useState("");
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
-  const [rect, setRect] = useState<DOMRect>();
+  const { rect } = useTyping();
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
@@ -69,6 +70,7 @@ const TextAppearance = () => {
       setPreTypedWord(value);
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
+      // rect && setCursorPosition(rect.left / 2 + 16);
     }
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
@@ -106,18 +108,21 @@ const TextAppearance = () => {
     }, 1);
   };
 
-  useEffect(() => {
-    const getTypingCurrentWordId = document.getElementById(
-      `wordId${typingWordIndex}`
-    );
-    setRect(getTypingCurrentWordId?.getBoundingClientRect());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typingWordIndex]);
+  // useEffect(() => {
+  //   const getTypingCurrentWordId = document.getElementById(
+  //     `wordId${typingWordIndex}`
+  //   );
+  //   setRect(getTypingCurrentWordId?.getBoundingClientRect());
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [typingWordIndex]);
 
-  useEffect(() => {
-    console.log(`rect..... of wordId${typingWordIndex}`, rect);
-    rect && setCursorPosition(rect.left / 2 + 16);
-  }, [typingWordIndex]);
+  // useEffect(() => {
+  //   console.log(`rect..... of wordId${typingWordIndex}`, rect);
+  //   rect && setCursorPosition(rect.left / 2 + 16);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [typingWordIndex]);
+
+  // console.log("rect......", rect);
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
@@ -129,7 +134,7 @@ const TextAppearance = () => {
       <button onClick={handleResetWordComponents}>reset text</button>
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
-      <div className="relative flex flex-wrap justify-center gap-4 transition-all">
+      <div className="relative flex flex-wrap w-max mx-auto gap-4 transition-all">
         <TypingCursorNew
           cursorPosition={cursorPosition}
           cursorWidth={16}
@@ -143,6 +148,7 @@ const TextAppearance = () => {
               currentTyping={word}
               text={value}
               textSize="text-2xl"
+              setCursorPosition={setCursorPosition}
             ></TypingWordNew>
           ))}
         {!resetComponents && (
@@ -152,6 +158,7 @@ const TextAppearance = () => {
             currentTyping={{ word: "a", meaning: "" }}
             text={value}
             textSize="text-2xl"
+            setCursorPosition={setCursorPosition}
           ></TypingWordNew>
         )}
       </div>

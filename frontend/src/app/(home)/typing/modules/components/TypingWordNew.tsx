@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { typingWordsTypes } from "@/api/typing/typing.type";
+import { useTyping } from "@/contexts/TypingStates";
 type TypingWordNewProps = {
   currentTyping: typingWordsTypes;
   text: string;
   typingWordIndex?: number;
   wordIndex?: number;
   textSize?: string;
+  setCursorPosition: any;
 };
 
 const TypingWordNew = ({
@@ -14,18 +16,27 @@ const TypingWordNew = ({
   wordIndex,
   currentTyping,
   text,
+  setCursorPosition,
 }: TypingWordNewProps) => {
   const [newText, setNewText] = useState<string>(text);
   const ref = useRef<HTMLDivElement | null>(null);
-  // const [rect, setRect] = useState<DOMRect>();
+  const { setRect } = useTyping();
   useEffect(() => {
     if (typingWordIndex === wordIndex) {
       setNewText(text);
-      // setRect(ref.current?.getBoundingClientRect());
-      // console.log("rect.....", rect);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, typingWordIndex]);
+  }, [text]);
+
+  // useEffect(() => {
+  //   if (typingWordIndex === wordIndex && ref.current) {
+  //     const newRect = ref.current.getBoundingClientRect();
+  //     setRect(newRect);
+  //     setCursorPosition(newRect.left / 2 + 16);
+  //     console.log("newRect", typingWordIndex, newRect);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [typingWordIndex]);
 
   return (
     <div
