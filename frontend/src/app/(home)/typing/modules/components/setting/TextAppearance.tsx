@@ -37,6 +37,7 @@ const TextAppearance = () => {
   const [preTypedWord, setPreTypedWord] = useState("");
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
+  const [cursorWidth, setCursorWidth] = useState(16);
   const { rect } = useTyping();
 
   const handleOnChange = (e: any) => {
@@ -71,6 +72,7 @@ const TextAppearance = () => {
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
       // rect && setCursorPosition(rect.left / 2 + 16);
+      setCursorPosition(cursorPosition + 16);
     }
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
@@ -94,6 +96,7 @@ const TextAppearance = () => {
     ) {
       e.key !== "Backspace" &&
         setCursorPosition(cursorPosition + cursorPositionIncrease);
+      setCursorWidth(cursorPositionIncrease);
     }
   };
 
@@ -137,7 +140,7 @@ const TextAppearance = () => {
       <div className="relative flex flex-wrap w-max mx-auto gap-4 transition-all">
         <TypingCursorNew
           cursorPosition={cursorPosition}
-          cursorWidth={16}
+          cursorWidth={cursorWidth}
         ></TypingCursorNew>
         {resetComponents &&
           wordList.map((word, index) => (
