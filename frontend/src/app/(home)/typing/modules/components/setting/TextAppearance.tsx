@@ -7,6 +7,7 @@ import RelativeOverlay from "@/components/overlay/relative.overlay";
 import TypingKeyboardInput from "../TypingKeyboard";
 import { calculatePositionForCursor } from "../../../func/word/calculatePositionForCursor";
 import { useTyping } from "@/contexts/TypingStates";
+import { getTextWidth } from "@/utils/stringFs";
 
 const TextAppearance = () => {
   const wordList: typingWordsTypes[] = [
@@ -45,35 +46,44 @@ const TextAppearance = () => {
     setValue(e.target.value);
   };
   const fullText = "I love you so much".split("");
-  // useEffect(() => {
-  //   if (number >= fullText.length) {
-  //     handleResetWordComponents();
-  //     setnumber(0);
-  //     setTypingWordIndex(0);
-  //     setValue("");
-  //     return;
-  //   }
-  //   const timeout = setTimeout(() => {
-  //     if (fullText[number] !== " ") {
-  //       setValue((pre) => pre + fullText[number]);
-  //     } else {
-  //       setPreTypedWord(value);
-  //       setTypingWordIndex((pre) => pre + 1);
-  //       setValue("");
-  //     }
-  //     setnumber((pre) => pre + 1);
-  //   }, 800); // Typing speed in ms
-  //   return () => clearTimeout(timeout);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [number]);
+  useEffect(() => {
+    const cursorPositionIncrease = getTextWidth(
+      fullText[value ? value.length : 0],
+      `24px monospace`
+    );
+    if (number >= fullText.length) {
+      handleResetWordComponents();
+      setnumber(0);
+      setTypingWordIndex(0);
+      setValue("");
+      setCursorWidth(16);
+      setCursorPosition(0);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      if (fullText[number] !== " ") {
+        setValue((pre) => pre + fullText[number]);
+        setCursorPosition((pre) => pre + cursorPositionIncrease);
+      } else {
+        setPreTypedWord(value);
+        setTypingWordIndex((pre) => pre + 1);
+        setValue("");
+        setCursorPosition((pre) => pre + 16);
+      }
+      setnumber((pre) => pre + 1);
+    }, 800); // Typing speed in ms
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [number]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
-      // rect && setCursorPosition(rect.left / 2 + 16);
       setCursorPosition(cursorPosition + 16);
     }
+    const { cursorPositionIncrease, cursorPositionDecrease } =
+      calculatePositionForCursor(wordList[typingWordIndex], value, "24px");
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
       if (!value && preTypedWord !== wordList[typingWordIndex - 1].word) {
@@ -85,8 +95,6 @@ const TextAppearance = () => {
       } else {
       }
     }
-    const { cursorPositionIncrease, cursorPositionDecrease } =
-      calculatePositionForCursor(wordList[typingWordIndex], value, "24px");
     if (
       e.key.length === 1 &&
       !e.ctrlKey &&
@@ -94,9 +102,10 @@ const TextAppearance = () => {
       !e.altKey &&
       e.key !== " "
     ) {
-      e.key !== "Backspace" &&
+      if (e.key !== "Backspace") {
         setCursorPosition(cursorPosition + cursorPositionIncrease);
-      setCursorWidth(cursorPositionIncrease);
+        setCursorWidth(cursorPositionIncrease);
+      }
     }
   };
 
