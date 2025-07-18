@@ -150,6 +150,7 @@ const TextAppearance = () => {
         <TypingCursorNew
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
+          styles="box"
         ></TypingCursorNew>
         {resetComponents &&
           wordList.map((word, index) => (
