@@ -25,6 +25,11 @@ const BoardPhotoFromUnsplash = ({ update }: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValues, page]);
 
+  useEffect(() => {
+    setPage(1);
+    setPhotos([]);
+  }, [searchValues]);
+
   return (
     <div className="h-auto pb-4">
       <div className="bg-white sticky top-0 z-[1] py-2">
