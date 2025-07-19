@@ -2,17 +2,29 @@
 
 📂 Folder Structure:
 my-memories/
+
 ├── frontend/
+
 │ ├── public/
+
 │ ├── src/
+
 │ │ ├── api/
+
 │ │ ├── app/
+
 │ │ ├── components/
+
 │ │ ├── contexts/
+
 │ │ ├── fonts/
+
 │ │ ├── hooks/
+
 │ │ ├── styles/
+
 │ │ ├── utils/
+
 └── README.md
 
 🧰 Technologies:
