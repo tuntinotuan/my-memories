@@ -38,7 +38,7 @@ const TextAppearance = () => {
   const [preTypedWord, setPreTypedWord] = useState("");
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
-  const [cursorWidth, setCursorWidth] = useState(16);
+  const [cursorWidth, setCursorWidth] = useState(14);
   const { rect } = useTyping();
 
   const handleOnChange = (e: any) => {
@@ -46,35 +46,41 @@ const TextAppearance = () => {
     setValue(e.target.value);
   };
   const fullText = "I love you so much".split("");
-  useEffect(() => {
-    const cursorPositionIncrease = getTextWidth(
-      fullText[value ? value.length : 0],
-      `24px monospace`
-    );
-    if (number >= fullText.length) {
-      handleResetWordComponents();
-      setnumber(0);
-      setTypingWordIndex(0);
-      setValue("");
-      setCursorWidth(16);
-      setCursorPosition(0);
-      return;
-    }
-    const timeout = setTimeout(() => {
-      if (fullText[number] !== " ") {
-        setValue((pre) => pre + fullText[number]);
-        setCursorPosition((pre) => pre + cursorPositionIncrease);
-      } else {
-        setPreTypedWord(value);
-        setTypingWordIndex((pre) => pre + 1);
-        setValue("");
-        setCursorPosition((pre) => pre + 16);
-      }
-      setnumber((pre) => pre + 1);
-    }, 800); // Typing speed in ms
-    return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [number]);
+  // useEffect(() => {
+  //   const cursorPositionIncrease = getTextWidth(
+  //     fullText[value ? value.length : 0],
+  //     `24px monospace`
+  //   );
+  //   const cursorNextWidth =
+  //     fullText[typingWordIndex + 1] === " "
+  //       ? 14
+  //       : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
+  //   if (number >= fullText.length) {
+  //     handleResetWordComponents();
+  //     setnumber(0);
+  //     setTypingWordIndex(0);
+  //     setValue("");
+  //     setCursorWidth(16);
+  //     setCursorPosition(0);
+  //     return;
+  //   }
+  //   const timeout = setTimeout(() => {
+  //     if (fullText[number] !== " ") {
+  //       setValue((pre) => pre + fullText[number]);
+  //       setCursorPosition((pre) => pre + cursorNextWidth);
+  //       setCursorWidth(cursorNextWidth);
+  //     } else {
+  //       setPreTypedWord(value);
+  //       setTypingWordIndex((pre) => pre + 1);
+  //       setValue("");
+  //       setCursorPosition((pre) => pre + 16);
+  //       setCursorWidth(cursorNextWidth);
+  //     }
+  //     setnumber((pre) => pre + 1);
+  //   }, 800); // Typing speed in ms
+  //   return () => clearTimeout(timeout);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [number]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);

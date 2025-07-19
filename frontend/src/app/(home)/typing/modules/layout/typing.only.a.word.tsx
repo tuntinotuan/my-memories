@@ -11,7 +11,8 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
   const [cursorPosition, setCursorPosition] = useState<number>(0);
 
   const typingwordsRandom: typingWordsTypes[] = shuffleArray(data, "short");
-  const [currentTyping, setCurrentTyping] = useState(typingwordsRandom[0]);
+  const newData = useRef(typingwordsRandom);
+  const [currentTyping, setCurrentTyping] = useState(newData.current[0]);
 
   const refCountIndexArray = useRef(1);
   const refNextWord = useRef(0);
@@ -27,7 +28,7 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
     setCurrentTyping,
     setCursorPosition,
     cursorPosition,
-    typingwordsRandom,
+    newData.current,
     refCountIndexArray,
     refNextWord
   );
