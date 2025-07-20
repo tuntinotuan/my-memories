@@ -39,6 +39,7 @@ const TextAppearance = () => {
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
+  const [cursorTop, setCursorTop] = useState(14);
   const { rect, setRect } = useTyping();
 
   const handleOnChange = (e: any) => {
@@ -127,7 +128,9 @@ const TextAppearance = () => {
   };
 
   useEffect(() => {
-    const getTypingCurrentWordId = document.getElementById(`wordId${0}`);
+    const getTypingCurrentWordId = document.getElementById(
+      `wordId${typingWordIndex}`
+    );
     getTypingCurrentWordId &&
       setRect(getTypingCurrentWordId?.getBoundingClientRect());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -135,7 +138,10 @@ const TextAppearance = () => {
 
   useEffect(() => {
     console.log(`rect..... of wordId${typingWordIndex}`, rect);
-    rect && setCursorPosition(rect.left);
+    if (rect) {
+      setCursorPosition(rect.left);
+      setCursorTop(rect.bottom);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect, typingWordIndex]);
 
@@ -153,6 +159,7 @@ const TextAppearance = () => {
         <TypingCursorNew
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
+          cursorTop={cursorTop}
           styles="underline"
         ></TypingCursorNew>
         {resetComponents &&
