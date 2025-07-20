@@ -135,7 +135,7 @@ const TextAppearance = () => {
 
   useEffect(() => {
     console.log(`rect..... of wordId${typingWordIndex}`, rect);
-    rect && setCursorPosition(rect.left / 2 + 16 - rect.width);
+    rect && setCursorPosition(rect.left);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect, typingWordIndex]);
 
