@@ -39,7 +39,7 @@ const TextAppearance = () => {
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
-  const { rect } = useTyping();
+  const { rect, setRect } = useTyping();
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
@@ -86,7 +86,7 @@ const TextAppearance = () => {
       setPreTypedWord(value);
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
-      setCursorPosition(cursorPosition + 16);
+      // setCursorPosition(cursorPosition + 16);
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(wordList[typingWordIndex], value, "24px");
@@ -109,8 +109,8 @@ const TextAppearance = () => {
       e.key !== " "
     ) {
       if (e.key !== "Backspace") {
-        setCursorPosition(cursorPosition + cursorPositionIncrease);
-        setCursorWidth(cursorPositionIncrease);
+        // setCursorPosition(cursorPosition + cursorPositionIncrease);
+        // setCursorWidth(cursorPositionIncrease);
       }
     }
   };
@@ -126,21 +126,18 @@ const TextAppearance = () => {
     }, 1);
   };
 
-  // useEffect(() => {
-  //   const getTypingCurrentWordId = document.getElementById(
-  //     `wordId${typingWordIndex}`
-  //   );
-  //   setRect(getTypingCurrentWordId?.getBoundingClientRect());
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [typingWordIndex]);
+  useEffect(() => {
+    const getTypingCurrentWordId = document.getElementById(`wordId${0}`);
+    getTypingCurrentWordId &&
+      setRect(getTypingCurrentWordId?.getBoundingClientRect());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typingWordIndex]);
 
-  // useEffect(() => {
-  //   console.log(`rect..... of wordId${typingWordIndex}`, rect);
-  //   rect && setCursorPosition(rect.left / 2 + 16);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [typingWordIndex]);
-
-  // console.log("rect......", rect);
+  useEffect(() => {
+    console.log(`rect..... of wordId${typingWordIndex}`, rect);
+    rect && setCursorPosition(rect.left / 2 + 16 - rect.width);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rect, typingWordIndex]);
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
@@ -156,7 +153,7 @@ const TextAppearance = () => {
         <TypingCursorNew
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
-          styles="box"
+          styles="underline"
         ></TypingCursorNew>
         {resetComponents &&
           wordList.map((word, index) => (
