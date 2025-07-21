@@ -31,6 +31,54 @@ const TextAppearance = () => {
       word: "much",
       meaning: "",
     },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
+    {
+      word: "much",
+      meaning: "",
+    },
   ];
   const [value, setValue] = useState("");
   const [typingWordIndex, setTypingWordIndex] = useState(0);
@@ -110,8 +158,8 @@ const TextAppearance = () => {
       e.key !== " "
     ) {
       if (e.key !== "Backspace") {
-        // setCursorPosition(cursorPosition + cursorPositionIncrease);
-        // setCursorWidth(cursorPositionIncrease);
+        setCursorPosition(cursorPosition + cursorPositionIncrease);
+        setCursorWidth(cursorPositionIncrease);
       }
     }
   };
@@ -128,7 +176,6 @@ const TextAppearance = () => {
   };
 
   useEffect(() => {
-    console.log(`rect..... of wordId${typingWordIndex}`, rect);
     if (rect) {
       setCursorPosition(rect.left);
       setCursorTop(rect.bottom);
@@ -146,7 +193,7 @@ const TextAppearance = () => {
       <button onClick={handleResetWordComponents}>reset text</button>
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
-      <div className="relative flex flex-wrap w-max mx-auto gap-4 transition-all">
+      <div className="relative flex flex-wrap gap-4 transition-all">
         <TypingCursorNew
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
