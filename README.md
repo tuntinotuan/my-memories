@@ -52,6 +52,7 @@ my-memories/
 # Clone the repo
 git clone https://github.com/tuntinotuan/my-memories.git
 cd my-memories
+cd frontend
 
 # Install dependencies
 npm install
