@@ -128,22 +128,13 @@ const TextAppearance = () => {
   };
 
   useEffect(() => {
-    const getTypingCurrentWordId = document.getElementById(
-      `wordId${typingWordIndex}`
-    );
-    getTypingCurrentWordId &&
-      setRect(getTypingCurrentWordId?.getBoundingClientRect());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typingWordIndex]);
-
-  useEffect(() => {
     console.log(`rect..... of wordId${typingWordIndex}`, rect);
     if (rect) {
       setCursorPosition(rect.left);
       setCursorTop(rect.bottom);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect, typingWordIndex]);
+  }, [rect]);
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">

@@ -28,15 +28,14 @@ const TypingWordNew = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
-  // useEffect(() => {
-  //   if (typingWordIndex === wordIndex && ref.current) {
-  //     const newRect = ref.current.getBoundingClientRect();
-  //     setRect(newRect);
-  //     setCursorPosition(newRect.left / 2 + 16);
-  //     console.log("newRect", typingWordIndex, newRect);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [typingWordIndex]);
+  useEffect(() => {
+    if (typingWordIndex === wordIndex && ref.current) {
+      const newRect = ref.current.getBoundingClientRect();
+      setRect(newRect);
+      console.log("newRect", typingWordIndex, newRect);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typingWordIndex]);
 
   return (
     <div
