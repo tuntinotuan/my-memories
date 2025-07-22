@@ -31,59 +31,12 @@ const TextAppearance = () => {
       word: "much",
       meaning: "",
     },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
-    {
-      word: "much",
-      meaning: "",
-    },
   ];
   const [value, setValue] = useState("");
   const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [number, setnumber] = useState(0);
   const [preTypedWord, setPreTypedWord] = useState("");
+  const [preCursorPosition, setPreCursorPosition] = useState(0);
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
@@ -133,6 +86,7 @@ const TextAppearance = () => {
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
+      setPreCursorPosition(cursorPosition);
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
       // setCursorPosition(cursorPosition + 16);
@@ -147,7 +101,9 @@ const TextAppearance = () => {
         setPreTypedWord(
           typingWordIndex > 1 ? wordList[typingWordIndex - 2].word : ""
         );
+        setCursorPosition(preCursorPosition);
       } else {
+        setCursorPosition((pre) => pre - cursorPositionDecrease);
       }
     }
     if (
@@ -176,6 +132,7 @@ const TextAppearance = () => {
   };
 
   useEffect(() => {
+    // if (preTypedWord) return setCursorPosition(preCursorPosition);
     if (rect) {
       setCursorPosition(rect.left);
       setCursorTop(rect.bottom);
@@ -193,7 +150,7 @@ const TextAppearance = () => {
       <button onClick={handleResetWordComponents}>reset text</button>
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
-      <div className="relative flex flex-wrap gap-4 transition-all">
+      <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
