@@ -86,24 +86,27 @@ const TextAppearance = () => {
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
-      setPreCursorPosition(cursorPosition);
+      // value !== wordList[typingWordIndex].word &&
+      //   setPreCursorPosition(cursorPosition);
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
-      // setCursorPosition(cursorPosition + 16);
+      // rect && setCursorPosition(rect.left);
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(wordList[typingWordIndex], value, "24px");
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
       if (!value && preTypedWord !== wordList[typingWordIndex - 1].word) {
+        setPreCursorPosition(cursorPosition);
         setValue(preTypedWord + preTypedWord.at(-1));
         setTypingWordIndex((pre) => pre - 1);
         setPreTypedWord(
           typingWordIndex > 1 ? wordList[typingWordIndex - 2].word : ""
         );
-        setCursorPosition(preCursorPosition);
+        // setCursorPosition(preCursorPosition);
       } else {
-        setCursorPosition((pre) => pre - cursorPositionDecrease);
+        value.length > 0 &&
+          setCursorPosition((pre) => pre - cursorPositionDecrease);
       }
     }
     if (
@@ -126,14 +129,21 @@ const TextAppearance = () => {
     setTypingWordIndex(0);
     setPreTypedWord("");
     setCursorPosition(0);
+    setPreCursorPosition(0);
     setTimeout(() => {
       setResetComponents(true);
     }, 1);
   };
-
   useEffect(() => {
-    // if (preTypedWord) return setCursorPosition(preCursorPosition);
+    if (preCursorPosition) {
+      setCursorPosition(preCursorPosition);
+    }
+  }, [preCursorPosition]);
+  useEffect(() => {
     if (rect) {
+      // preCursorPosition
+      //   ? setCursorPosition(preCursorPosition)
+      //   : setCursorPosition(rect.left);
       setCursorPosition(rect.left);
       setCursorTop(rect.bottom);
     }
@@ -150,6 +160,7 @@ const TextAppearance = () => {
       <button onClick={handleResetWordComponents}>reset text</button>
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
+      {preCursorPosition}
       <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
           cursorPosition={cursorPosition}
