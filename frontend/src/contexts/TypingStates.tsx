@@ -1,6 +1,7 @@
 "use client";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import {
+  CursorStyles,
   WordAmountType,
   WordTimeType,
 } from "@/app/(home)/typing/modules/types";
@@ -47,6 +48,8 @@ type defaltValuesType = {
   currentlyPickedSetting: settingType;
   isCaplock: boolean;
   rect: DOMRect | null;
+  cursorShape: CursorStyles;
+  setCursorShape: (val: CursorStyles) => void;
   setRect: (val: DOMRect) => void;
   setIsCaplock: (val: boolean) => void;
   setCurrentlyPickedSetting: ({ id, title, rect }: settingType) => void;
@@ -83,6 +86,8 @@ const defaultValues: defaltValuesType = {
   isCaplock: false,
   typingFullScreen: false,
   rect: null,
+  cursorShape: "underline",
+  setCursorShape: () => {},
   setRect: () => {},
   setTypingFullScreen: () => {},
   setIsCaplock: () => {},
@@ -129,6 +134,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   const [rect, setRect] = useState<DOMRect | null>(null);
+  const [cursorShape, setCursorShape] = useState<CursorStyles>("underline");
   //
   useEffect(() => {
     async function fetchWordListFromLocalStorage() {
@@ -199,6 +205,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         typingFullScreen,
         singleTypingList,
         rect,
+        cursorShape,
+        setCursorShape,
         setRect,
         setSingleTypingList,
         setTypingFullScreen,

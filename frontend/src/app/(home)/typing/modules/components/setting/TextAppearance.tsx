@@ -41,7 +41,7 @@ const TextAppearance = () => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [cursorTop, setCursorTop] = useState(14);
-  const { rect, setRect } = useTyping();
+  const { rect, setRect, cursorShape, setCursorShape } = useTyping();
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
@@ -166,7 +166,7 @@ const TextAppearance = () => {
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
           cursorTop={cursorTop}
-          styles="underline"
+          styles={cursorShape}
         ></TypingCursorNew>
         {resetComponents &&
           wordList.map((word, index) => (
@@ -194,6 +194,18 @@ const TextAppearance = () => {
       <div>
         <div className="flex gap-10">
           Cursor shape:
+          <p
+            className="cursor-pointer transition-all hover:text-green-300"
+            onClick={() => setCursorShape("underline")}
+          >
+            underline
+          </p>
+          <p
+            className="cursor-pointer transition-all hover:text-green-300"
+            onClick={() => setCursorShape("box")}
+          >
+            box
+          </p>
           <RelativeOverlay>
             <TypingCursorNew
               cursorPosition={0}
