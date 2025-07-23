@@ -211,7 +211,7 @@ const TextAppearance = () => {
           >
             box
           </p>
-          <RelativeOverlay>
+          {/* <RelativeOverlay>
             <TypingCursorNew
               cursorPosition={0}
               cursorWidth={16}
@@ -228,7 +228,7 @@ const TextAppearance = () => {
               cursorPosition={0}
               cursorWidth={16}
             ></TypingCursorNew>
-          </RelativeOverlay>
+          </RelativeOverlay> */}
         </div>
       </div>
     </TextBoxBorderOverlay>

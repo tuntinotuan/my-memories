@@ -14,6 +14,7 @@ const PopupTypingSetting = ({ show, onClose }: PopupTypingSettingProps) => {
       selector="myportal"
       width={700}
       onClick={onClose}
+      scaleAnimate={false}
       className="bg-typingBg text-typingTextCorrect"
     >
       <TopControl onClose={onClose} title="Typing setting" />
