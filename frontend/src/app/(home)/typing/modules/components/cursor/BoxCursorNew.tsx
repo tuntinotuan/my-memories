@@ -1,15 +1,31 @@
+import PortalOverlay from "@/components/overlay/portal.overlay";
+import { useLayoutStates } from "@/contexts/layoutStates";
 import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 
-const BoxCursorNew = ({ cursorPosition, cursorWidth }: any) => {
+const BoxCursorNew = ({
+  cursorPosition,
+  cursorWidth,
+  cursorTop,
+  cursorHeight,
+}: any) => {
   const { cursorIsTyping } = useTyping();
+  const { showTypingSetting } = useLayoutStates();
   return (
-    <div
-      className={`absolute top-0 bottom-0 border border-typingColorActive h-full transition-all ${
-        cursorIsTyping ? "" : "animate-careFlashSmooth666"
-      }`}
-      style={{ left: cursorPosition, width: cursorWidth }}
-    ></div>
+    <PortalOverlay>
+      <div
+        className={`fixed border border-typingColorActive h-full transition-all z-[999] ${
+          cursorIsTyping ? "" : "animate-careFlashSmooth666"
+        } ${showTypingSetting ? "opacity-100" : "opacity-0"}`}
+        style={{
+          left: cursorPosition,
+          top: cursorTop,
+          width: cursorWidth,
+          height: cursorHeight,
+          transform: `translateY(-${cursorHeight}px)`,
+        }}
+      ></div>
+    </PortalOverlay>
   );
 };
 

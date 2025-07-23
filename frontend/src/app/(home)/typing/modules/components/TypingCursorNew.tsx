@@ -8,6 +8,7 @@ type TypingCursorNewProps = {
   cursorWidth: number;
   cursorPosition: number;
   cursorTop?: number;
+  cursorHeight?: number;
 };
 
 const TypingCursorNew = ({
@@ -15,6 +16,7 @@ const TypingCursorNew = ({
   cursorWidth,
   cursorPosition,
   cursorTop,
+  cursorHeight,
 }: TypingCursorNewProps) => {
   return (
     <>
@@ -29,6 +31,8 @@ const TypingCursorNew = ({
         <BoxCursorNew
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
+          cursorTop={cursorTop}
+          cursorHeight={cursorHeight}
         ></BoxCursorNew>
       )}
     </>

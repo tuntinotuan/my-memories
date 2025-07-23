@@ -128,17 +128,21 @@ const TextAppearance = () => {
     setValue("");
     setTypingWordIndex(0);
     setPreTypedWord("");
-    setCursorPosition(0);
+    // setCursorPosition(0);
     setPreCursorPosition(0);
     setTimeout(() => {
       setResetComponents(true);
     }, 1);
-  };
-  useEffect(() => {
-    if (preCursorPosition) {
-      setCursorPosition(preCursorPosition);
+    if (rect) {
+      setCursorPosition(rect.left);
+      setCursorTop(rect.bottom);
     }
-  }, [preCursorPosition]);
+  };
+  // useEffect(() => {
+  //   if (preCursorPosition) {
+  //     setCursorPosition(preCursorPosition);
+  //   }
+  // }, [preCursorPosition]);
   useEffect(() => {
     if (rect) {
       // preCursorPosition
@@ -166,6 +170,7 @@ const TextAppearance = () => {
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
           cursorTop={cursorTop}
+          cursorHeight={rect ? rect.height : 0}
           styles={cursorShape}
         ></TypingCursorNew>
         {resetComponents &&
