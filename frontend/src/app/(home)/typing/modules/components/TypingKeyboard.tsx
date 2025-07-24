@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const TypingKeyboardInput = ({
   handleOnKeyDown,
@@ -9,7 +9,7 @@ const TypingKeyboardInput = ({
     <input
       value={value}
       placeholder="Typing keyword now..."
-      className="border border-primaryColor rounded p-2"
+      className={`border border-primaryColor rounded p-2 hidden`}
       onChange={handleOnChange}
       onKeyDown={handleOnKeyDown}
     ></input>

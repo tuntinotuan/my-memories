@@ -3,12 +3,7 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 
-const BoxCursorNew = ({
-  cursorPosition,
-  cursorWidth,
-  cursorTop,
-  cursorHeight,
-}: any) => {
+const BoxCursorNew = ({ rect, cursorPosition, cursorWidth }: any) => {
   const { cursorIsTyping } = useTyping();
   const { showTypingSetting } = useLayoutStates();
   return (
@@ -19,10 +14,10 @@ const BoxCursorNew = ({
         } ${showTypingSetting ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursorPosition,
-          top: cursorTop,
+          top: rect ? rect.bottom : 0,
           width: cursorWidth,
-          height: cursorHeight,
-          transform: `translateY(-${cursorHeight}px)`,
+          height: rect ? rect.height : 0,
+          transform: `translateY(-${rect ? rect.height : 0}px)`,
         }}
       ></div>
     </PortalOverlay>

@@ -40,14 +40,13 @@ const TextAppearance = () => {
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
-  const [cursorTop, setCursorTop] = useState(14);
-  const { rect, setRect, cursorShape, setCursorShape } = useTyping();
+  const { rect, cursorShape, setCursorShape } = useTyping();
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
     setValue(e.target.value);
   };
-  const fullText = "I love you so much".split("");
+  const fullText = "I love you so much ".split("");
   useEffect(() => {
     const cursorNextWidth =
       fullText[typingWordIndex + 1] === " "
@@ -77,7 +76,7 @@ const TextAppearance = () => {
         setCursorWidth(cursorNextWidth);
       }
       setnumber((pre) => pre + 1);
-    }, 800); // Typing speed in ms
+    }, 600); // Typing speed in ms
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [number]);
@@ -132,7 +131,6 @@ const TextAppearance = () => {
     }, 1);
     if (rect) {
       setCursorPosition(rect.left);
-      setCursorTop(rect.bottom);
     }
   };
   useEffect(() => {
@@ -141,7 +139,6 @@ const TextAppearance = () => {
       //   ? setCursorPosition(preCursorPosition)
       //   : setCursorPosition(rect.left);
       setCursorPosition(rect.left);
-      setCursorTop(rect.bottom);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect]);
@@ -153,16 +150,15 @@ const TextAppearance = () => {
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
       ></TypingKeyboardInput>
-      <button onClick={handleResetWordComponents}>reset text</button>
+      {/* <button onClick={handleResetWordComponents}>reset text</button> */}
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
-      {preCursorPosition}
+      {/* {preCursorPosition} */}
       <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
+          rect={rect}
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
-          cursorTop={cursorTop}
-          cursorHeight={rect ? rect.height : 0}
           styles={cursorShape}
         ></TypingCursorNew>
         {resetComponents &&

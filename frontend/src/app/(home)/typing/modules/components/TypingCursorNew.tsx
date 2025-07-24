@@ -7,32 +7,29 @@ type TypingCursorNewProps = {
   styles?: CursorStyles;
   cursorWidth: number;
   cursorPosition: number;
-  cursorTop?: number;
-  cursorHeight?: number;
+  rect?: DOMRect | null;
 };
 
 const TypingCursorNew = ({
+  rect,
   styles = "underline",
   cursorWidth,
   cursorPosition,
-  cursorTop,
-  cursorHeight,
 }: TypingCursorNewProps) => {
   return (
     <>
       {styles === "underline" && (
         <UnderlineCursor
+          rect={rect}
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
-          cursorTop={cursorTop}
         ></UnderlineCursor>
       )}
       {styles === "box" && (
         <BoxCursorNew
+          rect={rect}
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
-          cursorTop={cursorTop}
-          cursorHeight={cursorHeight}
         ></BoxCursorNew>
       )}
     </>
