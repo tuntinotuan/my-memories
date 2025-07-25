@@ -18,15 +18,15 @@ const PopupTypingSetting = ({ show, onClose }: PopupTypingSettingProps) => {
       className="bg-typingBg text-typingTextCorrect"
     >
       <TopControl onClose={onClose} title="Typing setting" />
-      <Body onClose={onClose} />
+      <Body onClose={onClose} show={show} />
     </PopupOverlay>
   );
 };
 
-const Body = ({ onClose }: any) => {
+const Body = ({ onClose, show }: any) => {
   return (
     <>
-      <TextAppearance></TextAppearance>
+      <TextAppearance show={show}></TextAppearance>
     </>
   );
 };

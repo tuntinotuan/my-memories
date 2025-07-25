@@ -9,7 +9,7 @@ import { calculatePositionForCursor } from "../../../func/word/calculatePosition
 import { useTyping } from "@/contexts/TypingStates";
 import { getTextWidth } from "@/utils/stringFs";
 
-const TextAppearance = () => {
+const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
     {
       word: "I",
@@ -48,6 +48,7 @@ const TextAppearance = () => {
   };
   const fullText = "I love you so much ".split("");
   useEffect(() => {
+    if (!show) return;
     const cursorNextWidth =
       fullText[typingWordIndex + 1] === " "
         ? 14
@@ -79,7 +80,7 @@ const TextAppearance = () => {
     }, 600); // Typing speed in ms
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [number]);
+  }, [number, show]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
