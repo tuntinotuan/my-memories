@@ -11,6 +11,7 @@ type TypingCursorNewProps = {
   rect?: DOMRect | null;
   cursorHeight?: number;
   onClick?: () => void;
+  className?: string;
 };
 
 const TypingCursorNew = ({
@@ -21,9 +22,10 @@ const TypingCursorNew = ({
   cursorHeight,
   cursorPosition,
   onClick,
+  className,
 }: TypingCursorNewProps) => {
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} className={className}>
       {styles === "underline" && (
         <UnderlineCursor
           cssPosition={cssPosition}

@@ -186,26 +186,16 @@ const TextAppearance = () => {
         )}
       </div>
       <div>
-        <div className="flex gap-10">
+        <div className="flex gap-10 my-5">
           Cursor shape:
-          <p
-            className="cursor-pointer transition-all hover:text-green-300"
-            onClick={() => setCursorShape("underline")}
-          >
-            underline
-          </p>
-          <p
-            className="cursor-pointer transition-all hover:text-green-300"
-            onClick={() => setCursorShape("box")}
-          >
-            box
-          </p>
           <RelativeOverlay>
             <TypingCursorNew
               cssPosition="absolute"
               styles="underline"
               cursorPosition={0}
               cursorWidth={16}
+              onClick={() => setCursorShape("underline")}
+              className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
             ></TypingCursorNew>
           </RelativeOverlay>
           <RelativeOverlay>
@@ -213,15 +203,10 @@ const TextAppearance = () => {
               cssPosition="absolute"
               styles="box"
               cursorPosition={0}
-              cursorHeight={20}
+              cursorHeight={25}
               cursorWidth={16}
-            ></TypingCursorNew>
-          </RelativeOverlay>
-          <RelativeOverlay>
-            <TypingCursorNew
-              cssPosition="absolute"
-              cursorPosition={0}
-              cursorWidth={16}
+              onClick={() => setCursorShape("box")}
+              className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
             ></TypingCursorNew>
           </RelativeOverlay>
         </div>
