@@ -3,13 +3,18 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 
-const UnderlineCursor = ({ rect, cursorPosition, cursorWidth }: any) => {
+const UnderlineCursor = ({
+  cssPosition,
+  rect,
+  cursorPosition,
+  cursorWidth,
+}: any) => {
   const { cursorIsTyping } = useTyping();
   const { showTypingSetting } = useLayoutStates();
   return (
-    <PortalOverlay>
+    <PortalOverlay notUsePortal={cssPosition === "absolute"}>
       <div
-        className={`fixed h-[2px] bg-typingColorActive transition-all z-[999] ${
+        className={`${cssPosition} h-[2px] bg-typingColorActive transition-all z-[999] ${
           cursorIsTyping ? "" : "animate-careFlashSmooth666"
         } ${showTypingSetting ? "opacity-100" : "opacity-0"}`}
         style={{

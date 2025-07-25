@@ -13,3 +13,5 @@ export type ListBtnTypes = {
 export type TypeOfTypingManyWordProps = "time" | "words";
 
 export type CursorStyles = "line" | "underline" | "box" | "block";
+
+export type CssPosition = "fixed" | "absolute";

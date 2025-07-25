@@ -156,6 +156,7 @@ const TextAppearance = () => {
       {/* {preCursorPosition} */}
       <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
+          cssPosition="fixed"
           rect={rect}
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
@@ -199,24 +200,30 @@ const TextAppearance = () => {
           >
             box
           </p>
-          {/* <RelativeOverlay>
+          <RelativeOverlay>
             <TypingCursorNew
+              cssPosition="absolute"
+              styles="underline"
               cursorPosition={0}
               cursorWidth={16}
             ></TypingCursorNew>
           </RelativeOverlay>
           <RelativeOverlay>
             <TypingCursorNew
+              cssPosition="absolute"
+              styles="box"
               cursorPosition={0}
+              cursorHeight={20}
               cursorWidth={16}
             ></TypingCursorNew>
           </RelativeOverlay>
           <RelativeOverlay>
             <TypingCursorNew
+              cssPosition="absolute"
               cursorPosition={0}
               cursorWidth={16}
             ></TypingCursorNew>
-          </RelativeOverlay> */}
+          </RelativeOverlay>
         </div>
       </div>
     </TextBoxBorderOverlay>
