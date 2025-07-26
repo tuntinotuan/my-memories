@@ -2,6 +2,7 @@ import React from "react";
 import { CssPosition, CursorStyles } from "../types";
 import UnderlineCursor from "./cursor/UnderlineCursor";
 import BoxCursorNew from "./cursor/BoxCursorNew";
+import LineCursorNew from "./cursor/LineCursorNew";
 
 type TypingCursorNewProps = {
   cssPosition: CssPosition;
@@ -26,6 +27,15 @@ const TypingCursorNew = ({
 }: TypingCursorNewProps) => {
   return (
     <div onClick={onClick} className={className}>
+      {styles === "line" && (
+        <LineCursorNew
+          cssPosition={cssPosition}
+          rect={rect}
+          cursorPosition={cursorPosition}
+          cursorWidth={cursorWidth}
+          cursorHeight={cursorHeight}
+        ></LineCursorNew>
+      )}
       {styles === "underline" && (
         <UnderlineCursor
           cssPosition={cssPosition}

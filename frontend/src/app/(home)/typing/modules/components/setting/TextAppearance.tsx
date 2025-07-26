@@ -192,6 +192,17 @@ const TextAppearance = ({ show }: any) => {
           <RelativeOverlay>
             <TypingCursorNew
               cssPosition="absolute"
+              styles="line"
+              cursorPosition={0}
+              cursorWidth={2}
+              cursorHeight={25}
+              onClick={() => setCursorShape("line")}
+              className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
+            ></TypingCursorNew>
+          </RelativeOverlay>
+          <RelativeOverlay>
+            <TypingCursorNew
+              cssPosition="absolute"
               styles="underline"
               cursorPosition={0}
               cursorWidth={16}
