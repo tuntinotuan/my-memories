@@ -27,7 +27,7 @@ const BlockCursor = ({
           transform: `translateY(-${rect ? rect.height : 0}px)`,
         }}
       >
-        {currentText}
+        <p className="!transition-none">{currentText}</p>
       </div>
     </PortalOverlay>
   );

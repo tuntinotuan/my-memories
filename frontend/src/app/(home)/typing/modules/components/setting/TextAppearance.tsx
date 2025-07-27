@@ -48,42 +48,42 @@ const TextAppearance = ({ show }: any) => {
     setValue(e.target.value);
   };
   const fullText = "I love you so much ".split("");
-  useEffect(() => {
-    if (!show) return;
-    const cursorNextWidth =
-      fullText[typingWordIndex + 1] === " "
-        ? 14
-        : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
-    // reset automation
-    if (number >= fullText.length) {
-      handleResetWordComponents();
-      setnumber(0);
-      setTypingWordIndex(0);
-      setValue("");
-      setCursorWidth(16);
-      setCurrentText(fullText[0]);
-      return;
-    }
-    const timeout = setTimeout(() => {
-      // space " "
-      if (fullText[number] !== " ") {
-        setValue((pre) => pre + fullText[number]);
-        setCursorPosition((pre) => pre + cursorNextWidth);
-        setCursorWidth(cursorNextWidth);
-        setCurrentText(fullText[number + 1]);
-      } else {
-        setPreTypedWord(value);
-        setTypingWordIndex((pre) => pre + 1);
-        setValue("");
-        setCursorPosition((pre) => pre + 16);
-        setCursorWidth(cursorNextWidth);
-        setCurrentText("");
-      }
-      setnumber((pre) => pre + 1);
-    }, 600); // Typing speed in ms
-    return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [number, show]);
+  // useEffect(() => {
+  //   if (!show) return;
+  //   const cursorNextWidth =
+  //     fullText[typingWordIndex + 1] === " "
+  //       ? 14
+  //       : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
+  //   // reset automation
+  //   if (number >= fullText.length) {
+  //     handleResetWordComponents();
+  //     setnumber(0);
+  //     setTypingWordIndex(0);
+  //     setValue("");
+  //     setCursorWidth(16);
+  //     setCurrentText(fullText[0]);
+  //     return;
+  //   }
+  //   const timeout = setTimeout(() => {
+  //     // space " "
+  //     if (fullText[number] !== " ") {
+  //       setValue((pre) => pre + fullText[number]);
+  //       setCursorPosition((pre) => pre + cursorNextWidth);
+  //       setCursorWidth(cursorNextWidth);
+  //       setCurrentText(fullText[number + 1]);
+  //     } else {
+  //       setPreTypedWord(value);
+  //       setTypingWordIndex((pre) => pre + 1);
+  //       setValue("");
+  //       setCursorPosition((pre) => pre + 16);
+  //       setCursorWidth(cursorNextWidth);
+  //       setCurrentText("");
+  //     }
+  //     setnumber((pre) => pre + 1);
+  //   }, 1000); // Typing speed in ms
+  //   return () => clearTimeout(timeout);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [number, show]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
@@ -120,6 +120,9 @@ const TextAppearance = ({ show }: any) => {
       if (e.key !== "Backspace") {
         setCursorPosition(cursorPosition + cursorPositionIncrease);
         setCursorWidth(cursorPositionIncrease);
+        setCurrentText(
+          wordList[typingWordIndex].word.split("")[value.length + 1]
+        );
       }
     }
   };
@@ -138,6 +141,7 @@ const TextAppearance = ({ show }: any) => {
     }
   };
   useEffect(() => {
+    setCurrentText(wordList[typingWordIndex].word.split("")[0]);
     if (rect) {
       // preCursorPosition
       //   ? setCursorPosition(preCursorPosition)
@@ -154,10 +158,11 @@ const TextAppearance = ({ show }: any) => {
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
       ></TypingKeyboardInput>
-      {/* <button onClick={handleResetWordComponents}>reset text</button> */}
+      <button onClick={handleResetWordComponents}>reset text</button>
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
       {/* {preCursorPosition} */}
+      <p>{currentText}...</p>
       <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
           cssPosition="fixed"
@@ -222,6 +227,17 @@ const TextAppearance = ({ show }: any) => {
               cursorHeight={25}
               cursorWidth={16}
               onClick={() => setCursorShape("box")}
+              className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
+            ></TypingCursorNew>
+          </RelativeOverlay>
+          <RelativeOverlay>
+            <TypingCursorNew
+              cssPosition="absolute"
+              styles="block"
+              cursorPosition={0}
+              cursorHeight={25}
+              cursorWidth={16}
+              onClick={() => setCursorShape("block")}
               className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
             ></TypingCursorNew>
           </RelativeOverlay>
