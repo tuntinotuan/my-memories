@@ -14,6 +14,7 @@ type TypingCursorNewProps = {
   cursorHeight?: number;
   onClick?: () => void;
   className?: string;
+  currentText?: string;
 };
 
 const TypingCursorNew = ({
@@ -25,6 +26,7 @@ const TypingCursorNew = ({
   cursorPosition,
   onClick,
   className,
+  currentText,
 }: TypingCursorNewProps) => {
   return (
     <div onClick={onClick} className={className}>
@@ -61,6 +63,7 @@ const TypingCursorNew = ({
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
           cursorHeight={cursorHeight}
+          currentText={currentText}
         ></BlockCursor>
       )}
     </div>

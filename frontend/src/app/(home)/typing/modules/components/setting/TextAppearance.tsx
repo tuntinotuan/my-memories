@@ -41,6 +41,7 @@ const TextAppearance = ({ show }: any) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const { rect, cursorShape, setCursorShape } = useTyping();
+  const [currentText, setCurrentText] = useState("");
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
@@ -53,7 +54,6 @@ const TextAppearance = ({ show }: any) => {
       fullText[typingWordIndex + 1] === " "
         ? 14
         : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
-
     // reset automation
     if (number >= fullText.length) {
       handleResetWordComponents();
@@ -61,6 +61,7 @@ const TextAppearance = ({ show }: any) => {
       setTypingWordIndex(0);
       setValue("");
       setCursorWidth(16);
+      setCurrentText(fullText[0]);
       return;
     }
     const timeout = setTimeout(() => {
@@ -69,12 +70,14 @@ const TextAppearance = ({ show }: any) => {
         setValue((pre) => pre + fullText[number]);
         setCursorPosition((pre) => pre + cursorNextWidth);
         setCursorWidth(cursorNextWidth);
+        setCurrentText(fullText[number + 1]);
       } else {
         setPreTypedWord(value);
         setTypingWordIndex((pre) => pre + 1);
         setValue("");
         setCursorPosition((pre) => pre + 16);
         setCursorWidth(cursorNextWidth);
+        setCurrentText("");
       }
       setnumber((pre) => pre + 1);
     }, 600); // Typing speed in ms
@@ -161,6 +164,7 @@ const TextAppearance = ({ show }: any) => {
           rect={rect}
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
+          currentText={currentText}
           styles={"block"}
         ></TypingCursorNew>
         {resetComponents &&
