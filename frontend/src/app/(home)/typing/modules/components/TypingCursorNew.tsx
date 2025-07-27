@@ -3,6 +3,7 @@ import { CssPosition, CursorStyles } from "../types";
 import UnderlineCursor from "./cursor/UnderlineCursor";
 import BoxCursorNew from "./cursor/BoxCursorNew";
 import LineCursorNew from "./cursor/LineCursorNew";
+import BlockCursor from "./cursor/BlockCursor";
 
 type TypingCursorNewProps = {
   cssPosition: CssPosition;
@@ -52,6 +53,15 @@ const TypingCursorNew = ({
           cursorWidth={cursorWidth}
           cursorHeight={cursorHeight}
         ></BoxCursorNew>
+      )}
+      {styles === "block" && (
+        <BlockCursor
+          cssPosition={cssPosition}
+          rect={rect}
+          cursorPosition={cursorPosition}
+          cursorWidth={cursorWidth}
+          cursorHeight={cursorHeight}
+        ></BlockCursor>
       )}
     </div>
   );

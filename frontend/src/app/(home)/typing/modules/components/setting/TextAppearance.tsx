@@ -161,7 +161,7 @@ const TextAppearance = ({ show }: any) => {
           rect={rect}
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
-          styles={cursorShape}
+          styles={"block"}
         ></TypingCursorNew>
         {resetComponents &&
           wordList.map((word, index) => (
