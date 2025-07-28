@@ -50,8 +50,8 @@ type defaltValuesType = {
   isCaplock: boolean;
   rect: DOMRect | null;
   cursorShape: CursorStyles;
-  typingSettingLocal: SettingLocal;
-  setTypingSettingLocal: (val: SettingLocal) => void;
+  typingSettingLocal: SettingLocal | undefined;
+  setTypingSettingLocal: (val: SettingLocal | undefined) => void;
   setCursorShape: (val: CursorStyles) => void;
   setRect: (val: DOMRect) => void;
   setIsCaplock: (val: boolean) => void;
@@ -90,12 +90,7 @@ const defaultValues: defaltValuesType = {
   typingFullScreen: false,
   rect: null,
   cursorShape: "underline",
-  typingSettingLocal: {
-    cursorShape: "line",
-    typingStyles: "combine",
-    wordAmount: 10,
-    wordTime: 15,
-  },
+  typingSettingLocal: undefined,
   setTypingSettingLocal: () => {},
   setCursorShape: () => {},
   setRect: () => {},
@@ -145,12 +140,9 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorShape, setCursorShape] = useState<CursorStyles>("underline");
-  const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>({
-    cursorShape: "line",
-    typingStyles: "combine",
-    wordAmount: 10,
-    wordTime: 15,
-  });
+  const [typingSettingLocal, setTypingSettingLocal] = useState<
+    SettingLocal | undefined
+  >();
   useEffect(() => {
     async function fetchTypingSettingFromLocalStorage() {
       let setting = null;
@@ -167,10 +159,12 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     fetchTypingSettingFromLocalStorage();
   }, []);
   useEffect(() => {
+    if (typingSettingLocal === undefined) return;
     localStorage.setItem("typing-setting", JSON.stringify(typingSettingLocal));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typingSettingLocal]);
   useEffect(() => {
+    if (typingSettingLocal === undefined) return;
     const newSetting = { cursorShape, typingStyles, wordAmount, wordTime };
     setTypingSettingLocal(newSetting);
     // eslint-disable-next-line react-hooks/exhaustive-deps

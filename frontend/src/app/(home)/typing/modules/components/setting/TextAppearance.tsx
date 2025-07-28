@@ -173,7 +173,7 @@ const TextAppearance = ({ show }: any) => {
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
           currentText={currentText}
-          styles={typingSettingLocal.cursorShape}
+          styles={typingSettingLocal?.cursorShape}
         ></TypingCursorNew>
         {resetComponents &&
           wordList.map((word, index) => (
