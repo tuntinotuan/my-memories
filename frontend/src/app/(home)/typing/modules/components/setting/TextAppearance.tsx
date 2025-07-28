@@ -40,7 +40,7 @@ const TextAppearance = ({ show }: any) => {
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
-  const { rect, cursorShape, setCursorShape } = useTyping();
+  const { rect, cursorShape, setCursorShape, typingSettingLocal } = useTyping();
   const [currentText, setCurrentText] = useState("");
 
   const handleOnChange = (e: any) => {
@@ -48,42 +48,42 @@ const TextAppearance = ({ show }: any) => {
     setValue(e.target.value);
   };
   const fullText = "I love you so much ".split("");
-  // useEffect(() => {
-  //   if (!show) return;
-  //   const cursorNextWidth =
-  //     fullText[typingWordIndex + 1] === " "
-  //       ? 14
-  //       : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
-  //   // reset automation
-  //   if (number >= fullText.length) {
-  //     handleResetWordComponents();
-  //     setnumber(0);
-  //     setTypingWordIndex(0);
-  //     setValue("");
-  //     setCursorWidth(16);
-  //     setCurrentText(fullText[0]);
-  //     return;
-  //   }
-  //   const timeout = setTimeout(() => {
-  //     // space " "
-  //     if (fullText[number] !== " ") {
-  //       setValue((pre) => pre + fullText[number]);
-  //       setCursorPosition((pre) => pre + cursorNextWidth);
-  //       setCursorWidth(cursorNextWidth);
-  //       setCurrentText(fullText[number + 1]);
-  //     } else {
-  //       setPreTypedWord(value);
-  //       setTypingWordIndex((pre) => pre + 1);
-  //       setValue("");
-  //       setCursorPosition((pre) => pre + 16);
-  //       setCursorWidth(cursorNextWidth);
-  //       setCurrentText("");
-  //     }
-  //     setnumber((pre) => pre + 1);
-  //   }, 1000); // Typing speed in ms
-  //   return () => clearTimeout(timeout);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [number, show]);
+  useEffect(() => {
+    if (!show) return;
+    const cursorNextWidth =
+      fullText[typingWordIndex + 1] === " "
+        ? 14
+        : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
+    // reset automation
+    if (number >= fullText.length) {
+      handleResetWordComponents();
+      setnumber(0);
+      setTypingWordIndex(0);
+      setValue("");
+      setCursorWidth(16);
+      setCurrentText(fullText[0]);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      // space " "
+      if (fullText[number] !== " ") {
+        setValue((pre) => pre + fullText[number]);
+        setCursorPosition((pre) => pre + cursorNextWidth);
+        setCursorWidth(cursorNextWidth);
+        setCurrentText(fullText[number + 1]);
+      } else {
+        setPreTypedWord(value);
+        setTypingWordIndex((pre) => pre + 1);
+        setValue("");
+        setCursorPosition((pre) => pre + 16);
+        setCursorWidth(cursorNextWidth);
+        setCurrentText("");
+      }
+      setnumber((pre) => pre + 1);
+    }, 600); // Typing speed in ms
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [number, show]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
@@ -139,6 +139,7 @@ const TextAppearance = ({ show }: any) => {
     if (rect) {
       setCursorPosition(rect.left);
     }
+    document.getElementById("typingKeyboardId")?.focus();
   };
   useEffect(() => {
     setCurrentText(wordList[typingWordIndex].word.split("")[0]);
@@ -154,15 +155,17 @@ const TextAppearance = ({ show }: any) => {
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
       <TypingKeyboardInput
+        id="typingKeyboardId"
+        hiddenInput
         value={value}
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
       ></TypingKeyboardInput>
-      <button onClick={handleResetWordComponents}>reset text</button>
+      {/* <button onClick={handleResetWordComponents}>reset text</button> */}
+      {/* <p>{currentText}...</p> */}
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
       {/* {preCursorPosition} */}
-      <p>{currentText}...</p>
       <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
           cssPosition="fixed"
@@ -170,7 +173,7 @@ const TextAppearance = ({ show }: any) => {
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
           currentText={currentText}
-          styles={"block"}
+          styles={typingSettingLocal.cursorShape}
         ></TypingCursorNew>
         {resetComponents &&
           wordList.map((word, index) => (

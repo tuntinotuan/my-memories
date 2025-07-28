@@ -2,6 +2,8 @@
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import {
   CursorStyles,
+  SettingLocal,
+  typingStylesType,
   WordAmountType,
   WordTimeType,
 } from "@/app/(home)/typing/modules/types";
@@ -10,7 +12,6 @@ import { useCountDown } from "@/hooks/useCountDown";
 import { useRunningTime } from "@/hooks/useRunningTime";
 import { createContext, useContext, useEffect, useState } from "react";
 
-export type typingStylesType = "time" | "combine" | "words";
 export type settingType = {
   id: Id;
   title: string;
@@ -49,6 +50,8 @@ type defaltValuesType = {
   isCaplock: boolean;
   rect: DOMRect | null;
   cursorShape: CursorStyles;
+  typingSettingLocal: SettingLocal;
+  setTypingSettingLocal: (val: SettingLocal) => void;
   setCursorShape: (val: CursorStyles) => void;
   setRect: (val: DOMRect) => void;
   setIsCaplock: (val: boolean) => void;
@@ -87,6 +90,13 @@ const defaultValues: defaltValuesType = {
   typingFullScreen: false,
   rect: null,
   cursorShape: "underline",
+  typingSettingLocal: {
+    cursorShape: "line",
+    typingStyles: "combine",
+    wordAmount: 10,
+    wordTime: 15,
+  },
+  setTypingSettingLocal: () => {},
   setCursorShape: () => {},
   setRect: () => {},
   setTypingFullScreen: () => {},
@@ -135,7 +145,37 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorShape, setCursorShape] = useState<CursorStyles>("underline");
-  //
+  const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>({
+    cursorShape: "line",
+    typingStyles: "combine",
+    wordAmount: 10,
+    wordTime: 15,
+  });
+  useEffect(() => {
+    async function fetchTypingSettingFromLocalStorage() {
+      let setting = null;
+      try {
+        const stored = localStorage.getItem("typing-setting");
+        if (stored) setting = await JSON.parse(stored);
+      } catch (error) {
+        console.error("Invalid JSON:", error);
+      }
+      // if (setting !== null && setting.length > 0) {
+      setTypingSettingLocal(setting);
+      // }
+    }
+    fetchTypingSettingFromLocalStorage();
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("typing-setting", JSON.stringify(typingSettingLocal));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typingSettingLocal]);
+  useEffect(() => {
+    const newSetting = { cursorShape, typingStyles, wordAmount, wordTime };
+    setTypingSettingLocal(newSetting);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cursorShape, typingStyles, wordAmount, wordTime]);
+
   useEffect(() => {
     async function fetchWordListFromLocalStorage() {
       let lists = null;
@@ -206,6 +246,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         singleTypingList,
         rect,
         cursorShape,
+        typingSettingLocal,
+        setTypingSettingLocal,
         setCursorShape,
         setRect,
         setSingleTypingList,
