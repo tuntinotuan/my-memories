@@ -15,7 +15,12 @@ import SettingIcon from "@/components/icons/SettingIcon";
 import { useLayoutStates } from "@/contexts/layoutStates";
 
 export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
-  const { typingStyles, showPopupCreate, setShowPopupCreate } = useTyping();
+  const {
+    typingStyles,
+    showPopupCreate,
+    setShowPopupCreate,
+    typingSettingLocal,
+  } = useTyping();
   const { setShowTypingSetting } = useLayoutStates();
   return (
     <div className="flex items-center flex-wrap gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-2 z-20">

@@ -1,5 +1,6 @@
-import { typingStylesType, useTyping } from "@/contexts/TypingStates";
+import { useTyping } from "@/contexts/TypingStates";
 import { Tooltip } from "@nextui-org/tooltip";
+import { typingStylesType } from "../../types";
 
 type BtnTypingStylesProps = {
   icon: React.ReactNode;
