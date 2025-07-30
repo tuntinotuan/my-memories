@@ -8,6 +8,7 @@ import TypingKeyboardInput from "../TypingKeyboard";
 import { calculatePositionForCursor } from "../../../func/word/calculatePositionForCursor";
 import { useTyping } from "@/contexts/TypingStates";
 import { getTextWidth } from "@/utils/stringFs";
+import { CursorStyles } from "../../types";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -40,50 +41,90 @@ const TextAppearance = ({ show }: any) => {
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
-  const { rect, cursorShape, setCursorShape, typingSettingLocal } = useTyping();
+  const { rect, setCursorShape, typingSettingLocal } = useTyping();
   const [currentText, setCurrentText] = useState("");
+
+  const listCursorShape: {
+    styles: CursorStyles;
+    cursorWidth: number;
+    cursorHeight?: number;
+    onClick: () => void;
+    className: string;
+  }[] = [
+    {
+      styles: "line",
+      cursorWidth: 2,
+      cursorHeight: 25,
+      onClick: () => setCursorShape("line"),
+      className:
+        "flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer",
+    },
+    {
+      styles: "underline",
+      cursorWidth: 16,
+      onClick: () => setCursorShape("underline"),
+      className:
+        "flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer",
+    },
+    {
+      styles: "box",
+      cursorWidth: 16,
+      cursorHeight: 25,
+      onClick: () => setCursorShape("box"),
+      className:
+        "flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer",
+    },
+    {
+      styles: "block",
+      cursorWidth: 16,
+      cursorHeight: 25,
+      onClick: () => setCursorShape("block"),
+      className:
+        "flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer",
+    },
+  ];
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
     setValue(e.target.value);
   };
   const fullText = "I love you so much ".split("");
-  // useEffect(() => {
-  //   if (!show) return;
-  //   const cursorNextWidth =
-  //     fullText[typingWordIndex + 1] === " "
-  //       ? 14
-  //       : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
-  //   // reset automation
-  //   if (number >= fullText.length) {
-  //     handleResetWordComponents();
-  //     setnumber(0);
-  //     setTypingWordIndex(0);
-  //     setValue("");
-  //     setCursorWidth(16);
-  //     setCurrentText(fullText[0]);
-  //     return;
-  //   }
-  //   const timeout = setTimeout(() => {
-  //     // space " "
-  //     if (fullText[number] !== " ") {
-  //       setValue((pre) => pre + fullText[number]);
-  //       setCursorPosition((pre) => pre + cursorNextWidth);
-  //       setCursorWidth(cursorNextWidth);
-  //       setCurrentText(fullText[number + 1]);
-  //     } else {
-  //       setPreTypedWord(value);
-  //       setTypingWordIndex((pre) => pre + 1);
-  //       setValue("");
-  //       setCursorPosition((pre) => pre + 16);
-  //       setCursorWidth(cursorNextWidth);
-  //       setCurrentText("");
-  //     }
-  //     setnumber((pre) => pre + 1);
-  //   }, 600); // Typing speed in ms
-  //   return () => clearTimeout(timeout);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [number, show]);
+  useEffect(() => {
+    if (!show) return;
+    const cursorNextWidth =
+      fullText[typingWordIndex + 1] === " "
+        ? 14
+        : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
+    // reset automation
+    if (number >= fullText.length) {
+      handleResetWordComponents();
+      setnumber(0);
+      setTypingWordIndex(0);
+      setValue("");
+      setCursorWidth(16);
+      setCurrentText(fullText[0]);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      // space " "
+      if (fullText[number] !== " ") {
+        setValue((pre) => pre + fullText[number]);
+        setCursorPosition((pre) => pre + cursorNextWidth);
+        setCursorWidth(cursorNextWidth);
+        setCurrentText(fullText[number + 1]);
+      } else {
+        setPreTypedWord(value);
+        setTypingWordIndex((pre) => pre + 1);
+        setValue("");
+        setCursorPosition((pre) => pre + 16);
+        setCursorWidth(cursorNextWidth);
+        setCurrentText("");
+      }
+      setnumber((pre) => pre + 1);
+    }, 600); // Typing speed in ms
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [number, show]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
@@ -156,12 +197,12 @@ const TextAppearance = ({ show }: any) => {
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
       <TypingKeyboardInput
         id="typingKeyboardId"
-        // hiddenInput
+        hiddenInput
         value={value}
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
       ></TypingKeyboardInput>
-      <button onClick={handleResetWordComponents}>reset text</button>
+      {/* <button onClick={handleResetWordComponents}>reset text</button> */}
       {/* <p>{currentText}...</p> */}
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} {preTypedWord} */}
@@ -201,49 +242,19 @@ const TextAppearance = ({ show }: any) => {
       <div>
         <div className="flex gap-10 my-5">
           Cursor shape:
-          <RelativeOverlay>
-            <TypingCursorNew
-              cssPosition="absolute"
-              styles="line"
-              cursorPosition={0}
-              cursorWidth={2}
-              cursorHeight={25}
-              onClick={() => setCursorShape("line")}
-              className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
-            ></TypingCursorNew>
-          </RelativeOverlay>
-          <RelativeOverlay>
-            <TypingCursorNew
-              cssPosition="absolute"
-              styles="underline"
-              cursorPosition={0}
-              cursorWidth={16}
-              onClick={() => setCursorShape("underline")}
-              className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
-            ></TypingCursorNew>
-          </RelativeOverlay>
-          <RelativeOverlay>
-            <TypingCursorNew
-              cssPosition="absolute"
-              styles="box"
-              cursorPosition={0}
-              cursorHeight={25}
-              cursorWidth={16}
-              onClick={() => setCursorShape("box")}
-              className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
-            ></TypingCursorNew>
-          </RelativeOverlay>
-          <RelativeOverlay>
-            <TypingCursorNew
-              cssPosition="absolute"
-              styles="block"
-              cursorPosition={0}
-              cursorHeight={25}
-              cursorWidth={16}
-              onClick={() => setCursorShape("block")}
-              className="flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer"
-            ></TypingCursorNew>
-          </RelativeOverlay>
+          {listCursorShape.map((item, index) => (
+            <RelativeOverlay key={index}>
+              <TypingCursorNew
+                cssPosition="absolute"
+                styles={item.styles}
+                cursorPosition={0}
+                cursorWidth={item.cursorWidth}
+                cursorHeight={item.cursorHeight}
+                onClick={item.onClick}
+                className={item.className}
+              ></TypingCursorNew>
+            </RelativeOverlay>
+          ))}
         </div>
       </div>
     </TextBoxBorderOverlay>
