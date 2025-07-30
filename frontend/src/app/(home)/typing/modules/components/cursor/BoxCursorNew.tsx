@@ -9,15 +9,15 @@ const BoxCursorNew = ({
   cursorPosition,
   cursorWidth,
   cursorHeight,
+  showCursor,
 }: any) => {
   const { cursorIsTyping } = useTyping();
-  const { showTypingSetting } = useLayoutStates();
   return (
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
       <div
         className={`${cssPosition} border border-typingColorActive h-full transition-all z-[999] ${
           cursorIsTyping ? "" : "animate-careFlashSmooth666"
-        } ${showTypingSetting ? "opacity-100" : "opacity-0"}`}
+        } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursorPosition,
           top: rect ? rect.bottom : 0,

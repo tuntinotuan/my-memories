@@ -4,6 +4,7 @@ import { useTyping } from "@/contexts/TypingStates";
 type TypingWordNewProps = {
   currentTyping: typingWordsTypes;
   text: string;
+  setRect: (val: any) => void;
   typingWordIndex?: number;
   wordIndex?: number;
   textSize?: string;
@@ -11,6 +12,7 @@ type TypingWordNewProps = {
 };
 
 const TypingWordNew = ({
+  setRect,
   typingWordIndex,
   textSize,
   wordIndex,
@@ -20,7 +22,6 @@ const TypingWordNew = ({
 }: TypingWordNewProps) => {
   const [newText, setNewText] = useState<string>(text);
   const ref = useRef<HTMLDivElement | null>(null);
-  const { setRect } = useTyping();
   useEffect(() => {
     if (typingWordIndex === wordIndex) {
       setNewText(text);

@@ -1,5 +1,5 @@
 import TypingWord from "../components/TypingWord";
-import {  useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -10,6 +10,8 @@ import { useCursorMoveNextWord } from "../../func/word/cursorMoveNextWord";
 import { useResetAfterWordOrTimeSettingChange } from "../../func/word/resetAfterWordOrTimeSettingChange";
 import { TypeOfTypingManyWordProps } from "../types";
 import { useKeyDown } from "../../func/word/handleOnKeyDown";
+import TypingWordNew from "../components/TypingWordNew";
+import TypingCursorNew from "../components/TypingCursorNew";
 
 type TypingManyWordsProps = {
   types: TypeOfTypingManyWordProps;
@@ -17,7 +19,13 @@ type TypingManyWordsProps = {
 };
 
 export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
-  const { wordAmount, countNextWord, wordTime, typingStyles } = useTyping();
+  const {
+    wordAmount,
+    countNextWord,
+    wordTime,
+    typingStyles,
+    typingSettingLocal,
+  } = useTyping();
   const [text, setText] = useState<string>("");
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -67,13 +75,26 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
     setHeightFlexible,
     cursorPosition
   );
+  const [typingWordIndex, setTypingWordIndex] = useState(0);
+  const [value, setValue] = useState("");
+  const [rect, setRect] = useState<DOMRect | null>(null);
+  const [cursorWidth, setCursorWidth] = useState(14);
+  const [currentText, setCurrentText] = useState("");
+
+  useEffect(() => {
+    setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
+    if (rect) {
+      setCursorPosition(rect.left);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rect]);
   return (
     <>
       {/* {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`} */}
       {/* {`${countNextWord + 1 === newArrWords.length} || ${countNextWord} ||${
         newArrWords[countNextWord]?.word
       } || ${newArrWords[countNextWord]?.word.length} || ${text.length}`} */}
-      <label
+      {/* <label
         className={`flex items-start h-[130px] w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
         }`}
@@ -101,7 +122,40 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
       </label>
       <TypingOverlayBlur
         htmlFor={`typingCursorId${countNextWord}`}
-      ></TypingOverlayBlur>
+      ></TypingOverlayBlur> */}
+      <TypingCursorNew
+        cssPosition="fixed"
+        rect={rect}
+        cursorPosition={cursorPosition}
+        cursorWidth={cursorWidth}
+        currentText={currentText}
+        styles={typingSettingLocal?.cursorShape}
+        showCursor={true}
+      ></TypingCursorNew>
+      <label
+        className={`flex items-start h-[130px] w-full px-2 ${
+          typingStyles === "time" ? "overflow-hidden" : ""
+        }`}
+      >
+        <label
+          ref={containerRef}
+          className={`flex flex-wrap gap-4 transition-all`}
+          style={{ transform: `translateY(-${heightFlexible}px)` }}
+        >
+          {newArrWords.map((word, index) => (
+            <TypingWordNew
+              key={index}
+              setRect={setRect}
+              typingWordIndex={typingWordIndex}
+              wordIndex={index}
+              currentTyping={word}
+              text={value}
+              textSize="text-2xl"
+              setCursorPosition={setCursorPosition}
+            ></TypingWordNew>
+          ))}
+        </label>
+      </label>
     </>
   );
 };

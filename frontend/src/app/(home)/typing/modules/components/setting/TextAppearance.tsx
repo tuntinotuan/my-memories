@@ -9,6 +9,7 @@ import { calculatePositionForCursor } from "../../../func/word/calculatePosition
 import { useTyping } from "@/contexts/TypingStates";
 import { CursorStyles } from "../../types";
 import { useAutoText } from "../../../func/setting/useAutoText";
+import { useLayoutStates } from "@/contexts/layoutStates";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -40,8 +41,9 @@ const TextAppearance = ({ show }: any) => {
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
-  const { rect, setCursorShape, typingSettingLocal } = useTyping();
   const [currentText, setCurrentText] = useState("");
+  const { rect, setRect, setCursorShape, typingSettingLocal } = useTyping();
+  const { showTypingSetting } = useLayoutStates();
 
   const listCursorShape: {
     styles: CursorStyles;
@@ -184,6 +186,7 @@ const TextAppearance = ({ show }: any) => {
       {/* {preCursorPosition} */}
       <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
+          showCursor={showTypingSetting}
           cssPosition="fixed"
           rect={rect}
           cursorPosition={cursorPosition}
@@ -195,6 +198,7 @@ const TextAppearance = ({ show }: any) => {
           wordList.map((word, index) => (
             <TypingWordNew
               key={index}
+              setRect={setRect}
               typingWordIndex={typingWordIndex}
               wordIndex={index}
               currentTyping={word}
@@ -205,6 +209,7 @@ const TextAppearance = ({ show }: any) => {
           ))}
         {!resetComponents && (
           <TypingWordNew
+            setRect={setRect}
             typingWordIndex={typingWordIndex}
             wordIndex={0}
             currentTyping={{ word: "a", meaning: "" }}
@@ -220,6 +225,7 @@ const TextAppearance = ({ show }: any) => {
           {listCursorShape.map((item, index) => (
             <RelativeOverlay key={index}>
               <TypingCursorNew
+                showCursor
                 cssPosition="absolute"
                 styles={item.styles}
                 cursorPosition={0}
