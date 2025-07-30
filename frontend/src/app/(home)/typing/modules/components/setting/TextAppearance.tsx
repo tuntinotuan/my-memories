@@ -7,8 +7,8 @@ import RelativeOverlay from "@/components/overlay/relative.overlay";
 import TypingKeyboardInput from "../TypingKeyboard";
 import { calculatePositionForCursor } from "../../../func/word/calculatePositionForCursor";
 import { useTyping } from "@/contexts/TypingStates";
-import { getTextWidth } from "@/utils/stringFs";
 import { CursorStyles } from "../../types";
+import { useAutoText } from "../../../func/setting/useAutoText";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -35,7 +35,6 @@ const TextAppearance = ({ show }: any) => {
   ];
   const [value, setValue] = useState("");
   const [typingWordIndex, setTypingWordIndex] = useState(0);
-  const [number, setnumber] = useState(0);
   const [preTypedWord, setPreTypedWord] = useState("");
   const [preCursorPosition, setPreCursorPosition] = useState(0);
   const [resetComponents, setResetComponents] = useState(true);
@@ -88,43 +87,6 @@ const TextAppearance = ({ show }: any) => {
     if (e.target.value === " ") return;
     setValue(e.target.value);
   };
-  const fullText = "I love you so much ".split("");
-  useEffect(() => {
-    if (!show) return;
-    const cursorNextWidth =
-      fullText[typingWordIndex + 1] === " "
-        ? 14
-        : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
-    // reset automation
-    if (number >= fullText.length) {
-      handleResetWordComponents();
-      setnumber(0);
-      setTypingWordIndex(0);
-      setValue("");
-      setCursorWidth(16);
-      setCurrentText(fullText[0]);
-      return;
-    }
-    const timeout = setTimeout(() => {
-      // space " "
-      if (fullText[number] !== " ") {
-        setValue((pre) => pre + fullText[number]);
-        setCursorPosition((pre) => pre + cursorNextWidth);
-        setCursorWidth(cursorNextWidth);
-        setCurrentText(fullText[number + 1]);
-      } else {
-        setPreTypedWord(value);
-        setTypingWordIndex((pre) => pre + 1);
-        setValue("");
-        setCursorPosition((pre) => pre + 16);
-        setCursorWidth(cursorNextWidth);
-        setCurrentText("");
-      }
-      setnumber((pre) => pre + 1);
-    }, 600); // Typing speed in ms
-    return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [number, show]);
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
@@ -174,6 +136,7 @@ const TextAppearance = ({ show }: any) => {
     setTypingWordIndex(0);
     setPreTypedWord("");
     setPreCursorPosition(0);
+    setCursorWidth(16);
     setTimeout(() => {
       setResetComponents(true);
     }, 1);
@@ -182,6 +145,18 @@ const TextAppearance = ({ show }: any) => {
     }
     document.getElementById("typingKeyboardId")?.focus();
   };
+  useAutoText({
+    show,
+    value,
+    typingWordIndex,
+    handleResetWordComponents,
+    setCurrentText,
+    setValue,
+    setCursorPosition,
+    setCursorWidth,
+    setPreTypedWord,
+    setTypingWordIndex,
+  });
   useEffect(() => {
     setCurrentText(wordList[typingWordIndex].word.split("")[0]);
     if (rect) {
