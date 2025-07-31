@@ -4,6 +4,7 @@ const TypingKeyboardInput = ({
   handleOnKeyDown,
   value,
   handleOnChange,
+  onBlur,
   id,
   hiddenInput = false,
 }: any) => {
@@ -12,11 +13,12 @@ const TypingKeyboardInput = ({
       id={id}
       value={value}
       placeholder="Typing keyword now..."
-      className={`border border-primaryColor rounded p-2 ${
-        hiddenInput ? "hidden" : ""
+      className={`fixed border border-primaryColor rounded p-2 ${
+        hiddenInput ? "opacity-0" : ""
       }`}
       onChange={handleOnChange}
       onKeyDown={handleOnKeyDown}
+      onBlur={onBlur}
     ></input>
   );
 };

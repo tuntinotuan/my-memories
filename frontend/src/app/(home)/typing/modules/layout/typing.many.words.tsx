@@ -12,6 +12,8 @@ import { TypeOfTypingManyWordProps } from "../types";
 import { useKeyDown } from "../../func/word/handleOnKeyDown";
 import TypingWordNew from "../components/TypingWordNew";
 import TypingCursorNew from "../components/TypingCursorNew";
+import TypingKeyboardInput from "../components/TypingKeyboard";
+import { calculatePositionForCursor } from "../../func/word/calculatePositionForCursor";
 
 type TypingManyWordsProps = {
   types: TypeOfTypingManyWordProps;
@@ -25,6 +27,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
     wordTime,
     typingStyles,
     typingSettingLocal,
+    setHideOverlay,
   } = useTyping();
   const [text, setText] = useState<string>("");
 
@@ -61,26 +64,73 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
     if (e.target.value === " ") return;
     setText(e.target.value.trim());
   };
-  const { handleOnKeyDown } = useKeyDown(
-    types,
-    text,
-    newArrWords,
-    setCursorPosition,
-    setText,
-    lastInRowIndexes,
-    setRowTyped,
-    rowCount,
-    rowTyped,
-    heightFlexible,
-    setHeightFlexible,
-    cursorPosition
-  );
+  // const { handleOnKeyDown } = useKeyDown(
+  //   types,
+  //   text,
+  //   newArrWords,
+  //   setCursorPosition,
+  //   setText,
+  //   lastInRowIndexes,
+  //   setRowTyped,
+  //   rowCount,
+  //   rowTyped,
+  //   heightFlexible,
+  //   setHeightFlexible,
+  //   cursorPosition
+  // );
   const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [value, setValue] = useState("");
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
+  const [preTypedWord, setPreTypedWord] = useState("");
 
+  const handleOnChange = (e: any) => {
+    if (e.target.value === " ") return;
+    setValue(e.target.value);
+  };
+  const handleOnKeyDown = (e: any) => {
+    if (value.length > 0 && e.key === " ") {
+      setPreTypedWord(value);
+      // value !== wordList[typingWordIndex].word &&
+      //   setPreCursorPosition(cursorPosition);
+      setTypingWordIndex((pre) => pre + 1);
+      setValue("");
+      // rect && setCursorPosition(rect.left);
+    }
+    const { cursorPositionIncrease, cursorPositionDecrease } =
+      calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
+    if (value.length >= 0 && e.key === "Backspace") {
+      // Back previous error word
+      if (!value && preTypedWord !== newArrWords[typingWordIndex - 1].word) {
+        // setPreCursorPosition(cursorPosition);
+        setValue(preTypedWord + preTypedWord.at(-1));
+        setTypingWordIndex((pre) => pre - 1);
+        setPreTypedWord(
+          typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
+        );
+        // setCursorPosition(preCursorPosition);
+      } else {
+        value.length > 0 &&
+          setCursorPosition((pre) => pre - cursorPositionDecrease);
+      }
+    }
+    if (
+      e.key.length === 1 &&
+      !e.ctrlKey &&
+      !e.metaKey &&
+      !e.altKey &&
+      e.key !== " "
+    ) {
+      if (e.key !== "Backspace") {
+        setCursorPosition(cursorPosition + cursorPositionIncrease);
+        setCursorWidth(cursorPositionIncrease);
+        setCurrentText(
+          newArrWords[typingWordIndex].word.split("")[value.length + 1]
+        );
+      }
+    }
+  };
   useEffect(() => {
     setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
     if (rect) {
@@ -123,6 +173,15 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
       <TypingOverlayBlur
         htmlFor={`typingCursorId${countNextWord}`}
       ></TypingOverlayBlur> */}
+      <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
+      <TypingKeyboardInput
+        id="typingKeyboardId"
+        hiddenInput
+        value={value}
+        handleOnKeyDown={handleOnKeyDown}
+        handleOnChange={handleOnChange}
+        onBlur={() => setHideOverlay(false)}
+      ></TypingKeyboardInput>
       <TypingCursorNew
         cssPosition="fixed"
         rect={rect}
