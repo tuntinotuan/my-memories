@@ -27,7 +27,9 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
     wordTime,
     typingStyles,
     typingSettingLocal,
+    hideOverlay,
     setHideOverlay,
+    setCursorIsTyping,
   } = useTyping();
   const [text, setText] = useState<string>("");
 
@@ -90,6 +92,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
     setValue(e.target.value);
   };
   const handleOnKeyDown = (e: any) => {
+    setCursorIsTyping(true);
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
       // value !== wordList[typingWordIndex].word &&
@@ -180,7 +183,10 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
         value={value}
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
-        onBlur={() => setHideOverlay(false)}
+        onBlur={() => {
+          setHideOverlay(false);
+          setCursorIsTyping(false);
+        }}
       ></TypingKeyboardInput>
       <TypingCursorNew
         cssPosition="fixed"
@@ -189,7 +195,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
         cursorWidth={cursorWidth}
         currentText={currentText}
         styles={typingSettingLocal?.cursorShape}
-        showCursor={true}
+        showCursor={hideOverlay}
       ></TypingCursorNew>
       <label
         className={`flex items-start h-[130px] w-full px-2 ${

@@ -15,7 +15,7 @@ const UnderlineCursor = ({
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
       <div
         className={`${cssPosition} h-[2px] bg-typingColorActive transition-all z-[999] ${
-          cursorIsTyping ? "" : "animate-careFlashSmooth666"
+          cursorIsTyping ? "" : showCursor && "animate-careFlashSmooth"
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursorPosition,

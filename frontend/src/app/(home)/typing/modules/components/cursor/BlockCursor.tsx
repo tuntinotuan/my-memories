@@ -17,7 +17,7 @@ const BlockCursor = ({
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
       <div
         className={`${cssPosition} flex items-center justify-center text-2xl text-typingTextCorrect bg-typingColorActive h-full transition-all z-[999] ${
-          cursorIsTyping ? "" : "animate-careFlashSmooth666"
+          cursorIsTyping ? "" : showCursor && "animate-careFlashSmooth"
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursorPosition,
