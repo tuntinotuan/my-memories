@@ -30,6 +30,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
     hideOverlay,
     setHideOverlay,
     setCursorIsTyping,
+    cursorIsTyping,
   } = useTyping();
   const [text, setText] = useState<string>("");
 
@@ -176,7 +177,6 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
       <TypingOverlayBlur
         htmlFor={`typingCursorId${countNextWord}`}
       ></TypingOverlayBlur> */}
-      <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
       <TypingKeyboardInput
         id="typingKeyboardId"
         hiddenInput
@@ -196,6 +196,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
         currentText={currentText}
         styles={typingSettingLocal?.cursorShape}
         showCursor={hideOverlay}
+        isTyping={cursorIsTyping}
       ></TypingCursorNew>
       <label
         className={`flex items-start h-[130px] w-full px-2 ${
@@ -221,6 +222,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
           ))}
         </label>
       </label>
+      <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
     </>
   );
 };

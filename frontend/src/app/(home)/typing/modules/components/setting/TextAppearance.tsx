@@ -186,6 +186,7 @@ const TextAppearance = ({ show }: any) => {
       {/* {preCursorPosition} */}
       <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
+          isTyping
           showCursor={showTypingSetting}
           cssPosition="fixed"
           rect={rect}
@@ -225,6 +226,7 @@ const TextAppearance = ({ show }: any) => {
           {listCursorShape.map((item, index) => (
             <RelativeOverlay key={index}>
               <TypingCursorNew
+                isTyping
                 showCursor
                 cssPosition="absolute"
                 styles={item.styles}

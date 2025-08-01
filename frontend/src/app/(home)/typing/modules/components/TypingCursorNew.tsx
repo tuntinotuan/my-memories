@@ -16,6 +16,7 @@ type TypingCursorNewProps = {
   className?: string;
   currentText?: string;
   showCursor?: boolean;
+  isTyping?: boolean;
 };
 
 const TypingCursorNew = ({
@@ -29,6 +30,7 @@ const TypingCursorNew = ({
   onClick,
   className,
   currentText,
+  isTyping = false,
 }: TypingCursorNewProps) => {
   return (
     <div onClick={onClick} className={className}>
@@ -40,6 +42,7 @@ const TypingCursorNew = ({
           cursorWidth={cursorWidth}
           cursorHeight={cursorHeight}
           showCursor={showCursor}
+          isTyping={isTyping}
         ></LineCursorNew>
       )}
       {styles === "underline" && (
@@ -49,6 +52,7 @@ const TypingCursorNew = ({
           cursorPosition={cursorPosition}
           cursorWidth={cursorWidth}
           showCursor={showCursor}
+          isTyping={isTyping}
         ></UnderlineCursor>
       )}
       {styles === "box" && (
@@ -59,6 +63,7 @@ const TypingCursorNew = ({
           cursorWidth={cursorWidth}
           cursorHeight={cursorHeight}
           showCursor={showCursor}
+          isTyping={isTyping}
         ></BoxCursorNew>
       )}
       {styles === "block" && (
@@ -70,6 +75,7 @@ const TypingCursorNew = ({
           cursorHeight={cursorHeight}
           currentText={currentText}
           showCursor={showCursor}
+          isTyping={isTyping}
         ></BlockCursor>
       )}
     </div>
