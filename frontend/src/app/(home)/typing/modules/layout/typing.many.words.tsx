@@ -101,6 +101,17 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
       // rect && setCursorPosition(rect.left);
+      lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
+
+      // words dynamic per row
+      if (
+        lastInRowIndexes.includes(typingWordIndex) &&
+        rowCount > 3 &&
+        rowTyped > 0 &&
+        rowTyped + 2 < rowCount
+      ) {
+        setHeightFlexible(heightFlexible + 48);
+      }
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
@@ -141,7 +152,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
       setCursorPosition(rect.left);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect]);
+  }, [rect, typingSettingLocal]);
   return (
     <>
       {/* {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`} */}
