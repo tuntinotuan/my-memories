@@ -1,5 +1,24 @@
 # Memories
 
+## 🚀 Demo
+
+[Live Demo](https://mymemoriess.netlify.app/)
+
+## 🛠️ Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/tuntinotuan/my-memories.git
+cd my-memories
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev
+```
+
 📂 Folder Structure:
 my-memories/
 
@@ -45,22 +64,3 @@ my-memories/
 - ✅ Feature one
 - 🔄 Feature two
 - ⚡ Feature three
-
-## 🛠️ Installation
-
-```bash
-# Clone the repo
-git clone https://github.com/tuntinotuan/my-memories.git
-cd my-memories
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start the dev server
-npm run dev
-```
-
-## 🚀 Demo
-
-[Live Demo](https://mymemoriess.netlify.app/)
