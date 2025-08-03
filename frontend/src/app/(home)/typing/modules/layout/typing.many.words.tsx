@@ -63,10 +63,10 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
   useCursorMoveNextWord();
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
-  const handleChangeInput = (e: any) => {
-    if (e.target.value === " ") return;
-    setText(e.target.value.trim());
-  };
+  // const handleChangeInput = (e: any) => {
+  //   if (e.target.value === " ") return;
+  //   setText(e.target.value.trim());
+  // };
   // const { handleOnKeyDown } = useKeyDown(
   //   types,
   //   text,
