@@ -51,15 +51,6 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
   );
   const containerRef = useRef<HTMLLabelElement>(null);
 
-  useResetAfterWordOrTimeSettingChange(
-    types,
-    refWords,
-    setNewArrWords,
-    setText,
-    setCursorPosition,
-    setHeightFlexible,
-    setRowTyped
-  );
   useCursorMoveNextWord();
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
@@ -153,6 +144,16 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect, typingSettingLocal]);
+  useResetAfterWordOrTimeSettingChange(
+    types,
+    refWords,
+    setNewArrWords,
+    setValue,
+    setCursorPosition,
+    setHeightFlexible,
+    setRowTyped,
+    setTypingWordIndex
+  );
   return (
     <>
       {/* {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`} */}
