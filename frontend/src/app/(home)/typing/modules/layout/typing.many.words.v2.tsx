@@ -1,4 +1,3 @@
-import TypingWord from "../components/TypingWord";
 import { useEffect, useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
@@ -9,7 +8,6 @@ import TypingWordNew from "../components/TypingWordNew";
 import TypingCursorNew from "../components/TypingCursorNew";
 import TypingKeyboardInput from "../components/TypingKeyboard";
 import { useDetectLastInRows } from "../../func/wordOlderV1/detectLastInRows";
-import { useCursorMoveNextWord } from "../../func/wordOlderV1/cursorMoveNextWord";
 import { useTimeShowResults } from "../../func/wordOlderV1/timeResults";
 import { calculatePositionForCursor } from "../../func/wordOlderV1/calculatePositionForCursor";
 import { useResetAfterWordOrTimeSettingChange } from "../../func/wordOlderV1/resetAfterWordOrTimeSettingChange";
@@ -22,7 +20,6 @@ type TypingManyWordsV2Props = {
 export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const {
     wordAmount,
-    countNextWord,
     wordTime,
     typingStyles,
     typingSettingLocal,
@@ -31,7 +28,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setCursorIsTyping,
     cursorIsTyping,
   } = useTyping();
-  const [text, setText] = useState<string>("");
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
 
@@ -49,28 +45,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     refWords.current
   );
   const containerRef = useRef<HTMLLabelElement>(null);
-
-  useCursorMoveNextWord();
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
-  // const handleChangeInput = (e: any) => {
-  //   if (e.target.value === " ") return;
-  //   setText(e.target.value.trim());
-  // };
-  // const { handleOnKeyDown } = useKeyDown(
-  //   types,
-  //   text,
-  //   newArrWords,
-  //   setCursorPosition,
-  //   setText,
-  //   lastInRowIndexes,
-  //   setRowTyped,
-  //   rowCount,
-  //   rowTyped,
-  //   heightFlexible,
-  //   setHeightFlexible,
-  //   cursorPosition
-  // );
   const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [value, setValue] = useState("");
   const [rect, setRect] = useState<DOMRect | null>(null);
@@ -154,39 +130,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   );
   return (
     <>
-      {/* {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`} */}
-      {/* {`${countNextWord + 1 === newArrWords.length} || ${countNextWord} ||${
-        newArrWords[countNextWord]?.word
-      } || ${newArrWords[countNextWord]?.word.length} || ${text.length}`} */}
-      {/* <label
-        className={`flex items-start h-[130px] w-full px-2 ${
-          typingStyles === "time" ? "overflow-hidden" : ""
-        }`}
-      >
-        <label
-          ref={containerRef}
-          className={`flex flex-wrap gap-4 transition-all`}
-          style={{ transform: `translateY(-${heightFlexible}px)` }}
-        >
-          {newArrWords.map((word, index) => (
-            <TypingWord
-              key={index}
-              next={countNextWord}
-              wordIndex={index}
-              currentTyping={word}
-              text={text}
-              onChange={handleChangeInput}
-              onKeyDown={handleOnKeyDown}
-              cursorPosition={cursorPosition}
-              textSize="text-2xl"
-              fontSize="24px"
-            ></TypingWord>
-          ))}
-        </label>
-      </label>
-      <TypingOverlayBlur
-        htmlFor={`typingCursorId${countNextWord}`}
-      ></TypingOverlayBlur> */}
       <TypingKeyboardInput
         id="typingKeyboardId"
         hiddenInput

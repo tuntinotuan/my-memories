@@ -1,6 +1,6 @@
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { calculatePositionForCursor } from "../word/calculatePositionForCursor";
 import { useTyping } from "@/contexts/TypingStates";
+import { calculatePositionForCursor } from "../wordOlderV1/calculatePositionForCursor";
 
 export function useOnlyHandleOnKeyDown(
   text: string,

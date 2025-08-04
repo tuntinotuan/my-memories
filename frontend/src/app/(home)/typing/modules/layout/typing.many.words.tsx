@@ -1,5 +1,5 @@
 import TypingWord from "../components/TypingWord";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -10,10 +10,6 @@ import { useCursorMoveNextWord } from "../../func/wordOlderV1/cursorMoveNextWord
 import { useResetAfterWordOrTimeSettingChange } from "../../func/wordOlderV1/resetAfterWordOrTimeSettingChange";
 import { TypeOfTypingManyWordProps } from "../types";
 import { useKeyDown } from "../../func/wordOlderV1/handleOnKeyDown";
-import TypingWordNew from "../components/TypingWordNew";
-import TypingCursorNew from "../components/TypingCursorNew";
-import TypingKeyboardInput from "../components/TypingKeyboard";
-import { calculatePositionForCursor } from "../../func/wordOlderV1/calculatePositionForCursor";
 
 type TypingManyWordsProps = {
   types: TypeOfTypingManyWordProps;
@@ -21,17 +17,7 @@ type TypingManyWordsProps = {
 };
 
 export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
-  const {
-    wordAmount,
-    countNextWord,
-    wordTime,
-    typingStyles,
-    typingSettingLocal,
-    hideOverlay,
-    setHideOverlay,
-    setCursorIsTyping,
-    cursorIsTyping,
-  } = useTyping();
+  const { wordAmount, countNextWord, wordTime, typingStyles } = useTyping();
   const [text, setText] = useState<string>("");
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
