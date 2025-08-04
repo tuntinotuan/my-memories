@@ -4,16 +4,16 @@ import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
-import { useTimeShowResults } from "../../func/word/timeResults";
-import { useDetectLastInRows } from "../../func/word/detectLastInRows";
-import { useCursorMoveNextWord } from "../../func/word/cursorMoveNextWord";
-import { useResetAfterWordOrTimeSettingChange } from "../../func/word/resetAfterWordOrTimeSettingChange";
+import { useTimeShowResults } from "../../func/wordOlderV1/timeResults";
+import { useDetectLastInRows } from "../../func/wordOlderV1/detectLastInRows";
+import { useCursorMoveNextWord } from "../../func/wordOlderV1/cursorMoveNextWord";
+import { useResetAfterWordOrTimeSettingChange } from "../../func/wordOlderV1/resetAfterWordOrTimeSettingChange";
 import { TypeOfTypingManyWordProps } from "../types";
-import { useKeyDown } from "../../func/word/handleOnKeyDown";
+import { useKeyDown } from "../../func/wordOlderV1/handleOnKeyDown";
 import TypingWordNew from "../components/TypingWordNew";
 import TypingCursorNew from "../components/TypingCursorNew";
 import TypingKeyboardInput from "../components/TypingKeyboard";
-import { calculatePositionForCursor } from "../../func/word/calculatePositionForCursor";
+import { calculatePositionForCursor } from "../../func/wordOlderV1/calculatePositionForCursor";
 
 type TypingManyWordsProps = {
   types: TypeOfTypingManyWordProps;
@@ -54,105 +54,32 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
   useCursorMoveNextWord();
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
-  // const handleChangeInput = (e: any) => {
-  //   if (e.target.value === " ") return;
-  //   setText(e.target.value.trim());
-  // };
-  // const { handleOnKeyDown } = useKeyDown(
-  //   types,
-  //   text,
-  //   newArrWords,
-  //   setCursorPosition,
-  //   setText,
-  //   lastInRowIndexes,
-  //   setRowTyped,
-  //   rowCount,
-  //   rowTyped,
-  //   heightFlexible,
-  //   setHeightFlexible,
-  //   cursorPosition
-  // );
-  const [typingWordIndex, setTypingWordIndex] = useState(0);
-  const [value, setValue] = useState("");
-  const [rect, setRect] = useState<DOMRect | null>(null);
-  const [cursorWidth, setCursorWidth] = useState(14);
-  const [currentText, setCurrentText] = useState("");
-  const [preTypedWord, setPreTypedWord] = useState("");
-
-  const handleOnChange = (e: any) => {
+  const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
-    setValue(e.target.value);
+    setText(e.target.value.trim());
   };
-  const handleOnKeyDown = (e: any) => {
-    setCursorIsTyping(true);
-    if (value.length > 0 && e.key === " ") {
-      setPreTypedWord(value);
-      // value !== wordList[typingWordIndex].word &&
-      //   setPreCursorPosition(cursorPosition);
-      setTypingWordIndex((pre) => pre + 1);
-      setValue("");
-      // rect && setCursorPosition(rect.left);
-      lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
-
-      // words dynamic per row
-      if (
-        lastInRowIndexes.includes(typingWordIndex) &&
-        rowCount > 3 &&
-        rowTyped > 0 &&
-        rowTyped + 2 < rowCount
-      ) {
-        setHeightFlexible(heightFlexible + 48);
-      }
-    }
-    const { cursorPositionIncrease, cursorPositionDecrease } =
-      calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
-    if (value.length >= 0 && e.key === "Backspace") {
-      // Back previous error word
-      if (!value && preTypedWord !== newArrWords[typingWordIndex - 1].word) {
-        // setPreCursorPosition(cursorPosition);
-        setValue(preTypedWord + preTypedWord.at(-1));
-        setTypingWordIndex((pre) => pre - 1);
-        setPreTypedWord(
-          typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
-        );
-        // setCursorPosition(preCursorPosition);
-      } else {
-        value.length > 0 &&
-          setCursorPosition((pre) => pre - cursorPositionDecrease);
-      }
-    }
-    if (
-      e.key.length === 1 &&
-      !e.ctrlKey &&
-      !e.metaKey &&
-      !e.altKey &&
-      e.key !== " "
-    ) {
-      if (e.key !== "Backspace") {
-        setCursorPosition(cursorPosition + cursorPositionIncrease);
-        setCursorWidth(cursorPositionIncrease);
-        setCurrentText(
-          newArrWords[typingWordIndex].word.split("")[value.length + 1]
-        );
-      }
-    }
-  };
-  useEffect(() => {
-    setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
-    if (rect) {
-      setCursorPosition(rect.left);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect, typingSettingLocal]);
+  const { handleOnKeyDown } = useKeyDown(
+    types,
+    text,
+    newArrWords,
+    setCursorPosition,
+    setText,
+    lastInRowIndexes,
+    setRowTyped,
+    rowCount,
+    rowTyped,
+    heightFlexible,
+    setHeightFlexible,
+    cursorPosition
+  );
   useResetAfterWordOrTimeSettingChange(
     types,
     refWords,
     setNewArrWords,
-    setValue,
+    setText,
     setCursorPosition,
     setHeightFlexible,
-    setRowTyped,
-    setTypingWordIndex
+    setRowTyped
   );
   return (
     <>
@@ -160,7 +87,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
       {/* {`${countNextWord + 1 === newArrWords.length} || ${countNextWord} ||${
         newArrWords[countNextWord]?.word
       } || ${newArrWords[countNextWord]?.word.length} || ${text.length}`} */}
-      {/* <label
+      <label
         className={`flex items-start h-[130px] w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
         }`}
@@ -188,53 +115,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
       </label>
       <TypingOverlayBlur
         htmlFor={`typingCursorId${countNextWord}`}
-      ></TypingOverlayBlur> */}
-      <TypingKeyboardInput
-        id="typingKeyboardId"
-        hiddenInput
-        value={value}
-        handleOnKeyDown={handleOnKeyDown}
-        handleOnChange={handleOnChange}
-        onBlur={() => {
-          setHideOverlay(false);
-          setCursorIsTyping(false);
-        }}
-      ></TypingKeyboardInput>
-      <TypingCursorNew
-        cssPosition="fixed"
-        rect={rect}
-        cursorPosition={cursorPosition}
-        cursorWidth={cursorWidth}
-        currentText={currentText}
-        styles={typingSettingLocal?.cursorShape}
-        showCursor={hideOverlay}
-        isTyping={cursorIsTyping}
-      ></TypingCursorNew>
-      <label
-        className={`flex items-start h-[130px] w-full px-2 ${
-          typingStyles === "time" ? "overflow-hidden" : ""
-        }`}
-      >
-        <label
-          ref={containerRef}
-          className={`flex flex-wrap gap-4 transition-all`}
-          style={{ transform: `translateY(-${heightFlexible}px)` }}
-        >
-          {newArrWords.map((word, index) => (
-            <TypingWordNew
-              key={index}
-              setRect={setRect}
-              typingWordIndex={typingWordIndex}
-              wordIndex={index}
-              currentTyping={word}
-              text={value}
-              textSize="text-2xl"
-              setCursorPosition={setCursorPosition}
-            ></TypingWordNew>
-          ))}
-        </label>
-      </label>
-      <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
+      ></TypingOverlayBlur>
     </>
   );
 };
