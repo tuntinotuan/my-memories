@@ -5,11 +5,11 @@ import TypingWordNew from "../TypingWordNew";
 import TypingCursorNew from "../TypingCursorNew";
 import RelativeOverlay from "@/components/overlay/relative.overlay";
 import TypingKeyboardInput from "../TypingKeyboard";
-import { calculatePositionForCursor } from "../../../func/word/calculatePositionForCursor";
 import { useTyping } from "@/contexts/TypingStates";
 import { CursorStyles } from "../../types";
 import { useAutoText } from "../../../func/setting/useAutoText";
 import { useLayoutStates } from "@/contexts/layoutStates";
+import { calculatePositionForCursor } from "../../../func/wordOlderV1/calculatePositionForCursor";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [

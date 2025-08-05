@@ -6,6 +6,7 @@ import { useTyping } from "@/contexts/TypingStates";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import TypingViewAmountOrTime from "../components/TypingViewAmountOrTime";
 import { useHydrate } from "../../func/useHydrate";
+import { TypingManyWordsV2 } from "./typing.many.words.v2";
 
 export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   const {
@@ -22,10 +23,12 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
       <TypingViewAmountOrTime />
-      {typingStyles === "time" && <TypingManyWords types="time" data={data} />}
+      {typingStyles === "time" && (
+        <TypingManyWordsV2 types="time" data={data} />
+      )}
       {typingStyles === "combine" && <TypingOnlyAWord data={data} />}
       {typingStyles === "words" && (
-        <TypingManyWords types="words" data={data} />
+        <TypingManyWordsV2 types="words" data={data} />
       )}
       <TypingRestart
         onRestart={() => {

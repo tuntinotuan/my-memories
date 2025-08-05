@@ -164,6 +164,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     setTypingStyles(typingSettingLocal.typingStyles);
     setWordAmount(typingSettingLocal.wordAmount);
     setWordTime(typingSettingLocal.wordTime);
+    setCursorShape(typingSettingLocal.cursorShape);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typingSettingLocal]);
   useEffect(() => {
