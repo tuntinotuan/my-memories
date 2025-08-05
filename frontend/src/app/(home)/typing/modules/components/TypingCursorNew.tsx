@@ -32,8 +32,52 @@ const TypingCursorNew = ({
   currentText,
   isTyping = false,
 }: TypingCursorNewProps) => {
+  if (className)
+    return (
+      <div onClick={onClick} className={className}>
+        <BodyLocal
+          showCursor={showCursor}
+          cssPosition={cssPosition}
+          rect={rect}
+          styles={styles}
+          cursorWidth={cursorWidth}
+          cursorHeight={cursorHeight}
+          cursorPosition={cursorPosition}
+          currentText={currentText}
+          isTyping={isTyping}
+        ></BodyLocal>
+      </div>
+    );
   return (
-    <div onClick={onClick} className={className}>
+    <>
+      <BodyLocal
+        showCursor={showCursor}
+        cssPosition={cssPosition}
+        rect={rect}
+        styles={styles}
+        cursorWidth={cursorWidth}
+        cursorHeight={cursorHeight}
+        cursorPosition={cursorPosition}
+        currentText={currentText}
+        isTyping={isTyping}
+      ></BodyLocal>
+    </>
+  );
+};
+
+const BodyLocal = ({
+  showCursor = false,
+  cssPosition,
+  rect,
+  styles = "underline",
+  cursorWidth,
+  cursorHeight,
+  cursorPosition,
+  currentText,
+  isTyping = false,
+}: any) => {
+  return (
+    <>
       {styles === "line" && (
         <LineCursorNew
           cssPosition={cssPosition}
@@ -78,7 +122,7 @@ const TypingCursorNew = ({
           isTyping={isTyping}
         ></BlockCursor>
       )}
-    </div>
+    </>
   );
 };
 
