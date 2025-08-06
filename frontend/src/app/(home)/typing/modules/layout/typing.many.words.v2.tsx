@@ -27,6 +27,11 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setHideOverlay,
     setCursorIsTyping,
     cursorIsTyping,
+    setSecondsOfManyWords,
+    resetRunningManyWords,
+    setIsCountDown,
+    resetCountDownIsInitial,
+    setCountNextWord,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -119,17 +124,51 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect, typingSettingLocal]);
-  useResetAfterWordOrTimeSettingChange(
-    types,
-    refWords,
-    setNewArrWords,
-    setValue,
-    setCursorPosition,
-    setHeightFlexible,
-    setRowTyped
-  );
+  const resetTypingV2States = () => {
+    setTypingWordIndex(0);
+    setValue("");
+    setCursorWidth(14);
+    setCurrentText("");
+    setPreTypedWord("");
+    setRowCount(0);
+    setRowTyped(0);
+    setHeightFlexible(0);
+  };
+  useEffect(() => {
+    setNewArrWords(
+      creationNewArrWithQuantityBigger(refWords.current, wordAmount)
+    );
+    setCursorPosition(0);
+    setValue("");
+    setCountNextWord(0);
+    setHeightFlexible(0);
+    setRowTyped(0);
+    setSecondsOfManyWords(false);
+    resetRunningManyWords();
+    resetTypingV2States();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordAmount]);
+  useEffect(() => {
+    setNewArrWords(
+      creationNewArrWithQuantityBigger(
+        refWords.current,
+        types === "words" ? wordAmount : wordTime * 2.5
+      )
+    );
+    setCursorPosition(0);
+    setValue("");
+    setCountNextWord(0);
+    setHeightFlexible(0);
+    setRowTyped(0);
+    setIsCountDown(false);
+    resetCountDownIsInitial();
+    resetTypingV2States();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordTime]);
+
   return (
     <>
+      {rowCount} | {rowTyped} | {typingWordIndex}|{value}
       <TypingKeyboardInput
         id="typingKeyboardId"
         hiddenInput
