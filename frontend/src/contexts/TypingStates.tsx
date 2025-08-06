@@ -31,7 +31,7 @@ type defaltValuesType = {
   resetCountDownIsInitial: () => void;
   wordList: any;
   setWordList: (val: any) => void;
-  countNextWord: number;
+  typingWordIndex: number;
   hideOverlay: boolean;
   secondsOfManyWords: number;
   cursorIsTyping: boolean;
@@ -59,7 +59,7 @@ type defaltValuesType = {
   setShowPopupCreate: (val: boolean) => void;
   setShowResults: (val: boolean) => void;
   setHideOverlay: (val: boolean) => void;
-  setCountNextWord: (val: number) => void;
+  setTypingWordIndex: (val: any) => void;
   setWordAmount: (val: WordAmountType) => void;
   setWordTime: (val: WordTimeType) => void;
   setTypingStyles: (val: typingStylesType) => void;
@@ -73,7 +73,7 @@ const defaultValues: defaltValuesType = {
   wordApi: [],
   setIsCountDown: () => {},
   resetCountDownIsInitial: () => {},
-  countNextWord: 0,
+  typingWordIndex: 0,
   hideOverlay: true,
   showResults: false,
   setHideOverlay: () => {},
@@ -103,7 +103,7 @@ const defaultValues: defaltValuesType = {
   setSecondsOfManyWords: () => {},
   resetRunningManyWords: () => {},
   setShowResults: () => {},
-  setCountNextWord: () => {},
+  setTypingWordIndex: () => {},
   setWordAmount: () => {},
   setWordTime: () => {},
   setTypingStyles: () => {},
@@ -115,7 +115,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [typingStyles, setTypingStyles] = useState<typingStylesType>("combine");
   const [wordAmount, setWordAmount] = useState<WordAmountType>(10);
   const [wordTime, setWordTime] = useState<WordTimeType>(15);
-  const [countNextWord, setCountNextWord] = useState(0);
+  const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [hideOverlay, setHideOverlay] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [cursorIsTyping, setCursorIsTyping] = useState(false);
@@ -231,7 +231,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         showResults,
         hideOverlay,
         typingStyles,
-        countNextWord,
+        typingWordIndex,
         cursorIsTyping,
         secondsOfManyWords,
         secondsOfTimeWords,
@@ -262,7 +262,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         setSecondsOfManyWords,
         resetRunningManyWords,
         setWordAmount,
-        setCountNextWord,
+        setTypingWordIndex,
         setShowResults,
         setTypingStyles,
         setHideOverlay,

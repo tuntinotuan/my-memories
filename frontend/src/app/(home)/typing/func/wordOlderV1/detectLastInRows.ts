@@ -5,7 +5,7 @@ export function useDetectLastInRows<T extends HTMLElement = HTMLElement>(
   containerRef: RefObject<T>,
   setRowCount: any
 ) {
-  const { wordAmount, countNextWord } = useTyping();
+  const { wordAmount, typingWordIndex, wordTime } = useTyping();
   const [lastInRowIndexes, setLastInRowIndexes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -32,6 +32,6 @@ export function useDetectLastInRows<T extends HTMLElement = HTMLElement>(
 
     return () => window.removeEventListener("resize", detectLastInRows);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wordAmount, countNextWord]);
-  return { lastInRowIndexes };
+  }, [wordAmount, typingWordIndex]);
+  return { lastInRowIndexes, wordTime };
 }

@@ -31,7 +31,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     resetRunningManyWords,
     setIsCountDown,
     resetCountDownIsInitial,
-    setCountNextWord,
+    setTypingWordIndex,
+    typingWordIndex,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -52,7 +53,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const containerRef = useRef<HTMLLabelElement>(null);
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
-  const [typingWordIndex, setTypingWordIndex] = useState(0);
+  // const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [value, setValue] = useState("");
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorWidth, setCursorWidth] = useState(14);
@@ -69,7 +70,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       setPreTypedWord(value);
       // value !== wordList[typingWordIndex].word &&
       //   setPreCursorPosition(cursorPosition);
-      setTypingWordIndex((pre) => pre + 1);
+      setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
       // rect && setCursorPosition(rect.left);
       lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
@@ -91,7 +92,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       if (!value && preTypedWord !== newArrWords[typingWordIndex - 1].word) {
         // setPreCursorPosition(cursorPosition);
         setValue(preTypedWord + preTypedWord.at(-1));
-        setTypingWordIndex((pre) => pre - 1);
+        setTypingWordIndex((pre: number) => pre - 1);
         setPreTypedWord(
           typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
         );
@@ -140,7 +141,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     );
     setCursorPosition(0);
     setValue("");
-    setCountNextWord(0);
+    setTypingWordIndex(0);
     setHeightFlexible(0);
     setRowTyped(0);
     setSecondsOfManyWords(false);
@@ -156,7 +157,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     );
     setCursorPosition(0);
     setValue("");
-    setCountNextWord(0);
+    setTypingWordIndex(0);
     setHeightFlexible(0);
     setRowTyped(0);
     setIsCountDown(false);
