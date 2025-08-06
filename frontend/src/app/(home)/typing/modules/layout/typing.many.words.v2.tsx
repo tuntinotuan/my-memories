@@ -145,7 +145,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped(0);
     setSecondsOfManyWords(false);
     resetRunningManyWords();
-    resetTypingV2States();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordAmount]);
   useEffect(() => {
@@ -162,7 +161,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped(0);
     setIsCountDown(false);
     resetCountDownIsInitial();
-    resetTypingV2States();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordTime]);
 
@@ -189,6 +187,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
         styles={typingSettingLocal?.cursorShape}
         showCursor={hideOverlay}
         isTyping={cursorIsTyping}
+        transitionY={heightFlexible}
       ></TypingCursorNew>
       <label
         className={`flex items-start h-[130px] w-full px-2 ${

@@ -12,6 +12,7 @@ const BlockCursor = ({
   currentText,
   showCursor,
   isTyping,
+  transitionY,
 }: any) => {
   return (
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
