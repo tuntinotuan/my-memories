@@ -124,7 +124,13 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       setCursorPosition(rect.left);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect, typingSettingLocal]);
+  }, [rect, typingSettingLocal, heightFlexible]);
+  useEffect(() => {
+    if (rect) {
+      setCursorPosition(rect.left);
+    }
+  }, [heightFlexible]);
+
   const resetTypingV2States = () => {
     setTypingWordIndex(0);
     setValue("");
