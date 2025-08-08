@@ -69,21 +69,9 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     if (value.length > 0 && e.key === " ") {
       setPreTypedWord(value);
       // value !== wordList[typingWordIndex].word &&
-      //   setPreCursorPosition(cursorPosition);
       setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
       // rect && setCursorPosition(rect.left);
-      lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
-
-      // words dynamic per row
-      if (
-        lastInRowIndexes.includes(typingWordIndex) &&
-        rowCount > 3 &&
-        rowTyped > 0 &&
-        rowTyped + 2 < rowCount
-      ) {
-        setHeightFlexible(heightFlexible + 48);
-      }
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
