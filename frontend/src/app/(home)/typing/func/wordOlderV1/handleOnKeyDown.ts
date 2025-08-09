@@ -20,8 +20,8 @@ export function useKeyDown(
   cursorPosition: any
 ) {
   const {
-    countNextWord,
-    setCountNextWord,
+    typingWordIndex,
+    setTypingWordIndex,
     setShowResults,
     setSecondsOfManyWords,
     setCursorIsTyping,
@@ -39,7 +39,7 @@ export function useKeyDown(
       types,
       newArrWords,
       text,
-      countNextWord,
+      typingWordIndex,
       setSecondsOfManyWords,
       setShowResults
     );
@@ -49,10 +49,10 @@ export function useKeyDown(
       types,
       text,
       newArrWords,
-      countNextWord,
+      typingWordIndex,
       setCursorPosition,
       setText,
-      setCountNextWord,
+      setTypingWordIndex,
       lastInRowIndexes,
       setRowTyped,
       rowCount,
@@ -65,7 +65,7 @@ export function useKeyDown(
     cursorPositionPerTyped(
       e,
       newArrWords,
-      countNextWord,
+      typingWordIndex,
       text,
       setCursorPosition,
       cursorPosition

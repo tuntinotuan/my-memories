@@ -83,7 +83,9 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
         rowTyped > 0 &&
         rowTyped + 2 < rowCount
       ) {
-        setHeightFlexible(heightFlexible + 48);
+        setTimeout(() => {
+          setHeightFlexible(heightFlexible + 48);
+        }, 100);
       }
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
@@ -126,11 +128,11 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect, typingSettingLocal, heightFlexible]);
-  useEffect(() => {
-    if (rect) {
-      setCursorPosition(rect.left);
-    }
-  }, [heightFlexible]);
+  // useEffect(() => {
+  //   if (rect) {
+  //     setCursorPosition(rect.left);
+  //   }
+  // }, [heightFlexible]);
   const { hydrated, setHydrated } = useHydrate();
   const resetTypingV2States = () => {
     setHydrated(false);

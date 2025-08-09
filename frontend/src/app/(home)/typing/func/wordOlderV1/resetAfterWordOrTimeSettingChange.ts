@@ -18,7 +18,7 @@ export function useResetAfterWordOrTimeSettingChange(
     resetRunningManyWords,
     setIsCountDown,
     resetCountDownIsInitial,
-    setCountNextWord,
+    setTypingWordIndex,
   } = useTyping();
   useEffect(() => {
     setNewArrWords(
@@ -26,7 +26,7 @@ export function useResetAfterWordOrTimeSettingChange(
     );
     setCursorPosition(0);
     setText("");
-    setCountNextWord(0);
+    setTypingWordIndex(0);
     setHeightFlexible(0);
     setRowTyped(0);
     setSecondsOfManyWords(false);
@@ -42,7 +42,7 @@ export function useResetAfterWordOrTimeSettingChange(
     );
     setCursorPosition(0);
     setText("");
-    setCountNextWord(0);
+    setTypingWordIndex(0);
     setHeightFlexible(0);
     setRowTyped(0);
     setIsCountDown(false);

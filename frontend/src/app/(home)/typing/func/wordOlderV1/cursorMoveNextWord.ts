@@ -2,8 +2,8 @@ import { useTyping } from "@/contexts/TypingStates";
 import { useEffect } from "react";
 
 export function useCursorMoveNextWord() {
-  const { countNextWord } = useTyping();
+  const { typingWordIndex } = useTyping();
   useEffect(() => {
-    document.getElementById(`typingCursorId${countNextWord}`)?.focus();
-  }, [countNextWord]);
+    document.getElementById(`typingCursorId${typingWordIndex}`)?.focus();
+  }, [typingWordIndex]);
 }
