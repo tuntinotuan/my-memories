@@ -11,6 +11,7 @@ import { useDetectLastInRows } from "../../func/wordOlderV1/detectLastInRows";
 import { useTimeShowResults } from "../../func/wordOlderV1/timeResults";
 import { calculatePositionForCursor } from "../../func/wordOlderV1/calculatePositionForCursor";
 import { useResetAfterWordOrTimeSettingChange } from "../../func/wordOlderV1/resetAfterWordOrTimeSettingChange";
+import { useHydrate } from "../../func/useHydrate";
 
 type TypingManyWordsV2Props = {
   types: TypeOfTypingManyWordProps;
@@ -130,7 +131,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       setCursorPosition(rect.left);
     }
   }, [heightFlexible]);
-
+  const { hydrated, setHydrated } = useHydrate();
   const resetTypingV2States = () => {
     setTypingWordIndex(0);
     setValue("");
@@ -141,36 +142,44 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped(0);
     setHeightFlexible(0);
   };
-  // useEffect(() => {
-  //   setNewArrWords(
-  //     creationNewArrWithQuantityBigger(refWords.current, wordAmount)
-  //   );
-  //   setCursorPosition(0);
-  //   setValue("");
-  //   setTypingWordIndex(0);
-  //   setHeightFlexible(0);
-  //   setRowTyped(0);
-  //   setSecondsOfManyWords(false);
-  //   resetRunningManyWords();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [wordAmount]);
-  // useEffect(() => {
-  //   setNewArrWords(
-  //     creationNewArrWithQuantityBigger(
-  //       refWords.current,
-  //       types === "words" ? wordAmount : wordTime * 2.5
-  //     )
-  //   );
-  //   setCursorPosition(0);
-  //   setValue("");
-  //   setTypingWordIndex(0);
-  //   setHeightFlexible(0);
-  //   setRowTyped(0);
-  //   setIsCountDown(false);
-  //   resetCountDownIsInitial();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [wordTime]);
-
+  useEffect(() => {
+    setHydrated(false);
+    setTimeout(() => {
+      setHydrated(true);
+    }, 0);
+    setNewArrWords(
+      creationNewArrWithQuantityBigger(refWords.current, wordAmount)
+    );
+    setCursorPosition(0);
+    setValue("");
+    setTypingWordIndex(0);
+    setHeightFlexible(0);
+    setRowTyped(0);
+    setSecondsOfManyWords(false);
+    resetRunningManyWords();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordAmount]);
+  useEffect(() => {
+    setHydrated(false);
+    setTimeout(() => {
+      setHydrated(true);
+    }, 0);
+    setNewArrWords(
+      creationNewArrWithQuantityBigger(
+        refWords.current,
+        types === "words" ? wordAmount : wordTime * 2.5
+      )
+    );
+    setCursorPosition(0);
+    setValue("");
+    setTypingWordIndex(0);
+    setHeightFlexible(0);
+    setRowTyped(0);
+    setIsCountDown(false);
+    resetCountDownIsInitial();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordTime]);
+  if (!hydrated) return null;
   return (
     <>
       {rowCount} | {rowTyped} | {typingWordIndex}|{value}
