@@ -133,48 +133,33 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   }, [heightFlexible]);
   const { hydrated, setHydrated } = useHydrate();
   const resetTypingV2States = () => {
-    setTypingWordIndex(0);
-    setValue("");
-    setCursorWidth(14);
-    setCurrentText("");
-    setPreTypedWord("");
-    setRowCount(0);
-    setRowTyped(0);
-    setHeightFlexible(0);
-  };
-  useEffect(() => {
     setHydrated(false);
     setTimeout(() => {
       setHydrated(true);
     }, 0);
-    setNewArrWords(
-      creationNewArrWithQuantityBigger(refWords.current, wordAmount)
-    );
     setCursorPosition(0);
     setValue("");
     setTypingWordIndex(0);
     setHeightFlexible(0);
     setRowTyped(0);
+  };
+  useEffect(() => {
+    resetTypingV2States();
+    setNewArrWords(
+      creationNewArrWithQuantityBigger(refWords.current, wordAmount)
+    );
     setSecondsOfManyWords(false);
     resetRunningManyWords();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordAmount]);
   useEffect(() => {
-    setHydrated(false);
-    setTimeout(() => {
-      setHydrated(true);
-    }, 0);
+    resetTypingV2States();
     setNewArrWords(
       creationNewArrWithQuantityBigger(
         refWords.current,
         types === "words" ? wordAmount : wordTime * 2.5
       )
     );
-    setCursorPosition(0);
-    setValue("");
-    setTypingWordIndex(0);
-    setHeightFlexible(0);
-    setRowTyped(0);
     setIsCountDown(false);
     resetCountDownIsInitial();
     // eslint-disable-next-line react-hooks/exhaustive-deps
