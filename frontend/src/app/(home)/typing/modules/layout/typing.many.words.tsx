@@ -17,7 +17,7 @@ type TypingManyWordsProps = {
 };
 
 export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
-  const { wordAmount, countNextWord, wordTime, typingStyles } = useTyping();
+  const { wordAmount, typingWordIndex, wordTime, typingStyles } = useTyping();
   const [text, setText] = useState<string>("");
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -70,9 +70,9 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
   return (
     <>
       {/* {`${rowCount}-${rowTyped}-${rowTyped + 2 < rowCount}`} */}
-      {/* {`${countNextWord + 1 === newArrWords.length} || ${countNextWord} ||${
-        newArrWords[countNextWord]?.word
-      } || ${newArrWords[countNextWord]?.word.length} || ${text.length}`} */}
+      {/* {`${typingWordIndex + 1 === newArrWords.length} || ${typingWordIndex} ||${
+        newArrWords[typingWordIndex]?.word
+      } || ${newArrWords[typingWordIndex]?.word.length} || ${text.length}`} */}
       <label
         className={`flex items-start h-[130px] w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
@@ -86,7 +86,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
           {newArrWords.map((word, index) => (
             <TypingWord
               key={index}
-              next={countNextWord}
+              next={typingWordIndex}
               wordIndex={index}
               currentTyping={word}
               text={text}
@@ -100,7 +100,7 @@ export const TypingManyWords = ({ types, data }: TypingManyWordsProps) => {
         </label>
       </label>
       <TypingOverlayBlur
-        htmlFor={`typingCursorId${countNextWord}`}
+        htmlFor={`typingCursorId${typingWordIndex}`}
       ></TypingOverlayBlur>
     </>
   );
