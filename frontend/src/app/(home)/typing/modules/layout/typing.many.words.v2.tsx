@@ -54,7 +54,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const containerRef = useRef<HTMLLabelElement>(null);
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
-  // const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [value, setValue] = useState("");
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorWidth, setCursorWidth] = useState(14);
