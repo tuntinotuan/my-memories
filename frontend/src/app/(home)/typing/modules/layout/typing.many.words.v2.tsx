@@ -74,19 +74,18 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
       // rect && setCursorPosition(rect.left);
-      lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
 
       // words dynamic per row
-      if (
-        lastInRowIndexes.includes(typingWordIndex) &&
-        rowCount > 3 &&
-        rowTyped > 0 &&
-        rowTyped + 2 < rowCount
-      ) {
-        setTimeout(() => {
-          setHeightFlexible(heightFlexible + 48);
-        }, 100);
-      }
+      // if (
+      //   lastInRowIndexes.includes(typingWordIndex) &&
+      //   rowCount > 3 &&
+      //   rowTyped > 0 &&
+      //   rowTyped + 2 < rowCount
+      // ) {
+      //   setTimeout(() => {
+      //     setHeightFlexible(heightFlexible + 48);
+      //   }, 100);
+      // }
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
@@ -126,13 +125,20 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     if (rect) {
       setCursorPosition(rect.left);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect, typingSettingLocal, heightFlexible]);
+  }, [rect, typingSettingLocal]);
   // useEffect(() => {
-  //   if (rect) {
-  //     setCursorPosition(rect.left);
+  //   lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
+  //   if (
+  //     lastInRowIndexes.includes(typingWordIndex - 1) &&
+  //     rowCount > 3 &&
+  //     rowTyped > 0 &&
+  //     rowTyped + 2 < rowCount
+  //   ) {
+  //     setHeightFlexible(heightFlexible + 48);
   //   }
-  // }, [heightFlexible]);
+  // }, [typingWordIndex]);
   const { hydrated, setHydrated } = useHydrate();
   // const resetTypingV2States = () => {
   //   setHydrated(false);
@@ -179,7 +185,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   if (!hydrated) return null;
   return (
     <>
-      {rowCount} | {rowTyped} | {typingWordIndex}|{value}
+      {rowCount} | {rowTyped} | {typingWordIndex}|
+      {`${lastInRowIndexes.includes(typingWordIndex)}`}
       <TypingKeyboardInput
         id="typingKeyboardId"
         hiddenInput
@@ -222,6 +229,12 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
               text={value}
               textSize="text-2xl"
               setCursorPosition={setCursorPosition}
+              lastInRowIndexes={lastInRowIndexes}
+              setRowTyped={setRowTyped}
+              rowCount={rowCount}
+              rowTyped={rowTyped}
+              setHeightFlexible={setHeightFlexible}
+              heightFlexible={heightFlexible}
             ></TypingWordNew>
           ))}
         </label>

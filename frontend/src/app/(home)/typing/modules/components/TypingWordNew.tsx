@@ -9,6 +9,12 @@ type TypingWordNewProps = {
   wordIndex?: number;
   textSize?: string;
   setCursorPosition: any;
+  lastInRowIndexes: any;
+  setRowTyped: any;
+  rowCount: any;
+  rowTyped: any;
+  setHeightFlexible: any;
+  heightFlexible: any;
 };
 
 const TypingWordNew = ({
@@ -19,6 +25,12 @@ const TypingWordNew = ({
   currentTyping,
   text,
   setCursorPosition,
+  lastInRowIndexes,
+  setRowTyped,
+  rowCount,
+  rowTyped,
+  setHeightFlexible,
+  heightFlexible,
 }: TypingWordNewProps) => {
   const [newText, setNewText] = useState<string>(text);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -30,6 +42,16 @@ const TypingWordNew = ({
   }, [text]);
 
   useEffect(() => {
+    // lastInRowIndexes?.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
+    // if (
+    //   typingWordIndex &&
+    //   lastInRowIndexes.includes(typingWordIndex - 1) &&
+    //   rowCount > 3 &&
+    //   rowTyped > 0 &&
+    //   rowTyped + 2 < rowCount
+    // ) {
+    //   setHeightFlexible(heightFlexible + 48);
+    // }
     if (typingWordIndex === wordIndex && ref.current) {
       const newRect = ref.current.getBoundingClientRect();
       setRect(newRect);
