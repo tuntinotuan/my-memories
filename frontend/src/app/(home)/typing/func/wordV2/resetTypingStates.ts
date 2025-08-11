@@ -1,4 +1,4 @@
-export const resetTypingV2States = ({
+export const resetTypingStatesV2 = ({
   setHydrated,
   setCursorPosition,
   setValue,
