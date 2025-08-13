@@ -14,6 +14,7 @@ import { useResetAfterWordOrTimeSettingChange } from "../../func/wordOlderV1/res
 import { useHydrate } from "../../func/useHydrate";
 import { useResetTypingStatesAfterWordOrTimeSettingChangeV2 } from "../../func/wordV2/resetAfterWordOrTimeSettingChangeV2";
 import { useKeyDownV2 } from "../../func/wordV2/handleOnKeyDownV2";
+import { useUpdateCursorPosition } from "../../func/wordV2/updateCursorPosition";
 
 type TypingManyWordsV2Props = {
   types: TypeOfTypingManyWordProps;
@@ -132,14 +133,15 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   //     }
   //   }
   // };
-  useEffect(() => {
-    setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
-    if (rect) {
-      setCursorPosition(rect.left);
-    }
+  // useEffect(() => {
+  //   setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
+  //   if (rect) {
+  //     setCursorPosition(rect.left);
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect, typingSettingLocal]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [rect, typingSettingLocal]);
+  useUpdateCursorPosition(newArrWords, rect, setCurrentText, setCursorPosition);
   // useEffect(() => {
   //   lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
   //   if (
