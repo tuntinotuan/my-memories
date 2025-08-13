@@ -13,6 +13,7 @@ import { calculatePositionForCursor } from "../../func/wordOlderV1/calculatePosi
 import { useResetAfterWordOrTimeSettingChange } from "../../func/wordOlderV1/resetAfterWordOrTimeSettingChange";
 import { useHydrate } from "../../func/useHydrate";
 import { useResetTypingStatesAfterWordOrTimeSettingChangeV2 } from "../../func/wordV2/resetAfterWordOrTimeSettingChangeV2";
+import { useKeyDownV2 } from "../../func/wordV2/handleOnKeyDownV2";
 
 type TypingManyWordsV2Props = {
   types: TypeOfTypingManyWordProps;
@@ -65,61 +66,72 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     if (e.target.value === " ") return;
     setValue(e.target.value);
   };
-  const handleOnKeyDown = (e: any) => {
-    setCursorIsTyping(true);
-    if (value.length > 0 && e.key === " ") {
-      setPreTypedWord(value);
-      // value !== wordList[typingWordIndex].word &&
-      //   setPreCursorPosition(cursorPosition);
-      setTypingWordIndex((pre: number) => pre + 1);
-      setValue("");
-      // rect && setCursorPosition(rect.left);
+  const { handleOnKeyDown } = useKeyDownV2(
+    value,
+    setValue,
+    setPreTypedWord,
+    newArrWords,
+    setCursorPosition,
+    cursorPosition,
+    setCursorWidth,
+    setCurrentText,
+    preTypedWord
+  );
+  // const handleOnKeyDown = (e: any) => {
+  //   setCursorIsTyping(true);
+  //   if (value.length > 0 && e.key === " ") {
+  //     setPreTypedWord(value);
+  //     // value !== wordList[typingWordIndex].word &&
+  //     //   setPreCursorPosition(cursorPosition);
+  //     setTypingWordIndex((pre: number) => pre + 1);
+  //     setValue("");
+  //     // rect && setCursorPosition(rect.left);
 
-      // words dynamic per row
-      // if (
-      //   lastInRowIndexes.includes(typingWordIndex) &&
-      //   rowCount > 3 &&
-      //   rowTyped > 0 &&
-      //   rowTyped + 2 < rowCount
-      // ) {
-      //   setTimeout(() => {
-      //     setHeightFlexible(heightFlexible + 48);
-      //   }, 100);
-      // }
-    }
-    const { cursorPositionIncrease, cursorPositionDecrease } =
-      calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
-    if (value.length >= 0 && e.key === "Backspace") {
-      // Back previous error word
-      if (!value && preTypedWord !== newArrWords[typingWordIndex - 1].word) {
-        // setPreCursorPosition(cursorPosition);
-        setValue(preTypedWord + preTypedWord.at(-1));
-        setTypingWordIndex((pre: number) => pre - 1);
-        setPreTypedWord(
-          typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
-        );
-        setCursorPosition(0);
-      } else {
-        value.length > 0 &&
-          setCursorPosition((pre) => pre - cursorPositionDecrease);
-      }
-    }
-    if (
-      e.key.length === 1 &&
-      !e.ctrlKey &&
-      !e.metaKey &&
-      !e.altKey &&
-      e.key !== " "
-    ) {
-      if (e.key !== "Backspace") {
-        setCursorPosition(cursorPosition + cursorPositionIncrease);
-        setCursorWidth(cursorPositionIncrease);
-        setCurrentText(
-          newArrWords[typingWordIndex].word.split("")[value.length + 1]
-        );
-      }
-    }
-  };
+  //     // words dynamic per row
+  //     // if (
+  //     //   lastInRowIndexes.includes(typingWordIndex) &&
+  //     //   rowCount > 3 &&
+  //     //   rowTyped > 0 &&
+  //     //   rowTyped + 2 < rowCount
+  //     // ) {
+  //     //   setTimeout(() => {
+  //     //     setHeightFlexible(heightFlexible + 48);
+  //     //   }, 100);
+  //     // }
+  //   }
+  //   const { cursorPositionIncrease, cursorPositionDecrease } =
+  //     calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
+  //   if (value.length >= 0 && e.key === "Backspace") {
+  //     // Back previous error word
+  //     if (!value && preTypedWord !== newArrWords[typingWordIndex - 1].word) {
+  //       // setPreCursorPosition(cursorPosition);
+  //       setValue(preTypedWord + preTypedWord.at(-1));
+  //       setTypingWordIndex((pre: number) => pre - 1);
+  //       setPreTypedWord(
+  //         typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
+  //       );
+  //       setCursorPosition(0);
+  //     } else {
+  //       value.length > 0 &&
+  //         setCursorPosition((pre) => pre - cursorPositionDecrease);
+  //     }
+  //   }
+  //   if (
+  //     e.key.length === 1 &&
+  //     !e.ctrlKey &&
+  //     !e.metaKey &&
+  //     !e.altKey &&
+  //     e.key !== " "
+  //   ) {
+  //     if (e.key !== "Backspace") {
+  //       setCursorPosition(cursorPosition + cursorPositionIncrease);
+  //       setCursorWidth(cursorPositionIncrease);
+  //       setCurrentText(
+  //         newArrWords[typingWordIndex].word.split("")[value.length + 1]
+  //       );
+  //     }
+  //   }
+  // };
   useEffect(() => {
     setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
     if (rect) {
