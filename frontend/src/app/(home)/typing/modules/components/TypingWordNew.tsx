@@ -9,12 +9,12 @@ type TypingWordNewProps = {
   wordIndex?: number;
   textSize?: string;
   setCursorPosition: any;
-  lastInRowIndexes: any;
-  setRowTyped: any;
-  rowCount: any;
-  rowTyped: any;
-  setHeightFlexible: any;
-  heightFlexible: any;
+  lastInRowIndexes?: any;
+  setRowTyped?: any;
+  rowCount?: any;
+  rowTyped?: any;
+  setHeightFlexible?: any;
+  heightFlexible?: any;
 };
 
 const TypingWordNew = ({
