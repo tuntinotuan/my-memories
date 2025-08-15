@@ -54,14 +54,16 @@ const TypingWordNew = ({
       ) {
         await setHeightFlexible(heightFlexible + 48);
       }
-
-      if (typingWordIndex === wordIndex && ref.current) {
-        const newRect = ref.current.getBoundingClientRect();
-        setRect(newRect);
-        console.log("newRect", typingWordIndex, newRect);
-      }
     }
     processTypingWordIndexChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typingWordIndex]);
+  useEffect(() => {
+    if (typingWordIndex === wordIndex && ref.current) {
+      const newRect = ref.current.getBoundingClientRect();
+      setRect(newRect);
+      console.log("newRect", typingWordIndex, newRect);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typingWordIndex]);
 
