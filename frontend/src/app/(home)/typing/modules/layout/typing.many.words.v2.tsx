@@ -47,7 +47,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [newArrWords, setNewArrWords] = useState<typingWordsTypes[]>(
     refWords.current
   );
-  const containerRef = useRef<HTMLLabelElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
   useTimeShowResults(types);
   const [value, setValue] = useState("");
@@ -121,36 +121,32 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
         isTyping={cursorIsTyping}
         transitionY={heightFlexible}
       ></TypingCursorNew>
-      <label
-        className={`flex items-start h-[130px] w-full px-2 ${
+      <div
+        ref={containerRef}
+        className={`flex flex-wrap items-start h-[130px] w-full px-2 gap-4 transition-all ${
           typingStyles === "time" ? "overflow-hidden" : ""
         }`}
+        style={{ transform: `translateY(-${heightFlexible}px)` }}
       >
-        <label
-          ref={containerRef}
-          className={`flex flex-wrap gap-4 transition-all`}
-          style={{ transform: `translateY(-${heightFlexible}px)` }}
-        >
-          {newArrWords.map((word, index) => (
-            <TypingWordNew
-              key={index}
-              setRect={setRect}
-              typingWordIndex={typingWordIndex}
-              wordIndex={index}
-              currentTyping={word}
-              text={value}
-              textSize="text-2xl"
-              setCursorPosition={setCursorPosition}
-              lastInRowIndexes={lastInRowIndexes}
-              setRowTyped={setRowTyped}
-              rowCount={rowCount}
-              rowTyped={rowTyped}
-              setHeightFlexible={setHeightFlexible}
-              heightFlexible={heightFlexible}
-            ></TypingWordNew>
-          ))}
-        </label>
-      </label>
+        {newArrWords.map((word, index) => (
+          <TypingWordNew
+            key={index}
+            setRect={setRect}
+            typingWordIndex={typingWordIndex}
+            wordIndex={index}
+            currentTyping={word}
+            text={value}
+            textSize="text-2xl"
+            setCursorPosition={setCursorPosition}
+            lastInRowIndexes={lastInRowIndexes}
+            setRowTyped={setRowTyped}
+            rowCount={rowCount}
+            rowTyped={rowTyped}
+            setHeightFlexible={setHeightFlexible}
+            heightFlexible={heightFlexible}
+          ></TypingWordNew>
+        ))}
+      </div>
       <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
     </>
   );
