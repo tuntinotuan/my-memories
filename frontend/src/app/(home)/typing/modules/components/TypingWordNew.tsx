@@ -41,23 +41,23 @@ const TypingWordNew = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
-  useEffect(() => {
-    async function processTypingWordIndexChange() {
-      (await lastInRowIndexes?.includes(typingWordIndex)) &&
-        setRowTyped(rowTyped + 1);
-      if (
-        typingWordIndex &&
-        lastInRowIndexes.includes(typingWordIndex - 1) &&
-        rowCount > 3 &&
-        rowTyped > 0 &&
-        rowTyped + 2 < rowCount
-      ) {
-        await setHeightFlexible(heightFlexible + 48);
-      }
-    }
-    processTypingWordIndexChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typingWordIndex]);
+  // useEffect(() => {
+  //   async function processTypingWordIndexChange() {
+  //     (await lastInRowIndexes?.includes(typingWordIndex)) &&
+  //       setRowTyped(rowTyped + 1);
+  //     if (
+  //       typingWordIndex &&
+  //       lastInRowIndexes.includes(typingWordIndex - 1) &&
+  //       rowCount > 3 &&
+  //       rowTyped > 0 &&
+  //       rowTyped + 2 < rowCount
+  //     ) {
+  //       await setHeightFlexible(heightFlexible + 48);
+  //     }
+  //   }
+  //   processTypingWordIndexChange();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [typingWordIndex]);
   useEffect(() => {
     if (typingWordIndex === wordIndex && ref.current) {
       const newRect = ref.current.getBoundingClientRect();

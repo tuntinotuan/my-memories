@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -55,6 +55,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
   const [preTypedWord, setPreTypedWord] = useState("");
+  const [moreYTransition, setMoreYTransition] = useState(0);
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
@@ -69,20 +70,22 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     cursorPosition,
     setCursorWidth,
     setCurrentText,
-    preTypedWord
+    preTypedWord,
+    setMoreYTransition
   );
   useUpdateCursorPosition(newArrWords, rect, setCurrentText, setCursorPosition);
-  // useEffect(() => {
-  //   lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
-  //   if (
-  //     lastInRowIndexes.includes(typingWordIndex - 1) &&
-  //     rowCount > 3 &&
-  //     rowTyped > 0 &&
-  //     rowTyped + 2 < rowCount
-  //   ) {
-  //     setHeightFlexible(heightFlexible + 48);
-  //   }
-  // }, [typingWordIndex]);
+  useEffect(() => {
+    lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
+    if (
+      lastInRowIndexes.includes(typingWordIndex - 1) &&
+      rowCount > 3 &&
+      rowTyped > 0 &&
+      rowTyped + 2 < rowCount
+    ) {
+      setMoreYTransition(48);
+      setHeightFlexible(heightFlexible + 48);
+    }
+  }, [typingWordIndex]);
   const { hydrated, setHydrated } = useHydrate();
   useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     types,
@@ -119,7 +122,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
         styles={typingSettingLocal?.cursorShape}
         showCursor={hideOverlay}
         isTyping={cursorIsTyping}
-        transitionY={heightFlexible}
+        transitionY={moreYTransition}
       ></TypingCursorNew>
       <div
         ref={containerRef}

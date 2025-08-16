@@ -63,6 +63,7 @@ const TypingCursorNew = ({
         cursorPosition={cursorPosition}
         currentText={currentText}
         isTyping={isTyping}
+        transitionY={transitionY}
       ></BodyLocal>
     </>
   );

@@ -25,7 +25,11 @@ const BlockCursor = ({
           top: rect ? rect.bottom : 0,
           width: cursorWidth,
           height: cursorHeight || (rect ? rect.height : 0),
-          transform: `translateY(-${rect ? rect.height : 0}px)`,
+          transform: `${
+            transitionY > 0
+              ? `translateY(-${transitionY + rect.height}px)`
+              : `translateY(-${rect ? rect.height : 0}px)`
+          }`,
         }}
       >
         {" "}

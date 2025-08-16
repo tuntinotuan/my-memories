@@ -10,13 +10,15 @@ export function useKeyDownV2(
   cursorPosition: any,
   setCursorWidth: any,
   setCurrentText: any,
-  preTypedWord: any
+  preTypedWord: any,
+  setMoreYTransition: any
 ) {
   const { typingWordIndex, setTypingWordIndex, setCursorIsTyping } =
     useTyping();
   const handleOnKeyDown = (e: any) => {
     setCursorIsTyping(true);
     if (value.length > 0 && e.key === " ") {
+      setMoreYTransition(0);
       setPreTypedWord(value);
       // value !== wordList[typingWordIndex].word &&
       //   setPreCursorPosition(cursorPosition);
