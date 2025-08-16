@@ -141,12 +141,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
             text={value}
             textSize="text-2xl"
             setCursorPosition={setCursorPosition}
-            lastInRowIndexes={lastInRowIndexes}
-            setRowTyped={setRowTyped}
-            rowCount={rowCount}
-            rowTyped={rowTyped}
-            setHeightFlexible={setHeightFlexible}
-            heightFlexible={heightFlexible}
           ></TypingWordNew>
         ))}
       </div>
