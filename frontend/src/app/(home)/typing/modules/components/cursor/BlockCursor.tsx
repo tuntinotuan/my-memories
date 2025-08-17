@@ -1,6 +1,4 @@
 import PortalOverlay from "@/components/overlay/portal.overlay";
-import { useLayoutStates } from "@/contexts/layoutStates";
-import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 
 const BlockCursor = ({
@@ -25,11 +23,9 @@ const BlockCursor = ({
           top: rect ? rect.bottom : 0,
           width: cursorWidth,
           height: cursorHeight || (rect ? rect.height : 0),
-          transform: `${
-            transitionY > 0
-              ? `translateY(-${transitionY + rect.height}px)`
-              : `translateY(-${rect ? rect.height : 0}px)`
-          }`,
+          transform: `${`translateY(-${
+            rect ? rect.height + transitionY : 0
+          }px)`}`,
         }}
       >
         {" "}
