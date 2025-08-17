@@ -11,7 +11,13 @@ export function useKeyDownV2(
   setCursorWidth: any,
   setCurrentText: any,
   preTypedWord: any,
-  setMoreYTransition: any
+  setMoreYTransition: any,
+  lastInRowIndexes: any,
+  rowCount: any,
+  rowTyped: any,
+  setRowTyped: any,
+  setHeightFlexible: any,
+  heightFlexible: any
 ) {
   const { typingWordIndex, setTypingWordIndex, setCursorIsTyping } =
     useTyping();
@@ -25,18 +31,17 @@ export function useKeyDownV2(
       setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
       // rect && setCursorPosition(rect.left);
-
+      lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
       // words dynamic per row
-      // if (
-      //   lastInRowIndexes.includes(typingWordIndex) &&
-      //   rowCount > 3 &&
-      //   rowTyped > 0 &&
-      //   rowTyped + 2 < rowCount
-      // ) {
-      //   setTimeout(() => {
-      //     setHeightFlexible(heightFlexible + 48);
-      //   }, 100);
-      // }
+      if (
+        lastInRowIndexes.includes(typingWordIndex) &&
+        rowCount > 3 &&
+        rowTyped > 0 &&
+        rowTyped + 2 < rowCount
+      ) {
+        setMoreYTransition(48);
+        setHeightFlexible(heightFlexible + 48);
+      }
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
