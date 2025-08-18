@@ -10,6 +10,7 @@ const UnderlineCursor = ({
   cursorWidth,
   showCursor,
   isTyping,
+  transitionY,
 }: any) => {
   return (
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
@@ -19,7 +20,7 @@ const UnderlineCursor = ({
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursorPosition,
-          top: rect ? rect.bottom : 0,
+          top: rect ? rect.bottom - transitionY : 0,
           width: cursorWidth,
         }}
       ></div>

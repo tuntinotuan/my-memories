@@ -103,6 +103,7 @@ const BodyLocal = ({
           cursorWidth={cursorWidth}
           showCursor={showCursor}
           isTyping={isTyping}
+          transitionY={transitionY}
         ></UnderlineCursor>
       )}
       {styles === "box" && (
@@ -114,6 +115,7 @@ const BodyLocal = ({
           cursorHeight={cursorHeight}
           showCursor={showCursor}
           isTyping={isTyping}
+          transitionY={transitionY}
         ></BoxCursorNew>
       )}
       {styles === "block" && (
