@@ -20,15 +20,12 @@ const BlockCursor = ({
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursorPosition,
-          top: rect ? rect.bottom : 0,
+          top: rect ? rect.bottom - transitionY : 0,
           width: cursorWidth,
           height: cursorHeight || (rect ? rect.height : 0),
-          transform: `${`translateY(-${
-            rect ? rect.height + transitionY : 0
-          }px)`}`,
+          transform: `${`translateY(-${rect ? rect.height : 0}px)`}`,
         }}
       >
-        {" "}
         {currentText}
         {/* <PortalOverlay>
           <p

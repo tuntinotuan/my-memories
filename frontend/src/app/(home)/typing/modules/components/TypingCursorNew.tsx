@@ -92,6 +92,7 @@ const BodyLocal = ({
           cursorHeight={cursorHeight}
           showCursor={showCursor}
           isTyping={isTyping}
+          transitionY={transitionY}
         ></LineCursorNew>
       )}
       {styles === "underline" && (

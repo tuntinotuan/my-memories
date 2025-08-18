@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -80,18 +80,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     heightFlexible
   );
   useUpdateCursorPosition(newArrWords, rect, setCurrentText, setCursorPosition);
-  // useEffect(() => {
-  //   lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
-  //   if (
-  //     lastInRowIndexes.includes(typingWordIndex - 1) &&
-  //     rowCount > 3 &&
-  //     rowTyped > 0 &&
-  //     rowTyped + 2 < rowCount
-  //   ) {
-  //     setMoreYTransition(48);
-  //     setHeightFlexible(heightFlexible + 48);
-  //   }
-  // }, [typingWordIndex]);
   const { hydrated, setHydrated } = useHydrate();
   useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     types,
