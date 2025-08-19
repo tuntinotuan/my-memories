@@ -9,7 +9,8 @@ export function useUpdateCursorPosition(
 ) {
   const { typingSettingLocal, typingWordIndex } = useTyping();
   useEffect(() => {
-    setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
+    typingWordIndex < newArrWords.length &&
+      setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
     if (rect) {
       setCursorPosition(rect.left);
     }

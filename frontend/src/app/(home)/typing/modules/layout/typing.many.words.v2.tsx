@@ -94,8 +94,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   if (!hydrated) return null;
   return (
     <>
-      {rowCount} | {rowTyped} | {typingWordIndex}|
-      {`${lastInRowIndexes.includes(typingWordIndex)}`}
+      {/* {rowCount} | {rowTyped} | {typingWordIndex}|
+      {`${lastInRowIndexes.includes(typingWordIndex)}`} */}
       <TypingKeyboardInput
         id="typingKeyboardId"
         hiddenInput
