@@ -53,6 +53,7 @@ const FormatFollowed = () => {
             alt="notepad-format image"
             width={90}
             height={100}
+            unoptimized
           ></Image>
           <p>Notepad</p>
         </div>
@@ -62,6 +63,7 @@ const FormatFollowed = () => {
             alt="notepad-format image"
             width={170}
             height={150}
+            unoptimized
           ></Image>
           <p>Excel</p>
         </div>
