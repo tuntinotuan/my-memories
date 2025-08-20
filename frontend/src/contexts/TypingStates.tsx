@@ -161,10 +161,10 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (typingSettingLocal === undefined) return;
     localStorage.setItem("typing-setting", JSON.stringify(typingSettingLocal));
-    setTypingStyles(typingSettingLocal.typingStyles);
-    setWordAmount(typingSettingLocal.wordAmount);
-    setWordTime(typingSettingLocal.wordTime);
-    setCursorShape(typingSettingLocal.cursorShape);
+    setTypingStyles(typingSettingLocal?.typingStyles);
+    setWordAmount(typingSettingLocal?.wordAmount);
+    setWordTime(typingSettingLocal?.wordTime);
+    setCursorShape(typingSettingLocal?.cursorShape);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typingSettingLocal]);
   useEffect(() => {
