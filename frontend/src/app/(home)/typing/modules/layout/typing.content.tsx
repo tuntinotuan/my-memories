@@ -23,12 +23,10 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
       <TypingViewAmountOrTime />
-      {typingStyles === "time" && (
-        <TypingManyWordsV2 types="time" data={data} />
-      )}
+      {typingStyles === "time" && <TypingManyWords types="time" data={data} />}
       {typingStyles === "combine" && <TypingOnlyAWord data={data} />}
       {typingStyles === "words" && (
-        <TypingManyWordsV2 types="words" data={data} />
+        <TypingManyWords types="words" data={data} />
       )}
       <TypingRestart
         onRestart={() => {

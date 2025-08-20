@@ -30,7 +30,7 @@ const Body = ({ onClose }: any) => {
   const [boardTitle, setBoardTitle] = useState("");
   const { boards, setBoards } = useCreateBoardStates();
   const router = useRouter();
-  console.log("boards", boards);
+  // console.log("boards", boards);
   const autoDefaultGradient =
     boards.length < 4 ? imageList[boards.length] : gradientList[0];
   let defaultGradient: LinearOrUrl = autoDefaultGradient;
