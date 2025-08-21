@@ -19,12 +19,12 @@ export const BtnTypingStyles = ({
   tooltipText,
   style,
 }: BtnTypingStylesProps) => {
-  const { typingStyles } = useTyping();
+  const { typingStyles, typingSettingLocal } = useTyping();
   const Main = () => {
     return (
       <div
         className={`flex items-center gap-1 transition-all cursor-default ${
-          typingStyles === style
+          typingSettingLocal?.typingStyles === style
             ? "text-typingColorActive"
             : "hover:text-typingTextHover cursor-pointer"
         } ${className}`}

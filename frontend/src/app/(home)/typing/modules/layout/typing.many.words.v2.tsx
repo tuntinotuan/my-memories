@@ -41,7 +41,9 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const refWords = useRef(
     creationNewArrWithQuantityBigger(
       data,
-      types === "words" ? wordAmount : wordTime * 2.5
+      types === "words"
+        ? typingSettingLocal?.wordAmount || wordAmount
+        : typingSettingLocal?.wordTime || wordTime * 2.5
     )
   );
   const [newArrWords, setNewArrWords] = useState<typingWordsTypes[]>(

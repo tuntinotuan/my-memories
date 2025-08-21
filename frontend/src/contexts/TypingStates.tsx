@@ -51,7 +51,7 @@ type defaltValuesType = {
   rect: DOMRect | null;
   cursorShape: CursorStyles;
   typingSettingLocal: SettingLocal | undefined;
-  setTypingSettingLocal: (val: SettingLocal | undefined) => void;
+  setTypingSettingLocal: (val: SettingLocal) => void;
   setCursorShape: (val: CursorStyles) => void;
   setRect: (val: DOMRect) => void;
   setIsCaplock: (val: boolean) => void;
@@ -140,15 +140,31 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorShape, setCursorShape] = useState<CursorStyles>("underline");
-  const [typingSettingLocal, setTypingSettingLocal] = useState<
-    SettingLocal | undefined
-  >();
-  //   {
-  //   cursorShape,
-  //   typingStyles,
-  //   wordAmount,
-  //   wordTime,
-  // }
+  const initialTypingSettingLocals: SettingLocal = {
+    cursorShape: "line",
+    typingStyles: "combine",
+    wordAmount: 10,
+    wordTime: 15,
+  };
+  const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>();
+
+  useEffect(() => {
+    if (typingSettingLocal === undefined) return;
+    if (typingSettingLocal !== initialTypingSettingLocals) {
+      // setTypingStyles(typingSettingLocal?.typingStyles);
+      // setWordAmount(typingSettingLocal?.wordAmount);
+      // setWordTime(typingSettingLocal?.wordTime);
+      // setCursorShape(typingSettingLocal?.cursorShape);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typingSettingLocal]);
+  useEffect(() => {
+    if (typingSettingLocal === undefined) return;
+    const newSetting = { cursorShape, typingStyles, wordAmount, wordTime };
+    setTypingSettingLocal(newSetting);
+    localStorage.setItem("typing-setting", JSON.stringify(newSetting));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cursorShape, typingStyles, wordAmount, wordTime]);
   useEffect(() => {
     async function fetchTypingSettingFromLocalStorage() {
       let setting = null;
@@ -164,29 +180,6 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     }
     fetchTypingSettingFromLocalStorage();
   }, []);
-  useEffect(() => {
-    if (typingSettingLocal === undefined) return;
-    // if (
-    //   typingStyles === typingSettingLocal.typingStyles ||
-    //   wordAmount === typingSettingLocal.wordAmount ||
-    //   wordTime === typingSettingLocal.wordTime ||
-    //   cursorShape === typingSettingLocal.cursorShape
-    // )
-    //   return;
-    localStorage.setItem("typing-setting", JSON.stringify(typingSettingLocal));
-    // if()
-    // setTypingStyles(typingSettingLocal?.typingStyles);
-    // setWordAmount(typingSettingLocal?.wordAmount);
-    // setWordTime(typingSettingLocal?.wordTime);
-    setCursorShape(typingSettingLocal?.cursorShape);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typingSettingLocal]);
-  useEffect(() => {
-    if (typingSettingLocal === undefined) return;
-    const newSetting = { cursorShape, typingStyles, wordAmount, wordTime };
-    setTypingSettingLocal(newSetting);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cursorShape, typingStyles, wordAmount, wordTime]);
 
   useEffect(() => {
     async function fetchWordListFromLocalStorage() {

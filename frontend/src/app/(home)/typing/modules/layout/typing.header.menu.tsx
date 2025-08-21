@@ -45,13 +45,13 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
       </Tooltip>
       <SplitElement />
       <ListBtnTypingStyles />
-      {typingStyles === "words" && (
+      {typingSettingLocal?.typingStyles === "words" && (
         <>
           <SplitElement />
           <WordAmount />
         </>
       )}
-      {typingStyles === "time" && (
+      {typingSettingLocal?.typingStyles === "time" && (
         <>
           <SplitElement />
           <WordTime />
