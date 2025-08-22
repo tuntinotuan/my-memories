@@ -10,7 +10,6 @@ import { TypingManyWordsV2 } from "./typing.many.words.v2";
 
 export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   const {
-    typingStyles,
     setHideOverlay,
     setShowResults,
     resetRunningManyWords,
@@ -21,6 +20,14 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   } = useTyping();
   const { hydrated, setHydrated } = useHydrate();
   if (!hydrated) return null; // or a skeleton/placeholder
+  console.log(
+    "typingSettingLocal?.typingStyles",
+    typingSettingLocal?.typingStyles
+  );
+  console.log(
+    "typingSettingLocal?.cursorShape",
+    typingSettingLocal?.cursorShape
+  );
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
       <TypingViewAmountOrTime />

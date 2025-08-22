@@ -139,7 +139,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   const [rect, setRect] = useState<DOMRect | null>(null);
-  const [cursorShape, setCursorShape] = useState<CursorStyles>("underline");
+  const [cursorShape, setCursorShape] = useState<CursorStyles>("line");
   const initialTypingSettingLocals: SettingLocal = {
     cursorShape: "line",
     typingStyles: "combine",
@@ -148,21 +148,26 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   };
   const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>();
 
+  // useEffect(() => {
+  //   if (typingSettingLocal === undefined) return;
+  //   // if (typingSettingLocal !== initialTypingSettingLocals) {
+  //   setTypingStyles(typingSettingLocal?.typingStyles);
+  //   setWordAmount(typingSettingLocal?.wordAmount);
+  //   setWordTime(typingSettingLocal?.wordTime);
+  //   setCursorShape(typingSettingLocal?.cursorShape);
+  //   // }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [typingSettingLocal]);
   useEffect(() => {
     if (typingSettingLocal === undefined) return;
-    if (typingSettingLocal !== initialTypingSettingLocals) {
-      // setTypingStyles(typingSettingLocal?.typingStyles);
-      // setWordAmount(typingSettingLocal?.wordAmount);
-      // setWordTime(typingSettingLocal?.wordTime);
-      // setCursorShape(typingSettingLocal?.cursorShape);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typingSettingLocal]);
-  useEffect(() => {
-    if (typingSettingLocal === undefined) return;
+    if (typingSettingLocal === initialTypingSettingLocals) return;
     const newSetting = { cursorShape, typingStyles, wordAmount, wordTime };
     setTypingSettingLocal(newSetting);
     localStorage.setItem("typing-setting", JSON.stringify(newSetting));
+    // setTypingStyles(typingSettingLocal?.typingStyles);
+    // setWordAmount(typingSettingLocal?.wordAmount);
+    // setWordTime(typingSettingLocal?.wordTime);
+    // setCursorShape(typingSettingLocal?.cursorShape);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorShape, typingStyles, wordAmount, wordTime]);
   useEffect(() => {
@@ -174,9 +179,15 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
       } catch (error) {
         console.error("Invalid JSON:", error);
       }
-      // if (setting !== null && setting.length > 0) {
-      setTypingSettingLocal(setting);
-      // }
+      if (setting !== null && setting.length > 0) {
+        setTypingSettingLocal(setting);
+      } else {
+        setTypingSettingLocal(initialTypingSettingLocals);
+      }
+      setTypingStyles(setting?.typingStyles);
+      setWordAmount(setting?.wordAmount);
+      setWordTime(setting?.wordTime);
+      setCursorShape(setting?.cursorShape);
     }
     fetchTypingSettingFromLocalStorage();
   }, []);

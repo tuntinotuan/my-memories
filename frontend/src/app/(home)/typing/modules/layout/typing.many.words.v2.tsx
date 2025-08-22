@@ -93,7 +93,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped,
     setHydrated
   );
-  console.log("newArrWords", newArrWords);
+  // console.log("newArrWords", newArrWords);
   if (!hydrated) return null;
   return (
     <>
