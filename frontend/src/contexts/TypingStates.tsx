@@ -148,26 +148,13 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   };
   const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>();
 
-  // useEffect(() => {
-  //   if (typingSettingLocal === undefined) return;
-  //   // if (typingSettingLocal !== initialTypingSettingLocals) {
-  //   setTypingStyles(typingSettingLocal?.typingStyles);
-  //   setWordAmount(typingSettingLocal?.wordAmount);
-  //   setWordTime(typingSettingLocal?.wordTime);
-  //   setCursorShape(typingSettingLocal?.cursorShape);
-  //   // }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [typingSettingLocal]);
+  // Fetch & update typingSetting localStorage
   useEffect(() => {
     if (typingSettingLocal === undefined) return;
-    if (typingSettingLocal === initialTypingSettingLocals) return;
+    // if (typingSettingLocal === initialTypingSettingLocals) return;
     const newSetting = { cursorShape, typingStyles, wordAmount, wordTime };
     setTypingSettingLocal(newSetting);
     localStorage.setItem("typing-setting", JSON.stringify(newSetting));
-    // setTypingStyles(typingSettingLocal?.typingStyles);
-    // setWordAmount(typingSettingLocal?.wordAmount);
-    // setWordTime(typingSettingLocal?.wordTime);
-    // setCursorShape(typingSettingLocal?.cursorShape);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorShape, typingStyles, wordAmount, wordTime]);
   useEffect(() => {
@@ -192,6 +179,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     fetchTypingSettingFromLocalStorage();
   }, []);
 
+  // Fetch & update word lists
   useEffect(() => {
     async function fetchWordListFromLocalStorage() {
       let lists = null;
@@ -230,6 +218,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
       window.removeEventListener("keyup", handleKeyEvent);
     };
   }, []);
+
   // get api from Random-Word-Api
   // useEffect(() => {
   //   async function fetchData() {
