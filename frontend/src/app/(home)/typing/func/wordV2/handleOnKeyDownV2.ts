@@ -1,7 +1,9 @@
 import { useTyping } from "@/contexts/TypingStates";
 import { calculatePositionForCursor } from "../wordOlderV1/calculatePositionForCursor";
+import { startTyping } from "../wordOlderV1/startTyping";
 
 export function useKeyDownV2(
+  types: any,
   value: string,
   setValue: any,
   setPreTypedWord: any,
@@ -19,10 +21,23 @@ export function useKeyDownV2(
   setHeightFlexible: any,
   heightFlexible: any
 ) {
-  const { typingWordIndex, setTypingWordIndex, setCursorIsTyping } =
-    useTyping();
+  const {
+    typingWordIndex,
+    setTypingWordIndex,
+    setShowResults,
+    setSecondsOfManyWords,
+    setCursorIsTyping,
+    setIsCountDown,
+  } = useTyping();
   const handleOnKeyDown = (e: any) => {
+    startTyping(
+      types,
+      setCursorIsTyping,
+      setSecondsOfManyWords,
+      setIsCountDown
+    );
     setCursorIsTyping(true);
+
     if (value.length > 0 && e.key === " ") {
       setMoreYTransition(0);
       setPreTypedWord(value);
@@ -30,9 +45,9 @@ export function useKeyDownV2(
       //   setPreCursorPosition(cursorPosition);
       setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
-      // rect && setCursorPosition(rect.left);
-      lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
+
       // words dynamic per row
+      lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
       if (
         lastInRowIndexes.includes(typingWordIndex) &&
         rowCount > 3 &&

@@ -64,6 +64,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setValue(e.target.value);
   };
   const { handleOnKeyDown } = useKeyDownV2(
+    types,
     value,
     setValue,
     setPreTypedWord,
