@@ -1,6 +1,7 @@
 import { useTyping } from "@/contexts/TypingStates";
 import { calculatePositionForCursor } from "../wordOlderV1/calculatePositionForCursor";
 import { startTyping } from "../wordOlderV1/startTyping";
+import { showWordResultsWhenTypedLastWord } from "../wordOlderV1/wordResults";
 
 export function useKeyDownV2(
   types: any,
@@ -37,6 +38,15 @@ export function useKeyDownV2(
       setIsCountDown
     );
     setCursorIsTyping(true);
+
+    showWordResultsWhenTypedLastWord(
+      types,
+      newArrWords,
+      value,
+      typingWordIndex,
+      setSecondsOfManyWords,
+      setShowResults
+    );
 
     if (value.length > 0 && e.key === " ") {
       setMoreYTransition(0);
