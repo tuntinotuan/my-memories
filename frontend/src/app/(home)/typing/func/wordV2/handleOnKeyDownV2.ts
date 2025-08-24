@@ -92,7 +92,10 @@ export function useKeyDownV2(
       !e.altKey &&
       e.key !== " "
     ) {
-      if (e.key !== "Backspace") {
+      if (
+        e.key !== "Backspace" &&
+        value.length < newArrWords[typingWordIndex].word.length
+      ) {
         setCursorPosition(cursorPosition + cursorPositionIncrease);
         setCursorWidth(cursorPositionIncrease);
         setCurrentText(

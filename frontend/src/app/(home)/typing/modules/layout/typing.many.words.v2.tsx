@@ -51,7 +51,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   );
   const containerRef = useRef<HTMLDivElement>(null);
   const { lastInRowIndexes } = useDetectLastInRows(containerRef, setRowCount);
-  useTimeShowResults(types);
   const [value, setValue] = useState("");
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorWidth, setCursorWidth] = useState(14);
@@ -83,6 +82,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     heightFlexible
   );
   useUpdateCursorPosition(newArrWords, rect, setCurrentText, setCursorPosition);
+  useTimeShowResults(types);
   const { hydrated, setHydrated } = useHydrate();
   useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     types,
