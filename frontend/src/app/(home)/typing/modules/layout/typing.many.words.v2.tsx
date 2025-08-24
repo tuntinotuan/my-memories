@@ -122,24 +122,28 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
         transitionY={moreYTransition}
       ></TypingCursorNew>
       <div
-        ref={containerRef}
-        className={`flex flex-wrap items-start h-[130px] w-full px-2 gap-4 transition-all ${
+        className={`flex items-start h-[130px] w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
         }`}
-        style={{ transform: `translateY(-${heightFlexible}px)` }}
       >
-        {newArrWords.map((word, index) => (
-          <TypingWordNew
-            key={index}
-            setRect={setRect}
-            typingWordIndex={typingWordIndex}
-            wordIndex={index}
-            currentTyping={word}
-            text={value}
-            textSize="text-2xl"
-            setCursorPosition={setCursorPosition}
-          ></TypingWordNew>
-        ))}
+        <div
+          ref={containerRef}
+          className={`flex flex-wrap gap-4 transition-all `}
+          style={{ transform: `translateY(-${heightFlexible}px)` }}
+        >
+          {newArrWords.map((word, index) => (
+            <TypingWordNew
+              key={index}
+              setRect={setRect}
+              typingWordIndex={typingWordIndex}
+              wordIndex={index}
+              currentTyping={word}
+              text={value}
+              textSize="text-2xl"
+              setCursorPosition={setCursorPosition}
+            ></TypingWordNew>
+          ))}
+        </div>
       </div>
       <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
     </>
