@@ -59,7 +59,11 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [moreYTransition, setMoreYTransition] = useState(0);
 
   const handleOnChange = (e: any) => {
-    if (e.target.value === " ") return;
+    if (
+      e.target.value === " " ||
+      e.target.value.length - 1 === newArrWords[typingWordIndex].word.length
+    )
+      return;
     setValue(e.target.value);
   };
   const { handleOnKeyDown } = useKeyDownV2(
