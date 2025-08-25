@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { shuffleArray } from "@/api/card/utils/f";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useOnlyHandleOnKeyDown } from "../../func/onlyAWord/onlyHandleOnKeyDown";
+import TypingWordNew from "../components/TypingWordNew";
 
 export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
   const [text, setText] = useState<string>("");
@@ -16,6 +17,7 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
 
   const refCountIndexArray = useRef(1);
   const refNextWord = useRef(0);
+  const [rect, setRect] = useState<DOMRect | null>(null);
 
   const handleChangeInput = (e: any) => {
     if (e.target.value === " ") return;
@@ -43,6 +45,15 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
           cursorPosition={cursorPosition}
           fontSize="36px"
         ></TypingWord>
+        {/* <TypingWordNew
+          setRect={setRect}
+          typingWordIndex={0}
+          wordIndex={0}
+          currentTyping={currentTyping}
+          text={text}
+          textSize="text-4xl"
+          setCursorPosition={setCursorPosition}
+        ></TypingWordNew> */}
       </label>
       <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
       <TypingOverlayBlur htmlFor={"typingCursorId"}></TypingOverlayBlur>

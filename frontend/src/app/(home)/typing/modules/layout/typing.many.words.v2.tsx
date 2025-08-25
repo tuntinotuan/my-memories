@@ -61,7 +61,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const handleOnChange = (e: any) => {
     if (
       e.target.value === " " ||
-      e.target.value.length - 1 === newArrWords[typingWordIndex].word.length
+      e.target.value.length === newArrWords[typingWordIndex].word.length + 1
     )
       return;
     setValue(e.target.value);

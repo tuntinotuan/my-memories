@@ -28,7 +28,7 @@ const TypingWord = ({
 }: TypingWordProps) => {
   const cursorId: string = "typingCursorId";
   const [newText, setNewText] = useState<string>(text);
-  const { wordAmount } = useTyping();
+  const { wordAmount, typingSettingLocal } = useTyping();
   const [cursorWidth, setCursorWidth] = useState(0);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const TypingWord = ({
           onChange={onChange}
           onKeyDown={onKeyDown}
           cursorPosition={cursorPosition}
-          styles="box"
+          styles={typingSettingLocal?.cursorShape}
           cursorWidth={cursorWidth}
         />
       )}
