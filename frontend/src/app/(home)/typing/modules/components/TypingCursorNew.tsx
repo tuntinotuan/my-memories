@@ -18,6 +18,7 @@ type TypingCursorNewProps = {
   showCursor?: boolean;
   isTyping?: boolean;
   transitionY?: number;
+  blockTextSize?: string;
 };
 
 const TypingCursorNew = ({
@@ -33,6 +34,7 @@ const TypingCursorNew = ({
   currentText,
   isTyping = false,
   transitionY = 0,
+  blockTextSize,
 }: TypingCursorNewProps) => {
   if (className)
     return (
@@ -48,6 +50,7 @@ const TypingCursorNew = ({
           currentText={currentText}
           isTyping={isTyping}
           transitionY={transitionY}
+          blockTextSize={blockTextSize}
         ></BodyLocal>
       </div>
     );
@@ -64,6 +67,7 @@ const TypingCursorNew = ({
         currentText={currentText}
         isTyping={isTyping}
         transitionY={transitionY}
+        blockTextSize={blockTextSize}
       ></BodyLocal>
     </>
   );
@@ -80,6 +84,7 @@ const BodyLocal = ({
   currentText,
   isTyping = false,
   transitionY = 0,
+  blockTextSize,
 }: any) => {
   return (
     <>
@@ -129,6 +134,7 @@ const BodyLocal = ({
           showCursor={showCursor}
           isTyping={isTyping}
           transitionY={transitionY}
+          blockTextSize={blockTextSize}
         ></BlockCursor>
       )}
     </>

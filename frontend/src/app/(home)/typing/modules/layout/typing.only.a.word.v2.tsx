@@ -1,7 +1,7 @@
 import TypingMeaning from "../components/TypingMeaning";
 import TypingWord from "../components/TypingWord";
 import TypingOverlayBlur from "./typing.overlay.blur";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { shuffleArray } from "@/api/card/utils/f";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import { useOnlyHandleOnKeyDown } from "../../func/onlyAWord/onlyHandleOnKeyDown";
@@ -31,7 +31,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
   const refNextWord = useRef(0);
 
   const [rect, setRect] = useState<DOMRect | null>(null);
-  const [cursorWidth, setCursorWidth] = useState(14);
+  const [cursorWidth, setCursorWidth] = useState(20);
   const [currentText, setCurrentText] = useState("");
 
   const handleOnChange = (e: any) => {
@@ -71,6 +71,10 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     setCurrentText,
     setCursorPosition
   );
+  useEffect(() => {
+    setCurrentText(currentTyping.word.split("")[0]);
+  }, [rect, typingSettingLocal]);
+
   return (
     <>
       <TypingKeyboardInput
@@ -94,6 +98,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
         showCursor={hideOverlay}
         isTyping={cursorIsTyping}
         transitionY={0}
+        blockTextSize="text-4xl"
       ></TypingCursorNew>
       <TypingWordNew
         setRect={setRect}
