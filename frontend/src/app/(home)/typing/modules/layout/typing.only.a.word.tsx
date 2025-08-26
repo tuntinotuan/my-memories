@@ -45,15 +45,6 @@ export const TypingOnlyAWord = ({ data }: { data: typingWordsTypes[] }) => {
           cursorPosition={cursorPosition}
           fontSize="36px"
         ></TypingWord>
-        {/* <TypingWordNew
-          setRect={setRect}
-          typingWordIndex={0}
-          wordIndex={0}
-          currentTyping={currentTyping}
-          text={text}
-          textSize="text-4xl"
-          setCursorPosition={setCursorPosition}
-        ></TypingWordNew> */}
       </label>
       <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
       <TypingOverlayBlur htmlFor={"typingCursorId"}></TypingOverlayBlur>

@@ -7,6 +7,7 @@ import { typingWordsTypes } from "@/api/typing/typing.type";
 import TypingViewAmountOrTime from "../components/TypingViewAmountOrTime";
 import { useHydrate } from "../../func/useHydrate";
 import { TypingManyWordsV2 } from "./typing.many.words.v2";
+import { TypingOnlyAWordV2 } from "./typing.only.a.word.v2";
 
 export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   const {
@@ -27,7 +28,7 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
         <TypingManyWordsV2 types="time" data={data} />
       )}
       {typingSettingLocal?.typingStyles === "combine" && (
-        <TypingOnlyAWord data={data} />
+        <TypingOnlyAWordV2 data={data} />
       )}
       {typingSettingLocal?.typingStyles === "words" && (
         <TypingManyWordsV2 types="words" data={data} />
