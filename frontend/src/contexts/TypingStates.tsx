@@ -166,15 +166,19 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
       } catch (error) {
         console.error("Invalid JSON:", error);
       }
-      if (setting !== null && setting.length > 0) {
+      if (setting !== null) {
         setTypingSettingLocal(setting);
+        setTypingStyles(setting?.typingStyles);
+        setWordAmount(setting?.wordAmount);
+        setWordTime(setting?.wordTime);
+        setCursorShape(setting?.cursorShape);
       } else {
         setTypingSettingLocal(initialTypingSettingLocals);
+        setTypingStyles(initialTypingSettingLocals?.typingStyles);
+        setWordAmount(initialTypingSettingLocals?.wordAmount);
+        setWordTime(initialTypingSettingLocals?.wordTime);
+        setCursorShape(initialTypingSettingLocals?.cursorShape);
       }
-      setTypingStyles(setting?.typingStyles);
-      setWordAmount(setting?.wordAmount);
-      setWordTime(setting?.wordTime);
-      setCursorShape(setting?.cursorShape);
     }
     fetchTypingSettingFromLocalStorage();
   }, []);
