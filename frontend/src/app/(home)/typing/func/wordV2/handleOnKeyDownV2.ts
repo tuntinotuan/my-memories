@@ -83,6 +83,9 @@ export function useKeyDownV2(
       } else {
         value.length > 0 &&
           setCursorPosition((pre: any) => pre - cursorPositionDecrease);
+        setCurrentText(
+          newArrWords[typingWordIndex].word.split("")[value.length - 1]
+        );
       }
     }
     if (
