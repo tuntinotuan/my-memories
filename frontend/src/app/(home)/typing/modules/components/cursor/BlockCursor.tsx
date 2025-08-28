@@ -28,20 +28,22 @@ const BlockCursor = ({
         }}
       >
         {/* {currentText} */}
-        <PortalOverlay>
-          <p
-            className="fixed z-[9999] flex items-center justify-center text-2xl text-typingTextCorrect"
-            style={{
-              left: cursorPosition,
-              top: rect ? rect.bottom - transitionY : 0,
-              width: cursorWidth,
-              height: cursorHeight || (rect ? rect.height : 0),
-              transform: `${`translateY(-${rect ? rect.height : 0}px)`}`,
-            }}
-          >
-            {currentText}
-          </p>
-        </PortalOverlay>
+        {showCursor && (
+          <PortalOverlay>
+            <p
+              className={`fixed z-[9999] flex items-center justify-center  transition-colors text-typingTextCorrect ${blockTextSize}`}
+              style={{
+                left: cursorPosition,
+                top: rect ? rect.bottom - transitionY : 0,
+                width: cursorWidth,
+                height: cursorHeight || (rect ? rect.height : 0),
+                transform: `${`translateY(-${rect ? rect.height : 0}px)`}`,
+              }}
+            >
+              {currentText}
+            </p>
+          </PortalOverlay>
+        )}
       </div>
     </PortalOverlay>
   );
