@@ -31,7 +31,7 @@ const BlockCursor = ({
         {showCursor && (
           <PortalOverlay>
             <p
-              className={`fixed z-[9999] flex items-center justify-center  transition-colors text-typingTextCorrect ${blockTextSize}`}
+              className={`fixed z-[99999] flex items-center justify-center  transition-all text-typingTextCorrect ${blockTextSize}`}
               style={{
                 left: cursorPosition,
                 top: rect ? rect.bottom - transitionY : 0,
