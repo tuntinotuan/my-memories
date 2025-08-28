@@ -66,6 +66,9 @@ const config: Config = {
         "soft-blue": "0 0 10px rgba(59, 130, 246, 0.5)", // Tailwind blue glow
         "deep-xl": "0 10px 25px -5px rgba(0, 0, 0, 0.5)", // deep large shadow
       },
+      transitionProperty: {
+        position: "left, top",
+      },
     },
   },
   darkMode: "class",

@@ -16,7 +16,7 @@ const BlockCursor = ({
   return (
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
       <div
-        className={`${cssPosition} flex items-center justify-center  text-typingTextCorrect bg-typingColorActive h-full transition-all z-[999] ${blockTextSize} ${
+        className={`${cssPosition} flex items-center justify-center  text-typingTextCorrect bg-typingColorActive h-full transition-position z-[999] ${blockTextSize} ${
           isTyping ? "" : showCursor && "animate-careFlashSmooth"
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
@@ -27,21 +27,21 @@ const BlockCursor = ({
           transform: `${`translateY(-${rect ? rect.height : 0}px)`}`,
         }}
       >
-        {currentText}
-        {/* <PortalOverlay>
+        {/* {currentText} */}
+        <PortalOverlay>
           <p
             className="fixed z-[9999] flex items-center justify-center text-2xl text-typingTextCorrect"
             style={{
               left: cursorPosition,
-              top: rect ? rect.bottom : 0,
+              top: rect ? rect.bottom - transitionY : 0,
               width: cursorWidth,
               height: cursorHeight || (rect ? rect.height : 0),
-              transform: `translateY(-${rect ? rect.height : 0}px)`,
+              transform: `${`translateY(-${rect ? rect.height : 0}px)`}`,
             }}
           >
             {currentText}
           </p>
-        </PortalOverlay> */}
+        </PortalOverlay>
       </div>
     </PortalOverlay>
   );
