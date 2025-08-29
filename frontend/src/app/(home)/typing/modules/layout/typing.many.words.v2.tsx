@@ -57,6 +57,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [currentText, setCurrentText] = useState("");
   const [preTypedWord, setPreTypedWord] = useState("");
   const [moreYTransition, setMoreYTransition] = useState(0);
+  const [moreCursorPosition, setMoreCursorPosition] = useState(0);
 
   const handleOnChange = (e: any) => {
     if (
@@ -83,9 +84,16 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     rowTyped,
     setRowTyped,
     setHeightFlexible,
-    heightFlexible
+    heightFlexible,
+    setMoreCursorPosition
   );
-  useUpdateCursorPosition(newArrWords, rect, setCurrentText, setCursorPosition);
+  useUpdateCursorPosition(
+    newArrWords,
+    rect,
+    setCurrentText,
+    setCursorPosition,
+    moreCursorPosition
+  );
   useTimeShowResults(types);
   const { hydrated, setHydrated } = useHydrate();
   useResetTypingStatesAfterWordOrTimeSettingChangeV2(

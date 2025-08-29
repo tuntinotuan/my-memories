@@ -2,6 +2,7 @@ import { useTyping } from "@/contexts/TypingStates";
 import { calculatePositionForCursor } from "../wordOlderV1/calculatePositionForCursor";
 import { startTyping } from "../wordOlderV1/startTyping";
 import { showWordResultsWhenTypedLastWord } from "../wordOlderV1/wordResults";
+import { getTextWidth } from "@/utils/stringFs";
 
 export function useKeyDownV2(
   types: any,
@@ -20,7 +21,8 @@ export function useKeyDownV2(
   rowTyped: any,
   setRowTyped: any,
   setHeightFlexible: any,
-  heightFlexible: any
+  heightFlexible: any,
+  setMoreCursorPosition: any
 ) {
   const {
     typingWordIndex,
@@ -55,6 +57,7 @@ export function useKeyDownV2(
       //   setPreCursorPosition(cursorPosition);
       setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
+      setMoreCursorPosition(0);
 
       // words dynamic per row
       lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
@@ -70,6 +73,7 @@ export function useKeyDownV2(
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
+    const newMoreCursorPosition = getTextWidth(preTypedWord, `24px monospace`);
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
       if (
@@ -83,6 +87,7 @@ export function useKeyDownV2(
         setPreTypedWord(
           typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
         );
+        setMoreCursorPosition(newMoreCursorPosition);
       } else {
         value.length > 0 &&
           setCursorPosition((pre: any) => pre - cursorPositionDecrease);
