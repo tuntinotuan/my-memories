@@ -72,14 +72,17 @@ export function useKeyDownV2(
       calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
-      if (!value && preTypedWord !== newArrWords[typingWordIndex - 1].word) {
+      if (
+        !value &&
+        preTypedWord &&
+        preTypedWord !== newArrWords[typingWordIndex - 1]?.word
+      ) {
         // setPreCursorPosition(cursorPosition);
         setValue(preTypedWord + preTypedWord.at(-1));
         setTypingWordIndex((pre: number) => pre - 1);
         setPreTypedWord(
           typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
         );
-        setCursorPosition(0);
       } else {
         value.length > 0 &&
           setCursorPosition((pre: any) => pre - cursorPositionDecrease);
