@@ -22,7 +22,8 @@ export function useKeyDownV2(
   setRowTyped: any,
   setHeightFlexible: any,
   heightFlexible: any,
-  setMoreCursorPosition: any
+  setMoreCursorPosition: any,
+  setArrayOfErrPreWords: any
 ) {
   const {
     typingWordIndex,
@@ -69,6 +70,13 @@ export function useKeyDownV2(
       ) {
         setMoreYTransition(48);
         setHeightFlexible(heightFlexible + 48);
+      }
+
+      //
+      if (value === newArrWords[typingWordIndex]?.word) {
+        setArrayOfErrPreWords([]);
+      } else {
+        setArrayOfErrPreWords((pre: string[]) => [...pre, value]);
       }
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =

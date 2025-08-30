@@ -58,6 +58,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [preTypedWord, setPreTypedWord] = useState("");
   const [moreYTransition, setMoreYTransition] = useState(0);
   const [moreCursorPosition, setMoreCursorPosition] = useState(0);
+  const [arrayOfErrPreWords, setArrayOfErrPreWords] = useState<string[]>([]);
 
   const handleOnChange = (e: any) => {
     if (
@@ -85,7 +86,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped,
     setHeightFlexible,
     heightFlexible,
-    setMoreCursorPosition
+    setMoreCursorPosition,
+    setArrayOfErrPreWords
   );
   useUpdateCursorPosition(
     newArrWords,
@@ -107,6 +109,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setHydrated
   );
   if (!hydrated) return null;
+  console.log("arrayOfErrPreWords", arrayOfErrPreWords);
   return (
     <>
       {/* {rowCount} | {rowTyped} | {typingWordIndex}|
