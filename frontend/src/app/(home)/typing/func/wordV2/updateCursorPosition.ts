@@ -6,14 +6,14 @@ export function useUpdateCursorPosition(
   rect: any,
   setCurrentText: any,
   setCursorPosition: any,
-  moreCursorPosition: any
+  moreCursorPosition?: any
 ) {
   const { typingSettingLocal, typingWordIndex } = useTyping();
   useEffect(() => {
     typingWordIndex < newArrWords.length &&
       setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
     if (rect) {
-      setCursorPosition(rect.left + moreCursorPosition);
+      setCursorPosition(rect.left + (moreCursorPosition || 0));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect, typingSettingLocal]);
