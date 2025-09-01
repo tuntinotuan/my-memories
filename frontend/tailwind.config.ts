@@ -53,6 +53,24 @@ const config: Config = {
           "0%, 100%": { opacity: "0" },
           "50%": { opacity: "1" },
         },
+        fireworkUp: {
+          "0%": {
+            transform: "translateY(0) translateX(0px)",
+            opacity: "0",
+          },
+          "70%": {
+            transform: "translateY(-100px) translateX(10px)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translateY(-50px) translateX(50px)",
+            opacity: "0",
+          },
+        },
+        fireworkBurst: {
+          "0%": { transform: "scale(0)", opacity: "1" },
+          "100%": { transform: "scale(1.5)", opacity: "0" },
+        },
       },
       animation: {
         popupGrow: "popupGrow 2s ease-in-out alternate",
@@ -60,6 +78,8 @@ const config: Config = {
         fadeInUp: "fadeInUp 1s ease-out infinite",
         hideShow: "hideShow 1s ease-in infinite",
         careFlashSmooth: "flashSmooth 1s infinite",
+        fireworkTail: "fireworkUp .5s ease-in infinite",
+        fireworkExplode: "fireworkBurst 1s ease-out 1.5s infinite", // Delay burst slightly
       },
       boxShadow: {
         "popup-rect": "0 0px 15px rgba(0, 0, 0, 0.1)",
