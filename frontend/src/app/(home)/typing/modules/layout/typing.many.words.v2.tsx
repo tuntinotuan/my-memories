@@ -87,7 +87,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setHeightFlexible,
     heightFlexible,
     setMoreCursorPosition,
-    setArrayOfErrPreWords
+    setArrayOfErrPreWords,
+    arrayOfErrPreWords
   );
   useUpdateCursorPosition(
     newArrWords,

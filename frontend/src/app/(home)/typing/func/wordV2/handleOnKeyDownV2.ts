@@ -23,7 +23,8 @@ export function useKeyDownV2(
   setHeightFlexible: any,
   heightFlexible: any,
   setMoreCursorPosition: any,
-  setArrayOfErrPreWords: any
+  setArrayOfErrPreWords: any,
+  arrayOfErrPreWords: any
 ) {
   const {
     typingWordIndex,
@@ -72,7 +73,7 @@ export function useKeyDownV2(
         setHeightFlexible(heightFlexible + 48);
       }
 
-      //
+      // list of error previous words
       if (value === newArrWords[typingWordIndex]?.word) {
         setArrayOfErrPreWords([]);
       } else {
@@ -81,21 +82,32 @@ export function useKeyDownV2(
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
-    const newMoreCursorPosition = getTextWidth(preTypedWord, `24px monospace`);
+    const lastErrWordInArray =
+      arrayOfErrPreWords.length > 0 &&
+      arrayOfErrPreWords[arrayOfErrPreWords.length - 1];
+    const newMoreCursorPosition = getTextWidth(
+      lastErrWordInArray,
+      `24px monospace`
+    );
+
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
       if (
         !value &&
-        preTypedWord &&
-        preTypedWord !== newArrWords[typingWordIndex - 1]?.word
+        lastErrWordInArray &&
+        lastErrWordInArray !== newArrWords[typingWordIndex - 1]?.word
       ) {
         // setPreCursorPosition(cursorPosition);
-        setValue(preTypedWord + preTypedWord.at(-1));
+        // setValue(preTypedWord + preTypedWord.at(-1));
+        // setPreTypedWord(
+        //   typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
+        // );
         setTypingWordIndex((pre: number) => pre - 1);
-        setPreTypedWord(
-          typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
-        );
         setMoreCursorPosition(newMoreCursorPosition);
+        //
+        setValue(lastErrWordInArray + lastErrWordInArray.at(-1));
+        const newArr = arrayOfErrPreWords.slice(0, -1);
+        setArrayOfErrPreWords(newArr);
       } else {
         value.length > 0 &&
           setCursorPosition((pre: any) => pre - cursorPositionDecrease);
