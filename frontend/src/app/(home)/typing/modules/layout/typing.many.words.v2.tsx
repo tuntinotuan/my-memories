@@ -113,12 +113,12 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   console.log("arrayOfErrPreWords", arrayOfErrPreWords);
   return (
     <>
-      {/* {rowCount} | {rowTyped} | {typingWordIndex}|
+      {/* {rowCount} | {rowTyped} | {typingWordIndex}| 
       {`${lastInRowIndexes.includes(typingWordIndex)}`} */}
       {/* <div className="relative w-full h-screen overflow-hidden bg-black">
         <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-red-600 animate-fireworkTail"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-0 rounded-full bg-red-600 animate-fireworkExplode"></div>
-      </div> */}
+      </div>         */}
       <TypingKeyboardInput
         id="typingKeyboardId"
         hiddenInput
