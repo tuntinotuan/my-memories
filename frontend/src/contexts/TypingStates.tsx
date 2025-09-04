@@ -36,6 +36,8 @@ type defaltValuesType = {
   secondsOfManyWords: number;
   cursorIsTyping: boolean;
   singleTypingList: any;
+  loadingTypingWordList: boolean;
+  setLoadingTypingWordList: (val: boolean) => void;
   setSingleTypingList: (val: []) => void;
   setSecondsOfManyWords: (val: boolean) => void;
   typingListSetting: boolean;
@@ -91,6 +93,8 @@ const defaultValues: defaltValuesType = {
   rect: null,
   cursorShape: "underline",
   typingSettingLocal: undefined,
+  loadingTypingWordList: true,
+  setLoadingTypingWordList: () => {},
   setTypingSettingLocal: () => {},
   setCursorShape: () => {},
   setRect: () => {},
@@ -138,6 +142,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     useState<settingType>({ id: 0, title: "nothing", theme: "" });
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
+  const [loadingTypingWordList, setLoadingTypingWordList] =
+    useState<boolean>(true);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorShape, setCursorShape] = useState<CursorStyles>("line");
   const initialTypingSettingLocals: SettingLocal = {
@@ -185,6 +191,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Fetch & update word lists
   useEffect(() => {
+    setLoadingTypingWordList(true);
     async function fetchWordListFromLocalStorage() {
       let lists = null;
       try {
@@ -196,6 +203,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
       if (lists !== null && lists.length > 0) {
         setWordList(lists);
       }
+      setLoadingTypingWordList(false);
     }
     fetchWordListFromLocalStorage();
   }, []);
@@ -256,6 +264,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         rect,
         cursorShape,
         typingSettingLocal,
+        loadingTypingWordList,
+        setLoadingTypingWordList,
         setTypingSettingLocal,
         setCursorShape,
         setRect,

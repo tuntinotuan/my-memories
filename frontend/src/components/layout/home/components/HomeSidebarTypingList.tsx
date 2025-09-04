@@ -5,8 +5,12 @@ import { replaceAllTrim } from "@/utils/otherFs";
 import React from "react";
 
 const HomeSidebarTypingList = () => {
-  const { wordList, setCurrentlyPickedSetting, setTypingListSetting } =
-    useTyping();
+  const {
+    wordList,
+    setCurrentlyPickedSetting,
+    setTypingListSetting,
+    loadingTypingWordList,
+  } = useTyping();
 
   return (
     <>
@@ -25,7 +29,7 @@ const HomeSidebarTypingList = () => {
           ))}
         </div>
       </ButtonShowAndHiddenData>
-      {wordList.length <= 0 && (
+      {wordList.length <= 0 && !loadingTypingWordList && (
         <div className="h-full w-full flex items-center justify-center text-xs">
           Nothing here...
         </div>

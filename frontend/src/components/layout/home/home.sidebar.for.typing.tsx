@@ -21,6 +21,7 @@ const HomeSidebarForTyping = () => {
     typingListSetting,
     setTypingListSetting,
     currentlyPickedSetting,
+    loadingTypingWordList,
   } = useTyping();
 
   return (
@@ -41,6 +42,18 @@ const HomeSidebarForTyping = () => {
         </ButtonCreate>
       </div>
       <div className="overflow-auto max-h-[65vh] px-4 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-primaryHover [&::-webkit-scrollbar-thumb]:bg-primaryText [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm mt-3">
+        {loadingTypingWordList && (
+          <div className="flex flex-col items-center gap-1">
+            {Array(4)
+              .fill(null)
+              .map((item, index) => (
+                <div
+                  key={index}
+                  className="w-full h-10 bg-gray-200 rounded-md animate-pulse"
+                ></div>
+              ))}
+          </div>
+        )}
         <HomeSidebarTypingList />
       </div>
       <PopupDotsSetting
