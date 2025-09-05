@@ -21,7 +21,7 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
     typingSettingLocal,
   } = useTyping();
   const { hydrated, setHydrated } = useHydrate();
-  if (!hydrated) return null; // or a skeleton/placeholder
+  if (!hydrated) return <TypingPageSkeleton />; // or a skeleton/placeholder
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 overflow-hidden">
       <TypingViewAmountOrTime />
