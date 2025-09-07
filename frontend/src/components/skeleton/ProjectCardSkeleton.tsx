@@ -6,7 +6,10 @@ const ProjectCardSkeleton = () => {
       {Array(4)
         .fill(null)
         .map((item, index) => (
-          <div className="flex flex-col w-[220px] h-[222px] gap-2 rounded-lg">
+          <div
+            className="flex flex-col w-[220px] h-[222px] gap-2 rounded-lg"
+            key={index}
+          >
             <div className="flex justify-center items-end w-full h-full px-4 pt-4 cursor-pointer hover:shadow-inner hover:scale-[1.01] transition-all bg-gray-400 rounded-lg animate-pulse">
               <div className="w-full h-full bg-gray-200 rounded-md animate-pulse"></div>
             </div>
