@@ -19,13 +19,19 @@ const HeaderItems = () => {
       {Array(3)
         .fill(null)
         .map((item, index) => (
-          <div className="bg-gray-200 rounded w-[50px] h-6 animate-pulse"></div>
+          <div
+            key={index}
+            className="bg-gray-200 rounded w-[50px] h-6 animate-pulse"
+          ></div>
         ))}
       <SplitElement />
       {Array(4)
         .fill(null)
         .map((item, index) => (
-          <div className="bg-gray-200 rounded w-[24px] h-6 animate-pulse"></div>
+          <div
+            key={index}
+            className="bg-gray-200 rounded w-[24px] h-6 animate-pulse"
+          ></div>
         ))}
       <SplitElement />
       <div className="bg-gray-200 rounded w-[50px] h-6 animate-pulse"></div>
