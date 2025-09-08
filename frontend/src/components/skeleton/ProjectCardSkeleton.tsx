@@ -10,8 +10,8 @@ const ProjectCardSkeleton = () => {
             className="flex flex-col w-[220px] h-[222px] gap-2 rounded-lg"
             key={index}
           >
-            <div className="flex justify-center items-end w-full h-full px-4 pt-4 cursor-pointer hover:shadow-inner hover:scale-[1.01] transition-all bg-gray-400 rounded-lg animate-pulse">
-              <div className="w-full h-full bg-gray-200 rounded-md animate-pulse"></div>
+            <div className="flex justify-center items-end w-full h-full px-4 pt-4 cursor-pointer hover:shadow-inner hover:scale-[1.01] transition-all bg-gray-200 rounded-lg animate-pulse">
+              <div className="w-full h-full bg-gray-100 rounded-md animate-pulse"></div>
             </div>
             <div className="w-1/4 h-6 bg-gray-200 rounded-md animate-pulse"></div>
             <div className="w-1/2 h-5 bg-gray-200 rounded-md animate-pulse"></div>

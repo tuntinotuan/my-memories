@@ -9,6 +9,7 @@ const TrashEmpty = () => {
         alt="trash image"
         width={160}
         height={300}
+        unoptimized
       ></Image>
       <p className="font-bold">{`There's not thing in your trash`}</p>
     </>

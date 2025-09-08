@@ -21,6 +21,7 @@ const CabybaraCore = ({
       width={width}
       height={20}
       className={className}
+      unoptimized
     ></Image>
   );
 };
