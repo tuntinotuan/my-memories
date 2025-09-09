@@ -29,14 +29,21 @@ const HomeSidebarForTyping = () => {
     <HomeSidebar>
       <div className="pt-4 px-4">
         <HomeSidebarTop />
-        <ButtonCreate
-          className="bg-typingBg !text-typingTextNormal !w-full my-2"
-          styles="primary"
-          onClick={() => setShowPopupCreate(true)}
-        >
-          <PlusIcon />
-          Create a typing list
-        </ButtonCreate>
+        {loadingTypingWordList && (
+          <div className="flex items-center gap-2 bg-gray-200 rounded-md animate-pulse w-full my-2 p-2">
+            <div className="w-full h-6 bg-gray-100 rounded-md animate-pulse"></div>
+          </div>
+        )}
+        {!loadingTypingWordList && (
+          <ButtonCreate
+            className="bg-typingBg !text-typingTextNormal !w-full my-2"
+            styles="primary"
+            onClick={() => setShowPopupCreate(true)}
+          >
+            <PlusIcon />
+            Create a typing list
+          </ButtonCreate>
+        )}
         <ButtonCreate className="!w-full" styles="secondary" disable>
           <CrownIcon />
           Try Pro for 30 days
