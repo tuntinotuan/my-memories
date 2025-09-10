@@ -42,7 +42,14 @@ const TextAppearance = ({ show }: any) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
-  const { rect, setRect, setCursorShape, typingSettingLocal } = useTyping();
+  const {
+    rect,
+    setRect,
+    setCursorShape,
+    typingSettingLocal,
+    textIsLowercase,
+    setTextIsLowercase,
+  } = useTyping();
   const { showTypingSetting } = useLayoutStates();
 
   const listCursorShape: {
@@ -238,6 +245,12 @@ const TextAppearance = ({ show }: any) => {
               ></TypingCursorNew>
             </RelativeOverlay>
           ))}
+        </div>
+        <div className="flex gap-10 my-5">
+          Text lowercase:
+          <button onClick={() => setTextIsLowercase(!textIsLowercase)}>{`${
+            textIsLowercase ? "on" : "off"
+          }`}</button>
         </div>
       </div>
     </TextBoxBorderOverlay>

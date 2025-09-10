@@ -15,9 +15,6 @@ const TypingMainPage = ({ params }: any) => {
   useFetchSingleTypingPage(params, setNewWordList);
   return (
     <div className="flex flex-col w-full gap-2 px-4 pt-2 bg-typingBg text-white">
-      <button
-        onClick={() => setTextIsLowercase(!textIsLowercase)}
-      >{`lowercase ${textIsLowercase ? "on" : "off"}`}</button>
       {!showResults && <TypingHeaderMenu changeFor="single"></TypingHeaderMenu>}
       {!showResults && <TypingContent data={newWordList}></TypingContent>}
       {showResults && <TypingResults></TypingResults>}
