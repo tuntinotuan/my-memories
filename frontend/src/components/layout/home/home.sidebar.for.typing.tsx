@@ -15,6 +15,7 @@ import { SettingChangeThemePage } from "@/components/popup/setting/pages/Setting
 import HomeSidebarTop from "./components/HomeSidebarTop";
 import HomeSidebarTypingList from "./components/HomeSidebarTypingList";
 import SidebarListSkeleton from "@/components/skeleton/SidebarListSkeleton";
+import TypingCreateButtonSkeleton from "@/components/skeleton/TypingCreateButtonSkeleton";
 
 const HomeSidebarForTyping = () => {
   const {
@@ -29,11 +30,7 @@ const HomeSidebarForTyping = () => {
     <HomeSidebar>
       <div className="pt-4 px-4">
         <HomeSidebarTop />
-        {loadingTypingWordList && (
-          <div className="flex items-center gap-2 bg-gray-200 rounded-md animate-pulse w-full my-2 p-2">
-            <div className="w-full h-6 bg-gray-100 rounded-md animate-pulse"></div>
-          </div>
-        )}
+        {loadingTypingWordList && <TypingCreateButtonSkeleton />}
         {!loadingTypingWordList && (
           <ButtonCreate
             className="bg-typingBg !text-typingTextNormal !w-full my-2"
