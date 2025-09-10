@@ -21,6 +21,9 @@ const TypingWordNew = ({
 }: TypingWordNewProps) => {
   const [newText, setNewText] = useState<string>(text);
   const ref = useRef<HTMLDivElement | null>(null);
+
+  const { textIsLowercase } = useTyping();
+
   useEffect(() => {
     if (typingWordIndex === wordIndex) {
       setNewText(text);
@@ -42,10 +45,12 @@ const TypingWordNew = ({
       ref={ref}
       id={`wordId${wordIndex}`}
       className={`flex items-center text-typingTextNormal cursor-default select-none ${
-        textSize ? textSize : "text-4xl"
-      } ${
+        textIsLowercase ? "lowercase" : ""
+      } ${textSize ? textSize : "text-4xl"} ${
         typingWordIndex !== wordIndex &&
-        currentTyping.word !== newText &&
+        (textIsLowercase
+          ? currentTyping.word.toLocaleLowerCase()
+          : currentTyping.word) !== newText &&
         newText !== ""
           ? "underline decoration-typingTextWrong"
           : ""
@@ -55,7 +60,9 @@ const TypingWordNew = ({
         <div
           key={index}
           className={`${
-            currentTyping.word[index] === newText.split("")[index]
+            (textIsLowercase
+              ? currentTyping.word[index].toLocaleLowerCase()
+              : currentTyping.word[index]) === newText.split("")[index]
               ? "text-typingTextCorrect correct"
               : newText.split("")[index] !== undefined
               ? "text-typingTextWrong wrong"

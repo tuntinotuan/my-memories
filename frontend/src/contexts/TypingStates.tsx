@@ -53,6 +53,8 @@ type defaltValuesType = {
   rect: DOMRect | null;
   cursorShape: CursorStyles;
   typingSettingLocal: SettingLocal | undefined;
+  textIsLowercase: boolean;
+  setTextIsLowercase: (val: boolean) => void;
   setTypingSettingLocal: (val: SettingLocal) => void;
   setCursorShape: (val: CursorStyles) => void;
   setRect: (val: DOMRect) => void;
@@ -94,6 +96,8 @@ const defaultValues: defaltValuesType = {
   cursorShape: "underline",
   typingSettingLocal: undefined,
   loadingTypingWordList: true,
+  textIsLowercase: false,
+  setTextIsLowercase: () => {},
   setLoadingTypingWordList: () => {},
   setTypingSettingLocal: () => {},
   setCursorShape: () => {},
@@ -141,6 +145,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentlyPickedSetting, setCurrentlyPickedSetting] =
     useState<settingType>({ id: 0, title: "nothing", theme: "" });
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
+  const [textIsLowercase, setTextIsLowercase] = useState<boolean>(false);
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   const [loadingTypingWordList, setLoadingTypingWordList] =
     useState<boolean>(true);
@@ -265,6 +270,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         cursorShape,
         typingSettingLocal,
         loadingTypingWordList,
+        textIsLowercase,
+        setTextIsLowercase,
         setLoadingTypingWordList,
         setTypingSettingLocal,
         setCursorShape,
