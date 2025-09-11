@@ -10,6 +10,7 @@ import { CursorStyles } from "../../types";
 import { useAutoText } from "../../../func/setting/useAutoText";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { calculatePositionForCursor } from "../../../func/wordOlderV1/calculatePositionForCursor";
+import TextAndContentOverlay from "./TextAndContentOverlay";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -228,7 +229,7 @@ const TextAppearance = ({ show }: any) => {
         )}
       </div>
       <div>
-        <div className="flex gap-10 my-5">
+        <TextAndContentOverlay>
           Cursor shape:
           {listCursorShape.map((item, index) => (
             <RelativeOverlay key={index}>
@@ -245,13 +246,13 @@ const TextAppearance = ({ show }: any) => {
               ></TypingCursorNew>
             </RelativeOverlay>
           ))}
-        </div>
-        <div className="flex gap-10 my-5">
+        </TextAndContentOverlay>
+        <TextAndContentOverlay>
           Text lowercase:
           <button onClick={() => setTextIsLowercase(!textIsLowercase)}>{`${
             textIsLowercase ? "on" : "off"
           }`}</button>
-        </div>
+        </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
   );
