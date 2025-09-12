@@ -21,4 +21,5 @@ export type SettingLocal = {
   typingStyles: typingStylesType;
   wordAmount: WordAmountType;
   wordTime: WordTimeType;
+  textIsLowercase: boolean;
 };

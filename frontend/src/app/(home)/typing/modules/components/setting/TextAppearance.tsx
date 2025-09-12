@@ -250,9 +250,6 @@ const TextAppearance = ({ show }: any) => {
         </TextAndContentOverlay>
         <TextAndContentOverlay>
           Text lowercase:
-          <button onClick={() => setTextIsLowercase(!textIsLowercase)}>{`${
-            textIsLowercase ? "on" : "off"
-          }`}</button>
           <RadioFull
             onClick={() => setTextIsLowercase(!textIsLowercase)}
             status={textIsLowercase}
