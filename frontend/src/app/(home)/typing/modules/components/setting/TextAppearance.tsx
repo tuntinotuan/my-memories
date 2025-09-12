@@ -11,6 +11,7 @@ import { useAutoText } from "../../../func/setting/useAutoText";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { calculatePositionForCursor } from "../../../func/wordOlderV1/calculatePositionForCursor";
 import TextAndContentOverlay from "./TextAndContentOverlay";
+import RadioFull from "@/components/radio/RadioFull";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -252,6 +253,10 @@ const TextAppearance = ({ show }: any) => {
           <button onClick={() => setTextIsLowercase(!textIsLowercase)}>{`${
             textIsLowercase ? "on" : "off"
           }`}</button>
+          <RadioFull
+            onClick={() => setTextIsLowercase(!textIsLowercase)}
+            status={textIsLowercase}
+          />
         </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
