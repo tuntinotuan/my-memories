@@ -12,10 +12,13 @@ export function useAutoText({
   setCursorWidth,
   setPreTypedWord,
   setTypingWordIndex,
+  textIsLowercase,
 }: any) {
   const [number, setnumber] = useState(0);
 
-  const fullText = "I love you so much ".split("");
+  const fullText = textIsLowercase
+    ? "I love you so much ".toLowerCase().split("")
+    : "I love you so much ".split("");
   useEffect(() => {
     if (!show) return;
     const cursorNextWidth =

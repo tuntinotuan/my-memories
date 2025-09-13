@@ -167,6 +167,7 @@ const TextAppearance = ({ show }: any) => {
     setCursorWidth,
     setPreTypedWord,
     setTypingWordIndex,
+    textIsLowercase,
   });
   useEffect(() => {
     setCurrentText(wordList[typingWordIndex].word.split("")[0]);
