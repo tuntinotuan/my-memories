@@ -231,6 +231,10 @@ const TextAppearance = ({ show }: any) => {
             status={textIsLowercase}
           />
         </TextAndContentOverlay>
+        <TextAndContentOverlay>
+          Font size:
+          <input type="number" defaultValue={0} />
+        </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
   );

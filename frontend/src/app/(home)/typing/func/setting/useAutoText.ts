@@ -20,10 +20,12 @@ export function useAutoText({
     : "I love you so much ".split("");
   useEffect(() => {
     if (!show) return;
+
     const cursorNextWidth =
       fullText[typingWordIndex + 1] === " "
         ? 14
         : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
+
     // reset automation
     if (number >= fullText.length) {
       handleResetWordComponents();
@@ -31,6 +33,7 @@ export function useAutoText({
       setCurrentText(fullText[0]);
       return;
     }
+    // Loop
     const timeout = setTimeout(() => {
       if (fullText[number] !== " ") {
         setValue((pre: any) => pre + fullText[number]);
