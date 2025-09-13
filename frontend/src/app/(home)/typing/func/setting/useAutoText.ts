@@ -10,7 +10,6 @@ export function useAutoText({
   setValue,
   setCursorPosition,
   setCursorWidth,
-  setPreTypedWord,
   setTypingWordIndex,
   textIsLowercase,
 }: any) {
@@ -40,7 +39,6 @@ export function useAutoText({
         setCurrentText(fullText[number + 1]);
       } else {
         // space " "
-        setPreTypedWord(value);
         setTypingWordIndex((pre: any) => pre + 1);
         setValue("");
         setCursorPosition((pre: any) => pre + 16);

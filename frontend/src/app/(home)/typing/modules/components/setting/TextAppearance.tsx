@@ -38,8 +38,6 @@ const TextAppearance = ({ show }: any) => {
   ];
   const [value, setValue] = useState("");
   const [typingWordIndex, setTypingWordIndex] = useState(0);
-  const [preTypedWord, setPreTypedWord] = useState("");
-  const [preCursorPosition, setPreCursorPosition] = useState(0);
   const [resetComponents, setResetComponents] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
@@ -100,30 +98,14 @@ const TextAppearance = ({ show }: any) => {
   };
   const handleOnKeyDown = (e: any) => {
     if (value.length > 0 && e.key === " ") {
-      setPreTypedWord(value);
-      // value !== wordList[typingWordIndex].word &&
-      //   setPreCursorPosition(cursorPosition);
       setTypingWordIndex((pre) => pre + 1);
       setValue("");
-      // rect && setCursorPosition(rect.left);
     }
-    const { cursorPositionIncrease, cursorPositionDecrease } =
-      calculatePositionForCursor(wordList[typingWordIndex], value, "24px");
-    if (value.length >= 0 && e.key === "Backspace") {
-      // Back previous error word
-      if (!value && preTypedWord !== wordList[typingWordIndex - 1].word) {
-        setPreCursorPosition(cursorPosition);
-        setValue(preTypedWord + preTypedWord.at(-1));
-        setTypingWordIndex((pre) => pre - 1);
-        setPreTypedWord(
-          typingWordIndex > 1 ? wordList[typingWordIndex - 2].word : ""
-        );
-        // setCursorPosition(preCursorPosition);
-      } else {
-        value.length > 0 &&
-          setCursorPosition((pre) => pre - cursorPositionDecrease);
-      }
-    }
+    const { cursorPositionIncrease } = calculatePositionForCursor(
+      wordList[typingWordIndex],
+      value,
+      "24px"
+    );
     if (
       e.key.length === 1 &&
       !e.ctrlKey &&
@@ -145,8 +127,6 @@ const TextAppearance = ({ show }: any) => {
     setResetComponents(false);
     setValue("");
     setTypingWordIndex(0);
-    setPreTypedWord("");
-    setPreCursorPosition(0);
     setCursorWidth(16);
     setTimeout(() => {
       setResetComponents(true);
@@ -165,16 +145,12 @@ const TextAppearance = ({ show }: any) => {
     setValue,
     setCursorPosition,
     setCursorWidth,
-    setPreTypedWord,
     setTypingWordIndex,
     textIsLowercase,
   });
   useEffect(() => {
     setCurrentText(wordList[typingWordIndex].word.split("")[0]);
     if (rect) {
-      // preCursorPosition
-      //   ? setCursorPosition(preCursorPosition)
-      //   : setCursorPosition(rect.left);
       setCursorPosition(rect.left);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -192,8 +168,7 @@ const TextAppearance = ({ show }: any) => {
       {/* <button onClick={handleResetWordComponents}>reset text</button> */}
       {/* <p>{currentText}...</p> */}
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
-      {typingWordIndex} {preTypedWord} */}
-      {/* {preCursorPosition} */}
+      {typingWordIndex} */}
       <div className="relative flex justify-center flex-wrap gap-4 transition-all">
         <TypingCursorNew
           isTyping
