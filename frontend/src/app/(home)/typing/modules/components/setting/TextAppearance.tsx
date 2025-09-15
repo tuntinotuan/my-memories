@@ -42,7 +42,7 @@ const TextAppearance = ({ show }: any) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
-  const wordGap = 16;
+  const wordGap = 25;
 
   const {
     rect,

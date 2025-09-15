@@ -22,10 +22,14 @@ export function useAutoText({
   useEffect(() => {
     if (!show) return;
 
-    const cursorNextWidth =
-      fullText[typingWordIndex + 1] === " "
-        ? 14
-        : getTextWidth(fullText[typingWordIndex + 1], `${24}px monospace`);
+    // const cursorNextWidth =
+    //   fullText[number + 1] === " "
+    //     ? wordGap
+    //     : getTextWidth(fullText[number + 1], `${24}px monospace`);
+    const cursorNextWidth = getTextWidth(
+      fullText[number + 1],
+      `${24}px monospace`
+    );
 
     // reset automation
     if (number >= fullText.length) {
@@ -39,13 +43,15 @@ export function useAutoText({
       if (fullText[number] !== " ") {
         setValue((pre: any) => pre + fullText[number]);
         setCursorPosition((pre: any) => pre + cursorNextWidth);
-        setCursorWidth(cursorNextWidth);
+        setCursorWidth(
+          fullText[number + 1] === " " ? wordGap : cursorNextWidth
+        );
         setCurrentText(fullText[number + 1]);
       } else {
         // space " "
         setTypingWordIndex((pre: any) => pre + 1);
         setValue("");
-        setCursorPosition((pre: any) => pre + wordGap);
+        setCursorPosition((pre: any) => pre);
         setCursorWidth(cursorNextWidth);
         setCurrentText("");
       }

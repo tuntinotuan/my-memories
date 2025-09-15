@@ -157,6 +157,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorShape, setCursorShape] = useState<CursorStyles>("line");
   const [typingFontsize, setTypingFontsize] = useState<FontSizeTypes>(1);
+  const [wordGap, setWordGap] = useState();
   const initialTypingSettingLocals: SettingLocal = {
     cursorShape: "line",
     typingStyles: "combine",
