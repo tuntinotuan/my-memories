@@ -1,7 +1,17 @@
 import React from "react";
 
-const TextAndContentOverlay = ({ children }: { children: React.ReactNode }) => {
-  return <div className="flex gap-10 my-5">{children}</div>;
+const TextAndContentOverlay = ({
+  children,
+  gap = 40,
+}: {
+  children: React.ReactNode;
+  gap?: number;
+}) => {
+  return (
+    <div className="flex my-5" style={{ gap: gap }}>
+      {children}
+    </div>
+  );
 };
 
 export default TextAndContentOverlay;

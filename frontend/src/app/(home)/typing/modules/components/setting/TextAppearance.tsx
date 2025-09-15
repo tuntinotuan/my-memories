@@ -1,6 +1,6 @@
 import TextBoxBorderOverlay from "@/components/overlay/text.box.border.overlay";
 import React, { useEffect, useState } from "react";
-import { typingWordsTypes } from "@/api/typing/typing.type";
+import { FontSizeTypes, typingWordsTypes } from "@/api/typing/typing.type";
 import TypingWordNew from "../TypingWordNew";
 import TypingCursorNew from "../TypingCursorNew";
 import RelativeOverlay from "@/components/overlay/relative.overlay";
@@ -42,6 +42,7 @@ const TextAppearance = ({ show }: any) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
+
   const {
     rect,
     setRect,
@@ -156,6 +157,8 @@ const TextAppearance = ({ show }: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect]);
 
+  const fontSizeList: FontSizeTypes[] = [0.5, 1, 2, 3, 4, 5, 10];
+
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
       <TypingKeyboardInput
@@ -231,9 +234,19 @@ const TextAppearance = ({ show }: any) => {
             status={textIsLowercase}
           />
         </TextAndContentOverlay>
-        <TextAndContentOverlay>
+        <TextAndContentOverlay gap={6}>
           Font size:
-          <input type="number" defaultValue={0} />
+          {/* <input type="number" defaultValue={0} /> */}
+          {fontSizeList.map((item) => (
+            <div
+              key={item}
+              className={`bg-typingBgControlMenu p-2 rounded hover:scale-105 hover:bg-typingColorActive cursor-pointer transition-all ${
+                true ? "bg-typingColorActiv" : ""
+              }`}
+            >
+              x{item}
+            </div>
+          ))}
         </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
