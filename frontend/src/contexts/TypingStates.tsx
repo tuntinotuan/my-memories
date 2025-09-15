@@ -1,4 +1,5 @@
 "use client";
+import { FontSizeTypes } from "@/api/typing/typing.type";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import {
   CursorStyles,
@@ -54,6 +55,8 @@ type defaltValuesType = {
   cursorShape: CursorStyles;
   typingSettingLocal: SettingLocal | undefined;
   textIsLowercase: boolean;
+  typingFontsize: FontSizeTypes;
+  setTypingFontsize: (val: FontSizeTypes) => void;
   setTextIsLowercase: (val: boolean) => void;
   setTypingSettingLocal: (val: SettingLocal) => void;
   setCursorShape: (val: CursorStyles) => void;
@@ -97,6 +100,8 @@ const defaultValues: defaltValuesType = {
   typingSettingLocal: undefined,
   loadingTypingWordList: true,
   textIsLowercase: false,
+  typingFontsize: 1,
+  setTypingFontsize: () => {},
   setTextIsLowercase: () => {},
   setLoadingTypingWordList: () => {},
   setTypingSettingLocal: () => {},
@@ -151,6 +156,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     useState<boolean>(true);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorShape, setCursorShape] = useState<CursorStyles>("line");
+  const [typingFontsize, setTypingFontsize] = useState<FontSizeTypes>(1);
   const initialTypingSettingLocals: SettingLocal = {
     cursorShape: "line",
     typingStyles: "combine",
@@ -280,6 +286,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         typingSettingLocal,
         loadingTypingWordList,
         textIsLowercase,
+        typingFontsize,
+        setTypingFontsize,
         setTextIsLowercase,
         setLoadingTypingWordList,
         setTypingSettingLocal,

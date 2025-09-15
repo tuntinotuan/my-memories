@@ -7,17 +7,19 @@ type TypingWordNewProps = {
   setRect: (val: any) => void;
   typingWordIndex?: number;
   wordIndex?: number;
-  textSize?: string;
+  textSize?: number;
   setCursorPosition: any;
+  defaultSize?: number;
 };
 
 const TypingWordNew = ({
   setRect,
   typingWordIndex,
-  textSize,
+  textSize = 1,
   wordIndex,
   currentTyping,
   text,
+  defaultSize = 24,
 }: TypingWordNewProps) => {
   const [newText, setNewText] = useState<string>(text);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -46,7 +48,7 @@ const TypingWordNew = ({
       id={`wordId${wordIndex}`}
       className={`flex items-center text-typingTextNormal cursor-default select-none ${
         textIsLowercase ? "lowercase" : ""
-      } ${textSize ? textSize : "text-4xl"} ${
+      } ${
         typingWordIndex !== wordIndex &&
         (textIsLowercase
           ? currentTyping.word.toLocaleLowerCase()
@@ -55,6 +57,14 @@ const TypingWordNew = ({
           ? "underline decoration-typingTextWrong"
           : ""
       }`}
+      style={
+        defaultSize
+          ? {
+              fontSize: textSize * defaultSize,
+              lineHeight: 1,
+            }
+          : {}
+      }
     >
       {currentTyping.word.split("").map((item: string, index: number) => (
         <div

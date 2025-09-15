@@ -159,7 +159,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
               wordIndex={index}
               currentTyping={word}
               text={value}
-              textSize="text-2xl"
               setCursorPosition={setCursorPosition}
             ></TypingWordNew>
           ))}

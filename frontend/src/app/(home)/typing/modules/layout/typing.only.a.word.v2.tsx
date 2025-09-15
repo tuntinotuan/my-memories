@@ -106,7 +106,8 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
         wordIndex={refNextWord.current}
         currentTyping={currentTyping}
         text={value}
-        textSize="text-4xl"
+        textSize={1}
+        defaultSize={36}
         setCursorPosition={setCursorPosition}
       ></TypingWordNew>
       <TypingMeaning>{currentTyping.meaning}</TypingMeaning>

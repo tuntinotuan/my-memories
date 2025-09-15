@@ -42,6 +42,7 @@ const TextAppearance = ({ show }: any) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
+  const wordGap = 16;
 
   const {
     rect,
@@ -148,6 +149,7 @@ const TextAppearance = ({ show }: any) => {
     setCursorWidth,
     setTypingWordIndex,
     textIsLowercase,
+    wordGap,
   });
   useEffect(() => {
     setCurrentText(wordList[typingWordIndex].word.split("")[0]);
@@ -172,7 +174,10 @@ const TextAppearance = ({ show }: any) => {
       {/* <p>{currentText}...</p> */}
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} */}
-      <div className="relative flex justify-center flex-wrap gap-4 transition-all">
+      <div
+        className="relative flex justify-center flex-wrap transition-all"
+        style={{ gap: wordGap }}
+      >
         <TypingCursorNew
           isTyping
           showCursor={showTypingSetting}
@@ -192,8 +197,8 @@ const TextAppearance = ({ show }: any) => {
               wordIndex={index}
               currentTyping={word}
               text={value}
-              textSize="text-2xl"
               setCursorPosition={setCursorPosition}
+              textSize={1}
             ></TypingWordNew>
           ))}
         {!resetComponents && (
@@ -203,7 +208,6 @@ const TextAppearance = ({ show }: any) => {
             wordIndex={0}
             currentTyping={{ word: "a", meaning: "" }}
             text={value}
-            textSize="text-2xl"
             setCursorPosition={setCursorPosition}
           ></TypingWordNew>
         )}

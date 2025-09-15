@@ -12,6 +12,7 @@ export function useAutoText({
   setCursorWidth,
   setTypingWordIndex,
   textIsLowercase,
+  wordGap,
 }: any) {
   const [number, setnumber] = useState(0);
 
@@ -24,7 +25,7 @@ export function useAutoText({
     const cursorNextWidth =
       fullText[typingWordIndex + 1] === " "
         ? 14
-        : getTextWidth(fullText[typingWordIndex + 1], `24px monospace`);
+        : getTextWidth(fullText[typingWordIndex + 1], `${24}px monospace`);
 
     // reset automation
     if (number >= fullText.length) {
@@ -44,7 +45,7 @@ export function useAutoText({
         // space " "
         setTypingWordIndex((pre: any) => pre + 1);
         setValue("");
-        setCursorPosition((pre: any) => pre + 16);
+        setCursorPosition((pre: any) => pre + wordGap);
         setCursorWidth(cursorNextWidth);
         setCurrentText("");
       }
