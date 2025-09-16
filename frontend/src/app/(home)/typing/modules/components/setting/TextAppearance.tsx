@@ -155,6 +155,7 @@ const TextAppearance = ({ show }: any) => {
   });
   useEffect(() => {
     setCurrentText(wordList[typingWordIndex].word.split("")[0]);
+    setCursorWidth(14);
     if (rect) {
       setCursorPosition(rect.left);
     }
