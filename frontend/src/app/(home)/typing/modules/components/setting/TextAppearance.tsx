@@ -1,15 +1,15 @@
-import TextBoxBorderOverlay from "@/components/overlay/text.box.border.overlay";
 import React, { useEffect, useState } from "react";
 import { FontSizeTypes, typingWordsTypes } from "@/api/typing/typing.type";
-import TypingWordNew from "../TypingWordNew";
-import TypingCursorNew from "../TypingCursorNew";
-import RelativeOverlay from "@/components/overlay/relative.overlay";
-import TypingKeyboardInput from "../TypingKeyboard";
 import { useTyping } from "@/contexts/TypingStates";
 import { CursorStyles } from "../../types";
 import { useAutoText } from "../../../func/setting/useAutoText";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { calculatePositionForCursor } from "../../../func/wordOlderV1/calculatePositionForCursor";
+import TextBoxBorderOverlay from "@/components/overlay/text.box.border.overlay";
+import TypingWordNew from "../TypingWordNew";
+import TypingCursorNew from "../TypingCursorNew";
+import RelativeOverlay from "@/components/overlay/relative.overlay";
+import TypingKeyboardInput from "../TypingKeyboard";
 import TextAndContentOverlay from "./TextAndContentOverlay";
 import RadioFull from "@/components/radio/RadioFull";
 
@@ -42,7 +42,6 @@ const TextAppearance = ({ show }: any) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
-  const wordGap = 25;
 
   const {
     rect,
@@ -51,6 +50,8 @@ const TextAppearance = ({ show }: any) => {
     typingSettingLocal,
     textIsLowercase,
     setTextIsLowercase,
+    typingFontsize,
+    wordGap,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
 
@@ -150,6 +151,7 @@ const TextAppearance = ({ show }: any) => {
     setTypingWordIndex,
     textIsLowercase,
     wordGap,
+    typingFontsize,
   });
   useEffect(() => {
     setCurrentText(wordList[typingWordIndex].word.split("")[0]);

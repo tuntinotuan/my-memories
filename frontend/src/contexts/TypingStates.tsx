@@ -55,8 +55,12 @@ type defaltValuesType = {
   cursorShape: CursorStyles;
   typingSettingLocal: SettingLocal | undefined;
   textIsLowercase: boolean;
-  typingFontsize: FontSizeTypes;
-  setTypingFontsize: (val: FontSizeTypes) => void;
+  typingFontsize: number;
+  typingFontsizeX: FontSizeTypes;
+  wordGap: number;
+  setWordGap: (val: number) => void;
+  setTypingFontsize: (val: number) => void;
+  setTypingFontsizeX: (val: FontSizeTypes) => void;
   setTextIsLowercase: (val: boolean) => void;
   setTypingSettingLocal: (val: SettingLocal) => void;
   setCursorShape: (val: CursorStyles) => void;
@@ -100,8 +104,12 @@ const defaultValues: defaltValuesType = {
   typingSettingLocal: undefined,
   loadingTypingWordList: true,
   textIsLowercase: false,
-  typingFontsize: 1,
+  typingFontsize: 24,
+  typingFontsizeX: 1,
+  wordGap: 16,
+  setWordGap: () => {},
   setTypingFontsize: () => {},
+  setTypingFontsizeX: () => {},
   setTextIsLowercase: () => {},
   setLoadingTypingWordList: () => {},
   setTypingSettingLocal: () => {},
@@ -156,8 +164,9 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     useState<boolean>(true);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorShape, setCursorShape] = useState<CursorStyles>("line");
-  const [typingFontsize, setTypingFontsize] = useState<FontSizeTypes>(1);
-  const [wordGap, setWordGap] = useState();
+  const [typingFontsize, setTypingFontsize] = useState<number>(24);
+  const [typingFontsizeX, setTypingFontsizeX] = useState<FontSizeTypes>(1);
+  const [wordGap, setWordGap] = useState<number>(16);
   const initialTypingSettingLocals: SettingLocal = {
     cursorShape: "line",
     typingStyles: "combine",
@@ -288,7 +297,11 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         loadingTypingWordList,
         textIsLowercase,
         typingFontsize,
+        typingFontsizeX,
+        wordGap,
+        setWordGap,
         setTypingFontsize,
+        setTypingFontsizeX,
         setTextIsLowercase,
         setLoadingTypingWordList,
         setTypingSettingLocal,

@@ -13,6 +13,7 @@ export function useAutoText({
   setTypingWordIndex,
   textIsLowercase,
   wordGap,
+  typingFontsize,
 }: any) {
   const [number, setnumber] = useState(0);
 
@@ -28,7 +29,7 @@ export function useAutoText({
     //     : getTextWidth(fullText[number + 1], `${24}px monospace`);
     const cursorNextWidth = getTextWidth(
       fullText[number + 1],
-      `${24}px monospace`
+      `${typingFontsize}px monospace`
     );
 
     // reset automation
