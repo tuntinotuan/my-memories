@@ -7,7 +7,7 @@ const BtnFontsize = ({
   typingFontsizeX,
 }: {
   children: React.ReactNode;
-  onClick?: () => {};
+  onClick?: () => void;
   typingFontsizeX?: FontSizeTypes;
 }) => {
   return (

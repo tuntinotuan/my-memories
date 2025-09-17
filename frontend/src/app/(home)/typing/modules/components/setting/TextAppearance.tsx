@@ -54,7 +54,7 @@ const TextAppearance = ({ show }: any) => {
     typingFontsize,
     wordGap,
     typingFontsizeX,
-    setTypingFontsize,
+    setTypingFontsizeX,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
 
@@ -155,18 +155,22 @@ const TextAppearance = ({ show }: any) => {
     textIsLowercase,
     wordGap,
     typingFontsize,
+    typingFontsizeX,
   });
   useEffect(() => {
     // initials
     setCurrentText(wordList[typingWordIndex].word.split("")[0]); // first text into block
-    setCursorWidth(14); // first cursor width
     if (rect) {
       setCursorPosition(rect.left);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect]);
 
-  const fontSizeList: FontSizeTypes[] = [0.5, 1, 2, 3, 4, 5, 10];
+  useEffect(() => {
+    setCursorWidth(14); // first cursor width
+  }, []);
+
+  const fontSizeList: FontSizeTypes[] = [0.5, 1, 2, 3, 4, 5];
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
@@ -205,7 +209,7 @@ const TextAppearance = ({ show }: any) => {
               currentTyping={word}
               text={value}
               setCursorPosition={setCursorPosition}
-              textSizeX={1}
+              textSizeX={typingFontsizeX}
             ></TypingWordNew>
           ))}
         {!resetComponents && (
@@ -249,7 +253,11 @@ const TextAppearance = ({ show }: any) => {
           Font size:
           {/* <input type="number" defaultValue={0} /> */}
           {fontSizeList.map((item) => (
-            <BtnFontsize key={item} typingFontsizeX={typingFontsizeX}>
+            <BtnFontsize
+              key={item}
+              typingFontsizeX={typingFontsizeX}
+              onClick={() => setTypingFontsizeX(item)}
+            >
               {item}
             </BtnFontsize>
           ))}

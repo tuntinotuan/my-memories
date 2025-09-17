@@ -14,6 +14,7 @@ export function useAutoText({
   textIsLowercase,
   wordGap,
   typingFontsize,
+  typingFontsizeX,
 }: any) {
   const [number, setnumber] = useState(0);
 
@@ -29,7 +30,7 @@ export function useAutoText({
     //     : getTextWidth(fullText[number + 1], `${24}px monospace`);
     const cursorNextWidth = getTextWidth(
       fullText[number + 1],
-      `${typingFontsize}px monospace`
+      `${typingFontsize * typingFontsizeX}px monospace`
     );
 
     // reset automation
@@ -37,6 +38,12 @@ export function useAutoText({
       handleResetWordComponents();
       setnumber(0);
       setCurrentText(fullText[0]);
+      setCursorWidth(
+        getTextWidth(
+          fullText[0],
+          `${typingFontsize * typingFontsizeX}px monospace`
+        )
+      );
       return;
     }
     // Loop
