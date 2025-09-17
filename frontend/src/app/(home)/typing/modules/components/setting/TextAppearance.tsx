@@ -12,6 +12,7 @@ import RelativeOverlay from "@/components/overlay/relative.overlay";
 import TypingKeyboardInput from "../TypingKeyboard";
 import TextAndContentOverlay from "./TextAndContentOverlay";
 import RadioFull from "@/components/radio/RadioFull";
+import BtnFontsize from "./BtnFontsize";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -52,6 +53,8 @@ const TextAppearance = ({ show }: any) => {
     setTextIsLowercase,
     typingFontsize,
     wordGap,
+    typingFontsizeX,
+    setTypingFontsize,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
 
@@ -154,8 +157,9 @@ const TextAppearance = ({ show }: any) => {
     typingFontsize,
   });
   useEffect(() => {
-    setCurrentText(wordList[typingWordIndex].word.split("")[0]);
-    setCursorWidth(14);
+    // initials
+    setCurrentText(wordList[typingWordIndex].word.split("")[0]); // first text into block
+    setCursorWidth(14); // first cursor width
     if (rect) {
       setCursorPosition(rect.left);
     }
@@ -201,7 +205,7 @@ const TextAppearance = ({ show }: any) => {
               currentTyping={word}
               text={value}
               setCursorPosition={setCursorPosition}
-              textSize={1}
+              textSizeX={1}
             ></TypingWordNew>
           ))}
         {!resetComponents && (
@@ -245,14 +249,9 @@ const TextAppearance = ({ show }: any) => {
           Font size:
           {/* <input type="number" defaultValue={0} /> */}
           {fontSizeList.map((item) => (
-            <div
-              key={item}
-              className={`bg-typingBgControlMenu p-2 rounded hover:scale-105 hover:bg-typingColorActive cursor-pointer transition-all ${
-                true ? "bg-typingColorActiv" : ""
-              }`}
-            >
-              x{item}
-            </div>
+            <BtnFontsize key={item} typingFontsizeX={typingFontsizeX}>
+              {item}
+            </BtnFontsize>
           ))}
         </TextAndContentOverlay>
       </div>

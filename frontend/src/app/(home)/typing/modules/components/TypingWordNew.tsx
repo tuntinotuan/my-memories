@@ -7,7 +7,7 @@ type TypingWordNewProps = {
   setRect: (val: any) => void;
   typingWordIndex?: number;
   wordIndex?: number;
-  textSize?: number;
+  textSizeX?: number;
   setCursorPosition: any;
   defaultSize?: number;
 };
@@ -15,10 +15,10 @@ type TypingWordNewProps = {
 const TypingWordNew = ({
   setRect,
   typingWordIndex,
-  textSize = 1,
   wordIndex,
   currentTyping,
   text,
+  textSizeX = 1,
   defaultSize = 24,
 }: TypingWordNewProps) => {
   const [newText, setNewText] = useState<string>(text);
@@ -60,7 +60,7 @@ const TypingWordNew = ({
       style={
         defaultSize
           ? {
-              fontSize: textSize * defaultSize,
+              fontSize: textSizeX * defaultSize,
               lineHeight: 1,
             }
           : {}
