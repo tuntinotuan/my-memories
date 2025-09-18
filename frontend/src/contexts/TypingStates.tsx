@@ -106,7 +106,7 @@ const defaultValues: defaltValuesType = {
   textIsLowercase: false,
   typingFontsize: 24,
   typingFontsizeX: 1,
-  wordGap: 16,
+  wordGap: 14,
   setWordGap: () => {},
   setTypingFontsize: () => {},
   setTypingFontsizeX: () => {},

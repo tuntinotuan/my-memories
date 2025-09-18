@@ -55,6 +55,7 @@ const TextAppearance = ({ show }: any) => {
     wordGap,
     typingFontsizeX,
     setTypingFontsizeX,
+    setWordGap,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
 
@@ -256,7 +257,32 @@ const TextAppearance = ({ show }: any) => {
             <BtnFontsize
               key={item}
               typingFontsizeX={typingFontsizeX}
-              onClick={() => setTypingFontsizeX(item)}
+              onClick={() => {
+                setTypingFontsizeX(item);
+                switch (item) {
+                  case 0.5:
+                    setWordGap(7);
+                    break;
+                  case 1:
+                    setWordGap(14);
+                    break;
+                  case 2:
+                    setWordGap(24);
+                    break;
+                  case 3:
+                    setWordGap(38);
+                    break;
+                  case 4:
+                    setWordGap(54);
+                    break;
+                  case 5:
+                    setWordGap(72);
+                    break;
+
+                  default:
+                    break;
+                }
+              }}
             >
               {item}
             </BtnFontsize>
