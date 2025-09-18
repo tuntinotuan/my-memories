@@ -21,6 +21,20 @@ export function useAutoText({
   const fullText = textIsLowercase
     ? "I love you so much ".toLowerCase().split("")
     : "I love you so much ".split("");
+  // Reset autoText after setTypingFontsizeX
+  useEffect(() => {
+    handleResetWordComponents();
+    setnumber(0);
+    setCurrentText(fullText[0]);
+    setCursorWidth(
+      getTextWidth(
+        fullText[0],
+        `${typingFontsize * typingFontsizeX}px monospace`
+      )
+    );
+    setCursorPosition();
+  }, [typingFontsizeX]);
+
   useEffect(() => {
     if (!show) return;
 
