@@ -33,7 +33,7 @@ export function useAutoText({
       )
     );
     setCursorPosition();
-  }, [typingFontsizeX]);
+  }, [typingFontsizeX, textIsLowercase]);
 
   useEffect(() => {
     if (!show) return;
