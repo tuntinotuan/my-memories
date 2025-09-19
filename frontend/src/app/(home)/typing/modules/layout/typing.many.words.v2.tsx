@@ -30,6 +30,9 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setCursorIsTyping,
     cursorIsTyping,
     typingWordIndex,
+    wordGap,
+    typingFontsizeX,
+    typingFontsize,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -88,7 +91,10 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     heightFlexible,
     setMoreCursorPosition,
     setArrayOfErrPreWords,
-    arrayOfErrPreWords
+    arrayOfErrPreWords,
+    wordGap,
+    typingFontsizeX,
+    typingFontsize
   );
   useUpdateCursorPosition(
     newArrWords,
@@ -148,8 +154,11 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       >
         <div
           ref={containerRef}
-          className={`flex flex-wrap gap-4 transition-all `}
-          style={{ transform: `translateY(-${heightFlexible}px)` }}
+          className={`flex flex-wrap transition-all `}
+          style={{
+            transform: `translateY(-${heightFlexible}px)`,
+            gap: wordGap,
+          }}
         >
           {newArrWords.map((word, index) => (
             <TypingWordNew
@@ -160,6 +169,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
               currentTyping={word}
               text={value}
               setCursorPosition={setCursorPosition}
+              textSizeX={typingFontsizeX}
             ></TypingWordNew>
           ))}
         </div>

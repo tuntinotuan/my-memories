@@ -24,7 +24,10 @@ export function useKeyDownV2(
   heightFlexible: any,
   setMoreCursorPosition: any,
   setArrayOfErrPreWords: any,
-  arrayOfErrPreWords: any
+  arrayOfErrPreWords: any,
+  wordGap: any,
+  typingFontsizeX: any,
+  typingFontsize: any
 ) {
   const {
     typingWordIndex,
@@ -81,13 +84,17 @@ export function useKeyDownV2(
       }
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
-      calculatePositionForCursor(newArrWords[typingWordIndex], value, "24px");
+      calculatePositionForCursor(
+        newArrWords[typingWordIndex],
+        value,
+        `${typingFontsize * typingFontsizeX}px`
+      );
     const lastErrWordInArray =
       arrayOfErrPreWords.length > 0 &&
       arrayOfErrPreWords[arrayOfErrPreWords.length - 1];
     const newMoreCursorPosition = getTextWidth(
       lastErrWordInArray,
-      `24px monospace`
+      `${typingFontsize * typingFontsizeX}px monospace`
     );
 
     if (value.length >= 0 && e.key === "Backspace") {

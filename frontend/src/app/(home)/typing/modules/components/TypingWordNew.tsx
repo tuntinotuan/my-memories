@@ -24,7 +24,7 @@ const TypingWordNew = ({
   const [newText, setNewText] = useState<string>(text);
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const { textIsLowercase } = useTyping();
+  const { textIsLowercase, typingFontsizeX } = useTyping();
 
   useEffect(() => {
     if (typingWordIndex === wordIndex) {
