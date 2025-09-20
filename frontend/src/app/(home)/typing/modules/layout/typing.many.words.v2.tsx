@@ -120,24 +120,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped,
     setHydrated
   );
-  let heightWordBox = "h-[130px]";
-
-  // useEffect(() => {
-  switch (typingFontsizeX) {
-    case 0.5:
-      break;
-    case 1:
-      heightWordBox = "h-[100px]";
-      break;
-    case 2:
-      heightWordBox = "h-[192px]";
-      break;
-    case 3:
-      break;
-    default:
-      break;
-  }
-  // }, [typingFontsizeX]);
 
   if (!hydrated) return null;
   console.log("arrayOfErrPreWords", arrayOfErrPreWords);
@@ -174,7 +156,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       <div
         className={`flex items-start w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
-        } ${heightWordBox}`}
+        } ${`h-[${typingFontsizeX * typingFontsize * 3 + wordGap * 2}px]`}`}
       >
         <div
           ref={containerRef}

@@ -7,7 +7,7 @@ const TypingViewAmountOrTime = () => {
   return (
     <>
       {typingStyles !== "combine" && (
-        <div className="flex items-end justify-between h-[20vh] bg-opacity-5 backdrop-blur-sm w-full z-10 p-2 rounded">
+        <div className="flex items-end justify-between shrink-0 h-[20%] bg-opacity-5 backdrop-blur-sm w-full z-10 p-2 rounded">
           <p className="text-xl text-typingColorActive bg-typingBgControlMenu transition-all rounded py-1 px-2">
             {typingStyles === "words"
               ? `${typingWordIndex}/${wordAmount}`
