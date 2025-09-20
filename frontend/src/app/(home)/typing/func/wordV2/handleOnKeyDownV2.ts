@@ -72,8 +72,9 @@ export function useKeyDownV2(
         rowTyped > 0 &&
         rowTyped + 2 < rowCount
       ) {
-        setMoreYTransition(38);
-        setHeightFlexible(heightFlexible + 38);
+        const newCaculate = typingFontsize * typingFontsizeX + wordGap;
+        setMoreYTransition(newCaculate);
+        setHeightFlexible(heightFlexible + newCaculate);
       }
 
       // list of error previous words
