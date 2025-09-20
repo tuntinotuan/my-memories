@@ -72,8 +72,8 @@ export function useKeyDownV2(
         rowTyped > 0 &&
         rowTyped + 2 < rowCount
       ) {
-        setMoreYTransition(48);
-        setHeightFlexible(heightFlexible + 48);
+        setMoreYTransition(38);
+        setHeightFlexible(heightFlexible + 38);
       }
 
       // list of error previous words

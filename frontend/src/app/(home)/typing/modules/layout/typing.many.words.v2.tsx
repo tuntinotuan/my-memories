@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -120,6 +120,25 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped,
     setHydrated
   );
+  let heightWordBox = "h-[130px]";
+
+  // useEffect(() => {
+  switch (typingFontsizeX) {
+    case 0.5:
+      break;
+    case 1:
+      heightWordBox = "h-[100px]";
+      break;
+    case 2:
+      heightWordBox = "h-[192px]";
+      break;
+    case 3:
+      break;
+    default:
+      break;
+  }
+  // }, [typingFontsizeX]);
+
   if (!hydrated) return null;
   console.log("arrayOfErrPreWords", arrayOfErrPreWords);
   return (
@@ -153,9 +172,9 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
         transitionY={moreYTransition}
       ></TypingCursorNew>
       <div
-        className={`flex items-start h-[130px] w-full px-2 ${
+        className={`flex items-start w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
-        }`}
+        } ${heightWordBox}`}
       >
         <div
           ref={containerRef}

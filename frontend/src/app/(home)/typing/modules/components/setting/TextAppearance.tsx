@@ -171,7 +171,7 @@ const TextAppearance = ({ show }: any) => {
     setCursorWidth(14); // first cursor width
   }, []);
 
-  const fontSizeList: FontSizeTypes[] = [0.5, 1, 2, 3, 4, 5];
+  const fontSizeList: FontSizeTypes[] = [0.5, 1, 2, 3, 4];
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
