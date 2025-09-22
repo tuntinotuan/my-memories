@@ -37,13 +37,6 @@ const TextAppearance = ({ show }: any) => {
       meaning: "",
     },
   ];
-  const [value, setValue] = useState("");
-  const [typingWordIndex, setTypingWordIndex] = useState(0);
-  const [resetComponents, setResetComponents] = useState(true);
-  const [cursorPosition, setCursorPosition] = useState(0);
-  const [cursorWidth, setCursorWidth] = useState(14);
-  const [currentText, setCurrentText] = useState("");
-
   const {
     rect,
     setRect,
@@ -57,6 +50,14 @@ const TextAppearance = ({ show }: any) => {
     setTypingFontsizeX,
     setWordGap,
   } = useTyping();
+  const [value, setValue] = useState("");
+  const [typingWordIndex, setTypingWordIndex] = useState(0);
+  const [resetComponents, setResetComponents] = useState(true);
+  const [cursorPosition, setCursorPosition] = useState(0);
+  const [cursorWidth, setCursorWidth] = useState(14);
+  const [currentText, setCurrentText] = useState("");
+  const [fontsizeValue, setFontsizeValue] = useState<number>(typingFontsizeX);
+
   const { showTypingSetting } = useLayoutStates();
 
   const listCursorShape: {
@@ -287,6 +288,12 @@ const TextAppearance = ({ show }: any) => {
               {item}
             </BtnFontsize>
           ))}
+          <input
+            type="number"
+            defaultValue={typingFontsizeX}
+            className="bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all"
+            onChange={(e) => setFontsizeValue(e.target.valueAsNumber)}
+          />
         </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
