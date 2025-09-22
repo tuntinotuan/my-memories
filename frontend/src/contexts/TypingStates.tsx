@@ -1,5 +1,5 @@
 "use client";
-import { FontSizeTypes } from "@/api/typing/typing.type";
+import { FontSizeTypes, makeFraction } from "@/api/typing/typing.type";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import {
   CursorStyles,
@@ -105,7 +105,7 @@ const defaultValues: defaltValuesType = {
   loadingTypingWordList: true,
   textIsLowercase: false,
   typingFontsize: 24,
-  typingFontsizeX: 1,
+  typingFontsizeX: makeFraction(1),
   wordGap: 14,
   setWordGap: () => {},
   setTypingFontsize: () => {},
@@ -165,7 +165,9 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorShape, setCursorShape] = useState<CursorStyles>("line");
   const [typingFontsize, setTypingFontsize] = useState<number>(24);
-  const [typingFontsizeX, setTypingFontsizeX] = useState<FontSizeTypes>(1);
+  const [typingFontsizeX, setTypingFontsizeX] = useState<FontSizeTypes>(
+    makeFraction(1)
+  );
   const [wordGap, setWordGap] = useState<number>(14);
   const initialTypingSettingLocals: SettingLocal = {
     cursorShape: "line",

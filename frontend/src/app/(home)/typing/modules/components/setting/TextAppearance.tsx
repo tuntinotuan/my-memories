@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FontSizeTypes, typingWordsTypes } from "@/api/typing/typing.type";
+import {
+  FontSizeTypes,
+  makeFraction,
+  typingWordsTypes,
+} from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
 import { CursorStyles } from "../../types";
 import { useAutoText } from "../../../func/setting/useAutoText";
@@ -172,7 +176,17 @@ const TextAppearance = ({ show }: any) => {
     setCursorWidth(14); // first cursor width
   }, []);
 
-  const fontSizeList: FontSizeTypes[] = [0.5, 1, 2, 3, 4];
+  const fontSizeList: FontSizeTypes[] = [
+    makeFraction(0.5),
+    makeFraction(1),
+    makeFraction(2),
+    makeFraction(3),
+    makeFraction(4),
+  ];
+
+  useEffect(() => {
+    setWordGap(((typingFontsize * typingFontsizeX) / 100) * 60);
+  }, [typingFontsizeX]);
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
@@ -260,29 +274,29 @@ const TextAppearance = ({ show }: any) => {
               typingFontsizeX={typingFontsizeX}
               onClick={() => {
                 setTypingFontsizeX(item);
-                switch (item) {
-                  case 0.5:
-                    setWordGap(7);
-                    break;
-                  case 1:
-                    setWordGap(14);
-                    break;
-                  case 2:
-                    setWordGap(24);
-                    break;
-                  case 3:
-                    setWordGap(38);
-                    break;
-                  case 4:
-                    setWordGap(54);
-                    break;
-                  case 5:
-                    setWordGap(72);
-                    break;
+                // switch (item) {
+                //   case 0.5:
+                //     setWordGap(7);
+                //     break;
+                //   case 1:
+                //     setWordGap(14);
+                //     break;
+                //   case 2:
+                //     setWordGap(24);
+                //     break;
+                //   case 3:
+                //     setWordGap(38);
+                //     break;
+                //   case 4:
+                //     setWordGap(54);
+                //     break;
+                //   case 5:
+                //     setWordGap(72);
+                //     break;
 
-                  default:
-                    break;
-                }
+                //   default:
+                //     break;
+                // }
               }}
             >
               {item}
@@ -290,9 +304,13 @@ const TextAppearance = ({ show }: any) => {
           ))}
           <input
             type="number"
-            defaultValue={typingFontsizeX}
+            // defaultValue={typingFontsizeX}
+            value={fontsizeValue}
             className="bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all"
             onChange={(e) => setFontsizeValue(e.target.valueAsNumber)}
+            onBlur={() => {
+              setTypingFontsizeX(makeFraction(fontsizeValue));
+            }}
           />
         </TextAndContentOverlay>
       </div>
