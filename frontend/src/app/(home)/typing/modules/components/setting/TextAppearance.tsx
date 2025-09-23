@@ -186,6 +186,7 @@ const TextAppearance = ({ show }: any) => {
     makeFraction(4),
   ];
 
+  // usage update wordGap Var after typingFontsizeX change
   useEffect(() => {
     setWordGap(((typingFontsize * typingFontsizeX) / 100) * 60);
   }, [typingFontsizeX]);

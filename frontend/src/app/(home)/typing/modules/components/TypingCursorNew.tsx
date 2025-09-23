@@ -4,6 +4,7 @@ import UnderlineCursor from "./cursor/UnderlineCursor";
 import BoxCursorNew from "./cursor/BoxCursorNew";
 import LineCursorNew from "./cursor/LineCursorNew";
 import BlockCursor from "./cursor/BlockCursor";
+import { useTyping } from "@/contexts/TypingStates";
 
 type TypingCursorNewProps = {
   cssPosition: CssPosition;
@@ -36,6 +37,7 @@ const TypingCursorNew = ({
   transitionY = 0,
   blockTextSize,
 }: TypingCursorNewProps) => {
+  const { typingFontsize, typingFontsizeX } = useTyping();
   if (className)
     return (
       <div onClick={onClick} className={className}>
@@ -50,7 +52,7 @@ const TypingCursorNew = ({
           currentText={currentText}
           isTyping={isTyping}
           transitionY={transitionY}
-          blockTextSize={blockTextSize}
+          blockTextSize={typingFontsize * typingFontsizeX}
         ></BodyLocal>
       </div>
     );
@@ -67,7 +69,7 @@ const TypingCursorNew = ({
         currentText={currentText}
         isTyping={isTyping}
         transitionY={transitionY}
-        blockTextSize={blockTextSize}
+        blockTextSize={typingFontsize * typingFontsizeX}
       ></BodyLocal>
     </>
   );
