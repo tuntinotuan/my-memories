@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   FontSizeTypes,
+  isFraction,
   makeFraction,
   typingWordsTypes,
 } from "@/api/typing/typing.type";
@@ -60,7 +61,8 @@ const TextAppearance = ({ show }: any) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
-  const [fontsizeValue, setFontsizeValue] = useState<number>(typingFontsizeX);
+  const [fontsizeValue, setFontsizeValue] =
+    useState<FontSizeTypes>(typingFontsizeX);
 
   const { showTypingSetting } = useLayoutStates();
 
@@ -274,29 +276,7 @@ const TextAppearance = ({ show }: any) => {
               typingFontsizeX={typingFontsizeX}
               onClick={() => {
                 setTypingFontsizeX(item);
-                // switch (item) {
-                //   case 0.5:
-                //     setWordGap(7);
-                //     break;
-                //   case 1:
-                //     setWordGap(14);
-                //     break;
-                //   case 2:
-                //     setWordGap(24);
-                //     break;
-                //   case 3:
-                //     setWordGap(38);
-                //     break;
-                //   case 4:
-                //     setWordGap(54);
-                //     break;
-                //   case 5:
-                //     setWordGap(72);
-                //     break;
-
-                //   default:
-                //     break;
-                // }
+                setFontsizeValue(makeFraction(item));
               }}
             >
               {item}
@@ -304,12 +284,21 @@ const TextAppearance = ({ show }: any) => {
           ))}
           <input
             type="number"
-            // defaultValue={typingFontsizeX}
+            defaultValue={typingFontsizeX}
             value={fontsizeValue}
-            className="bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all"
-            onChange={(e) => setFontsizeValue(e.target.valueAsNumber)}
+            className={`bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all ${
+              isFraction(typingFontsizeX) ? "bg-typingColorActive" : ""
+            }`}
+            onChange={(e) =>
+              setFontsizeValue(makeFraction(e.target.valueAsNumber))
+            }
             onBlur={() => {
               setTypingFontsizeX(makeFraction(fontsizeValue));
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setTypingFontsizeX(makeFraction(fontsizeValue));
+              }
             }}
           />
         </TextAndContentOverlay>

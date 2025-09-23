@@ -14,3 +14,7 @@ export function makeFraction(value: number): FontSizeTypes {
 }
 // Older
 // export type FontSizeTypes = 0.5 | 1 | 2 | 3 | 4 | 5 | 10;
+
+export function isFraction(num: number): boolean {
+  return !Number.isInteger(num); // true if it's not an integer
+}
