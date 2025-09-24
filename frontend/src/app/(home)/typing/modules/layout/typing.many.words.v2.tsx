@@ -120,9 +120,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped,
     setHydrated
   );
-  const caculateHeightWordBox = `h-[${
-    typingFontsizeX * typingFontsize * 3 + wordGap * 2
-  }px]`;
+  const caculateHeightWordBox =
+    typingFontsizeX * typingFontsize * 3 + wordGap * 2;
   if (!hydrated) return null;
   console.log("arrayOfErrPreWords", arrayOfErrPreWords);
   return (
@@ -158,7 +157,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       <div
         className={`flex items-start w-full px-2 ${
           typingStyles === "time" ? "overflow-hidden" : ""
-        } ${caculateHeightWordBox}`}
+        }`}
+        style={{ height: caculateHeightWordBox }}
       >
         <div
           ref={containerRef}
