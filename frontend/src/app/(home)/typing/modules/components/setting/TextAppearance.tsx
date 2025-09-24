@@ -288,7 +288,9 @@ const TextAppearance = ({ show }: any) => {
             defaultValue={typingFontsizeX}
             value={fontsizeValue}
             className={`bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all ${
-              isFraction(typingFontsizeX) ? "bg-typingColorActive" : ""
+              isFraction(typingFontsizeX) && typingFontsizeX !== 0.5
+                ? "bg-typingColorActive"
+                : ""
             }`}
             onChange={(e) =>
               setFontsizeValue(makeFraction(e.target.valueAsNumber))
