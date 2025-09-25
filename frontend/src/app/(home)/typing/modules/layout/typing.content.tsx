@@ -23,7 +23,13 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   const { hydrated, setHydrated } = useHydrate();
   if (!hydrated) return <TypingPageSkeleton />; // or a skeleton/placeholder
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start gap-4 overflow-hidden">
+    <div
+      className={`w-full h-full flex flex-col items-center gap-4 overflow-hidden ${
+        typingSettingLocal?.typingStyles === "combine"
+          ? "justify-center"
+          : "justify-start"
+      }`}
+    >
       <TypingViewAmountOrTime />
       {typingSettingLocal?.typingStyles === "time" && (
         <TypingManyWordsV2 types="time" data={data} />

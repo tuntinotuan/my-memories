@@ -31,19 +31,21 @@ export function useUpdateCursorPosition(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect, typingSettingLocal]);
   useEffect(() => {
-    resetTypingStatesV2({
-      setHydrated,
-      setCursorPosition,
-      setValue,
-      setTypingWordIndex,
-      setHeightFlexible,
-      setRowTyped,
-    });
-    setCursorWidth(
-      getTextWidth(
-        newArrWords[typingWordIndex].word.split("")[0],
-        `${typingFontsize * typingFontsizeX}px monospace`
-      )
-    );
+    setHydrated &&
+      resetTypingStatesV2({
+        setHydrated,
+        setCursorPosition,
+        setValue,
+        setTypingWordIndex,
+        setHeightFlexible,
+        setRowTyped,
+      });
+    setCursorWidth &&
+      setCursorWidth(
+        getTextWidth(
+          newArrWords[typingWordIndex]?.word?.split("")[0],
+          `${typingFontsize * typingFontsizeX}px monospace`
+        )
+      );
   }, [typingFontsizeX]);
 }
