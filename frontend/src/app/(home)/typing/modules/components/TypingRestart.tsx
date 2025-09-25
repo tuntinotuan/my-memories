@@ -9,12 +9,16 @@ type TypingRestartProps = {
 };
 
 const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
-  const { typingStyles } = useTyping();
+  const { typingStyles, typingFontsizeX } = useTyping();
   return (
     <div
       className={`flex w-full justify-center z-10 bg-opacity-5 p-2 ${
         typingStyles !== "combine" ? "flex-1" : ""
-      } ${typingStyles === "words" ? "backdrop-blur-sm" : ""} ${className}`}
+      } ${
+        typingStyles === "words" && typingFontsizeX <= 3
+          ? "backdrop-blur-sm"
+          : ""
+      } ${typingFontsizeX > 3 ? "absolute top-20" : ""} ${className}`}
     >
       <Tooltip
         showArrow
