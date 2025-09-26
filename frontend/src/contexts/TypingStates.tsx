@@ -175,6 +175,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     wordAmount: 10,
     wordTime: 15,
     textIsLowercase: false,
+    fontsize: makeFraction(1),
   };
   const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>();
 
@@ -188,11 +189,19 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
       wordAmount,
       wordTime,
       textIsLowercase,
+      fontsize: typingFontsizeX,
     };
     setTypingSettingLocal(newSetting);
     localStorage.setItem("typing-setting", JSON.stringify(newSetting));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cursorShape, typingStyles, wordAmount, wordTime, textIsLowercase]);
+  }, [
+    cursorShape,
+    typingStyles,
+    wordAmount,
+    wordTime,
+    textIsLowercase,
+    typingFontsizeX,
+  ]);
   useEffect(() => {
     async function fetchTypingSettingFromLocalStorage() {
       let setting = null;
@@ -209,6 +218,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         setWordTime(setting?.wordTime);
         setCursorShape(setting?.cursorShape);
         setTextIsLowercase(setting?.textIsLowercase);
+        setTypingFontsizeX(setting?.fontsize);
       } else {
         setTypingSettingLocal(initialTypingSettingLocals);
         setTypingStyles(initialTypingSettingLocals?.typingStyles);
@@ -216,6 +226,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         setWordTime(initialTypingSettingLocals?.wordTime);
         setCursorShape(initialTypingSettingLocals?.cursorShape);
         setTextIsLowercase(initialTypingSettingLocals?.textIsLowercase);
+        setTypingFontsizeX(initialTypingSettingLocals?.fontsize);
       }
     }
     fetchTypingSettingFromLocalStorage();

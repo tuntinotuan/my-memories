@@ -1,3 +1,5 @@
+import { FontSizeTypes } from "@/api/typing/typing.type";
+
 export type WordAmountType = 10 | 25 | 50 | 100;
 export type WordTimeType = 15 | 30 | 60 | 120;
 
@@ -22,4 +24,5 @@ export type SettingLocal = {
   wordAmount: WordAmountType;
   wordTime: WordTimeType;
   textIsLowercase: boolean;
+  fontsize: FontSizeTypes;
 };

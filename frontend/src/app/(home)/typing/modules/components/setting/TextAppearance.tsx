@@ -18,6 +18,8 @@ import TypingKeyboardInput from "../TypingKeyboard";
 import TextAndContentOverlay from "./TextAndContentOverlay";
 import RadioFull from "@/components/radio/RadioFull";
 import BtnFontsize from "./BtnFontsize";
+import { useUpdateWordGap } from "../../../func/setting/useUpdateWordGap";
+import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateSettingCursorPosition";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -53,7 +55,6 @@ const TextAppearance = ({ show }: any) => {
     wordGap,
     typingFontsizeX,
     setTypingFontsizeX,
-    setWordGap,
   } = useTyping();
   const [value, setValue] = useState("");
   const [typingWordIndex, setTypingWordIndex] = useState(0);
@@ -165,14 +166,14 @@ const TextAppearance = ({ show }: any) => {
     typingFontsize,
     typingFontsizeX,
   });
-  useEffect(() => {
-    // initials
-    setCurrentText(wordList[typingWordIndex].word.split("")[0]); // first text into block
-    if (rect) {
-      setCursorPosition(rect.left);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect]);
+
+  useUpdateSettingCursorPosition({
+    setCurrentText,
+    wordList,
+    typingWordIndex,
+    rect,
+    setCursorPosition,
+  });
 
   useEffect(() => {
     setCursorWidth(14); // first cursor width
@@ -186,10 +187,7 @@ const TextAppearance = ({ show }: any) => {
     makeFraction(4),
   ];
 
-  // usage update wordGap Var after typingFontsizeX change
-  useEffect(() => {
-    setWordGap(((typingFontsize * typingFontsizeX) / 100) * 60);
-  }, [typingFontsizeX]);
+  useUpdateWordGap();
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
@@ -270,7 +268,6 @@ const TextAppearance = ({ show }: any) => {
         </TextAndContentOverlay>
         <TextAndContentOverlay gap={6}>
           Font size:
-          {/* <input type="number" defaultValue={0} /> */}
           {fontSizeList.map((item) => (
             <BtnFontsize
               key={item}
