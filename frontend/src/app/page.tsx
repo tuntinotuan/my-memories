@@ -10,6 +10,7 @@ import NotifyNormal from "@/components/notify/NotifyNormal";
 import NotifyComeBack from "@/components/notify/NotifyComeBack";
 import ButtonGridOrListView from "@/components/button/ButtonGridOrListView";
 import HomeSidebarForBoard from "@/components/layout/home/home.sidebar.for.board";
+import NotifySaved from "@/components/notify/NotifySaved";
 export const dynamic = "force-dynamic";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
     <div className="flex h-full w-full bg-efColor overflow-hidden">
       <NotifyNormal />
       <NotifyComeBack />
+      <NotifySaved />
       <HomeMenuSidebar></HomeMenuSidebar>
       <HomeSidebarCover>
         <HomeSidebarForBoard />

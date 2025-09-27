@@ -1,6 +1,7 @@
 "use client";
 import NotifyComeBack from "@/components/notify/NotifyComeBack";
 import NotifyNormal from "@/components/notify/NotifyNormal";
+import NotifySaved from "@/components/notify/NotifySaved";
 
 export default function HomeLayout({
   children,
@@ -11,6 +12,7 @@ export default function HomeLayout({
     <div className="flex h-full w-full bg-efColor overflow-hidden">
       <NotifyNormal />
       <NotifyComeBack />
+      <NotifySaved />
       {children}
     </div>
   );

@@ -20,6 +20,7 @@ import RadioFull from "@/components/radio/RadioFull";
 import BtnFontsize from "./BtnFontsize";
 import { useUpdateWordGap } from "../../../func/setting/useUpdateWordGap";
 import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateSettingCursorPosition";
+import { useNotify } from "@/contexts/notifyStates";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -56,6 +57,7 @@ const TextAppearance = ({ show }: any) => {
     typingFontsizeX,
     setTypingFontsizeX,
   } = useTyping();
+  const { setActiveSaved, setTitle } = useNotify();
   const [value, setValue] = useState("");
   const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [resetComponents, setResetComponents] = useState(true);

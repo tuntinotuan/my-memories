@@ -18,7 +18,7 @@ const Notify = ({ children, active, setActive }: NotifyProps) => {
 
   return (
     <div
-      className={`fixed left-1/2 -translate-x-1/2 flex items-center gap-4 rounded-xl bg-white border border-gray-300 shadow-xl pl-4 py-2 pr-2 z-50 transition-all ${
+      className={`fixed left-1/2 -translate-x-1/2 flex items-center gap-4 rounded-xl bg-white border border-gray-300 shadow-xl pl-4 py-2 pr-2 z-[999] transition-all ${
         active
           ? "top-4 scale-100 visible opacity-100"
           : "-top-1 scale-50 invisible opacity-0"
