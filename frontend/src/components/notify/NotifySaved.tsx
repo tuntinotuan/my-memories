@@ -6,10 +6,14 @@ import { useNotify } from "@/contexts/notifyStates";
 const NotifySaved = () => {
   const { title, activeSaved, setActiveSaved } = useNotify();
   return (
-    <Notify active={activeSaved} setActive={setActiveSaved}>
+    <Notify
+      active={activeSaved}
+      setActive={setActiveSaved}
+      className="!bg-green-400 text-white font-bold"
+    >
       {title}
       <CloseIcon
-        className="bg-green-500 bg-opacity-20 text-green-bg-green-500"
+        className="bg-green-100 bg-opacity-20 text-green-100"
         onClick={() => setActiveSaved(false)}
       ></CloseIcon>
     </Notify>

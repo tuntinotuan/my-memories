@@ -291,18 +291,36 @@ const TextAppearance = ({ show }: any) => {
                 ? "bg-typingColorActive"
                 : ""
             }`}
-            onChange={(e) =>
-              setFontsizeValue(makeFraction(e.target.valueAsNumber))
-            }
+            onChange={(e) => {
+              // if (fontsizeValue !== typingFontsizeX) {
+              setFontsizeValue(makeFraction(e.target.valueAsNumber));
+              // }
+            }}
             onBlur={() => {
-              setTypingFontsizeX(makeFraction(fontsizeValue));
+              if (fontsizeValue !== typingFontsizeX) {
+                setTypingFontsizeX(makeFraction(fontsizeValue));
+                setActiveSaved(true);
+                setTitle("Saved");
+              } else {
+                setFontsizeValue(typingFontsizeX);
+              }
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 setTypingFontsizeX(makeFraction(fontsizeValue));
+                setActiveSaved(true);
+                setTitle("Saved");
               }
             }}
           />
+          {/* <button
+            onClick={() => {
+              setActiveSaved(true);
+              setTitle("Saved");
+            }}
+          >
+            click
+          </button> */}
         </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
