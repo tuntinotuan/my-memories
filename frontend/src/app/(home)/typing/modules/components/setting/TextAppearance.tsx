@@ -139,7 +139,6 @@ const TextAppearance = ({ show }: any) => {
       }
     }
   };
-
   const handleResetWordComponents = () => {
     setResetComponents(false);
     setValue("");
@@ -156,8 +155,8 @@ const TextAppearance = ({ show }: any) => {
   useAutoText({
     show,
     value,
-    typingWordIndex,
     handleResetWordComponents,
+    typingWordIndex,
     setCurrentText,
     setValue,
     setCursorPosition,
@@ -191,9 +190,24 @@ const TextAppearance = ({ show }: any) => {
 
   useUpdateWordGap();
 
+  // Update default fontsizeValue for first time
   useEffect(() => {
     typingSettingLocal && setFontsizeValue(typingSettingLocal.fontsize);
   }, [typingSettingLocal]);
+
+  const handleUpdateTypingFontsizeX = () => {
+    if (
+      fontsizeValue !== typingSettingLocal?.fontsize &&
+      fontsizeValue >= 0.5 &&
+      fontsizeValue <= 4
+    ) {
+      setTypingFontsizeX(makeFraction(fontsizeValue));
+      setActiveSaved(true);
+      setTitle("Saved");
+    } else {
+      setFontsizeValue(typingFontsizeX);
+    }
+  };
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
@@ -203,8 +217,8 @@ const TextAppearance = ({ show }: any) => {
         value={value}
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
+        // {/* <button onClick={handleResetWordComponents}>reset text</button> */}
       ></TypingKeyboardInput>
-      {/* <button onClick={handleResetWordComponents}>reset text</button> */}
       {/* <p>{currentText}...</p> */}
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} */}
@@ -289,7 +303,7 @@ const TextAppearance = ({ show }: any) => {
           <input
             type="number"
             defaultValue={typingSettingLocal?.fontsize}
-            // value={fontsizeValue}
+            value={fontsizeValue}
             className={`bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all ${
               isFraction(typingFontsizeX) && typingFontsizeX !== 0.5
                 ? "bg-typingColorActive"
@@ -298,25 +312,15 @@ const TextAppearance = ({ show }: any) => {
             onChange={(e) => {
               setFontsizeValue(makeFraction(e.target.valueAsNumber));
             }}
-            onBlur={() => {
-              if (fontsizeValue !== typingSettingLocal?.fontsize) {
-                setTypingFontsizeX(makeFraction(fontsizeValue));
-                setActiveSaved(true);
-                setTitle("Saved");
-              } else {
-                setFontsizeValue(typingFontsizeX);
-              }
-            }}
+            onBlur={() => handleUpdateTypingFontsizeX()}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                setTypingFontsizeX(makeFraction(fontsizeValue));
-                setActiveSaved(true);
-                setTitle("Saved");
+                handleUpdateTypingFontsizeX();
               }
             }}
           />
-          {fontsizeValue + ` ` + typingSettingLocal?.fontsize}
-          {fontsizeValue !== typingSettingLocal?.fontsize}
+          {/* {fontsizeValue + ` ` + typingSettingLocal?.fontsize}
+          {fontsizeValue !== typingSettingLocal?.fontsize} */}
           {/* <button
             onClick={() => {
               setActiveSaved(true);
