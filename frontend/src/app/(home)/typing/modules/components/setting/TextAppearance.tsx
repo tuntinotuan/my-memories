@@ -191,6 +191,10 @@ const TextAppearance = ({ show }: any) => {
 
   useUpdateWordGap();
 
+  useEffect(() => {
+    typingSettingLocal && setFontsizeValue(typingSettingLocal.fontsize);
+  }, [typingSettingLocal]);
+
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
       <TypingKeyboardInput
@@ -284,20 +288,18 @@ const TextAppearance = ({ show }: any) => {
           ))}
           <input
             type="number"
-            defaultValue={typingFontsizeX}
-            value={fontsizeValue}
+            defaultValue={typingSettingLocal?.fontsize}
+            // value={fontsizeValue}
             className={`bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all ${
               isFraction(typingFontsizeX) && typingFontsizeX !== 0.5
                 ? "bg-typingColorActive"
                 : ""
             }`}
             onChange={(e) => {
-              // if (fontsizeValue !== typingFontsizeX) {
               setFontsizeValue(makeFraction(e.target.valueAsNumber));
-              // }
             }}
             onBlur={() => {
-              if (fontsizeValue !== typingFontsizeX) {
+              if (fontsizeValue !== typingSettingLocal?.fontsize) {
                 setTypingFontsizeX(makeFraction(fontsizeValue));
                 setActiveSaved(true);
                 setTitle("Saved");
@@ -313,6 +315,8 @@ const TextAppearance = ({ show }: any) => {
               }
             }}
           />
+          {fontsizeValue + ` ` + typingSettingLocal?.fontsize}
+          {fontsizeValue !== typingSettingLocal?.fontsize}
           {/* <button
             onClick={() => {
               setActiveSaved(true);
