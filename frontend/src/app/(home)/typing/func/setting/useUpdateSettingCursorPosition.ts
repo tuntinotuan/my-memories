@@ -6,7 +6,12 @@ export function useUpdateSettingCursorPosition({
   typingWordIndex,
   rect,
   setCursorPosition,
+  setCursorWidth,
 }: any) {
+  useEffect(() => {
+    setCursorWidth(14); // first cursor width
+  }, []);
+
   useEffect(() => {
     // initials
     setCurrentText(wordList[typingWordIndex].word.split("")[0]); // first text into block

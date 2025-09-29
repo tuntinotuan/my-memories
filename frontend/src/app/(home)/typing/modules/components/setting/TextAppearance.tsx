@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   FontSizeTypes,
   isFraction,
@@ -21,6 +21,7 @@ import BtnFontsize from "./BtnFontsize";
 import { useUpdateWordGap } from "../../../func/setting/useUpdateWordGap";
 import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateSettingCursorPosition";
 import { useNotify } from "@/contexts/notifyStates";
+import { useUpdateFirstTime } from "../../../func/setting/useUpdateFirstTime";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -174,11 +175,10 @@ const TextAppearance = ({ show }: any) => {
     typingWordIndex,
     rect,
     setCursorPosition,
+    setCursorWidth,
   });
-
-  useEffect(() => {
-    setCursorWidth(14); // first cursor width
-  }, []);
+  useUpdateWordGap();
+  useUpdateFirstTime(setFontsizeValue);
 
   const fontSizeList: FontSizeTypes[] = [
     makeFraction(0.5),
@@ -187,13 +187,6 @@ const TextAppearance = ({ show }: any) => {
     makeFraction(3),
     makeFraction(4),
   ];
-
-  useUpdateWordGap();
-
-  // Update default fontsizeValue for first time
-  useEffect(() => {
-    typingSettingLocal && setFontsizeValue(typingSettingLocal.fontsize);
-  }, [typingSettingLocal]);
 
   const handleUpdateTypingFontsizeX = () => {
     if (
@@ -217,7 +210,6 @@ const TextAppearance = ({ show }: any) => {
         value={value}
         handleOnKeyDown={handleOnKeyDown}
         handleOnChange={handleOnChange}
-        // {/* <button onClick={handleResetWordComponents}>reset text</button> */}
       ></TypingKeyboardInput>
       {/* <p>{currentText}...</p> */}
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
@@ -319,16 +311,6 @@ const TextAppearance = ({ show }: any) => {
               }
             }}
           />
-          {/* {fontsizeValue + ` ` + typingSettingLocal?.fontsize}
-          {fontsizeValue !== typingSettingLocal?.fontsize} */}
-          {/* <button
-            onClick={() => {
-              setActiveSaved(true);
-              setTitle("Saved");
-            }}
-          >
-            click
-          </button> */}
         </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
