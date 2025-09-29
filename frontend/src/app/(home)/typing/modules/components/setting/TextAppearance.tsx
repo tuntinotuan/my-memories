@@ -65,8 +65,7 @@ const TextAppearance = ({ show }: any) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
-  const [fontsizeValue, setFontsizeValue] =
-    useState<FontSizeTypes>(typingFontsizeX);
+  const [fontsizeValue, setFontsizeValue] = useState<number>(typingFontsizeX);
 
   const { showTypingSetting } = useLayoutStates();
 
@@ -201,7 +200,9 @@ const TextAppearance = ({ show }: any) => {
       setFontsizeValue(typingFontsizeX);
     }
   };
-
+  function numberIsPass(num: number): boolean {
+    return num >= 0.5 && num <= 4;
+  }
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
       <TypingKeyboardInput
@@ -302,7 +303,7 @@ const TextAppearance = ({ show }: any) => {
                 : ""
             }`}
             onChange={(e) => {
-              setFontsizeValue(makeFraction(e.target.valueAsNumber));
+              setFontsizeValue(e.target.valueAsNumber);
             }}
             onBlur={() => handleUpdateTypingFontsizeX()}
             onKeyDown={(e) => {
@@ -311,6 +312,7 @@ const TextAppearance = ({ show }: any) => {
               }
             }}
           />
+          {/* {numberIsPass(fontsizeValue) ? "true" : "false"} */}
         </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
