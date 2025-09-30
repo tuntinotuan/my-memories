@@ -22,6 +22,8 @@ import { useUpdateWordGap } from "../../../func/setting/useUpdateWordGap";
 import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateSettingCursorPosition";
 import { useNotify } from "@/contexts/notifyStates";
 import { useUpdateFirstTime } from "../../../func/setting/useUpdateFirstTime";
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
+import CloseIcon from "@/components/icons/CloseIcon";
 
 const TextAppearance = ({ show }: any) => {
   const wordList: typingWordsTypes[] = [
@@ -66,6 +68,7 @@ const TextAppearance = ({ show }: any) => {
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
   const [fontsizeValue, setFontsizeValue] = useState<number>(typingFontsizeX);
+  const [showInputIcon, setShowInputIcon] = useState(false);
 
   const { showTypingSetting } = useLayoutStates();
 
@@ -293,25 +296,48 @@ const TextAppearance = ({ show }: any) => {
               {item}
             </BtnFontsize>
           ))}
-          <input
-            type="number"
-            defaultValue={typingSettingLocal?.fontsize}
-            value={fontsizeValue}
-            className={`bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all ${
-              isFraction(typingFontsizeX) && typingFontsizeX !== 0.5
-                ? "bg-typingColorActive"
-                : ""
-            }`}
-            onChange={(e) => {
-              setFontsizeValue(e.target.valueAsNumber);
-            }}
-            onBlur={() => handleUpdateTypingFontsizeX()}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
+          <div className="relative">
+            <input
+              type="number"
+              defaultValue={typingSettingLocal?.fontsize}
+              value={fontsizeValue}
+              onFocus={() => setShowInputIcon(true)}
+              className={`bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all ${
+                isFraction(typingFontsizeX) && typingFontsizeX !== 0.5
+                  ? "bg-typingColorActive"
+                  : ""
+              }`}
+              onChange={(e) => {
+                setFontsizeValue(e.target.valueAsNumber);
+              }}
+              onBlur={() => {
                 handleUpdateTypingFontsizeX();
-              }
-            }}
-          />
+                setShowInputIcon(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleUpdateTypingFontsizeX();
+                }
+              }}
+            />
+            <div
+              className={`absolute top-1/2 right-0 -translate-x-1/3 -translate-y-1/2 ${
+                showInputIcon ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {numberIsPass(fontsizeValue) ? (
+                <DoneRoundedIcon
+                  className=" text-green-500"
+                  fontSize="small"
+                ></DoneRoundedIcon>
+              ) : (
+                <CloseIcon
+                  className="text-red-500 w-auto h-auto"
+                  fontSize="small"
+                ></CloseIcon>
+              )}
+            </div>
+          </div>
           {/* {numberIsPass(fontsizeValue) ? "true" : "false"} */}
         </TextAndContentOverlay>
       </div>
