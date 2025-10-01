@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   FontSizeTypes,
-  isFraction,
   makeFraction,
   typingWordsTypes,
 } from "@/api/typing/typing.type";
@@ -20,9 +19,7 @@ import RadioFull from "@/components/radio/RadioFull";
 import BtnFontsize from "./BtnFontsize";
 import { useUpdateWordGap } from "../../../func/setting/useUpdateWordGap";
 import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateSettingCursorPosition";
-import { useNotify } from "@/contexts/notifyStates";
 import { useUpdateFirstTime } from "../../../func/setting/useUpdateFirstTime";
-import CloseIcon from "@/components/icons/CloseIcon";
 import InputChangeFontsize from "./InputChangeFontsize";
 
 const TextAppearance = ({ show }: any) => {
@@ -82,31 +79,35 @@ const TextAppearance = ({ show }: any) => {
       cursorWidth: 2,
       cursorHeight: 25,
       onClick: () => setCursorShape("line"),
-      className:
-        "flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer",
+      className: `flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer ${
+        typingSettingLocal?.cursorShape === "line" ? "animate-bounce" : ""
+      }`,
     },
     {
       styles: "underline",
       cursorWidth: 16,
       onClick: () => setCursorShape("underline"),
-      className:
-        "flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer",
+      className: `flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer ${
+        typingSettingLocal?.cursorShape === "underline" ? "animate-bounce" : ""
+      }`,
     },
     {
       styles: "box",
       cursorWidth: 16,
       cursorHeight: 25,
       onClick: () => setCursorShape("box"),
-      className:
-        "flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer",
+      className: `flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer ${
+        typingSettingLocal?.cursorShape === "box" ? "animate-bounce" : ""
+      }`,
     },
     {
       styles: "block",
       cursorWidth: 16,
       cursorHeight: 25,
       onClick: () => setCursorShape("block"),
-      className:
-        "flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer",
+      className: `flex items-center justify-center hover:animate-bounce p-3 transition-all cursor-pointer ${
+        typingSettingLocal?.cursorShape === "block" ? "animate-bounce" : ""
+      }`,
     },
   ];
 
