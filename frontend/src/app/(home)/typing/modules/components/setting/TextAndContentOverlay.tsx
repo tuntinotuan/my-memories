@@ -8,7 +8,7 @@ const TextAndContentOverlay = ({
   gap?: number;
 }) => {
   return (
-    <div className="flex my-5" style={{ gap: gap }}>
+    <div className="flex items-center my-5" style={{ gap: gap }}>
       {children}
     </div>
   );

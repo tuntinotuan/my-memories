@@ -12,12 +12,12 @@ const BtnFontsize = ({
 }) => {
   return (
     <div
-      className={`bg-typingBgControlMenu p-2 rounded hover:scale-105 hover:bg-typingColorActive cursor-pointer transition-all ${
+      className={`bg-typingBgControlMenu p-2 rounded hover:scale-105 hover:bg-typingColorActive text-typingColorActive cursor-pointer transition-all ${
         typingFontsizeX === children ? "bg-typingColorActive" : ""
       }`}
       onClick={onClick}
     >
-      x{children}
+      <div className="brightness-75">x{children}</div>
     </div>
   );
 };

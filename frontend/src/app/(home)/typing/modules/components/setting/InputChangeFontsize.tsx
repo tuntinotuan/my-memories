@@ -28,17 +28,19 @@ const InputChangeFontsize = ({ fontsizeValue, setFontsizeValue }: any) => {
     }
   };
   return (
-    <div className="relative">
+    <div
+      className={`relative bg-typingBgControlMenu rounded focus:scale-105 cursor-pointer transition-all ${
+        isFraction(typingFontsizeX) && typingFontsizeX !== 0.5
+          ? "bg-typingColorActive"
+          : ""
+      }`}
+    >
       <input
         type="number"
         defaultValue={typingSettingLocal?.fontsize}
         value={fontsizeValue}
         onFocus={() => setShowInputIcon(true)}
-        className={`bg-typingBgControlMenu p-2 rounded focus:scale-105 focus:bg-typingColorActive cursor-pointer transition-all ${
-          isFraction(typingFontsizeX) && typingFontsizeX !== 0.5
-            ? "bg-typingColorActive"
-            : ""
-        }`}
+        className={`p-2 brightness-75 border border-transparent focus:border focus:border-typingColorActive transition-all rounded`}
         onChange={(e) => {
           setFontsizeValue(e.target.valueAsNumber);
         }}

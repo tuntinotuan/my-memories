@@ -34,6 +34,8 @@ const TextAppearance = ({ show }: any) => {
     typingFontsizeX,
     setTypingFontsizeX,
   } = useTyping();
+  const { showTypingSetting } = useLayoutStates();
+
   const wordList: typingWordsTypes[] = [
     {
       word: "I",
@@ -116,8 +118,6 @@ const TextAppearance = ({ show }: any) => {
 
   const [fontsizeValue, setFontsizeValue] = useState<number>(typingFontsizeX);
 
-  const { showTypingSetting } = useLayoutStates();
-
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
     setValue(e.target.value);
@@ -135,6 +135,7 @@ const TextAppearance = ({ show }: any) => {
     }
     document.getElementById("typingKeyboardId")?.focus();
   };
+
   useAutoText({
     show,
     value,
@@ -150,7 +151,6 @@ const TextAppearance = ({ show }: any) => {
     typingFontsize,
     typingFontsizeX,
   });
-
   useUpdateSettingCursorPosition({
     setCurrentText,
     wordList,
@@ -159,6 +159,7 @@ const TextAppearance = ({ show }: any) => {
     setCursorPosition,
     setCursorWidth,
   });
+
   useUpdateWordGap();
   useUpdateFirstTime(setFontsizeValue);
 
