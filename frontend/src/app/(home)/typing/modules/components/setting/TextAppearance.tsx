@@ -257,6 +257,7 @@ const TextAppearance = ({ show }: any) => {
             setFontsizeValue={setFontsizeValue}
           />
         </TextAndContentOverlay>
+        <TextAndContentOverlay>Font family:</TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
   );
