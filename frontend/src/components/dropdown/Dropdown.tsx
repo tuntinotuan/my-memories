@@ -13,13 +13,6 @@ const Dropdown = ({
   activeClassName?: string;
   name: string;
 }) => {
-  const fontFamilyList = [
-    "Mono roboto",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu Mono",
-    "Mononoki",
-  ];
   const hoverRef = useRef<HTMLDivElement>(null);
   const [rect, setRect] = useState<DOMRect>();
   const isHovered = useHover(hoverRef);
@@ -33,21 +26,18 @@ const Dropdown = ({
     <>
       <div
         ref={hoverRef}
-        className={`flex items-center gap-2 bg-[#0155C6] text-white rounded-lg p-[15px] cursor-pointer transition-all ${className} ${
+        className={`flex items-center gap-2 bg-typingBgControlMenu text-white rounded-lg p-2 cursor-pointer transition-all ${className} ${
           isHovered ? `${activeClassName} rounded-br-none rounded-bl-none` : ""
         }`}
       >
-        {/* <MenuRoundedIcon></MenuRoundedIcon> */}
         {name}
         <ArrowDownIcon
           className={`transition-all ${isHovered ? "-rotate-180" : ""}`}
           fontSize="small"
         ></ArrowDownIcon>
-        {/* {isHovered && ( */}
         <DropdownShowContent rect={rect} isHovered={isHovered}>
           {children}
         </DropdownShowContent>
-        {/* )} */}
       </div>
     </>
   );
@@ -83,7 +73,7 @@ const DropdownShowContent = ({
   }, [rect, isHovered]);
   return (
     <div
-      className={`absolute z-50 transition-all ${
+      className={`fixed z-9999 transition-all ${
         isHovered ? "opacity-100 visible" : "opacity-0 invisible"
       }`}
       style={{ ...tooltipStyle }}

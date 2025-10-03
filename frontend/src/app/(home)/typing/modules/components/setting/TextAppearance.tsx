@@ -20,6 +20,7 @@ import { useUpdateWordGap } from "../../../func/setting/useUpdateWordGap";
 import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateSettingCursorPosition";
 import { useUpdateFirstTime } from "../../../func/setting/useUpdateFirstTime";
 import InputChangeFontsize from "./InputChangeFontsize";
+import Dropdown from "@/components/dropdown/Dropdown";
 
 const TextAppearance = ({ show }: any) => {
   const {
@@ -107,6 +108,13 @@ const TextAppearance = ({ show }: any) => {
     makeFraction(2),
     makeFraction(3),
     makeFraction(4),
+  ];
+  const fontFamilyList = [
+    "Mono roboto",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu Mono",
+    "Mononoki",
   ];
 
   const [value, setValue] = useState("");
@@ -257,7 +265,18 @@ const TextAppearance = ({ show }: any) => {
             setFontsizeValue={setFontsizeValue}
           />
         </TextAndContentOverlay>
-        <TextAndContentOverlay>Font family:</TextAndContentOverlay>
+        <TextAndContentOverlay>
+          Font family:
+          <Dropdown name="Choose your fontsize">
+            <div className="bg-typingBgControlMenu rounded">
+              {fontFamilyList.map((item) => (
+                <div className="p-2 hover:bg-typingColorActive transition-all">
+                  <p className="brightness-75">{item}</p>
+                </div>
+              ))}
+            </div>
+          </Dropdown>
+        </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
   );
