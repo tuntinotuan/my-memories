@@ -26,13 +26,15 @@ const Dropdown = ({
     <>
       <div
         ref={hoverRef}
-        className={`flex items-center gap-2 bg-typingBgControlMenu text-white rounded-lg p-2 cursor-pointer transition-all ${className} ${
+        className={`group flex items-center gap-2 bg-typingBgControlMenu text-white rounded-lg p-2 cursor-pointer transition-all ${className} ${
           isHovered ? `${activeClassName} rounded-br-none rounded-bl-none` : ""
         }`}
       >
         {name}
         <ArrowDownIcon
-          className={`transition-all ${isHovered ? "-rotate-180" : ""}`}
+          className={`text-white transition-all ${
+            isHovered ? "-rotate-180" : ""
+          }`}
           fontSize="small"
         ></ArrowDownIcon>
         <DropdownShowContent rect={rect} isHovered={isHovered}>
