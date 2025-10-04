@@ -89,6 +89,10 @@ const config: Config = {
       transitionProperty: {
         position: "left, top",
       },
+      fontFamily: {
+        sans: ["Roboto", "sans-serif"],
+        dmMono: ["DM Mono", "sans-serif"],
+      },
     },
   },
   darkMode: "class",

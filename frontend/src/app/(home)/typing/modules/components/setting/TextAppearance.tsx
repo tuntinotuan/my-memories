@@ -270,7 +270,7 @@ const TextAppearance = ({ show }: any) => {
           <Dropdown name="Choose your fontsize">
             <div className="bg-typingBgControlMenu rounded">
               {fontFamilyList.map((item) => (
-                <div className="p-2 hover:bg-typingColorActive transition-all">
+                <div className="font-dmMono p-2 hover:bg-typingColorActive transition-all">
                   <p className="brightness-75">{item}</p>
                 </div>
               ))}

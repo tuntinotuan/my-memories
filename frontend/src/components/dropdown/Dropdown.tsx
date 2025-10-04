@@ -32,7 +32,7 @@ const Dropdown = ({
       >
         {name}
         <ArrowDownIcon
-          className={`text-white transition-all ${
+          className={`text-white transition-all opacity-100 ${
             isHovered ? "-rotate-180" : ""
           }`}
           fontSize="small"
