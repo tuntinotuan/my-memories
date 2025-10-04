@@ -90,8 +90,10 @@ const config: Config = {
         position: "left, top",
       },
       fontFamily: {
-        sans: ["Roboto", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
         dmMono: ["DM Mono", "sans-serif"],
+        ubuntu: ["Ubuntu", "sans-serif"],
+        comingSoon: ["Coming Soon", "cursive"],
       },
     },
   },

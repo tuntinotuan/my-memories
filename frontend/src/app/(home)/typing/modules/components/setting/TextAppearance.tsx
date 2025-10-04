@@ -110,11 +110,10 @@ const TextAppearance = ({ show }: any) => {
     makeFraction(4),
   ];
   const fontFamilyList = [
-    "Mono roboto",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu Mono",
-    "Mononoki",
+    { name: "Mono roboto", code: "font-dmMono" },
+    { name: "Roboto", code: "font-roboto" },
+    { name: "Ubuntu", code: "font-ubuntu" },
+    { name: "Coming Soon", code: "font-comingSoon" },
   ];
 
   const [value, setValue] = useState("");
@@ -270,8 +269,10 @@ const TextAppearance = ({ show }: any) => {
           <Dropdown name="Choose your fontsize">
             <div className="bg-typingBgControlMenu rounded">
               {fontFamilyList.map((item) => (
-                <div className="font-dmMono p-2 hover:bg-typingColorActive transition-all">
-                  <p className="brightness-75">{item}</p>
+                <div
+                  className={`${item.code} p-2 hover:bg-typingColorActive transition-all`}
+                >
+                  <p className="brightness-75">{item.name}</p>
                 </div>
               ))}
             </div>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Roboto_Mono } from "next/font/google";
+import { Roboto_Mono, Coming_Soon, Ubuntu } from "next/font/google";
+import "./globals.css";
 import "../styles/_reset-css.css";
 import "../styles/typing-theme.css";
-import "./globals.css";
 import { LayoutProvider } from "@/contexts/layoutStates";
 import { CreateBoardProvider } from "@/contexts/createBoardStates";
 import { NotifyProvider } from "@/contexts/notifyStates";
@@ -13,6 +13,18 @@ const robotoMono = Roboto_Mono({
   weight: ["400", "500", "700"], // adjust based on what you need
   variable: "--font-roboto-mono", // optional, for use in CSS
   display: "swap", // optional for better UX
+});
+const comingSoon = Coming_Soon({
+  subsets: ["latin"],
+  weight: ["400"], // adjust based on what you need
+  variable: "--font-roboto-mono", // optional, for use in CSS
+  display: "swap", // optional for better UX
+});
+
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["400", "700"], // choose weights you need
+  variable: "--font-ubuntu",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={ubuntu.variable}>
       <body className={`fixed inset-0 text-primaryBlack`}>
         <CreateBoardProvider>
           <NotifyProvider>
