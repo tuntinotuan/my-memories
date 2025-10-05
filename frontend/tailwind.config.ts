@@ -94,6 +94,8 @@ const config: Config = {
         dmMono: ["DM Mono", "sans-serif"],
         ubuntu: ["Ubuntu", "sans-serif"],
         comingSoon: ["Coming Soon", "cursive"],
+        pacifico: ["Pacifico", "sans-serif"],
+        borel: ["Borel", "sans-serif"],
       },
     },
   },

@@ -44,6 +44,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={ubuntu.variable}>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className={`fixed inset-0 text-primaryBlack`}>
         <CreateBoardProvider>
           <NotifyProvider>

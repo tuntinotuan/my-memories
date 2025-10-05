@@ -114,6 +114,8 @@ const TextAppearance = ({ show }: any) => {
     { name: "Roboto", code: "font-roboto" },
     { name: "Ubuntu", code: "font-ubuntu" },
     { name: "Coming Soon", code: "font-comingSoon" },
+    { name: "Pacifico", code: "font-pacifico" },
+    { name: "Borel", code: "font-borel" },
   ];
 
   const [value, setValue] = useState("");
