@@ -1,13 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Borel&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 @font-face {
   font-family: "NVN Motherland Signature";
@@ -38,7 +31,7 @@
 } */
 
 html body {
-  font-family: "Roboto Mono", "Coming Soon", monospace;
+  font-family: monospace;
 }
 
 @layer utilities {

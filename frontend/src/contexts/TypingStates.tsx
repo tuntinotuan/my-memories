@@ -58,6 +58,8 @@ type defaltValuesType = {
   typingFontsize: number;
   typingFontsizeX: FontSizeTypes;
   wordGap: number;
+  fontFamily: string;
+  setFontFamily: (val: string) => void;
   setWordGap: (val: number) => void;
   setTypingFontsize: (val: number) => void;
   setTypingFontsizeX: (val: FontSizeTypes) => void;
@@ -107,6 +109,8 @@ const defaultValues: defaltValuesType = {
   typingFontsize: 24,
   typingFontsizeX: makeFraction(1),
   wordGap: 14,
+  fontFamily: "monospace",
+  setFontFamily: () => {},
   setWordGap: () => {},
   setTypingFontsize: () => {},
   setTypingFontsizeX: () => {},
@@ -169,6 +173,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     makeFraction(1)
   );
   const [wordGap, setWordGap] = useState<number>(14);
+  const [fontFamily, setFontFamily] = useState<string>("monospace");
   const initialTypingSettingLocals: SettingLocal = {
     cursorShape: "line",
     typingStyles: "combine",
@@ -312,6 +317,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         typingFontsize,
         typingFontsizeX,
         wordGap,
+        fontFamily,
+        setFontFamily,
         setWordGap,
         setTypingFontsize,
         setTypingFontsizeX,

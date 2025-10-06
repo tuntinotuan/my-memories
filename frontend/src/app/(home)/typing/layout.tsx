@@ -22,7 +22,7 @@ export default function TypingLayout({
 }
 
 const BodyLocal = ({ children }: { children: React.ReactNode }) => {
-  const { typingFullScreen } = useTyping();
+  const { typingFullScreen, fontFamily } = useTyping();
   const { showTypingSetting, setShowTypingSetting } = useLayoutStates();
   return (
     <>
@@ -30,7 +30,9 @@ const BodyLocal = ({ children }: { children: React.ReactNode }) => {
       <HomeSidebarCover>
         <HomeSidebarForTyping />
         <HomeContentCover
-          className={`${typingFullScreen ? "!fixed inset-0 h-screen" : ""}`}
+          className={`${fontFamily} ${
+            typingFullScreen ? "!fixed inset-0 h-screen" : ""
+          }`}
         >
           <PopupTypingSetting
             show={showTypingSetting}

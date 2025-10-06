@@ -34,6 +34,7 @@ const TextAppearance = ({ show }: any) => {
     wordGap,
     typingFontsizeX,
     setTypingFontsizeX,
+    setFontFamily,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
 
@@ -274,6 +275,7 @@ const TextAppearance = ({ show }: any) => {
               {fontFamilyList.map((item) => (
                 <div
                   className={`${item.code} p-2 hover:bg-typingColorActive transition-all`}
+                  onClick={() => setFontFamily(item.code)}
                 >
                   <p className="brightness-75">{item.name}</p>
                 </div>
