@@ -91,6 +91,7 @@ const config: Config = {
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
+        robotoMono: ["Roboto Mono", "sans-serif"],
         dmMono: ["DM Mono", "sans-serif"],
         ubuntu: ["Ubuntu", "sans-serif"],
         comingSoon: ["Coming Soon", "cursive"],

@@ -110,8 +110,9 @@ const TextAppearance = ({ show }: any) => {
     makeFraction(4),
   ];
   const fontFamilyList = [
-    { name: "Mono roboto", code: "font-dmMono" },
     { name: "Roboto", code: "font-roboto" },
+    { name: "Roboto Mono", code: "font-robotoMono" },
+    { name: "DM Mono", code: "font-dmMono" },
     { name: "Ubuntu", code: "font-ubuntu" },
     { name: "Coming Soon", code: "font-comingSoon" },
     { name: "Pacifico", code: "font-pacifico" },
