@@ -97,7 +97,7 @@ export function useKeyDownV2(
       arrayOfErrPreWords[arrayOfErrPreWords.length - 1];
     const newMoreCursorPosition = getTextWidth(
       lastErrWordInArray,
-      `${typingFontsize * typingFontsizeX}px monospace`
+      `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
     );
 
     if (value.length >= 0 && e.key === "Backspace") {

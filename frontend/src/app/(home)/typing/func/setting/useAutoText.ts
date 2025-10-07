@@ -35,18 +35,22 @@ export function useAutoText({
     );
     setCursorPosition();
   }, [typingFontsizeX, textIsLowercase]);
+  const cursorNextWidth = getTextWidth(
+    fullText[number],
+    `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
+  );
 
   useEffect(() => {
     if (!show) return;
-
+    console.log(
+      "use auto text is testing.......",
+      cursorNextWidth,
+      fontFamily.name
+    );
     // const cursorNextWidth =
     //   fullText[number + 1] === " "
     //     ? wordGap
     //     : getTextWidth(fullText[number + 1], `${24}px ${fontFamily.name}`);
-    const cursorNextWidth = getTextWidth(
-      fullText[number + 1],
-      `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
-    );
 
     // reset automation
     if (number >= fullText.length) {
