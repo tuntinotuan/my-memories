@@ -1,3 +1,4 @@
+import { useTyping } from "@/contexts/TypingStates";
 import { getTextWidth } from "@/utils/stringFs";
 import { useEffect, useState } from "react";
 
@@ -17,7 +18,7 @@ export function useAutoText({
   typingFontsizeX,
 }: any) {
   const [number, setnumber] = useState(0);
-
+  const { fontFamily } = useTyping();
   const fullText = textIsLowercase
     ? "I love you so much ".toLowerCase().split("")
     : "I love you so much ".split("");
@@ -29,7 +30,7 @@ export function useAutoText({
     setCursorWidth(
       getTextWidth(
         fullText[0],
-        `${typingFontsize * typingFontsizeX}px monospace`
+        `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
       )
     );
     setCursorPosition();
@@ -41,10 +42,10 @@ export function useAutoText({
     // const cursorNextWidth =
     //   fullText[number + 1] === " "
     //     ? wordGap
-    //     : getTextWidth(fullText[number + 1], `${24}px monospace`);
+    //     : getTextWidth(fullText[number + 1], `${24}px ${fontFamily.name}`);
     const cursorNextWidth = getTextWidth(
       fullText[number + 1],
-      `${typingFontsize * typingFontsizeX}px monospace`
+      `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
     );
 
     // reset automation
@@ -55,7 +56,7 @@ export function useAutoText({
       setCursorWidth(
         getTextWidth(
           fullText[0],
-          `${typingFontsize * typingFontsizeX}px monospace`
+          `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
         )
       );
       return;

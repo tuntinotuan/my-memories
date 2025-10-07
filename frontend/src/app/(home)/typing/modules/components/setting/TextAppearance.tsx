@@ -275,7 +275,7 @@ const TextAppearance = ({ show }: any) => {
               {fontFamilyList.map((item) => (
                 <div
                   className={`${item.code} p-2 hover:bg-typingColorActive transition-all`}
-                  onClick={() => setFontFamily(item.code)}
+                  onClick={() => setFontFamily(item)}
                 >
                   <p className="brightness-75">{item.name}</p>
                 </div>

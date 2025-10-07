@@ -36,6 +36,7 @@ export function useKeyDownV2(
     setSecondsOfManyWords,
     setCursorIsTyping,
     setIsCountDown,
+    fontFamily,
   } = useTyping();
   const handleOnKeyDown = (e: any) => {
     startTyping(
@@ -88,7 +89,8 @@ export function useKeyDownV2(
       calculatePositionForCursor(
         newArrWords[typingWordIndex],
         value,
-        `${typingFontsize * typingFontsizeX}px`
+        `${typingFontsize * typingFontsizeX}px`,
+        fontFamily
       );
     const lastErrWordInArray =
       arrayOfErrPreWords.length > 0 &&

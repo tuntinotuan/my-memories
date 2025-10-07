@@ -28,7 +28,7 @@ const TypingWord = ({
 }: TypingWordProps) => {
   const cursorId: string = "typingCursorId";
   const [newText, setNewText] = useState<string>(text);
-  const { wordAmount, typingSettingLocal } = useTyping();
+  const { wordAmount, typingSettingLocal, fontFamily } = useTyping();
   const [cursorWidth, setCursorWidth] = useState(0);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const TypingWord = ({
   useEffect(() => {
     const newWidth = getTextWidth(
       currentTyping.word[text ? text.length : 0],
-      `${fontSize} monospace`
+      `${fontSize} ${fontFamily.name}`
     );
     text.length >= currentTyping.word.length
       ? setCursorWidth(18)

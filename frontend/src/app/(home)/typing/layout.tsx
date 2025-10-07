@@ -30,7 +30,7 @@ const BodyLocal = ({ children }: { children: React.ReactNode }) => {
       <HomeSidebarCover>
         <HomeSidebarForTyping />
         <HomeContentCover
-          className={`${fontFamily} ${
+          className={`${fontFamily.code} ${
             typingFullScreen ? "!fixed inset-0 h-screen" : ""
           }`}
         >
