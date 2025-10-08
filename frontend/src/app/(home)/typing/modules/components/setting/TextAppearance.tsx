@@ -271,7 +271,7 @@ const TextAppearance = ({ show }: any) => {
         </TextAndContentOverlay>
         <TextAndContentOverlay>
           Font family:
-          <Dropdown name="Choose your fontsize">
+          <Dropdown name={fontFamily.name || "Choose your fontsize"}>
             <div className="bg-typingBgControlMenu rounded">
               {fontFamilyList.map((item) => (
                 <div
