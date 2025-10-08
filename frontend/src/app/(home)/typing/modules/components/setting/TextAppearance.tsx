@@ -35,6 +35,7 @@ const TextAppearance = ({ show }: any) => {
     typingFontsizeX,
     setTypingFontsizeX,
     setFontFamily,
+    fontFamily,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
 
@@ -274,7 +275,11 @@ const TextAppearance = ({ show }: any) => {
             <div className="bg-typingBgControlMenu rounded">
               {fontFamilyList.map((item) => (
                 <div
-                  className={`${item.code} p-2 hover:bg-typingColorActive transition-all`}
+                  className={`${
+                    item.code
+                  } p-2 hover:bg-typingColorActive transition-all ${
+                    fontFamily.name === item.name ? "bg-typingColorActive" : ""
+                  }`}
                   onClick={() => setFontFamily(item)}
                 >
                   <p className="brightness-75">{item.name}</p>
