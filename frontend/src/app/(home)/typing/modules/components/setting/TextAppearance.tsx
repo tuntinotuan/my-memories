@@ -119,6 +119,19 @@ const TextAppearance = ({ show }: any) => {
     { name: "Coming Soon", code: "font-comingSoon" },
     { name: "Pacifico", code: "font-pacifico" },
     { name: "Borel", code: "font-borel" },
+    { name: "Oxygen", code: "font-oxygen" },
+    { name: "Lalezar", code: "font-lalezar" },
+    { name: "Lato", code: "font-lato" },
+    { name: "JetBrains Mono", code: "font-jetBrainsMono" },
+    { name: "Itim", code: "font-itim" },
+    { name: "Inconsolata", code: "font-inconsolata" },
+    { name: "Rubik Bubbles", code: "font-rubikBubbles" },
+    { name: "IBM Plex Sans", code: "font-iBMPlexSans" },
+    { name: "IBM Plex Mono", code: "font-iBMPlexMono" },
+    { name: "Geist Mono", code: "font-geistMono" },
+    { name: "Geist", code: "font-geist" },
+    { name: "Fira Code", code: "font-firaCode" },
+    { name: "Courier Prime", code: "font-courierPrime" },
   ];
 
   const [value, setValue] = useState("");
@@ -272,13 +285,13 @@ const TextAppearance = ({ show }: any) => {
         <TextAndContentOverlay>
           Font family:
           <Dropdown name={fontFamily.name || "Choose your fontsize"}>
-            <div className="bg-typingBgControlMenu rounded">
+            <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
               {fontFamilyList.map((item) => (
                 <div
                   className={`${
                     item.code
-                  } p-2 hover:bg-typingColorActive transition-all ${
-                    fontFamily.name === item.name ? "bg-typingColorActive" : ""
+                  } p-2 hover:bg-typingColorActive transition-all last:rounded-b-md ${
+                    fontFamily.name === item.name ? "bg-typingBg" : ""
                   }`}
                   onClick={() => setFontFamily(item)}
                 >
