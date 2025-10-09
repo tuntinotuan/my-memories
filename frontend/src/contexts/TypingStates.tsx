@@ -184,6 +184,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     wordTime: 15,
     textIsLowercase: false,
     fontsize: makeFraction(1),
+    fontFamily: { name: "monospace", code: "monospace" },
   };
   const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>();
 
@@ -198,6 +199,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
       wordTime,
       textIsLowercase,
       fontsize: typingFontsizeX,
+      fontFamily,
     };
     setTypingSettingLocal(newSetting);
     localStorage.setItem("typing-setting", JSON.stringify(newSetting));
@@ -209,6 +211,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     wordTime,
     textIsLowercase,
     typingFontsizeX,
+    fontFamily,
   ]);
   useEffect(() => {
     async function fetchTypingSettingFromLocalStorage() {
@@ -227,6 +230,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         setCursorShape(setting?.cursorShape);
         setTextIsLowercase(setting?.textIsLowercase);
         setTypingFontsizeX(setting?.fontsize);
+        setFontFamily(setting?.fontFamily);
       } else {
         setTypingSettingLocal(initialTypingSettingLocals);
         setTypingStyles(initialTypingSettingLocals?.typingStyles);
@@ -235,6 +239,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         setCursorShape(initialTypingSettingLocals?.cursorShape);
         setTextIsLowercase(initialTypingSettingLocals?.textIsLowercase);
         setTypingFontsizeX(initialTypingSettingLocals?.fontsize);
+        setFontFamily(initialTypingSettingLocals?.fontFamily);
       }
     }
     fetchTypingSettingFromLocalStorage();

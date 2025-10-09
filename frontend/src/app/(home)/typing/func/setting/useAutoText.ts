@@ -30,14 +30,14 @@ export function useAutoText({
     setCursorWidth(
       getTextWidth(
         fullText[0],
-        `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
+        `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
       )
     );
     setCursorPosition();
   }, [typingFontsizeX, textIsLowercase]);
   const cursorNextWidth = getTextWidth(
     fullText[number],
-    `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
+    `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
   );
 
   useEffect(() => {
@@ -45,12 +45,12 @@ export function useAutoText({
     console.log(
       "use auto text is testing.......",
       cursorNextWidth,
-      fontFamily.name
+      fontFamily?.name
     );
     // const cursorNextWidth =
     //   fullText[number + 1] === " "
     //     ? wordGap
-    //     : getTextWidth(fullText[number + 1], `${24}px ${fontFamily.name}`);
+    //     : getTextWidth(fullText[number + 1], `${24}px ${fontFamily?.name}`);
 
     // reset automation
     if (number >= fullText.length) {
@@ -60,7 +60,7 @@ export function useAutoText({
       setCursorWidth(
         getTextWidth(
           fullText[0],
-          `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
+          `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
         )
       );
       return;

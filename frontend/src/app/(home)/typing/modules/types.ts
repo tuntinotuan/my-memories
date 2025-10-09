@@ -25,4 +25,5 @@ export type SettingLocal = {
   wordTime: WordTimeType;
   textIsLowercase: boolean;
   fontsize: FontSizeTypes;
+  fontFamily: { name: string; code: string };
 };
