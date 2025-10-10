@@ -21,6 +21,7 @@ import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateS
 import { useUpdateFirstTime } from "../../../func/setting/useUpdateFirstTime";
 import InputChangeFontsize from "./InputChangeFontsize";
 import Dropdown from "@/components/dropdown/Dropdown";
+import GreenTickIcon from "@/components/icons/GreenTickIcon";
 
 const TextAppearance = ({ show }: any) => {
   const {
@@ -294,7 +295,7 @@ const TextAppearance = ({ show }: any) => {
                 <div
                   className={`${
                     item.code
-                  } p-2 hover:bg-typingColorActive transition-all last:rounded-b-md ${
+                  } flex items-center justify-between p-2 hover:bg-typingColorActive transition-all last:rounded-b-md ${
                     fontFamily?.name === item.name
                       ? "bg-typingBg font-bold"
                       : ""
@@ -302,6 +303,12 @@ const TextAppearance = ({ show }: any) => {
                   onClick={() => setFontFamily(item)}
                 >
                   <p className="brightness-75">{item.name}</p>
+                  {fontFamily?.name === item.name && (
+                    <GreenTickIcon
+                      className=" text-green-500"
+                      fontSize="inherit"
+                    ></GreenTickIcon>
+                  )}
                 </div>
               ))}
             </div>

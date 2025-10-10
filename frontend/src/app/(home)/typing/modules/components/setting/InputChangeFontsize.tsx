@@ -1,9 +1,9 @@
 import CloseIcon from "@/components/icons/CloseIcon";
 import React, { useState } from "react";
-import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import { isFraction, makeFraction } from "@/api/typing/typing.type";
 import { useTyping } from "@/contexts/TypingStates";
 import { useNotify } from "@/contexts/notifyStates";
+import GreenTickIcon from "@/components/icons/GreenTickIcon";
 
 const InputChangeFontsize = ({ fontsizeValue, setFontsizeValue }: any) => {
   const { typingSettingLocal, setTypingFontsizeX, typingFontsizeX } =
@@ -60,10 +60,10 @@ const InputChangeFontsize = ({ fontsizeValue, setFontsizeValue }: any) => {
         }`}
       >
         {numberIsPass(fontsizeValue) ? (
-          <DoneRoundedIcon
+          <GreenTickIcon
             className=" text-green-500"
             fontSize="small"
-          ></DoneRoundedIcon>
+          ></GreenTickIcon>
         ) : (
           <CloseIcon
             className="text-red-500 w-auto h-auto"
