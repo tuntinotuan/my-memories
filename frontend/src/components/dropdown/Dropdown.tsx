@@ -26,7 +26,7 @@ const Dropdown = ({
     <>
       <div
         ref={hoverRef}
-        className={`group flex items-center gap-2 bg-typingBgControlMenu text-white rounded-lg p-2 cursor-pointer transition-all ${className} ${
+        className={`group flex items-center gap-2 rounded-lg p-2 cursor-pointer transition-all ${className} ${
           isHovered ? `${activeClassName} rounded-br-none rounded-bl-none` : ""
         }`}
       >

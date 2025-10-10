@@ -284,14 +284,20 @@ const TextAppearance = ({ show }: any) => {
         </TextAndContentOverlay>
         <TextAndContentOverlay>
           Font family:
-          <Dropdown name={fontFamily?.name || "Choose your fontsize"}>
+          <Dropdown
+            name={fontFamily?.name || "Choose your fontsize"}
+            className="border border-transparent bg-typingBgControlMenu text-white"
+            activeClassName="border-b-typingColorActive"
+          >
             <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
               {fontFamilyList.map((item) => (
                 <div
                   className={`${
                     item.code
                   } p-2 hover:bg-typingColorActive transition-all last:rounded-b-md ${
-                    fontFamily?.name === item.name ? "bg-typingBg" : ""
+                    fontFamily?.name === item.name
+                      ? "bg-typingBg font-bold"
+                      : ""
                   }`}
                   onClick={() => setFontFamily(item)}
                 >
