@@ -112,6 +112,12 @@ export function useKeyDownV2(
         // setPreTypedWord(
         //   typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
         // );
+        const newCaculate = typingFontsize * typingFontsizeX + wordGap;
+        setMoreYTransition(-newCaculate);
+        setHeightFlexible(heightFlexible - newCaculate);
+        lastInRowIndexes.includes(typingWordIndex - 1) &&
+          setRowTyped(rowTyped - 1);
+
         setTypingWordIndex((pre: number) => pre - 1);
         setMoreCursorPosition(newMoreCursorPosition);
         //
