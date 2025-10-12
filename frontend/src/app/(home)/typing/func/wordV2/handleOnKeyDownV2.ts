@@ -99,6 +99,7 @@ export function useKeyDownV2(
       lastErrWordInArray,
       `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
     );
+    const newCaculate = typingFontsize * typingFontsizeX + wordGap;
 
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
@@ -112,7 +113,6 @@ export function useKeyDownV2(
         // setPreTypedWord(
         //   typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
         // );
-        const newCaculate = typingFontsize * typingFontsizeX + wordGap;
         setMoreYTransition(-newCaculate);
         setHeightFlexible(heightFlexible - newCaculate);
         lastInRowIndexes.includes(typingWordIndex - 1) &&
