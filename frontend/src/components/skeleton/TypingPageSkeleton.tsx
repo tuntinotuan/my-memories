@@ -6,7 +6,7 @@ const TypingPageSkeleton = () => {
     <div className="flex flex-col items-start w-full gap-2 px-4 pt-2 bg-typingBg text-black">
       <HeaderItems />
       <AmountOrTimeItems />
-      <WordItems />=
+      <WordItems />
     </div>
   );
 };
@@ -47,7 +47,7 @@ const AmountOrTimeItems = () => {
       <div className="flex items-end justify-between h-[20vh] bg-opacity-5 backdrop-blur-sm w-full z-10 p-2 rounded">
         <div className="flex items-center gap-1 text-xl text-typingColorActive bg-typingBgControlMenu transition-all rounded py-1 px-2 shadow-lg">
           <div className="bg-gray-200 rounded w-[24px] h-6 animate-pulse"></div>
-          /
+          <div className="bg-gray-200 rounded w-[4px] h-6 animate-pulse"></div>
           <div className="bg-gray-200 rounded w-[24px] h-6 animate-pulse"></div>
         </div>
       </div>
