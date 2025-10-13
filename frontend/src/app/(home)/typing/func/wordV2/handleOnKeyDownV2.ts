@@ -113,11 +113,16 @@ export function useKeyDownV2(
         // setPreTypedWord(
         //   typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
         // );
-        setMoreYTransition(-newCaculate);
-        setHeightFlexible(heightFlexible - newCaculate);
-        lastInRowIndexes.includes(typingWordIndex - 1) &&
-          setRowTyped(rowTyped - 1);
 
+        // update correct: cursor position, height flexible after back error word
+        if (lastInRowIndexes.includes(typingWordIndex - 1)) {
+          if (rowTyped > 1) {
+            setMoreYTransition(-newCaculate);
+            setHeightFlexible(heightFlexible - newCaculate);
+          }
+          setRowTyped(rowTyped - 1);
+        }
+        //
         setTypingWordIndex((pre: number) => pre - 1);
         setMoreCursorPosition(newMoreCursorPosition);
         //
