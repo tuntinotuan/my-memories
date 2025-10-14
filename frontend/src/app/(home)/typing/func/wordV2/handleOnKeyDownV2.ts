@@ -95,8 +95,11 @@ export function useKeyDownV2(
     const lastErrWordInArray =
       arrayOfErrPreWords.length > 0 &&
       arrayOfErrPreWords[arrayOfErrPreWords.length - 1];
+    const preWordError =
+      typingWordIndex > 0 &&
+      newArrWords[typingWordIndex - 1].word.slice(0, lastErrWordInArray.length);
     const newMoreCursorPosition = getTextWidth(
-      lastErrWordInArray,
+      preWordError,
       `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
     );
     const newCaculate = typingFontsize * typingFontsizeX + wordGap;
@@ -108,12 +111,6 @@ export function useKeyDownV2(
         lastErrWordInArray &&
         lastErrWordInArray !== newArrWords[typingWordIndex - 1]?.word
       ) {
-        // setPreCursorPosition(cursorPosition);
-        // setValue(preTypedWord + preTypedWord.at(-1));
-        // setPreTypedWord(
-        //   typingWordIndex > 1 ? newArrWords[typingWordIndex - 2].word : ""
-        // );
-
         // update correct: cursor position, height flexible after back error word
         if (lastInRowIndexes.includes(typingWordIndex - 1)) {
           if (rowTyped > 1) {
