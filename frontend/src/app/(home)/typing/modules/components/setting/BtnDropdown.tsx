@@ -36,6 +36,7 @@ const BtnDropdown = () => {
       <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
         {fontFamilyList.map((item) => (
           <div
+            key={item.name}
             className={`${
               item.code
             } flex items-center justify-between p-2 hover:bg-typingColorActive transition-all last:rounded-b-md ${
