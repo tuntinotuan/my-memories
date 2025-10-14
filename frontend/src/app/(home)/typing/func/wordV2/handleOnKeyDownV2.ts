@@ -56,6 +56,7 @@ export function useKeyDownV2(
       setShowResults
     );
 
+    // value is => " " (spacing)
     if (value.length > 0 && e.key === " ") {
       setMoreYTransition(0);
       setPreTypedWord(value);
@@ -85,6 +86,7 @@ export function useKeyDownV2(
         setArrayOfErrPreWords((pre: string[]) => [...pre, value]);
       }
     }
+
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(
         newArrWords[typingWordIndex],
@@ -92,18 +94,20 @@ export function useKeyDownV2(
         `${typingFontsize * typingFontsizeX}px`,
         fontFamily
       );
+
     const lastErrWordInArray =
       arrayOfErrPreWords.length > 0 &&
       arrayOfErrPreWords[arrayOfErrPreWords.length - 1];
-    const preWordError =
+    const preOriginalErrorWord =
       typingWordIndex > 0 &&
       newArrWords[typingWordIndex - 1].word.slice(0, lastErrWordInArray.length);
     const newMoreCursorPosition = getTextWidth(
-      preWordError,
+      preOriginalErrorWord,
       `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
     );
     const newCaculate = typingFontsize * typingFontsizeX + wordGap;
 
+    // value is => length >= 0 && press "Backspace" key
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
       if (
@@ -136,6 +140,8 @@ export function useKeyDownV2(
         );
       }
     }
+
+    // value is => number or word
     if (
       e.key.length === 1 &&
       !e.ctrlKey &&
