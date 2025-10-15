@@ -9,11 +9,11 @@ export function calculatePositionForCursor(
 ) {
   const cursorPositionIncrease = getTextWidth(
     currentTyping?.word[text ? text.length : 0],
-    `${fontSize} ${fontFamily.name}`
+    `${fontSize} ${fontFamily?.name}`
   );
   const cursorPositionDecrease = getTextWidth(
     currentTyping?.word[text ? text.length - 1 : 0],
-    `${fontSize} ${fontFamily.name}`
+    `${fontSize} ${fontFamily?.name}`
   );
   // newArrWords[countNextWord]
   return { cursorPositionIncrease, cursorPositionDecrease };

@@ -19,6 +19,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     cursorIsTyping,
     typingSettingLocal,
     hideOverlay,
+    fontFamily,
   } = useTyping();
 
   const [value, setValue] = useState<string>("");
@@ -46,7 +47,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
       refNextWord.current = refNextWord.current + 1;
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
-      calculatePositionForCursor(currentTyping, value, "36px");
+      calculatePositionForCursor(currentTyping, value, "36px", fontFamily);
     if (value.length >= 0 && e.key === "Backspace") {
       value.length > 0 &&
         setCursorPosition((pre: any) => pre - cursorPositionDecrease);

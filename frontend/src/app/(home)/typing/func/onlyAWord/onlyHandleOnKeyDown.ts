@@ -13,7 +13,7 @@ export function useOnlyHandleOnKeyDown(
   refCountIndexArray: any,
   refNextWord: any
 ) {
-  const { setCursorIsTyping } = useTyping();
+  const { setCursorIsTyping, fontFamily } = useTyping();
   const handleOnKeyDown = (e: any) => {
     // if (currentTyping.word.length <= text.length + 1) {
     //   setCurrentTyping(typingwordsRandom[0]);
@@ -38,7 +38,7 @@ export function useOnlyHandleOnKeyDown(
       }
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
-      calculatePositionForCursor(currentTyping, text, "36px");
+      calculatePositionForCursor(currentTyping, text, "36px", fontFamily);
     if (
       text.length < currentTyping.word.length &&
       e.key.length === 1 &&
