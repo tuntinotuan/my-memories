@@ -6,10 +6,16 @@ export function cursorPositionPerTyped(
   countNextWord: any,
   text: string,
   setCursorPosition: any,
-  cursorPosition: any
+  cursorPosition: any,
+  fontFamily: any
 ) {
   const { cursorPositionIncrease, cursorPositionDecrease } =
-    calculatePositionForCursor(newArrWords[countNextWord], text, "24px");
+    calculatePositionForCursor(
+      newArrWords[countNextWord],
+      text,
+      "24px",
+      fontFamily
+    );
   if (
     text.length < newArrWords[countNextWord].word.length &&
     e.key.length === 1 &&

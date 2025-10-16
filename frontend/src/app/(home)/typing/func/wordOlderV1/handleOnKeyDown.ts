@@ -26,6 +26,7 @@ export function useKeyDown(
     setSecondsOfManyWords,
     setCursorIsTyping,
     setIsCountDown,
+    fontFamily,
   } = useTyping();
   const handleOnKeyDown = (e: any) => {
     startTyping(
@@ -68,7 +69,8 @@ export function useKeyDown(
       typingWordIndex,
       text,
       setCursorPosition,
-      cursorPosition
+      cursorPosition,
+      fontFamily
     );
   };
   return { handleOnKeyDown };
