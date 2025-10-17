@@ -12,20 +12,35 @@ export const ListBtnTypingStyles = () => {
       text: "time",
       icon: <ClockIcon />,
       style: "time",
-      onClick: () => setTypingStyles("time"),
+      onClick: () => {
+        setTypingStyles("time"),
+          document.activeElement instanceof HTMLElement &&
+            document.activeElement.blur();
+        document.getElementById("typingKeyboardId")?.blur();
+      },
     },
     {
       text: "combine",
       icon: <CombineIcon />,
       style: "combine",
-      onClick: () => setTypingStyles("combine"),
+      onClick: () => {
+        setTypingStyles("combine"),
+          document.activeElement instanceof HTMLElement &&
+            document.activeElement.blur();
+        document.getElementById("typingKeyboardId")?.blur();
+      },
       tooltipText: "Keyword above & meaning below",
     },
     {
       text: "words",
       icon: <WordIcon />,
       style: "words",
-      onClick: () => setTypingStyles("words"),
+      onClick: () => {
+        setTypingStyles("words"),
+          document.activeElement instanceof HTMLElement &&
+            document.activeElement.blur();
+        document.getElementById("typingKeyboardId")?.blur();
+      },
     },
   ];
   return (
