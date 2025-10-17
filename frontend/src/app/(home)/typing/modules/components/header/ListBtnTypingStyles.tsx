@@ -7,27 +7,22 @@ import { ListBtnTypes } from "../../types";
 
 export const ListBtnTypingStyles = () => {
   const { setTypingStyles } = useTyping();
+  // document.activeElement instanceof HTMLElement &&
+  //           document.activeElement.blur();
+  //       document.getElementById("typingKeyboardId")?.blur();
   const listBtn: ListBtnTypes = [
     {
       text: "time",
       icon: <ClockIcon />,
       style: "time",
-      onClick: () => {
-        setTypingStyles("time"),
-          document.activeElement instanceof HTMLElement &&
-            document.activeElement.blur();
-        document.getElementById("typingKeyboardId")?.blur();
-      },
+      onClick: () => setTypingStyles("time"),
     },
     {
       text: "combine",
       icon: <CombineIcon />,
       style: "combine",
       onClick: () => {
-        setTypingStyles("combine"),
-          document.activeElement instanceof HTMLElement &&
-            document.activeElement.blur();
-        document.getElementById("typingKeyboardId")?.blur();
+        setTypingStyles("combine");
       },
       tooltipText: "Keyword above & meaning below",
     },
@@ -35,12 +30,7 @@ export const ListBtnTypingStyles = () => {
       text: "words",
       icon: <WordIcon />,
       style: "words",
-      onClick: () => {
-        setTypingStyles("words"),
-          document.activeElement instanceof HTMLElement &&
-            document.activeElement.blur();
-        document.getElementById("typingKeyboardId")?.blur();
-      },
+      onClick: () => setTypingStyles("words"),
     },
   ];
   return (

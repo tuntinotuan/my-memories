@@ -19,11 +19,10 @@ export const BtnTypingStyles = ({
   tooltipText,
   style,
 }: BtnTypingStylesProps) => {
-  const { typingStyles, typingSettingLocal } = useTyping();
+  const { typingSettingLocal } = useTyping();
   const Main = () => {
     return (
-      <button
-        onMouseDown={(e) => e.preventDefault()}
+      <div
         className={`flex items-center gap-1 transition-all cursor-default ${
           typingSettingLocal?.typingStyles === style
             ? "text-typingColorActive"
@@ -33,7 +32,7 @@ export const BtnTypingStyles = ({
       >
         {icon}
         {children}
-      </button>
+      </div>
     );
   };
   if (tooltipText)
