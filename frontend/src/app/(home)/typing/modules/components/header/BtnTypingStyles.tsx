@@ -20,21 +20,7 @@ export const BtnTypingStyles = ({
   style,
 }: BtnTypingStylesProps) => {
   const { typingSettingLocal } = useTyping();
-  const Main = () => {
-    return (
-      <div
-        className={`flex items-center gap-1 transition-all cursor-default ${
-          typingSettingLocal?.typingStyles === style
-            ? "text-typingColorActive"
-            : "hover:text-typingTextHover cursor-pointer"
-        } ${className}`}
-        onClick={onClick}
-      >
-        {icon}
-        {children}
-      </div>
-    );
-  };
+
   if (tooltipText)
     return (
       <Tooltip
@@ -48,9 +34,49 @@ export const BtnTypingStyles = ({
         shadow="sm"
       >
         <div>
-          <Main />
+          <Main
+            icon={icon}
+            onClick={onClick}
+            className={className}
+            tooltipText={tooltipText}
+            style={style}
+          >
+            {children}
+          </Main>
         </div>
       </Tooltip>
     );
-  return <Main />;
+  return (
+    <Main
+      icon={icon}
+      onClick={onClick}
+      className={className}
+      tooltipText={tooltipText}
+      style={style}
+    >
+      {children}
+    </Main>
+  );
+};
+const Main = ({
+  icon,
+  children,
+  onClick,
+  className,
+  style,
+}: BtnTypingStylesProps) => {
+  const { typingSettingLocal } = useTyping();
+  return (
+    <div
+      className={`flex items-center gap-1 transition-all cursor-default ${
+        typingSettingLocal?.typingStyles === style
+          ? "text-typingColorActive"
+          : "hover:text-typingTextHover cursor-pointer"
+      } ${className}`}
+      onClick={onClick}
+    >
+      {icon}
+      {children}
+    </div>
+  );
 };

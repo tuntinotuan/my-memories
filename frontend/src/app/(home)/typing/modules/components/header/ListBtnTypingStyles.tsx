@@ -6,7 +6,7 @@ import { BtnTypingStyles } from "./BtnTypingStyles";
 import { ListBtnTypes } from "../../types";
 
 export const ListBtnTypingStyles = () => {
-  const { setTypingStyles } = useTyping();
+  const { setTypingStyles, typingSettingLocal } = useTyping();
   // document.activeElement instanceof HTMLElement &&
   //           document.activeElement.blur();
   //       document.getElementById("typingKeyboardId")?.blur();
@@ -40,12 +40,26 @@ export const ListBtnTypingStyles = () => {
           key={btn.text}
           icon={btn.icon}
           style={btn.style}
-          onClick={btn.onClick}
+          onClick={() => setTypingStyles(btn.style)}
           tooltipText={btn.tooltipText}
         >
           {btn.text}
         </BtnTypingStyles>
       ))}
+      {/* {listBtn.map((btn) => (
+        <div
+          className={`flex items-center gap-1 transition-all cursor-default ${
+            typingSettingLocal?.typingStyles === btn.style
+              ? "text-typingColorActive"
+              : "hover:text-typingTextHover cursor-pointer"
+          }`}
+          onClick={btn.onClick}
+        >
+          {btn.icon}
+          {btn.text}
+        </div>
+      ))} */}
+      {/* <div onClick={() => setTypingStyles("words")}>words</div> */}
     </>
   );
 };

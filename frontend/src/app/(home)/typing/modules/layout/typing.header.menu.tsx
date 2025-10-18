@@ -50,7 +50,6 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
         <>
           <SplitElement />
           <WordAmount />
-          <p onClick={() => setTypingStyles("time")}>time</p>
         </>
       )}
       {typingSettingLocal?.typingStyles === "time" && (
