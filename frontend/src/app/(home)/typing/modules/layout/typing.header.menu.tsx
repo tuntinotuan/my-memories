@@ -20,6 +20,7 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
     showPopupCreate,
     setShowPopupCreate,
     typingSettingLocal,
+    setTypingStyles,
   } = useTyping();
   const { setShowTypingSetting } = useLayoutStates();
   return (
@@ -45,18 +46,19 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
       </Tooltip>
       <SplitElement />
       <ListBtnTypingStyles />
-      {/* {typingSettingLocal?.typingStyles === "words" && ( */}
-      <>
-        <SplitElement />
-        <WordAmount />
-      </>
-      {/* )} */}
-      {/* {typingSettingLocal?.typingStyles === "time" && ( */}
-      <>
-        <SplitElement />
-        <WordTime />
-      </>
-      {/* )} */}
+      {typingSettingLocal?.typingStyles === "words" && (
+        <>
+          <SplitElement />
+          <WordAmount />
+          <p onClick={() => setTypingStyles("time")}>time</p>
+        </>
+      )}
+      {typingSettingLocal?.typingStyles === "time" && (
+        <>
+          <SplitElement />
+          <WordTime />
+        </>
+      )}
       <SplitElement />
       <BtnChangeTheme />
       <SplitElement />
