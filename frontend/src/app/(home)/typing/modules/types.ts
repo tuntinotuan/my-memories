@@ -7,7 +7,6 @@ export type ListBtnTypes = {
   text: string;
   icon: React.ReactNode;
   style: typingStylesType;
-  onClick: () => void;
   tooltipText?: string;
 }[];
 

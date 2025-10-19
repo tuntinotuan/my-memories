@@ -19,8 +19,6 @@ export const BtnTypingStyles = ({
   tooltipText,
   style,
 }: BtnTypingStylesProps) => {
-  const { typingSettingLocal } = useTyping();
-
   if (tooltipText)
     return (
       <Tooltip
@@ -34,7 +32,7 @@ export const BtnTypingStyles = ({
         shadow="sm"
       >
         <div>
-          <Main
+          <MainLocal
             icon={icon}
             onClick={onClick}
             className={className}
@@ -42,12 +40,12 @@ export const BtnTypingStyles = ({
             style={style}
           >
             {children}
-          </Main>
+          </MainLocal>
         </div>
       </Tooltip>
     );
   return (
-    <Main
+    <MainLocal
       icon={icon}
       onClick={onClick}
       className={className}
@@ -55,10 +53,10 @@ export const BtnTypingStyles = ({
       style={style}
     >
       {children}
-    </Main>
+    </MainLocal>
   );
 };
-const Main = ({
+const MainLocal = ({
   icon,
   children,
   onClick,

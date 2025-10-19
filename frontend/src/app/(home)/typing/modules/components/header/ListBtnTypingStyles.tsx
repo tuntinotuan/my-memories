@@ -6,31 +6,23 @@ import { BtnTypingStyles } from "./BtnTypingStyles";
 import { ListBtnTypes } from "../../types";
 
 export const ListBtnTypingStyles = () => {
-  const { setTypingStyles, typingSettingLocal } = useTyping();
-  // document.activeElement instanceof HTMLElement &&
-  //           document.activeElement.blur();
-  //       document.getElementById("typingKeyboardId")?.blur();
+  const { setTypingStyles } = useTyping();
   const listBtn: ListBtnTypes = [
     {
       text: "time",
       icon: <ClockIcon />,
       style: "time",
-      onClick: () => setTypingStyles("time"),
     },
     {
       text: "combine",
       icon: <CombineIcon />,
       style: "combine",
-      onClick: () => {
-        setTypingStyles("combine");
-      },
       tooltipText: "Keyword above & meaning below",
     },
     {
       text: "words",
       icon: <WordIcon />,
       style: "words",
-      onClick: () => setTypingStyles("words"),
     },
   ];
   return (
@@ -40,26 +32,12 @@ export const ListBtnTypingStyles = () => {
           key={btn.text}
           icon={btn.icon}
           style={btn.style}
-          onClick={() => setTypingStyles(btn.style)}
           tooltipText={btn.tooltipText}
+          onClick={() => setTypingStyles(btn.style)}
         >
           {btn.text}
         </BtnTypingStyles>
       ))}
-      {/* {listBtn.map((btn) => (
-        <div
-          className={`flex items-center gap-1 transition-all cursor-default ${
-            typingSettingLocal?.typingStyles === btn.style
-              ? "text-typingColorActive"
-              : "hover:text-typingTextHover cursor-pointer"
-          }`}
-          onClick={btn.onClick}
-        >
-          {btn.icon}
-          {btn.text}
-        </div>
-      ))} */}
-      {/* <div onClick={() => setTypingStyles("words")}>words</div> */}
     </>
   );
 };
