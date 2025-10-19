@@ -21,8 +21,11 @@ export function useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     setIsCountDown,
     resetCountDownIsInitial,
     setTypingWordIndex,
+    setHideOverlay,
   } = useTyping();
   useEffect(() => {
+    document.getElementById("typingKeyboardId")?.focus();
+    setHideOverlay(true);
     resetTypingStatesV2({
       setHydrated,
       setCursorPosition,
@@ -39,6 +42,8 @@ export function useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordAmount]);
   useEffect(() => {
+    document.getElementById("typingKeyboardId")?.focus();
+    setHideOverlay(true);
     resetTypingStatesV2({
       setHydrated,
       setCursorPosition,
