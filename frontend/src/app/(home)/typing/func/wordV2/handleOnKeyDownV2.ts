@@ -37,8 +37,14 @@ export function useKeyDownV2(
     setCursorIsTyping,
     setIsCountDown,
     fontFamily,
+    hideOverlay,
+    setHideOverlay,
   } = useTyping();
   const handleOnKeyDown = (e: any) => {
+    if (!hideOverlay) {
+      setHideOverlay(true);
+      return null;
+    }
     startTyping(
       types,
       setCursorIsTyping,
