@@ -42,7 +42,6 @@ export function useKeyDownV2(
   } = useTyping();
   const handleOnKeyDown = (e: any) => {
     if (!hideOverlay) {
-      setHideOverlay(true);
       return null;
     }
     startTyping(

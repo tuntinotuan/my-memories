@@ -65,6 +65,10 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const { hydrated, setHydrated } = useHydrate();
 
   const handleOnChange = (e: any) => {
+    if (!hideOverlay) {
+      setHideOverlay(true);
+      return;
+    }
     if (
       e.target.value === " " ||
       e.target.value.length === newArrWords[typingWordIndex].word.length + 1
