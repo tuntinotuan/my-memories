@@ -21,8 +21,14 @@ import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateS
 import { useUpdateFirstTime } from "../../../func/setting/useUpdateFirstTime";
 import InputChangeFontsize from "./InputChangeFontsize";
 import BtnDropdown from "./BtnDropdown";
+import Dropdown from "@/components/dropdown/Dropdown";
+import { themeList } from "@/api/typing/typing.data.structure";
+import ThemeItem from "@/components/theme/ThemeItem";
+import { changeFor } from "@/components/popup/typing/PopupTypingTheme";
+import { useTypingTheme } from "@/contexts/typingThemeStates";
+import { Id } from "@/app/(home)/project/[slug]/modules/types";
 
-const TextAppearance = ({ show }: any) => {
+const TextAppearance = ({ show, changeFor = "global" }: any) => {
   const {
     rect,
     setRect,
@@ -34,10 +40,19 @@ const TextAppearance = ({ show }: any) => {
     wordGap,
     typingFontsizeX,
     setTypingFontsizeX,
-    setFontFamily,
     fontFamily,
+    setWordList,
+    singleTypingList,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
+  const {
+    theme,
+    setTheme,
+    themPopup,
+    setThemePopup,
+    singleTheme,
+    setSingleTheme,
+  } = useTypingTheme();
 
   const wordList: typingWordsTypes[] = [
     {
@@ -165,6 +180,14 @@ const TextAppearance = ({ show }: any) => {
 
   useUpdateWordGap();
   useUpdateFirstTime(setFontsizeValue);
+  const updateSingleTheme = (id: Id, theme: string) => {
+    const newSingleTheme = wordList.map((item: any) => {
+      if (item.id !== id) return item;
+      return { ...item, theme };
+    });
+    setSingleTheme(theme);
+    setWordList(newSingleTheme);
+  };
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
@@ -263,6 +286,34 @@ const TextAppearance = ({ show }: any) => {
         <TextAndContentOverlay>
           Font family:
           <BtnDropdown />
+        </TextAndContentOverlay>
+        <TextAndContentOverlay>
+          Themes:
+          <Dropdown
+            name={theme || "Choose your theme"}
+            className="border border-transparent bg-typingBgControlMenu text-white"
+            activeClassName="border-b-typingColorActive"
+          >
+            <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
+              {themeList.map((item, index) => (
+                <ThemeItem
+                  key={index}
+                  item={item}
+                  index={index}
+                  currentTheme={changeFor === "single" ? singleTheme : theme}
+                  onClick={() => {
+                    if (changeFor === "global") {
+                      setTheme(item);
+                    }
+                    if (changeFor === "single") {
+                      updateSingleTheme(singleTypingList.id, item);
+                    }
+                    setThemePopup(false);
+                  }}
+                ></ThemeItem>
+              ))}
+            </div>
+          </Dropdown>
         </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
