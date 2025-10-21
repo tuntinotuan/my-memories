@@ -294,13 +294,14 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
             className="border border-transparent bg-typingBgControlMenu text-white"
             activeClassName="border-b-typingColorActive"
           >
-            <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
+            <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm px-1">
               {themeList.map((item, index) => (
                 <ThemeItem
                   key={index}
                   item={item}
                   index={index}
                   currentTheme={changeFor === "single" ? singleTheme : theme}
+                  className="rounded-none"
                   onClick={() => {
                     if (changeFor === "global") {
                       setTheme(item);
@@ -310,6 +311,7 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
                     }
                     setThemePopup(false);
                   }}
+                  onIconTick
                 ></ThemeItem>
               ))}
             </div>
