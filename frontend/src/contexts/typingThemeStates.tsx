@@ -9,6 +9,8 @@ const defaultValues = {
   setSingleTheme: (val: string) => {},
   themPopup: false,
   setThemePopup: (val: boolean) => {},
+  effectHoveredTheme: "",
+  setEffectHoveredTheme: (val: string) => {},
 };
 
 const TypingThemeContext = createContext(defaultValues);
@@ -21,6 +23,7 @@ export const TypingThemeProvider = ({
   const [theme, setTheme] = useState<string>("");
   const [singleTheme, setSingleTheme] = useState<string>("");
   const [themPopup, setThemePopup] = useState(false);
+  const [effectHoveredTheme, setEffectHoveredTheme] = useState("");
 
   useEffect(() => {
     const keyTheme = localStorage.getItem("typing-theme");
@@ -42,6 +45,8 @@ export const TypingThemeProvider = ({
         setThemePopup,
         singleTheme,
         setSingleTheme,
+        effectHoveredTheme,
+        setEffectHoveredTheme,
       }}
     >
       {children}

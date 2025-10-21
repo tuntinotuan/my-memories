@@ -52,6 +52,7 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
     setThemePopup,
     singleTheme,
     setSingleTheme,
+    setEffectHoveredTheme,
   } = useTypingTheme();
 
   const wordList: typingWordsTypes[] = [
@@ -311,6 +312,8 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
                     }
                     setThemePopup(false);
                   }}
+                  onHovered={() => setEffectHoveredTheme(item)}
+                  offHovered={() => setEffectHoveredTheme("")}
                   onIconTick
                 ></ThemeItem>
               ))}

@@ -7,6 +7,8 @@ type ThemeItemProps = {
   item: string;
   index?: number;
   onClick?: () => void;
+  offHovered?: () => void;
+  onHovered?: () => void;
   size?: number;
   className?: string;
   onIconTick?: boolean;
@@ -17,6 +19,8 @@ const ThemeItem = ({
   item,
   index,
   onClick,
+  onHovered,
+  offHovered,
   size = 16,
   className,
   onIconTick = false,
@@ -30,8 +34,9 @@ const ThemeItem = ({
   const isHovered = useHover(hoverRef);
   useEffect(() => {
     if (isHovered) {
-      onClick && onClick();
+      onHovered && onHovered();
     } else {
+      offHovered && offHovered();
     }
   }, [isHovered]);
 
