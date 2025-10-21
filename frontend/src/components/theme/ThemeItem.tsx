@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import GreenTickIcon from "../icons/GreenTickIcon";
+import { useHover } from "usehooks-ts";
 
 type ThemeItemProps = {
   currentTheme: string;
@@ -25,8 +26,18 @@ const ThemeItem = ({
     "bg-typingTextNormal",
     "bg-typingTextCorrect",
   ];
+  const hoverRef = useRef<HTMLDivElement>(null);
+  const isHovered = useHover(hoverRef);
+  useEffect(() => {
+    if (isHovered) {
+      onClick && onClick();
+    } else {
+    }
+  }, [isHovered]);
+
   return (
     <div
+      ref={hoverRef}
       tabIndex={index || -1 + 1}
       id={item === currentTheme ? "current-theme-active" : ""}
       className={`${item} flex items-center justify-between gap-1 bg-typingBg hover:scale-105 focus:scale-105 rounded-full transition-all ${
