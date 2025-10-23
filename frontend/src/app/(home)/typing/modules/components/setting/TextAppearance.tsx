@@ -202,7 +202,7 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} */}
       <div
-        className="relative flex justify-center flex-wrap transition-all"
+        className="relative flex justify-center transition-all"
         style={{ gap: wordGap }}
       >
         <TypingCursorNew
@@ -239,7 +239,7 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
           ></TypingWordNew>
         )}
       </div>
-      <div>
+      <div className="max-h-[300px] overflow-y-auto">
         <TextAndContentOverlay>
           Cursor shape:
           {cursorShapeList.map((item, index) => (

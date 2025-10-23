@@ -19,7 +19,7 @@ const PopupTypingSetting = ({ show, onClose }: PopupTypingSettingProps) => {
       width={700}
       onClick={onClose}
       scaleAnimate={false}
-      className={`${fontFamily?.code} ${effectHoveredTheme} bg-typingBg text-typingTextCorrect max-h-[600px]`}
+      className={`${fontFamily?.code} ${effectHoveredTheme} bg-typingBg text-typingTextCorrect max-h-[600px] !min-w-max`}
     >
       <TopControl onClose={onClose} title="Typing setting" />
       <Body onClose={onClose} show={show} />
