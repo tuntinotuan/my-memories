@@ -3,7 +3,7 @@ import GreenTickIcon from "@/components/icons/GreenTickIcon";
 import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 
-const BtnDropdown = () => {
+const BtnFontFamilyDropdown = () => {
   const fontFamilyList = [
     { name: "Roboto", code: "font-roboto" },
     { name: "Roboto Mono", code: "font-robotoMono" },
@@ -58,4 +58,4 @@ const BtnDropdown = () => {
   );
 };
 
-export default BtnDropdown;
+export default BtnFontFamilyDropdown;

@@ -20,15 +20,12 @@ import { useUpdateWordGap } from "../../../func/setting/useUpdateWordGap";
 import { useUpdateSettingCursorPosition } from "../../../func/setting/useUpdateSettingCursorPosition";
 import { useUpdateFirstTime } from "../../../func/setting/useUpdateFirstTime";
 import InputChangeFontsize from "./InputChangeFontsize";
-import BtnDropdown from "./BtnDropdown";
-import Dropdown from "@/components/dropdown/Dropdown";
-import { themeList } from "@/api/typing/typing.data.structure";
-import ThemeItem from "@/components/theme/ThemeItem";
-import { changeFor } from "@/components/popup/typing/PopupTypingTheme";
+import BtnFontFamilyDropdown from "./BtnFontFamilyDropdown";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
+import BtnThemeDropdown from "./BtnThemeDropdown";
 
-const TextAppearance = ({ show, changeFor = "global" }: any) => {
+const TextAppearance = ({ show }: any) => {
   const {
     rect,
     setRect,
@@ -40,20 +37,10 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
     wordGap,
     typingFontsizeX,
     setTypingFontsizeX,
-    fontFamily,
     setWordList,
-    singleTypingList,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
-  const {
-    theme,
-    setTheme,
-    themPopup,
-    setThemePopup,
-    singleTheme,
-    setSingleTheme,
-    setEffectHoveredTheme,
-  } = useTypingTheme();
+  const { setSingleTheme } = useTypingTheme();
 
   const wordList: typingWordsTypes[] = [
     {
@@ -181,14 +168,6 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
 
   useUpdateWordGap();
   useUpdateFirstTime(setFontsizeValue);
-  const updateSingleTheme = (id: Id, theme: string) => {
-    const newSingleTheme = wordList.map((item: any) => {
-      if (item.id !== id) return item;
-      return { ...item, theme };
-    });
-    setSingleTheme(theme);
-    setWordList(newSingleTheme);
-  };
 
   return (
     <TextBoxBorderOverlay className="w-full" title="Text appearance">
@@ -202,7 +181,7 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} */}
       <div
-        className="relative flex justify-center transition-all"
+        className="relative flex justify-center transition-all mx-10"
         style={{ gap: wordGap }}
       >
         <TypingCursorNew
@@ -286,39 +265,11 @@ const TextAppearance = ({ show, changeFor = "global" }: any) => {
         </TextAndContentOverlay>
         <TextAndContentOverlay>
           Font family:
-          <BtnDropdown />
+          <BtnFontFamilyDropdown />
         </TextAndContentOverlay>
         <TextAndContentOverlay>
           Themes:
-          <Dropdown
-            name={theme || "Choose your theme"}
-            className="border border-transparent bg-typingBgControlMenu text-white"
-            activeClassName="border-b-typingColorActive"
-          >
-            <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm px-1">
-              {themeList.map((item, index) => (
-                <ThemeItem
-                  key={index}
-                  item={item}
-                  index={index}
-                  currentTheme={changeFor === "single" ? singleTheme : theme}
-                  className="rounded-none"
-                  onClick={() => {
-                    if (changeFor === "global") {
-                      setTheme(item);
-                    }
-                    if (changeFor === "single") {
-                      updateSingleTheme(singleTypingList.id, item);
-                    }
-                    setThemePopup(false);
-                  }}
-                  onHovered={() => setEffectHoveredTheme(item)}
-                  offHovered={() => setEffectHoveredTheme("")}
-                  onIconTick
-                ></ThemeItem>
-              ))}
-            </div>
-          </Dropdown>
+          <BtnThemeDropdown />
         </TextAndContentOverlay>
       </div>
     </TextBoxBorderOverlay>
