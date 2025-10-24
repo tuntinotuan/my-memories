@@ -59,6 +59,8 @@ type defaltValuesType = {
   typingFontsizeX: FontSizeTypes;
   wordGap: number;
   fontFamily: any;
+  effectHoveredFontFamily: string;
+  setEffectHoveredFontFamily: (val: string) => void;
   setFontFamily: (val: any) => void;
   setWordGap: (val: number) => void;
   setTypingFontsize: (val: number) => void;
@@ -97,6 +99,8 @@ const defaultValues: defaltValuesType = {
   showPopupCreate: false,
   wordList: [],
   setWordList: () => {},
+  effectHoveredFontFamily: "",
+  setEffectHoveredFontFamily: () => {},
   typingListSetting: false,
   currentlyPickedSetting: { id: 0, title: "nothing", theme: "" },
   isCaplock: false,
@@ -187,6 +191,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     fontFamily: { name: "monospace", code: "monospace" },
   };
   const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>();
+  const [effectHoveredFontFamily, setEffectHoveredFontFamily] = useState("");
 
   // Fetch & update typingSetting localStorage
   useEffect(() => {
@@ -326,6 +331,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         typingFontsizeX,
         wordGap,
         fontFamily,
+        effectHoveredFontFamily,
+        setEffectHoveredFontFamily,
         setFontFamily,
         setWordGap,
         setTypingFontsize,
