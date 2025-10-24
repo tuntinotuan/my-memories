@@ -1,8 +1,7 @@
 import Dropdown from "@/components/dropdown/Dropdown";
 import GreenTickIcon from "@/components/icons/GreenTickIcon";
 import { useTyping } from "@/contexts/TypingStates";
-import React, { useEffect, useRef } from "react";
-import { useHover } from "usehooks-ts";
+import React from "react";
 
 const BtnFontFamilyDropdown = () => {
   const fontFamilyList = [
@@ -43,7 +42,7 @@ const BtnFontFamilyDropdown = () => {
   );
 };
 
-const FontFamilyItem = ({ font }: { font: any }) => {
+const FontFamilyItem = ({ font }: { font: { name: string; code: string } }) => {
   const { setEffectHoveredFontFamily, fontFamily, setFontFamily } = useTyping();
   return (
     <div

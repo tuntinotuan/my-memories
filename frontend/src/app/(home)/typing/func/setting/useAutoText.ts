@@ -39,6 +39,10 @@ export function useAutoText({
     fullText[number],
     `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
   );
+  const cursorNextWidth2 = getTextWidth(
+    fullText[number + 1],
+    `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+  );
 
   useEffect(() => {
     if (!show) return;
@@ -71,7 +75,7 @@ export function useAutoText({
         setValue((pre: any) => pre + fullText[number]);
         setCursorPosition((pre: any) => pre + cursorNextWidth);
         setCursorWidth(
-          fullText[number + 1] === " " ? wordGap : cursorNextWidth
+          fullText[number + 1] === " " ? wordGap : cursorNextWidth2
         );
         setCurrentText(fullText[number + 1]);
       } else {
@@ -79,7 +83,7 @@ export function useAutoText({
         setTypingWordIndex((pre: any) => pre + 1);
         setValue("");
         setCursorPosition((pre: any) => pre);
-        setCursorWidth(cursorNextWidth);
+        setCursorWidth(cursorNextWidth2);
         setCurrentText("");
       }
       setnumber((pre) => pre + 1);
