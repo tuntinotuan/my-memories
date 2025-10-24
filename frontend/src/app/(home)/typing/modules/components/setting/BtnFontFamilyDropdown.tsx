@@ -45,18 +45,8 @@ const BtnFontFamilyDropdown = () => {
 
 const FontFamilyItem = ({ font }: { font: any }) => {
   const { setEffectHoveredFontFamily, fontFamily, setFontFamily } = useTyping();
-  const hoverRef = useRef<HTMLDivElement>(null);
-  const isHovered = useHover(hoverRef);
-  // useEffect(() => {
-  //   if (isHovered) {
-  //     setEffectHoveredFontFamily(font.code);
-  //   } else {
-  //     setEffectHoveredFontFamily("");
-  //   }
-  // }, [isHovered]);
   return (
     <div
-      ref={hoverRef}
       key={font.name}
       className={`${
         font.code

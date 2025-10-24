@@ -32,13 +32,13 @@ const ThemeItem = ({
   ];
   const hoverRef = useRef<HTMLDivElement>(null);
   const isHovered = useHover(hoverRef);
-  useEffect(() => {
-    if (isHovered) {
-      onHovered && onHovered();
-    } else {
-      offHovered && offHovered();
-    }
-  }, [isHovered]);
+  // useEffect(() => {
+  //   if (isHovered) {
+  //     onHovered && onHovered();
+  //   } else {
+  //     offHovered && offHovered();
+  //   }
+  // }, [isHovered]);
 
   return (
     <div
@@ -55,6 +55,8 @@ const ThemeItem = ({
       onKeyDown={(e) => {
         if (e.key === "Enter") onClick && onClick();
       }}
+      onMouseEnter={onHovered}
+      onMouseLeave={offHovered}
     >
       <div className="flex item-center gap-1">
         {colorThreeCircles.map((item) => (
