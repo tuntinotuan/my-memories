@@ -37,10 +37,9 @@ const TextAppearance = ({ show }: any) => {
     wordGap,
     typingFontsizeX,
     setTypingFontsizeX,
-    setWordList,
+    effectHoveredFontFamily,
   } = useTyping();
   const { showTypingSetting } = useLayoutStates();
-  const { setSingleTheme } = useTypingTheme();
 
   const wordList: typingWordsTypes[] = [
     {
@@ -181,7 +180,7 @@ const TextAppearance = ({ show }: any) => {
       {/* {typingWordIndex > 0 && wordList[typingWordIndex - 1].word}
       {typingWordIndex} */}
       <div
-        className="relative flex justify-center transition-all mx-10"
+        className={`${effectHoveredFontFamily} relative flex justify-center transition-all mx-10`}
         style={{ gap: wordGap }}
       >
         <TypingCursorNew

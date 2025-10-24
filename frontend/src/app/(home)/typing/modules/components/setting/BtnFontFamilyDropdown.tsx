@@ -47,12 +47,13 @@ const FontFamilyItem = ({ font }: { font: any }) => {
   const { setEffectHoveredFontFamily, fontFamily, setFontFamily } = useTyping();
   const hoverRef = useRef<HTMLDivElement>(null);
   const isHovered = useHover(hoverRef);
-  useEffect(() => {
-    if (isHovered) {
-      setEffectHoveredFontFamily("");
-    } else {
-    }
-  }, [isHovered]);
+  // useEffect(() => {
+  //   if (isHovered) {
+  //     setEffectHoveredFontFamily(font.code);
+  //   } else {
+  //     setEffectHoveredFontFamily("");
+  //   }
+  // }, [isHovered]);
   return (
     <div
       ref={hoverRef}
@@ -63,6 +64,8 @@ const FontFamilyItem = ({ font }: { font: any }) => {
         fontFamily?.name === font.name ? "bg-typingBg font-bold" : ""
       }`}
       onClick={() => setFontFamily(font)}
+      onMouseEnter={() => setEffectHoveredFontFamily(font.code)}
+      onMouseLeave={() => setEffectHoveredFontFamily("")}
     >
       <p className="brightness-75">{font.name}</p>
       {fontFamily?.name === font.name && (
