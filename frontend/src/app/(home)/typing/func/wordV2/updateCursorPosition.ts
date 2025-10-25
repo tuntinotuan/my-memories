@@ -21,10 +21,17 @@ export function useUpdateCursorPosition(
     typingFontsize,
     typingFontsizeX,
     setTypingWordIndex,
+    fontFamily,
   } = useTyping();
   useEffect(() => {
     typingWordIndex < newArrWords.length &&
       setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
+    setCursorWidth(
+      getTextWidth(
+        newArrWords[typingWordIndex]?.word[0],
+        `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+      )
+    );
     if (rect) {
       setCursorPosition(rect.left + (moreCursorPosition || 0));
     }

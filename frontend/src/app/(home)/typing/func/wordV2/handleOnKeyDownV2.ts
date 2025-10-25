@@ -70,6 +70,12 @@ export function useKeyDownV2(
       setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
       setMoreCursorPosition(0);
+      // setCursorWidth(
+      //   getTextWidth(
+      //     newArrWords[typingWordIndex]?.word[0],
+      //     `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+      //   )
+      // );
 
       // words dynamic per row
       lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
@@ -99,6 +105,18 @@ export function useKeyDownV2(
         `${typingFontsize * typingFontsizeX}px`,
         fontFamily
       );
+    const cursorWidth = getTextWidth(
+      newArrWords[typingWordIndex]?.word[
+        value && value.length + 1 < newArrWords[typingWordIndex]?.word.length
+          ? value.length + 1
+          : 0
+      ],
+      `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+    );
+    const cursorWidthNew = getTextWidth(
+      newArrWords[typingWordIndex]?.word[value ? value.length - 1 : 0],
+      `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+    );
 
     const lastErrWordInArray =
       arrayOfErrPreWords.length > 0 &&
@@ -159,7 +177,7 @@ export function useKeyDownV2(
         value.length < newArrWords[typingWordIndex].word.length
       ) {
         setCursorPosition(cursorPosition + cursorPositionIncrease);
-        setCursorWidth(cursorPositionIncrease);
+        setCursorWidth(cursorWidthNew);
         setCurrentText(
           newArrWords[typingWordIndex].word.split("")[value.length + 1]
         );
