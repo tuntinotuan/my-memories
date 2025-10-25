@@ -1,4 +1,5 @@
 import PortalOverlay from "@/components/overlay/portal.overlay";
+import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 
 const BlockCursor = ({
@@ -13,6 +14,7 @@ const BlockCursor = ({
   transitionY,
   blockTextSize = "text-2xl",
 }: any) => {
+  const { fontFamily } = useTyping();
   return (
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
       <div
@@ -33,7 +35,7 @@ const BlockCursor = ({
         {showCursor && (
           <PortalOverlay>
             <p
-              className={`fixed z-[99999] flex items-center justify-center  transition-all text-typingTextCorrect`}
+              className={`${fontFamily?.code} fixed z-[99999] flex items-center justify-center  transition-all text-typingTextCorrect`}
               style={{
                 left: cursorPosition,
                 top: rect ? rect.bottom - transitionY : 0,
