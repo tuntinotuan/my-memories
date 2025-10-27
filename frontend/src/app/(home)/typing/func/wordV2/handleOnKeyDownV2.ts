@@ -114,7 +114,7 @@ export function useKeyDownV2(
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
     );
     const cursorWidthNew = getTextWidth(
-      newArrWords[typingWordIndex]?.word[value ? value.length - 1 : 0],
+      newArrWords[typingWordIndex]?.word[value ? value.length + 1 : 0],
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
     );
 
@@ -177,7 +177,9 @@ export function useKeyDownV2(
         value.length < newArrWords[typingWordIndex].word.length
       ) {
         setCursorPosition(cursorPosition + cursorPositionIncrease);
-        setCursorWidth(cursorWidthNew);
+        value.length + 1 === newArrWords[typingWordIndex]?.word.length
+          ? setCursorWidth(wordGap)
+          : setCursorWidth(cursorWidthNew);
         setCurrentText(
           newArrWords[typingWordIndex].word.split("")[value.length + 1]
         );
