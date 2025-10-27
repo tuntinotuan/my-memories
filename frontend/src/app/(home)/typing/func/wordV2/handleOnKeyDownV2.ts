@@ -114,7 +114,7 @@ export function useKeyDownV2(
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
     );
     const cursorWidthNew = getTextWidth(
-      newArrWords[typingWordIndex]?.word[value ? value.length + 1 : 0],
+      newArrWords[typingWordIndex]?.word[value ? value.length + 1 : 1],
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
     );
 
