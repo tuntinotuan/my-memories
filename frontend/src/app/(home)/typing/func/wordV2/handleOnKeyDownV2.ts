@@ -113,8 +113,12 @@ export function useKeyDownV2(
       ],
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
     );
-    const cursorWidthNew = getTextWidth(
+    const cursorWidthIncrease = getTextWidth(
       newArrWords[typingWordIndex]?.word[value ? value.length + 1 : 1],
+      `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+    );
+    const cursorWidthDecrease = getTextWidth(
+      newArrWords[typingWordIndex]?.word[value ? value.length - 1 : 1],
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
     );
 
@@ -154,8 +158,10 @@ export function useKeyDownV2(
         const newArr = arrayOfErrPreWords.slice(0, -1);
         setArrayOfErrPreWords(newArr);
       } else {
-        value.length > 0 &&
+        if (value.length > 0) {
           setCursorPosition((pre: any) => pre - cursorPositionDecrease);
+          setCursorWidth(cursorWidthDecrease);
+        }
         setCurrentText(
           newArrWords[typingWordIndex].word.split("")[
             value.length === 0 ? 0 : value.length - 1
@@ -179,7 +185,7 @@ export function useKeyDownV2(
         setCursorPosition(cursorPosition + cursorPositionIncrease);
         value.length + 1 === newArrWords[typingWordIndex]?.word.length
           ? setCursorWidth(wordGap)
-          : setCursorWidth(cursorWidthNew);
+          : setCursorWidth(cursorWidthIncrease);
         setCurrentText(
           newArrWords[typingWordIndex].word.split("")[value.length + 1]
         );
