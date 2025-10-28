@@ -105,14 +105,14 @@ export function useKeyDownV2(
         `${typingFontsize * typingFontsizeX}px`,
         fontFamily
       );
-    const cursorWidth = getTextWidth(
-      newArrWords[typingWordIndex]?.word[
-        value && value.length + 1 < newArrWords[typingWordIndex]?.word.length
-          ? value.length + 1
-          : 0
-      ],
-      `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
-    );
+    // const cursorWidth = getTextWidth(
+    //   newArrWords[typingWordIndex]?.word[
+    //     value && value.length + 1 < newArrWords[typingWordIndex]?.word.length
+    //       ? value.length + 1
+    //       : 0
+    //   ],
+    //   `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+    // );
     const cursorWidthIncrease = getTextWidth(
       newArrWords[typingWordIndex]?.word[value ? value.length + 1 : 1],
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
@@ -128,9 +128,25 @@ export function useKeyDownV2(
     const preOriginalErrorWord =
       typingWordIndex > 0 &&
       newArrWords[typingWordIndex - 1].word.slice(0, lastErrWordInArray.length);
+    const preOriginalErrorWordNew: string =
+      typingWordIndex > 0 &&
+      newArrWords[typingWordIndex - 1].word.slice(
+        0,
+        lastErrWordInArray.length + 1
+      );
     const newMoreCursorPosition = getTextWidth(
       preOriginalErrorWord,
       `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
+    );
+    const cursorWidthPreError = getTextWidth(
+      preOriginalErrorWordNew[preOriginalErrorWordNew.length - 1],
+      `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
+    );
+    console.log(
+      "cursorWidthPreError",
+      preOriginalErrorWordNew,
+      preOriginalErrorWordNew[preOriginalErrorWordNew.length - 1],
+      cursorWidthPreError
     );
     const newCaculate = typingFontsize * typingFontsizeX + wordGap;
 
@@ -153,6 +169,7 @@ export function useKeyDownV2(
         //
         setTypingWordIndex((pre: number) => pre - 1);
         setMoreCursorPosition(newMoreCursorPosition);
+        setCursorWidth(cursorWidthPreError);
         //
         setValue(lastErrWordInArray + lastErrWordInArray.at(-1));
         const newArr = arrayOfErrPreWords.slice(0, -1);
