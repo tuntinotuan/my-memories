@@ -8,13 +8,11 @@ export function useKeyDownV2(
   types: any,
   value: string,
   setValue: any,
-  setPreTypedWord: any,
   newArrWords: any,
   setCursorPosition: any,
   cursorPosition: any,
   setCursorWidth: any,
   setCurrentText: any,
-  preTypedWord: any,
   setMoreYTransition: any,
   lastInRowIndexes: any,
   rowCount: any,
@@ -62,22 +60,17 @@ export function useKeyDownV2(
       setShowResults
     );
 
-    // value is => " " (spacing)
+    // variables
+    const newCaculate = typingFontsize * typingFontsizeX + wordGap;
+    // variables
+
+    // value > 0 && is => " " (spacing)
     if (value.length > 0 && e.key === " ") {
-      setMoreYTransition(0);
-      setPreTypedWord(value);
-      // value !== wordList[typingWordIndex].word &&
-      //   setPreCursorPosition(cursorPosition);
-      setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
+      setMoreYTransition(0);
       setMoreCursorPosition(0);
       setCursorPreWidth(0);
-      // setCursorWidth(
-      //   getTextWidth(
-      //     newArrWords[typingWordIndex]?.word[0],
-      //     `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
-      //   )
-      // );
+      setTypingWordIndex((pre: number) => pre + 1);
 
       // words dynamic per row
       lastInRowIndexes.includes(typingWordIndex) && setRowTyped(rowTyped + 1);
@@ -87,7 +80,6 @@ export function useKeyDownV2(
         rowTyped > 0 &&
         rowTyped + 2 < rowCount
       ) {
-        const newCaculate = typingFontsize * typingFontsizeX + wordGap;
         setMoreYTransition(newCaculate);
         setHeightFlexible(heightFlexible + newCaculate);
       }
@@ -107,14 +99,7 @@ export function useKeyDownV2(
         `${typingFontsize * typingFontsizeX}px`,
         fontFamily
       );
-    // const cursorWidth = getTextWidth(
-    //   newArrWords[typingWordIndex]?.word[
-    //     value && value.length + 1 < newArrWords[typingWordIndex]?.word.length
-    //       ? value.length + 1
-    //       : 0
-    //   ],
-    //   `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
-    // );
+
     const cursorWidthIncrease = getTextWidth(
       newArrWords[typingWordIndex]?.word[value ? value.length + 1 : 1],
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
@@ -145,8 +130,6 @@ export function useKeyDownV2(
       `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
     );
 
-    const newCaculate = typingFontsize * typingFontsizeX + wordGap;
-
     // value is => length >= 0 && press "Backspace" key
     if (value.length >= 0 && e.key === "Backspace") {
       // Back previous error word
@@ -163,15 +146,16 @@ export function useKeyDownV2(
           }
           setRowTyped(rowTyped - 1);
         }
-        //
+        // update: index word typing, cursorPosition, cursorWidth are new
         setTypingWordIndex((pre: number) => pre - 1);
         setMoreCursorPosition(newMoreCursorPosition);
         setCursorPreWidth(cursorWidthPreError);
-        //
+        // update: value & pre array of error words
         setValue(lastErrWordInArray + lastErrWordInArray.at(-1));
         const newArr = arrayOfErrPreWords.slice(0, -1);
         setArrayOfErrPreWords(newArr);
       } else {
+        // value length is better than 0 and press 'Backspace' key
         if (value.length > 0) {
           setCursorPosition((pre: any) => pre - cursorPositionDecrease);
           setCursorWidth(cursorWidthDecrease);
