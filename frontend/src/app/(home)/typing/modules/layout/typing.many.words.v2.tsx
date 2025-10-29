@@ -61,6 +61,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [preTypedWord, setPreTypedWord] = useState("");
   const [moreYTransition, setMoreYTransition] = useState(0);
   const [moreCursorPosition, setMoreCursorPosition] = useState(0);
+  const [cursorPreWidth, setCursorPreWidth] = useState(0);
   const [arrayOfErrPreWords, setArrayOfErrPreWords] = useState<string[]>([]);
   const { hydrated, setHydrated } = useHydrate();
 
@@ -99,7 +100,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     arrayOfErrPreWords,
     wordGap,
     typingFontsizeX,
-    typingFontsize
+    typingFontsize,
+    setCursorPreWidth
   );
   useUpdateCursorPosition(
     newArrWords,
@@ -111,7 +113,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setHydrated,
     setValue,
     setHeightFlexible,
-    setRowTyped
+    setRowTyped,
+    cursorPreWidth
   );
   useTimeShowResults(types);
   useResetTypingStatesAfterWordOrTimeSettingChangeV2(

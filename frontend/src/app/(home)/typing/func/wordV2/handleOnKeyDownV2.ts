@@ -27,7 +27,8 @@ export function useKeyDownV2(
   arrayOfErrPreWords: any,
   wordGap: any,
   typingFontsizeX: any,
-  typingFontsize: any
+  typingFontsize: any,
+  setCursorPreWidth: any
 ) {
   const {
     typingWordIndex,
@@ -70,6 +71,7 @@ export function useKeyDownV2(
       setTypingWordIndex((pre: number) => pre + 1);
       setValue("");
       setMoreCursorPosition(0);
+      setCursorPreWidth(0);
       // setCursorWidth(
       //   getTextWidth(
       //     newArrWords[typingWordIndex]?.word[0],
@@ -142,12 +144,7 @@ export function useKeyDownV2(
       preOriginalErrorWordNew[preOriginalErrorWordNew.length - 1],
       `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
     );
-    console.log(
-      "cursorWidthPreError",
-      preOriginalErrorWordNew,
-      preOriginalErrorWordNew[preOriginalErrorWordNew.length - 1],
-      cursorWidthPreError
-    );
+
     const newCaculate = typingFontsize * typingFontsizeX + wordGap;
 
     // value is => length >= 0 && press "Backspace" key
@@ -169,7 +166,7 @@ export function useKeyDownV2(
         //
         setTypingWordIndex((pre: number) => pre - 1);
         setMoreCursorPosition(newMoreCursorPosition);
-        setCursorWidth(cursorWidthPreError);
+        setCursorPreWidth(cursorWidthPreError);
         //
         setValue(lastErrWordInArray + lastErrWordInArray.at(-1));
         const newArr = arrayOfErrPreWords.slice(0, -1);

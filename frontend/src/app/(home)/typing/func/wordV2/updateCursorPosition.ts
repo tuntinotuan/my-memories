@@ -13,7 +13,8 @@ export function useUpdateCursorPosition(
   setHydrated?: any,
   setValue?: any,
   setHeightFlexible?: any,
-  setRowTyped?: any
+  setRowTyped?: any,
+  cursorPreWidth?: any
 ) {
   const {
     typingSettingLocal,
@@ -27,10 +28,12 @@ export function useUpdateCursorPosition(
     typingWordIndex < newArrWords.length &&
       setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
     setCursorWidth(
-      getTextWidth(
-        newArrWords[typingWordIndex]?.word[0],
-        `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
-      )
+      cursorPreWidth > 0
+        ? cursorPreWidth
+        : getTextWidth(
+            newArrWords[typingWordIndex]?.word[0],
+            `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+          )
     );
     if (rect) {
       setCursorPosition(rect.left + (moreCursorPosition || 0));
