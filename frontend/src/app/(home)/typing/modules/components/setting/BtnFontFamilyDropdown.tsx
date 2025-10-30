@@ -34,8 +34,8 @@ const BtnFontFamilyDropdown = () => {
       activeClassName="border-b-typingColorActive"
     >
       <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
-        {fontFamilyList.map((item) => (
-          <FontFamilyItem font={item}></FontFamilyItem>
+        {fontFamilyList.map((item, index) => (
+          <FontFamilyItem key={index} font={item}></FontFamilyItem>
         ))}
       </div>
     </Dropdown>
