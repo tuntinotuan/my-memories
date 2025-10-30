@@ -27,14 +27,15 @@ export function useUpdateCursorPosition(
   useEffect(() => {
     typingWordIndex < newArrWords.length &&
       setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
-    setCursorWidth(
-      cursorPreWidth > 0
-        ? cursorPreWidth
-        : getTextWidth(
-            newArrWords[typingWordIndex]?.word[0],
-            `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
-          )
-    );
+    setCursorWidth &&
+      setCursorWidth(
+        cursorPreWidth > 0
+          ? cursorPreWidth
+          : getTextWidth(
+              newArrWords[typingWordIndex]?.word[0],
+              `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+            )
+      );
     if (rect) {
       setCursorPosition(rect.left + (moreCursorPosition || 0));
     }
