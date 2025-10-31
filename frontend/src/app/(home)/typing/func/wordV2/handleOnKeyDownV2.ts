@@ -37,7 +37,6 @@ export function useKeyDownV2(
     setIsCountDown,
     fontFamily,
     hideOverlay,
-    setHideOverlay,
   } = useTyping();
   const handleOnKeyDown = (e: any) => {
     if (!hideOverlay) {
@@ -99,7 +98,6 @@ export function useKeyDownV2(
         `${typingFontsize * typingFontsizeX}px`,
         fontFamily
       );
-
     const cursorWidthIncrease = getTextWidth(
       newArrWords[typingWordIndex]?.word[value ? value.length + 1 : 1],
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
@@ -112,21 +110,23 @@ export function useKeyDownV2(
     const lastErrWordInArray =
       arrayOfErrPreWords.length > 0 &&
       arrayOfErrPreWords[arrayOfErrPreWords.length - 1];
+    // caculator pre cursorPosition
     const preOriginalErrorWord =
       typingWordIndex > 0 &&
       newArrWords[typingWordIndex - 1].word.slice(0, lastErrWordInArray.length);
-    const preOriginalErrorWordNew: string =
+    const newMoreCursorPosition = getTextWidth(
+      preOriginalErrorWord,
+      `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
+    );
+    // caculator pre cursorWidth
+    const preOriginalErrorWidthWord: string =
       typingWordIndex > 0 &&
       newArrWords[typingWordIndex - 1].word.slice(
         0,
         lastErrWordInArray.length + 1
       );
-    const newMoreCursorPosition = getTextWidth(
-      preOriginalErrorWord,
-      `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
-    );
     const cursorWidthPreError = getTextWidth(
-      preOriginalErrorWordNew[preOriginalErrorWordNew.length - 1],
+      preOriginalErrorWidthWord[preOriginalErrorWidthWord.length - 1],
       `${typingFontsize * typingFontsizeX}px ${fontFamily.name}`
     );
 

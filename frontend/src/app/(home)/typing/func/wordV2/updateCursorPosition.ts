@@ -51,12 +51,5 @@ export function useUpdateCursorPosition(
         setHeightFlexible,
         setRowTyped,
       });
-    setCursorWidth &&
-      setCursorWidth(
-        getTextWidth(
-          newArrWords[typingWordIndex]?.word?.split("")[0],
-          `${typingFontsize * typingFontsizeX}px monospace`
-        )
-      );
-  }, [typingFontsizeX]);
+  }, [typingFontsizeX, fontFamily]);
 }

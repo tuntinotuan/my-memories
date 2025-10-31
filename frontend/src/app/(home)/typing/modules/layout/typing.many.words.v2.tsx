@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -58,7 +58,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [cursorWidth, setCursorWidth] = useState(14);
   const [currentText, setCurrentText] = useState("");
-  const [preTypedWord, setPreTypedWord] = useState("");
   const [moreYTransition, setMoreYTransition] = useState(0);
   const [moreCursorPosition, setMoreCursorPosition] = useState(0);
   const [cursorPreWidth, setCursorPreWidth] = useState(0);
@@ -128,7 +127,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const caculateHeightWordBox =
     typingFontsizeX * typingFontsize * 3 + wordGap * 2;
   if (!hydrated) return null;
-  console.log("arrayOfErrPreWords", arrayOfErrPreWords);
   return (
     <>
       {/* {rowCount} | {rowTyped} | {typingWordIndex}| 
