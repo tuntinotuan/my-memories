@@ -1,5 +1,6 @@
 import Dropdown from "@/components/dropdown/Dropdown";
 import GreenTickIcon from "@/components/icons/GreenTickIcon";
+import { useNotify } from "@/contexts/notifyStates";
 import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 
@@ -44,6 +45,8 @@ const BtnFontFamilyDropdown = () => {
 
 const FontFamilyItem = ({ font }: { font: { name: string; code: string } }) => {
   const { setEffectHoveredFontFamily, fontFamily, setFontFamily } = useTyping();
+  useTyping();
+  const { setActiveSaved, setTitle } = useNotify();
   return (
     <div
       key={font.name}
@@ -52,7 +55,11 @@ const FontFamilyItem = ({ font }: { font: { name: string; code: string } }) => {
       } flex items-center justify-between p-2 hover:bg-typingColorActive transition-all last:rounded-b-md ${
         fontFamily?.name === font.name ? "bg-typingBg font-bold" : ""
       }`}
-      onClick={() => setFontFamily(font)}
+      onClick={() => {
+        setFontFamily(font);
+        setActiveSaved(true);
+        setTitle("Saved");
+      }}
       onMouseEnter={() => setEffectHoveredFontFamily(font.code)}
       onMouseLeave={() => setEffectHoveredFontFamily("")}
     >
