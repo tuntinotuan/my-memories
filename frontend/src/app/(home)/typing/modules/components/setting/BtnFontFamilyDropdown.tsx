@@ -39,14 +39,24 @@ const BtnFontFamilyDropdown = () => {
     >
       <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
         {fontFamilyList.map((item, index) => (
-          <FontFamilyItem key={index} font={item}></FontFamilyItem>
+          <FontFamilyItem
+            key={index}
+            font={item}
+            setIsActive={setIsActive}
+          ></FontFamilyItem>
         ))}
       </div>
     </Dropdown>
   );
 };
 
-const FontFamilyItem = ({ font }: { font: { name: string; code: string } }) => {
+const FontFamilyItem = ({
+  font,
+  setIsActive,
+}: {
+  font: { name: string; code: string };
+  setIsActive: any;
+}) => {
   const { setEffectHoveredFontFamily, fontFamily, setFontFamily } = useTyping();
   useTyping();
   const { setActiveSaved, setTitle } = useNotify();
@@ -62,6 +72,7 @@ const FontFamilyItem = ({ font }: { font: { name: string; code: string } }) => {
         setFontFamily(font);
         setActiveSaved(true);
         setTitle("Saved");
+        setIsActive(false);
       }}
       onMouseEnter={() => setEffectHoveredFontFamily(font.code)}
       onMouseLeave={() => setEffectHoveredFontFamily("")}
