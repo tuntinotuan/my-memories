@@ -52,6 +52,7 @@ const BtnThemeDropdown = ({ changeFor = "global" }: any) => {
                 updateSingleTheme(singleTypingList.id, item);
               }
               setThemePopup(false);
+              setIsActive(false);
             }}
             onHovered={() => setEffectHoveredTheme(item)}
             offHovered={() => setEffectHoveredTheme("")}
