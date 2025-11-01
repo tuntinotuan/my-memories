@@ -2,6 +2,7 @@ import { themeList } from "@/api/typing/typing.data.structure";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import Dropdown from "@/components/dropdown/Dropdown";
 import ThemeItem from "@/components/theme/ThemeItem";
+import { useNotify } from "@/contexts/notifyStates";
 import { useTyping } from "@/contexts/TypingStates";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import React, { useState } from "react";
@@ -18,6 +19,7 @@ const BtnThemeDropdown = ({ changeFor = "global" }: any) => {
   } = useTypingTheme();
   const { wordList, setWordList, singleTypingList } = useTyping();
   const [isActive, setIsActive] = useState(false);
+  const { setActiveSaved, setTitle } = useNotify();
 
   const updateSingleTheme = (id: Id, theme: string) => {
     const newSingleTheme = wordList.map((item: any) => {
@@ -30,7 +32,9 @@ const BtnThemeDropdown = ({ changeFor = "global" }: any) => {
 
   return (
     <Dropdown
-      name={theme || "Choose your theme"}
+      name={
+        theme.charAt(0).toUpperCase() + theme.slice(1) || "Choose your theme"
+      }
       className="border border-transparent bg-typingBgControlMenu text-white"
       activeClassName="border-b-typingColorActive"
       isActive={isActive}
@@ -53,6 +57,8 @@ const BtnThemeDropdown = ({ changeFor = "global" }: any) => {
               }
               setThemePopup(false);
               setIsActive(false);
+              setActiveSaved(true);
+              setTitle("Saved");
             }}
             onHovered={() => setEffectHoveredTheme(item)}
             offHovered={() => setEffectHoveredTheme("")}
