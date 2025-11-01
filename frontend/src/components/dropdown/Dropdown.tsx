@@ -7,11 +7,15 @@ const Dropdown = ({
   className,
   activeClassName,
   name,
+  isActive,
+  setIsActive,
 }: {
   children: React.ReactNode;
   className?: string;
   activeClassName?: string;
   name: string;
+  isActive: boolean;
+  setIsActive: (val: boolean) => void;
 }) => {
   const hoverRef = useRef<HTMLDivElement>(null);
   const [rect, setRect] = useState<DOMRect>();
@@ -20,6 +24,8 @@ const Dropdown = ({
     if (hoverRef.current) {
       setRect(hoverRef.current.getBoundingClientRect());
     }
+    setIsActive && setIsActive(isHovered);
+    // isHovered ? setIsActive(true) : setIsActive(false);
   }, [isHovered]);
 
   return (
@@ -37,7 +43,7 @@ const Dropdown = ({
           }`}
           fontSize="small"
         ></ArrowDownIcon>
-        <DropdownShowContent rect={rect} isHovered={isHovered}>
+        <DropdownShowContent rect={rect} isHovered={isActive}>
           {children}
         </DropdownShowContent>
       </div>

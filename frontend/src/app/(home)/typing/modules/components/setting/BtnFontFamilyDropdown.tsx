@@ -2,7 +2,7 @@ import Dropdown from "@/components/dropdown/Dropdown";
 import GreenTickIcon from "@/components/icons/GreenTickIcon";
 import { useNotify } from "@/contexts/notifyStates";
 import { useTyping } from "@/contexts/TypingStates";
-import React from "react";
+import React, { useState } from "react";
 
 const BtnFontFamilyDropdown = () => {
   const fontFamilyList = [
@@ -28,11 +28,14 @@ const BtnFontFamilyDropdown = () => {
     { name: "Courier Prime", code: "font-courierPrime" },
   ];
   const { fontFamily } = useTyping();
+  const [isActive, setIsActive] = useState(false);
   return (
     <Dropdown
       name={fontFamily?.name || "Choose your fontsize"}
       className="border border-transparent bg-typingBgControlMenu text-white"
       activeClassName="border-b-typingColorActive"
+      isActive={isActive}
+      setIsActive={setIsActive}
     >
       <div className="max-h-48 bg-typingBgControlMenu rounded-b-md overflow-y-auto [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-typingBg [&::-webkit-scrollbar-thumb]:bg-typingColorActive [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-thumb]:rounded-sm">
         {fontFamilyList.map((item, index) => (
