@@ -1,7 +1,7 @@
 import { useTyping } from "@/contexts/TypingStates";
 import { calculatePositionForCursor } from "../wordOlderV1/calculatePositionForCursor";
 import { startTyping } from "../wordOlderV1/startTyping";
-import { showWordResultsWhenTypedLastWord } from "../wordOlderV1/wordResults";
+import { useShowWordResultsWhenTypedLastWord } from "../wordOlderV1/wordResults";
 import { getTextWidth } from "@/utils/stringFs";
 
 export function useKeyDownV2(
@@ -38,6 +38,16 @@ export function useKeyDownV2(
     fontFamily,
     hideOverlay,
   } = useTyping();
+
+  useShowWordResultsWhenTypedLastWord(
+    types,
+    newArrWords,
+    value,
+    typingWordIndex,
+    setSecondsOfManyWords,
+    setShowResults
+  );
+
   const handleOnKeyDown = (e: any) => {
     if (!hideOverlay) {
       return null;
@@ -49,15 +59,6 @@ export function useKeyDownV2(
       setIsCountDown
     );
     setCursorIsTyping(true);
-
-    showWordResultsWhenTypedLastWord(
-      types,
-      newArrWords,
-      value,
-      typingWordIndex,
-      setSecondsOfManyWords,
-      setShowResults
-    );
 
     // variables
     const newCaculate = typingFontsize * typingFontsizeX + wordGap;
