@@ -16,6 +16,7 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
     setIsCountDown,
     resetCountDownIsInitial,
     typingSettingLocal,
+    setCursorIsTyping,
   } = useTyping();
   const { hydrated, setHydrated } = useHydrate();
   if (!hydrated) return null; // or a skeleton/placeholder
@@ -49,6 +50,7 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
           setSecondsOfManyWords(false);
           resetCountDownIsInitial();
           setIsCountDown(false);
+          setCursorIsTyping(false);
         }}
       ></TypingRestart>
     </div>

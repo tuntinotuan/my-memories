@@ -17,6 +17,7 @@ export const TypingResults = () => {
     resetCountDownIsInitial,
     typingStyles,
     wordTime,
+    setCursorIsTyping,
   } = useTyping();
   const { wpm, acc, quantityCorrect, quantityWrong } =
     typingStyles === "words"
@@ -65,6 +66,7 @@ export const TypingResults = () => {
           resetRunningManyWords();
           resetCountDownIsInitial();
           setIsCountDown(false);
+          setCursorIsTyping(false);
         }}
         className="flex-none"
       ></TypingRestart>
