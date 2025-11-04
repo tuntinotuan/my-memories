@@ -37,6 +37,8 @@ export function useKeyDownV2(
     setIsCountDown,
     fontFamily,
     hideOverlay,
+    setAutoAnimateState,
+    resetSecondsOfAutoAnimate,
   } = useTyping();
 
   useShowWordResultsWhenTypedLastWord(
@@ -59,6 +61,8 @@ export function useKeyDownV2(
       setIsCountDown
     );
     setCursorIsTyping(true);
+    setAutoAnimateState(true);
+    resetSecondsOfAutoAnimate();
 
     // variables
     const newCaculate = typingFontsize * typingFontsizeX + wordGap;

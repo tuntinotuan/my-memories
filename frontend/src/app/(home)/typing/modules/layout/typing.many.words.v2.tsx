@@ -13,6 +13,7 @@ import { useHydrate } from "../../func/useHydrate";
 import { useResetTypingStatesAfterWordOrTimeSettingChangeV2 } from "../../func/wordV2/resetAfterWordOrTimeSettingChangeV2";
 import { useKeyDownV2 } from "../../func/wordV2/handleOnKeyDownV2";
 import { useUpdateCursorPosition } from "../../func/wordV2/updateCursorPosition";
+import { useAutoAnimateTyping } from "../../func/wordOlderV1/autoAnimateTyping";
 
 type TypingManyWordsV2Props = {
   types: TypeOfTypingManyWordProps;
@@ -33,6 +34,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     wordGap,
     typingFontsizeX,
     typingFontsize,
+    secondsOfAutoAnimate,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -114,6 +116,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     cursorPreWidth
   );
   useTimeShowResults(types);
+  useAutoAnimateTyping();
   useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     types,
     refWords,
@@ -135,6 +138,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
         <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-red-600 animate-fireworkTail"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-0 rounded-full bg-red-600 animate-fireworkExplode"></div>
       </div>         */}
+      {/* {secondsOfAutoAnimate} */}
       <TypingKeyboardInput
         id="typingKeyboardId"
         hiddenInput

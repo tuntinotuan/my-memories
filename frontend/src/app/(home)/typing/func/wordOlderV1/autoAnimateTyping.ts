@@ -1,7 +1,7 @@
 import { useTyping } from "@/contexts/TypingStates";
 import { useEffect } from "react";
 
-export function useAutoAnimateTyping(types: any) {
+export function useAutoAnimateTyping() {
   const {
     secondsOfAutoAnimate,
     setAutoAnimateState,
@@ -15,5 +15,5 @@ export function useAutoAnimateTyping(types: any) {
       resetSecondsOfAutoAnimate();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [secondsOfAutoAnimate]);
 }
