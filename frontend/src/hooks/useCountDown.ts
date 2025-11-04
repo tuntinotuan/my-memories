@@ -1,7 +1,7 @@
 import { WordTimeType } from "@/app/(home)/typing/modules/types";
 import { useEffect, useState } from "react";
 
-export function useCountDown(initialTiming: WordTimeType) {
+export function useCountDown(initialTiming: number) {
   const [seconds, setSeconds] = useState<number>(initialTiming);
   const [isCountDown, setIsCountDown] = useState<boolean>(false);
 

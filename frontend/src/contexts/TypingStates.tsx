@@ -43,6 +43,9 @@ type defaltValuesType = {
   setSecondsOfManyWords: (val: boolean) => void;
   typingListSetting: boolean;
   typingFullScreen: boolean;
+  secondsOfAutoAnimate: number;
+  setAutoAnimateState: (val: boolean) => void;
+  resetSecondsOfAutoAnimate: () => void;
   setTypingFullScreen: (val: boolean) => void;
   setTypingListSetting: (val: boolean) => void;
   setCursorIsTyping: (val: boolean) => void;
@@ -114,6 +117,9 @@ const defaultValues: defaltValuesType = {
   typingFontsizeX: makeFraction(1),
   wordGap: 14,
   fontFamily: "monospace",
+  secondsOfAutoAnimate: 5,
+  setAutoAnimateState: () => {},
+  resetSecondsOfAutoAnimate: () => {},
   setFontFamily: () => {},
   setWordGap: () => {},
   setTypingFontsize: () => {},
@@ -159,6 +165,11 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     setIsCountDown,
     resetCountDownIsInitial,
   } = useCountDown(wordTime);
+  const {
+    seconds: secondsOfAutoAnimate,
+    setIsCountDown: setAutoAnimateState,
+    resetCountDownIsInitial: resetSecondsOfAutoAnimate,
+  } = useCountDown(5);
   const [wordApi, setWordApi] = useState<[]>([]);
   const [showPopupCreate, setShowPopupCreate] = useState(false);
   const [wordList, setWordList] = useState<any>([]);
@@ -332,6 +343,9 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         wordGap,
         fontFamily,
         effectHoveredFontFamily,
+        secondsOfAutoAnimate,
+        setAutoAnimateState,
+        resetSecondsOfAutoAnimate,
         setEffectHoveredFontFamily,
         setFontFamily,
         setWordGap,
