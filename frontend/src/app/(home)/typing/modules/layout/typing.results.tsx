@@ -35,6 +35,7 @@ export const TypingResults = () => {
 
   return (
     <div className="mx-auto h-full flex flex-col justify-center gap-2 text-typingTextNormal">
+      {`${wpm} ${acc} ${quantityCorrect} ${quantityWrong}`}
       <span className="text-3xl">wpm</span>
       <MyTooltip
         contents={

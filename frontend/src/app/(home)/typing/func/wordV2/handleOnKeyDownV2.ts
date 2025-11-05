@@ -41,14 +41,14 @@ export function useKeyDownV2(
     resetSecondsOfAutoAnimate,
   } = useTyping();
 
-  useShowWordResultsWhenTypedLastWord(
-    types,
-    newArrWords,
-    value,
-    typingWordIndex,
-    setSecondsOfManyWords,
-    setShowResults
-  );
+  // useShowWordResultsWhenTypedLastWord(
+  //   types,
+  //   newArrWords,
+  //   value,
+  //   typingWordIndex,
+  //   setSecondsOfManyWords,
+  //   setShowResults
+  // );
 
   const handleOnKeyDown = (e: any) => {
     if (!hideOverlay) {
@@ -60,10 +60,16 @@ export function useKeyDownV2(
       setSecondsOfManyWords,
       setIsCountDown
     );
-    setCursorIsTyping(true);
     setAutoAnimateState(true);
     resetSecondsOfAutoAnimate();
-
+    if (
+      types === "words" &&
+      typingWordIndex + 1 === newArrWords.length &&
+      value === newArrWords[typingWordIndex]?.word
+    ) {
+      setSecondsOfManyWords(false);
+      setShowResults(true);
+    }
     // variables
     const newCaculate = typingFontsize * typingFontsizeX + wordGap;
     // variables

@@ -22,7 +22,8 @@ export function useShowWordResultsWhenTypedLastWord(
     if (
       types === "words" &&
       countNextWord + 1 === newArrWords.length &&
-      text === newArrWords[countNextWord]?.word
+      text === newArrWords[countNextWord]?.word &&
+      text
     ) {
       setSecondsOfManyWords(false);
       setShowResults(true);
