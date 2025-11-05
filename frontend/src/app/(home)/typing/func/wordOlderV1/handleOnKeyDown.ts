@@ -1,6 +1,6 @@
 import { useTyping } from "@/contexts/TypingStates";
 import { TypeOfTypingManyWordProps } from "../../modules/types";
-import { showWordResultsWhenTypedLastWord } from "./wordResults";
+import { useShowWordResultsWhenTypedLastWord } from "./wordResults";
 import { startTyping } from "./startTyping";
 import { cursorPositionPerTyped } from "./cursorPositionPerTyped";
 import { finishedPerWord } from "./finishedPerWord";
@@ -28,21 +28,21 @@ export function useKeyDown(
     setIsCountDown,
     fontFamily,
   } = useTyping();
+
+  useShowWordResultsWhenTypedLastWord(
+    types,
+    newArrWords,
+    text,
+    typingWordIndex,
+    setSecondsOfManyWords,
+    setShowResults
+  );
   const handleOnKeyDown = (e: any) => {
     startTyping(
       types,
       setCursorIsTyping,
       setSecondsOfManyWords,
       setIsCountDown
-    );
-
-    showWordResultsWhenTypedLastWord(
-      types,
-      newArrWords,
-      text,
-      typingWordIndex,
-      setSecondsOfManyWords,
-      setShowResults
     );
 
     finishedPerWord(

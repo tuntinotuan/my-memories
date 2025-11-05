@@ -116,7 +116,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     cursorPreWidth
   );
   useTimeShowResults(types);
-  useAutoAnimateTyping();
+  // useAutoAnimateTyping();
   useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     types,
     refWords,
