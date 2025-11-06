@@ -24,7 +24,8 @@ export default function TypingPage() {
         <TypingHeaderMenu></TypingHeaderMenu>
       )}
       {showResults && <TypingResults></TypingResults>}
-      {true && <TypingContent data={typingwords}></TypingContent>}
+      {/* {!showResults && <TypingContent data={typingwords}></TypingContent>} */}
+      <TypingContent data={typingwords} show={!showResults}></TypingContent>
     </div>
   );
 }

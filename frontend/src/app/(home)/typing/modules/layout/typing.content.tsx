@@ -7,7 +7,13 @@ import { useHydrate } from "../../func/useHydrate";
 import { TypingManyWordsV2 } from "./typing.many.words.v2";
 import { TypingOnlyAWordV2 } from "./typing.only.a.word.v2";
 
-export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
+export const TypingContent = ({
+  data,
+  show = true,
+}: {
+  data: typingWordsTypes[];
+  show?: boolean;
+}) => {
   const {
     setHideOverlay,
     setShowResults,
@@ -20,13 +26,14 @@ export const TypingContent = ({ data }: { data: typingWordsTypes[] }) => {
   } = useTyping();
   const { hydrated, setHydrated } = useHydrate();
   if (!hydrated) return null; // or a skeleton/placeholder
+  //  ${show ? "visible backdrop-blur-sm" : "invisible"}
   return (
     <div
       className={`w-full h-full flex flex-col items-center gap-4 overflow-hidden ${
         typingSettingLocal?.typingStyles === "combine"
           ? "justify-center"
           : "justify-start"
-      }`}
+      } ${show ? "visible" : "invisible fixed"}`}
     >
       <TypingViewAmountOrTime />
       {typingSettingLocal?.typingStyles === "time" && (

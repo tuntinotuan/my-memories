@@ -34,7 +34,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     wordGap,
     typingFontsizeX,
     typingFontsize,
-    secondsOfAutoAnimate,
+    showResults,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -116,7 +116,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     cursorPreWidth
   );
   useTimeShowResults(types);
-  // useAutoAnimateTyping();
+  useAutoAnimateTyping();
   useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     types,
     refWords,
@@ -189,7 +189,9 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
           ))}
         </div>
       </div>
-      <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
+      {!showResults && (
+        <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
+      )}
     </>
   );
 };
