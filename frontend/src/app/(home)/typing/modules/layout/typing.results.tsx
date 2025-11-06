@@ -18,6 +18,7 @@ export const TypingResults = () => {
     typingStyles,
     wordTime,
     setCursorIsTyping,
+    setResetTyping,
   } = useTyping();
   const { wpm, acc, quantityCorrect, quantityWrong } =
     typingStyles === "words"
@@ -35,7 +36,7 @@ export const TypingResults = () => {
 
   return (
     <div className="mx-auto h-full flex flex-col justify-center gap-2 text-typingTextNormal">
-      {`${wpm} ${acc} ${quantityCorrect} ${quantityWrong}`}
+      {/* {`${wpm} ${acc} ${quantityCorrect} ${quantityWrong}`} */}
       <span className="text-3xl">wpm</span>
       <MyTooltip
         contents={
@@ -62,6 +63,10 @@ export const TypingResults = () => {
       </MyTooltip>
       <TypingRestart
         onRestart={() => {
+          setResetTyping(false);
+          setTimeout(() => {
+            setResetTyping(true);
+          }, 0);
           setShowResults(false);
           setHideOverlay(true);
           resetRunningManyWords();

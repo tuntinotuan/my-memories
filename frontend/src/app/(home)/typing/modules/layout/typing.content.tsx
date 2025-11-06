@@ -23,9 +23,11 @@ export const TypingContent = ({
     resetCountDownIsInitial,
     typingSettingLocal,
     setCursorIsTyping,
+    resetTyping,
+    setResetTyping,
   } = useTyping();
-  const { hydrated, setHydrated } = useHydrate();
-  if (!hydrated) return null; // or a skeleton/placeholder
+  // const { hydrated, setHydrated } = useHydrate();
+  if (!resetTyping) return null; // or a skeleton/placeholder
   //  ${show ? "visible backdrop-blur-sm" : "invisible"}
   return (
     <div
@@ -33,7 +35,7 @@ export const TypingContent = ({
         typingSettingLocal?.typingStyles === "combine"
           ? "justify-center"
           : "justify-start"
-      } ${show ? "visible" : "invisible fixed"}`}
+      } ${show ? "visible opacity-100" : "opacity-0 invisible fixed"}`}
     >
       <TypingViewAmountOrTime />
       {typingSettingLocal?.typingStyles === "time" && (
@@ -47,11 +49,11 @@ export const TypingContent = ({
       )}
       <TypingRestart
         onRestart={() => {
-          setHydrated(false);
-          setShowResults(false);
+          setResetTyping(false);
           setTimeout(() => {
-            setHydrated(true);
+            setResetTyping(true);
           }, 0);
+          setShowResults(false);
           setHideOverlay(true);
           resetRunningManyWords();
           setSecondsOfManyWords(false);

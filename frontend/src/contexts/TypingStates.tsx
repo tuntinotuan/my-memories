@@ -44,6 +44,8 @@ type defaltValuesType = {
   typingListSetting: boolean;
   typingFullScreen: boolean;
   secondsOfAutoAnimate: number;
+  resetTyping: boolean;
+  setResetTyping: (val: boolean) => void;
   setAutoAnimateState: (val: boolean) => void;
   resetSecondsOfAutoAnimate: () => void;
   setTypingFullScreen: (val: boolean) => void;
@@ -118,6 +120,8 @@ const defaultValues: defaltValuesType = {
   wordGap: 14,
   fontFamily: "monospace",
   secondsOfAutoAnimate: 5,
+  resetTyping: true,
+  setResetTyping: () => {},
   setAutoAnimateState: () => {},
   resetSecondsOfAutoAnimate: () => {},
   setFontFamily: () => {},
@@ -155,6 +159,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [showResults, setShowResults] = useState(false);
   const [cursorIsTyping, setCursorIsTyping] = useState(false);
   const [typingListSetting, setTypingListSetting] = useState(false);
+  const [resetTyping, setResetTyping] = useState(true);
   const {
     seconds: secondsOfManyWords,
     setIsRunning: setSecondsOfManyWords,
@@ -344,6 +349,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         fontFamily,
         effectHoveredFontFamily,
         secondsOfAutoAnimate,
+        resetTyping,
+        setResetTyping,
         setAutoAnimateState,
         resetSecondsOfAutoAnimate,
         setEffectHoveredFontFamily,
