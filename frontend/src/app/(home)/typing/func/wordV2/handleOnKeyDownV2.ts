@@ -60,6 +60,7 @@ export function useKeyDownV2(
       setSecondsOfManyWords,
       setIsCountDown
     );
+
     setAutoAnimateState(true);
     resetSecondsOfAutoAnimate();
 
@@ -69,6 +70,10 @@ export function useKeyDownV2(
 
     // value > 0 && is => " " (spacing)
     if (value.length > 0 && e.key === " ") {
+      if (types === "words" && typingWordIndex + 1 === newArrWords.length) {
+        setSecondsOfManyWords(false);
+        setShowResults(true);
+      }
       setValue("");
       setMoreYTransition(0);
       setMoreCursorPosition(0);
