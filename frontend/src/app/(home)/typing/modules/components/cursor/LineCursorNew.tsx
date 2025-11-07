@@ -16,7 +16,9 @@ const LineCursorNew = ({
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
       <div
         className={`${cssPosition} w-[2px] rounded h-full bg-typingColorActive z-[999] ${
-          isTyping ? "transition-all" : showCursor && "animate-careFlashSmooth"
+          isTyping
+            ? "transition-all duration-150 ease-linear"
+            : showCursor && "animate-careFlashSmooth"
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursorPosition,

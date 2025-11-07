@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { nextui } from "@nextui-org/react";
+import { transitionProperty } from "@dnd-kit/sortable/dist/hooks/defaults";
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -89,6 +90,7 @@ const config: Config = {
       transitionProperty: {
         position: "left, top",
       },
+      transition: {},
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
         robotoMono: ["Roboto Mono", "sans-serif"],
@@ -112,6 +114,17 @@ const config: Config = {
         courierPrime: ["Courier Prime", "sans-serif"],
       },
     },
+    plugins: [
+      function ({ addUtilities }: any) {
+        addUtilities({
+          "transition-typingCursor": {
+            transitionProperty: "opacity, transform, background-color",
+            transitionDuration: "200ms",
+            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+          },
+        });
+      },
+    ],
   },
   darkMode: "class",
   plugins: [nextui()],
