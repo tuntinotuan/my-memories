@@ -1,5 +1,9 @@
 "use client";
-import { FontSizeTypes, makeFraction } from "@/api/typing/typing.type";
+import {
+  FontSizeTypes,
+  makeFraction,
+  typingWordsTypes,
+} from "@/api/typing/typing.type";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import {
   CursorStyles,
@@ -65,6 +69,8 @@ type defaltValuesType = {
   wordGap: number;
   fontFamily: any;
   effectHoveredFontFamily: string;
+  preTestList: typingWordsTypes[];
+  setPreTestList: (val: typingWordsTypes[]) => void;
   setEffectHoveredFontFamily: (val: string) => void;
   setFontFamily: (val: any) => void;
   setWordGap: (val: number) => void;
@@ -121,6 +127,8 @@ const defaultValues: defaltValuesType = {
   fontFamily: "monospace",
   secondsOfAutoAnimate: 5,
   resetTyping: true,
+  preTestList: [],
+  setPreTestList: () => {},
   setResetTyping: () => {},
   setAutoAnimateState: () => {},
   resetSecondsOfAutoAnimate: () => {},
@@ -154,12 +162,16 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [typingStyles, setTypingStyles] = useState<typingStylesType>("combine");
   const [wordAmount, setWordAmount] = useState<WordAmountType>(10);
   const [wordTime, setWordTime] = useState<WordTimeType>(15);
+
   const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [hideOverlay, setHideOverlay] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [cursorIsTyping, setCursorIsTyping] = useState(false);
+
   const [typingListSetting, setTypingListSetting] = useState(false);
   const [resetTyping, setResetTyping] = useState(true);
+  const [preTestList, setPreTestList] = useState<typingWordsTypes[]>([]);
+
   const {
     seconds: secondsOfManyWords,
     setIsRunning: setSecondsOfManyWords,
@@ -175,15 +187,18 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     setIsCountDown: setAutoAnimateState,
     resetCountDownIsInitial: resetSecondsOfAutoAnimate,
   } = useCountDown(5);
+
   const [wordApi, setWordApi] = useState<[]>([]);
+
+  const [isCaplock, setIsCaplock] = useState<boolean>(false);
+  const [textIsLowercase, setTextIsLowercase] = useState<boolean>(false);
+  const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
+
   const [showPopupCreate, setShowPopupCreate] = useState(false);
   const [wordList, setWordList] = useState<any>([]);
   const [singleTypingList, setSingleTypingList] = useState<[]>([]);
   const [currentlyPickedSetting, setCurrentlyPickedSetting] =
     useState<settingType>({ id: 0, title: "nothing", theme: "" });
-  const [isCaplock, setIsCaplock] = useState<boolean>(false);
-  const [textIsLowercase, setTextIsLowercase] = useState<boolean>(false);
-  const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
   const [loadingTypingWordList, setLoadingTypingWordList] =
     useState<boolean>(true);
   const [rect, setRect] = useState<DOMRect | null>(null);
@@ -197,6 +212,9 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     name: "monospace",
     code: "monospace",
   });
+  const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>();
+  const [effectHoveredFontFamily, setEffectHoveredFontFamily] = useState("");
+
   const initialTypingSettingLocals: SettingLocal = {
     cursorShape: "line",
     typingStyles: "combine",
@@ -206,8 +224,6 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     fontsize: makeFraction(1),
     fontFamily: { name: "monospace", code: "monospace" },
   };
-  const [typingSettingLocal, setTypingSettingLocal] = useState<SettingLocal>();
-  const [effectHoveredFontFamily, setEffectHoveredFontFamily] = useState("");
 
   // Fetch & update typingSetting localStorage
   useEffect(() => {
@@ -350,6 +366,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         effectHoveredFontFamily,
         secondsOfAutoAnimate,
         resetTyping,
+        preTestList,
+        setPreTestList,
         setResetTyping,
         setAutoAnimateState,
         resetSecondsOfAutoAnimate,

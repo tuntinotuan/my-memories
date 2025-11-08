@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { creationNewArrWithQuantityBigger } from "@/utils/arrFs";
 import { typingWordsTypes } from "@/api/typing/typing.type";
@@ -35,6 +35,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     typingFontsizeX,
     typingFontsize,
     showResults,
+    preTestList,
+    setPreTestList,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -127,6 +129,11 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setRowTyped,
     setHydrated
   );
+  useEffect(() => {
+    showResults && setPreTestList(newArrWords);
+    console.log("pre test list", preTestList);
+  }, [showResults]);
+
   const caculateHeightWordBox =
     typingFontsizeX * typingFontsize * 3 + wordGap * 2;
   if (!hydrated) return null;
