@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SettingsBackupRestoreRoundedIcon from "@mui/icons-material/SettingsBackupRestoreRounded";
 import { Tooltip } from "@nextui-org/tooltip";
 import { useTyping } from "@/contexts/TypingStates";
@@ -10,6 +10,8 @@ type TypingRestartProps = {
 
 const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
   const { typingStyles, typingFontsizeX, hideOverlay } = useTyping();
+  useEffect(() => {}, []);
+
   return (
     <div
       className={`flex w-full justify-center z-10 bg-opacity-5 p-2 ${

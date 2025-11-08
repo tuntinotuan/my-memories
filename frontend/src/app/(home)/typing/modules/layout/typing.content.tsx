@@ -3,7 +3,6 @@ import TypingRestart from "@/app/(home)/typing/modules/components/TypingRestart"
 import { useTyping } from "@/contexts/TypingStates";
 import { typingWordsTypes } from "@/api/typing/typing.type";
 import TypingViewAmountOrTime from "../components/TypingViewAmountOrTime";
-import { useHydrate } from "../../func/useHydrate";
 import { TypingManyWordsV2 } from "./typing.many.words.v2";
 import { TypingOnlyAWordV2 } from "./typing.only.a.word.v2";
 
@@ -26,9 +25,7 @@ export const TypingContent = ({
     resetTyping,
     setResetTyping,
   } = useTyping();
-  // const { hydrated, setHydrated } = useHydrate();
   if (!resetTyping) return null; // or a skeleton/placeholder
-  //  ${show ? "visible backdrop-blur-sm" : "invisible"}
   return (
     <div
       className={`w-full h-full flex flex-col items-center gap-4 overflow-hidden ${

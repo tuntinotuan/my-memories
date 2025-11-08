@@ -5,6 +5,7 @@ import {
   typingCaculateResultWithWordAmount,
   typingCaculateResultWithWordTime,
 } from "@/utils/typingFs";
+import { useEffect, useRef } from "react";
 
 export const TypingResults = () => {
   const {
@@ -20,6 +21,7 @@ export const TypingResults = () => {
     setCursorIsTyping,
     setResetTyping,
   } = useTyping();
+  const ref = useRef<HTMLParagraphElement>(null);
   const { wpm, acc, quantityCorrect, quantityWrong } =
     typingStyles === "words"
       ? typingCaculateResultWithWordAmount(
@@ -33,6 +35,11 @@ export const TypingResults = () => {
           document.getElementsByClassName("correct").length,
           document.getElementsByClassName("wrong").length
         );
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, []);
 
   return (
     <div className="mx-auto h-full flex flex-col justify-center gap-2 text-typingTextNormal">
@@ -45,7 +52,9 @@ export const TypingResults = () => {
           </>
         }
       >
-        <p className="text-6xl text-typingColorActive">{wpm}</p>
+        <p ref={ref} tabIndex={0} className="text-6xl text-typingColorActive">
+          {wpm}
+        </p>
       </MyTooltip>
       <span className="text-3xl">acc</span>
       <MyTooltip
