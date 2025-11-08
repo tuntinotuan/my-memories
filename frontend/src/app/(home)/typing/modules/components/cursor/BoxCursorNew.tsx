@@ -17,7 +17,9 @@ const BoxCursorNew = ({
     <PortalOverlay notUsePortal={cssPosition === "absolute"}>
       <div
         className={`${cssPosition} border border-typingColorActive h-full z-[999] ${
-          isTyping ? "transition-all" : showCursor && "animate-careFlashSmooth"
+          isTyping
+            ? "transition-typingCursor"
+            : showCursor && "animate-careFlashSmooth"
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursorPosition,

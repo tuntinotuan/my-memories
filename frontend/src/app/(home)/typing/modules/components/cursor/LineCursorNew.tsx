@@ -1,6 +1,4 @@
 import PortalOverlay from "@/components/overlay/portal.overlay";
-import { useLayoutStates } from "@/contexts/layoutStates";
-import { useTyping } from "@/contexts/TypingStates";
 import React from "react";
 
 const LineCursorNew = ({
@@ -17,7 +15,7 @@ const LineCursorNew = ({
       <div
         className={`${cssPosition} w-[2px] rounded h-full bg-typingColorActive z-[999] ${
           isTyping
-            ? "transition-all duration-150 ease-linear"
+            ? "transition-typingCursor"
             : showCursor && "animate-careFlashSmooth"
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{

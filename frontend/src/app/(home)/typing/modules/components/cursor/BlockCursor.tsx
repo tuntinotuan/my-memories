@@ -20,7 +20,7 @@ const BlockCursor = ({
       <div
         className={`${cssPosition} flex items-center justify-center  text-typingTextCorrect bg-typingColorActive h-full z-[999] ${blockTextSize} ${
           isTyping
-            ? "transition-position"
+            ? "transition-typingCursor"
             : showCursor && "animate-careFlashSmooth"
         } ${showCursor ? "opacity-100" : "opacity-0"}`}
         style={{
@@ -35,7 +35,7 @@ const BlockCursor = ({
         {showCursor && (
           <PortalOverlay>
             <p
-              className={`${fontFamily?.code} fixed z-[99999] flex items-center justify-center  transition-all text-typingTextCorrect`}
+              className={`${fontFamily?.code} fixed z-[99999] flex items-center justify-center  transition-typingCursor text-typingTextCorrect`}
               style={{
                 left: cursorPosition,
                 top: rect ? rect.bottom - transitionY : 0,
