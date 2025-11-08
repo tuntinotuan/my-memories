@@ -7,7 +7,6 @@ import { typingwords } from "@/api/typing/typing.data.structure";
 import { useEffect } from "react";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import TypingPageSkeleton from "@/components/skeleton/TypingPageSkeleton";
-import { TroubleshootRounded } from "@mui/icons-material";
 
 export default function TypingPage() {
   const { showResults, loadingTypingWordList } = useTyping();
@@ -23,9 +22,9 @@ export default function TypingPage() {
       {!showResults && !loadingTypingWordList && (
         <TypingHeaderMenu></TypingHeaderMenu>
       )}
-      {showResults && <TypingResults></TypingResults>}
-      {/* {!showResults && <TypingContent data={typingwords}></TypingContent>} */}
       <TypingContent data={typingwords} show={!showResults}></TypingContent>
+
+      {showResults && <TypingResults></TypingResults>}
     </div>
   );
 }

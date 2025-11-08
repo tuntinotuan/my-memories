@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import SettingsBackupRestoreRoundedIcon from "@mui/icons-material/SettingsBackupRestoreRounded";
 import { Tooltip } from "@nextui-org/tooltip";
 import { useTyping } from "@/contexts/TypingStates";
@@ -10,7 +10,13 @@ type TypingRestartProps = {
 
 const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
   const { typingStyles, typingFontsizeX, hideOverlay } = useTyping();
-  useEffect(() => {}, []);
+  const ref = useRef<HTMLLabelElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, []);
 
   return (
     <div
@@ -34,6 +40,7 @@ const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
       >
         <label
           tabIndex={0}
+          ref={ref}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               onRestart && onRestart();
