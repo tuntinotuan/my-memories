@@ -134,6 +134,12 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     console.log("pre test list", preTestList);
   }, [showResults]);
 
+  useEffect(() => {
+    if (false) {
+      preTestList && setNewArrWords(preTestList);
+    }
+  }, []);
+
   const caculateHeightWordBox =
     typingFontsizeX * typingFontsize * 3 + wordGap * 2;
   if (!hydrated) return null;
