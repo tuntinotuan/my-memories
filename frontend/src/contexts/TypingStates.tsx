@@ -163,10 +163,11 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [wordAmount, setWordAmount] = useState<WordAmountType>(10);
   const [wordTime, setWordTime] = useState<WordTimeType>(15);
 
+  const [rect, setRect] = useState<DOMRect | null>(null);
   const [typingWordIndex, setTypingWordIndex] = useState(0);
   const [hideOverlay, setHideOverlay] = useState(false);
-  const [showResults, setShowResults] = useState(false);
   const [cursorIsTyping, setCursorIsTyping] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const [typingListSetting, setTypingListSetting] = useState(false);
   const [resetTyping, setResetTyping] = useState(true);
@@ -201,7 +202,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     useState<settingType>({ id: 0, title: "nothing", theme: "" });
   const [loadingTypingWordList, setLoadingTypingWordList] =
     useState<boolean>(true);
-  const [rect, setRect] = useState<DOMRect | null>(null);
+
   const [cursorShape, setCursorShape] = useState<CursorStyles>("line");
   const [typingFontsize, setTypingFontsize] = useState<number>(24);
   const [typingFontsizeX, setTypingFontsizeX] = useState<FontSizeTypes>(

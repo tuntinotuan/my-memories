@@ -23,7 +23,6 @@ export default function TypingPage() {
         <TypingHeaderMenu></TypingHeaderMenu>
       )}
       <TypingContent data={typingwords} show={!showResults}></TypingContent>
-
       {showResults && <TypingResults></TypingResults>}
     </div>
   );
