@@ -51,6 +51,7 @@ const TypingNextTest = ({ onNextTest, className }: TypingNextTestProps) => {
           <ArrowRightIcon
             className="cursor-pointer"
             onClick={onNextTest}
+            fontSize="large"
           ></ArrowRightIcon>
         </label>
       </Tooltip>

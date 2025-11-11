@@ -6,6 +6,7 @@ import {
   typingCaculateResultWithWordTime,
 } from "@/utils/typingFs";
 import TypingNextTest from "../components/TypingNextTest";
+import RepeatIcon from "@/components/icons/typing/RepeatIcon";
 
 export const TypingResults = () => {
   const {
@@ -62,21 +63,30 @@ export const TypingResults = () => {
           acc
         )}%`}</p>
       </MyTooltip>
-      <TypingNextTest
-        onNextTest={() => {
-          setResetTyping(false);
-          setTimeout(() => {
-            setResetTyping(true);
-          }, 0);
-          setShowResults(false);
-          setHideOverlay(true);
-          resetRunningManyWords();
-          resetCountDownIsInitial();
-          setIsCountDown(false);
-          setCursorIsTyping(false);
-        }}
-        className="flex-none"
-      ></TypingNextTest>
+      <div className="flex items-center gap-4">
+        <TypingNextTest
+          onNextTest={() => {
+            setResetTyping(false);
+            setTimeout(() => {
+              setResetTyping(true);
+            }, 0);
+            setShowResults(false);
+            setHideOverlay(true);
+            resetRunningManyWords();
+            resetCountDownIsInitial();
+            setIsCountDown(false);
+            setCursorIsTyping(false);
+          }}
+          className="flex-none"
+        ></TypingNextTest>
+        <div
+          className={`flex w-full justify-center z-10 bg-opacity-5 p-2 ${
+            typingStyles !== "combine" ? "flex-1" : ""
+          } `}
+        >
+          <RepeatIcon></RepeatIcon>
+        </div>
+      </div>
     </div>
   );
 };
