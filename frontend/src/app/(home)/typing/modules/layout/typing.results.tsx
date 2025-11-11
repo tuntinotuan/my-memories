@@ -5,6 +5,7 @@ import {
   typingCaculateResultWithWordAmount,
   typingCaculateResultWithWordTime,
 } from "@/utils/typingFs";
+import TypingNextTest from "../components/TypingNextTest";
 
 export const TypingResults = () => {
   const {
@@ -61,8 +62,8 @@ export const TypingResults = () => {
           acc
         )}%`}</p>
       </MyTooltip>
-      <TypingRestart
-        onRestart={() => {
+      <TypingNextTest
+        onNextTest={() => {
           setResetTyping(false);
           setTimeout(() => {
             setResetTyping(true);
@@ -75,7 +76,7 @@ export const TypingResults = () => {
           setCursorIsTyping(false);
         }}
         className="flex-none"
-      ></TypingRestart>
+      ></TypingNextTest>
     </div>
   );
 };

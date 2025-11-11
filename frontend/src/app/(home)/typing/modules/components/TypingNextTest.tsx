@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import SettingsBackupRestoreRoundedIcon from "@mui/icons-material/SettingsBackupRestoreRounded";
 import { Tooltip } from "@nextui-org/tooltip";
 import { useTyping } from "@/contexts/TypingStates";
+import ArrowRightIcon from "@/components/icons/arrow/ArrowRightIcon";
 
-type TypingRestartProps = {
-  onRestart?: () => void;
+type TypingNextTestProps = {
+  onNextTest?: () => void;
   className?: string;
 };
 
-const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
+const TypingNextTest = ({ onNextTest, className }: TypingNextTestProps) => {
   const { typingStyles, typingFontsizeX, hideOverlay } = useTyping();
   const ref = useRef<HTMLLabelElement>(null);
 
@@ -30,7 +30,7 @@ const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
     >
       <Tooltip
         showArrow
-        content="Restart test"
+        content="Next test"
         placement="top"
         radius="sm"
         delay={200}
@@ -43,19 +43,19 @@ const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
           ref={ref}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              onRestart && onRestart();
+              onNextTest && onNextTest();
             }
           }}
           className="h-0 text-typingTextNormal"
         >
-          <SettingsBackupRestoreRoundedIcon
+          <ArrowRightIcon
             className="cursor-pointer"
-            onClick={onRestart}
-          ></SettingsBackupRestoreRoundedIcon>
+            onClick={onNextTest}
+          ></ArrowRightIcon>
         </label>
       </Tooltip>
     </div>
   );
 };
 
-export default TypingRestart;
+export default TypingNextTest;
