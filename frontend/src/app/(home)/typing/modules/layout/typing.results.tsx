@@ -1,5 +1,4 @@
 import MyTooltip from "@/components/tooltip/MyTooltip";
-import TypingRestart from "@/app/(home)/typing/modules/components/TypingRestart";
 import { useTyping } from "@/contexts/TypingStates";
 import {
   typingCaculateResultWithWordAmount,
@@ -7,6 +6,7 @@ import {
 } from "@/utils/typingFs";
 import TypingNextTest from "../components/TypingNextTest";
 import RepeatIcon from "@/components/icons/typing/RepeatIcon";
+import { Tooltip } from "@nextui-org/tooltip";
 
 export const TypingResults = () => {
   const {
@@ -79,13 +79,7 @@ export const TypingResults = () => {
           }}
           className="flex-none"
         ></TypingNextTest>
-        <div
-          className={`flex w-full justify-center z-10 bg-opacity-5 p-2 ${
-            typingStyles !== "combine" ? "flex-1" : ""
-          } `}
-        >
-          <RepeatIcon></RepeatIcon>
-        </div>
+        <RepeatIcon className="cursor-pointer" fontSize="small"></RepeatIcon>
       </div>
     </div>
   );
