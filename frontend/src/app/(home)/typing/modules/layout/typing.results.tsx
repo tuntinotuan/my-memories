@@ -79,7 +79,7 @@ export const TypingResults = () => {
           }}
           className="flex-none"
         ></TypingNextTest>
-        <RepeatIcon className="cursor-pointer" fontSize="small"></RepeatIcon>
+        {/* <RepeatIcon className="cursor-pointer" fontSize="small"></RepeatIcon> */}
       </div>
     </div>
   );
