@@ -20,7 +20,7 @@ const TypingNextTest = ({ onNextTest, className }: TypingNextTestProps) => {
 
   return (
     <div
-      className={`flex w-full justify-center z-10 bg-opacity-5 p-2 ${
+      className={`flex justify-center z-10 bg-opacity-5 ${
         typingStyles !== "combine" ? "flex-1" : ""
       } ${
         typingStyles === "words" && typingFontsizeX <= 3 && hideOverlay
@@ -46,7 +46,7 @@ const TypingNextTest = ({ onNextTest, className }: TypingNextTestProps) => {
               onNextTest && onNextTest();
             }
           }}
-          className="h-0 text-typingTextNormal"
+          className="text-typingTextNormal"
         >
           <ArrowRightIcon
             className="cursor-pointer"
