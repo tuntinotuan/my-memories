@@ -1,8 +1,13 @@
-import ArrowRightIcon from "@/components/icons/arrow/ArrowRightIcon";
 import { Tooltip } from "@nextui-org/tooltip";
 import React, { useEffect, useRef } from "react";
 
-const TypingResultBtn = ({ onNextTest }: { onNextTest: any }) => {
+const TypingResultBtn = ({
+  onNextTest,
+  icon,
+}: {
+  onNextTest: any;
+  icon: React.ReactNode;
+}) => {
   const ref = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
@@ -18,7 +23,7 @@ const TypingResultBtn = ({ onNextTest }: { onNextTest: any }) => {
       radius="sm"
       delay={200}
       closeDelay={200}
-      className="!px-2 !py-[2px]"
+      className="cursor-pointer !px-2 !py-[2px]"
       shadow="sm"
     >
       <label
@@ -32,11 +37,7 @@ const TypingResultBtn = ({ onNextTest }: { onNextTest: any }) => {
         onClick={onNextTest}
         className="text-typingTextNormal"
       >
-        <ArrowRightIcon
-          className="cursor-pointer"
-          onClick={onNextTest}
-          fontSize="large"
-        ></ArrowRightIcon>
+        {icon}
       </label>
     </Tooltip>
   );
