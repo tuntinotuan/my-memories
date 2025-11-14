@@ -5,8 +5,6 @@ import {
   typingCaculateResultWithWordTime,
 } from "@/utils/typingFs";
 import TypingNextTest from "../components/TypingNextTest";
-import RepeatIcon from "@/components/icons/typing/RepeatIcon";
-import { Tooltip } from "@nextui-org/tooltip";
 import TypingBtnRepeatTest from "../components/button/TypingBtnRepeatTest";
 
 export const TypingResults = () => {
