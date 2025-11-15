@@ -2,11 +2,11 @@ import { Tooltip } from "@nextui-org/tooltip";
 import React, { useEffect, useRef } from "react";
 
 const TypingResultBtn = ({
-  onNextTest,
+  onClick,
   children,
   tooltipTitle = "Next test",
 }: {
-  onNextTest: any;
+  onClick: any;
   children: React.ReactNode;
   tooltipTitle: string;
 }) => {
@@ -33,10 +33,10 @@ const TypingResultBtn = ({
         ref={ref}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            onNextTest && onNextTest();
+            onClick && onClick();
           }
         }}
-        onClick={onNextTest}
+        onClick={onClick}
         className="text-typingTextNormal"
       >
         {children}

@@ -1,11 +1,10 @@
 import RepeatIcon from "@/components/icons/typing/RepeatIcon";
-import { Tooltip } from "@nextui-org/tooltip";
 import React from "react";
 import TypingResultBtn from "./TypingResultBtn";
 
 const TypingBtnRepeatTest = () => {
   return (
-    <TypingResultBtn tooltipTitle="Repeat test" onNextTest={() => {}}>
+    <TypingResultBtn tooltipTitle="Repeat test" onClick={() => {}}>
       <RepeatIcon className="cursor-pointer" fontSize="small" />
     </TypingResultBtn>
     // <Tooltip
