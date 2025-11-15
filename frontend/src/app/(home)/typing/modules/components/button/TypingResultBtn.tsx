@@ -3,10 +3,12 @@ import React, { useEffect, useRef } from "react";
 
 const TypingResultBtn = ({
   onNextTest,
-  icon,
+  children,
+  tooltipTitle = "Next test",
 }: {
   onNextTest: any;
-  icon: React.ReactNode;
+  children: React.ReactNode;
+  tooltipTitle: string;
 }) => {
   const ref = useRef<HTMLLabelElement>(null);
 
@@ -18,7 +20,7 @@ const TypingResultBtn = ({
   return (
     <Tooltip
       showArrow
-      content="Next test"
+      content={tooltipTitle}
       placement="top"
       radius="sm"
       delay={200}
@@ -37,7 +39,7 @@ const TypingResultBtn = ({
         onClick={onNextTest}
         className="text-typingTextNormal"
       >
-        {icon}
+        {children}
       </label>
     </Tooltip>
   );
