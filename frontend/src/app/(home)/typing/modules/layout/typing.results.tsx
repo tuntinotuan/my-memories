@@ -8,19 +8,8 @@ import TypingBtnRepeatTest from "../components/button/TypingBtnRepeatTest";
 import TypingBtnNextTest from "../components/button/TypingBtnNextTest";
 
 export const TypingResults = () => {
-  const {
-    setShowResults,
-    setHideOverlay,
-    secondsOfManyWords,
-    wordAmount,
-    resetRunningManyWords,
-    setIsCountDown,
-    resetCountDownIsInitial,
-    typingStyles,
-    wordTime,
-    setCursorIsTyping,
-    setResetTyping,
-  } = useTyping();
+  const { secondsOfManyWords, wordAmount, typingStyles, wordTime } =
+    useTyping();
   const { wpm, acc, quantityCorrect, quantityWrong } =
     typingStyles === "words"
       ? typingCaculateResultWithWordAmount(
@@ -63,20 +52,7 @@ export const TypingResults = () => {
         )}%`}</p>
       </MyTooltip>
       <div className="flex items-center gap-4">
-        <TypingBtnNextTest
-          onClick={() => {
-            setResetTyping(false);
-            setTimeout(() => {
-              setResetTyping(true);
-            }, 0);
-            setShowResults(false);
-            setHideOverlay(true);
-            resetRunningManyWords();
-            resetCountDownIsInitial();
-            setIsCountDown(false);
-            setCursorIsTyping(false);
-          }}
-        ></TypingBtnNextTest>
+        <TypingBtnNextTest />
         <TypingBtnRepeatTest />
       </div>
     </div>
