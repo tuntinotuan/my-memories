@@ -7,20 +7,6 @@ const TypingBtnRepeatTest = () => {
     <TypingResultBtn tooltipTitle="Repeat test" onClick={() => {}}>
       <RepeatIcon className="cursor-pointer" fontSize="small" />
     </TypingResultBtn>
-    // <Tooltip
-    //   showArrow
-    //   content="Repeat test"
-    //   placement="top"
-    //   radius="sm"
-    //   delay={200}
-    //   closeDelay={200}
-    //   className="!px-2 !py-[2px]"
-    //   shadow="sm"
-    // >
-    //   <label tabIndex={0} className="text-typingTextNormal">
-    //     <RepeatIcon className="cursor-pointer" fontSize="small"></RepeatIcon>
-    //   </label>
-    // </Tooltip>
   );
 };
 

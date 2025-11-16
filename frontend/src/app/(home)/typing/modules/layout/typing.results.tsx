@@ -4,8 +4,8 @@ import {
   typingCaculateResultWithWordAmount,
   typingCaculateResultWithWordTime,
 } from "@/utils/typingFs";
-import TypingNextTest from "../components/TypingNextTest";
 import TypingBtnRepeatTest from "../components/button/TypingBtnRepeatTest";
+import TypingBtnNextTest from "../components/button/TypingBtnNextTest";
 
 export const TypingResults = () => {
   const {
@@ -63,8 +63,8 @@ export const TypingResults = () => {
         )}%`}</p>
       </MyTooltip>
       <div className="flex items-center gap-4">
-        <TypingNextTest
-          onNextTest={() => {
+        <TypingBtnNextTest
+          onClick={() => {
             setResetTyping(false);
             setTimeout(() => {
               setResetTyping(true);
@@ -76,8 +76,7 @@ export const TypingResults = () => {
             setIsCountDown(false);
             setCursorIsTyping(false);
           }}
-          className="flex-none"
-        ></TypingNextTest>
+        ></TypingBtnNextTest>
         <TypingBtnRepeatTest />
       </div>
     </div>
