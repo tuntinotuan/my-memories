@@ -30,7 +30,7 @@ const TypingBtnNextTest = () => {
       <ArrowRightIcon
         className="cursor-pointer"
         onClick={handleOnClick}
-        fontSize="large"
+        fontSize="small"
       ></ArrowRightIcon>
     </TypingResultBtn>
   );

@@ -4,7 +4,11 @@ import TypingResultBtn from "./TypingResultBtn";
 
 const TypingBtnRepeatTest = () => {
   return (
-    <TypingResultBtn tooltipTitle="Repeat test" onClick={() => {}}>
+    <TypingResultBtn
+      tooltipTitle="Repeat test"
+      onClick={() => {}}
+      tableIndex={1}
+    >
       <RepeatIcon className="cursor-pointer" fontSize="small" />
     </TypingResultBtn>
   );

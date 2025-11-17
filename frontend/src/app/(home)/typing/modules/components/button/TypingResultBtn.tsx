@@ -5,15 +5,17 @@ const TypingResultBtn = ({
   onClick,
   children,
   tooltipTitle = "Next test",
+  tableIndex = 0,
 }: {
   onClick: any;
   children: React.ReactNode;
   tooltipTitle: string;
+  tableIndex?: number;
 }) => {
   const ref = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && tableIndex === 0) {
       ref.current.focus();
     }
   }, []);
@@ -29,7 +31,7 @@ const TypingResultBtn = ({
       shadow="sm"
     >
       <label
-        tabIndex={0}
+        tabIndex={tableIndex}
         ref={ref}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -37,7 +39,7 @@ const TypingResultBtn = ({
           }
         }}
         onClick={onClick}
-        className="text-typingTextNormal"
+        className="text-typingTextNormal bg-gray-100 bg-opacity-5 rounded-md p-2"
       >
         {children}
       </label>
