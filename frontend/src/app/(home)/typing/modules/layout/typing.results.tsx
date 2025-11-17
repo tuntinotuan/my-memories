@@ -8,8 +8,13 @@ import TypingBtnRepeatTest from "../components/button/TypingBtnRepeatTest";
 import TypingBtnNextTest from "../components/button/TypingBtnNextTest";
 
 export const TypingResults = () => {
-  const { secondsOfManyWords, wordAmount, typingStyles, wordTime } =
-    useTyping();
+  const {
+    secondsOfManyWords,
+    wordAmount,
+    typingStyles,
+    wordTime,
+    preTestList,
+  } = useTyping();
   const { wpm, acc, quantityCorrect, quantityWrong } =
     typingStyles === "words"
       ? typingCaculateResultWithWordAmount(
@@ -54,6 +59,11 @@ export const TypingResults = () => {
       <div className="flex items-center gap-4">
         <TypingBtnNextTest />
         <TypingBtnRepeatTest />
+      </div>
+      <div className="flex gap-1">
+        {preTestList.map((item, index) => (
+          <p key={index}>{item.word}</p>
+        ))}
       </div>
     </div>
   );
