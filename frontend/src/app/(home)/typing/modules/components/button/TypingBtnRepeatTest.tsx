@@ -31,7 +31,7 @@ const TypingBtnRepeatTest = () => {
     <TypingResultBtn
       tooltipTitle="Repeat test"
       onClick={handleClick}
-      tableIndex={1}
+      tableIndex={0}
     >
       <RepeatIcon className="cursor-pointer" fontSize="small" />
     </TypingResultBtn>

@@ -60,6 +60,18 @@ export const TypingResults = () => {
         <TypingBtnNextTest />
         <TypingBtnRepeatTest />
       </div>
+      <label
+        tabIndex={0}
+        className="text-typingTextNormal bg-gray-100 bg-opacity-5 rounded-md p-2"
+      >
+        hello
+      </label>
+      <label
+        tabIndex={0}
+        className="text-typingTextNormal bg-gray-100 bg-opacity-5 rounded-md p-2"
+      >
+        hi
+      </label>
       {/* <div className="flex gap-1">
         {preTestList.map((item, index) => (
           <p key={index}>{item.word}</p>

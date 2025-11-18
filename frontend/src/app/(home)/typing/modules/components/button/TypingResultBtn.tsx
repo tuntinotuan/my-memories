@@ -15,7 +15,7 @@ const TypingResultBtn = ({
   const ref = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
-    if (ref.current && tableIndex === 0) {
+    if (ref.current && tooltipTitle === "Next test") {
       ref.current.focus();
     }
   }, []);
