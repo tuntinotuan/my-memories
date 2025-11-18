@@ -60,11 +60,11 @@ export const TypingResults = () => {
         <TypingBtnNextTest />
         <TypingBtnRepeatTest />
       </div>
-      <div className="flex gap-1">
+      {/* <div className="flex gap-1">
         {preTestList.map((item, index) => (
           <p key={index}>{item.word}</p>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

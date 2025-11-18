@@ -37,6 +37,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     showResults,
     preTestList,
     setPreTestList,
+    repeatTest,
+    setRepeatTest,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -135,10 +137,11 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   }, [showResults]);
 
   useEffect(() => {
-    if (false) {
+    if (repeatTest) {
       preTestList && setNewArrWords(preTestList);
+      setRepeatTest(false);
     }
-  }, []);
+  }, [repeatTest]);
 
   const caculateHeightWordBox =
     typingFontsizeX * typingFontsize * 3 + wordGap * 2;

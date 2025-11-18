@@ -70,6 +70,8 @@ type defaltValuesType = {
   fontFamily: any;
   effectHoveredFontFamily: string;
   preTestList: typingWordsTypes[];
+  repeatTest: boolean;
+  setRepeatTest: (val: boolean) => void;
   setPreTestList: (val: typingWordsTypes[]) => void;
   setEffectHoveredFontFamily: (val: string) => void;
   setFontFamily: (val: any) => void;
@@ -128,6 +130,8 @@ const defaultValues: defaltValuesType = {
   secondsOfAutoAnimate: 5,
   resetTyping: true,
   preTestList: [],
+  repeatTest: false,
+  setRepeatTest: () => {},
   setPreTestList: () => {},
   setResetTyping: () => {},
   setAutoAnimateState: () => {},
@@ -172,6 +176,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [typingListSetting, setTypingListSetting] = useState(false);
   const [resetTyping, setResetTyping] = useState(true);
   const [preTestList, setPreTestList] = useState<typingWordsTypes[]>([]);
+  const [repeatTest, setRepeatTest] = useState(false);
 
   const {
     seconds: secondsOfManyWords,
@@ -368,6 +373,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         secondsOfAutoAnimate,
         resetTyping,
         preTestList,
+        repeatTest,
+        setRepeatTest,
         setPreTestList,
         setResetTyping,
         setAutoAnimateState,
