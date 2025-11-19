@@ -1,4 +1,5 @@
 import ButtonShowAndHiddenData from "@/components/button/ButtonShowAndHiddenData";
+import EmptyTypingList from "@/components/empty/EmptyTypingList";
 import ProjectItem from "@/components/project/ProjectItem";
 import { useTyping } from "@/contexts/TypingStates";
 import { replaceAllTrim } from "@/utils/otherFs";
@@ -30,22 +31,7 @@ const HomeSidebarTypingList = () => {
           ))}
         </div>
       </ButtonShowAndHiddenData>
-      {wordList.length <= 0 && !loadingTypingWordList && (
-        <div className="h-full w-full flex flex-col items-center justify-center gap-2 text-xs text-center">
-          <Image
-            src={"/cat-empty-paper.jpg"}
-            alt="cat empty paper image"
-            width={160}
-            height={300}
-            className="rounded mb-4"
-            unoptimized
-          ></Image>
-          <h2 className="font-bold">You don't have any lists yet</h2>
-          <p className="text-[10px]">
-            Start creating resources by clicking on 'Create a typing list' below
-          </p>
-        </div>
-      )}
+      {wordList.length <= 0 && !loadingTypingWordList && <EmptyTypingList />}
     </>
   );
 };
