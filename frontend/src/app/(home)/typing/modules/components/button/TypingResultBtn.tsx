@@ -39,7 +39,7 @@ const TypingResultBtn = ({
           }
         }}
         onClick={onClick}
-        className="text-typingTextNormal bg-gray-100 bg-opacity-5 rounded-md p-2"
+        className="text-typingTextNormal bg-gray-100 bg-opacity-5 rounded-md p-2 cursor-pointer"
       >
         {children}
       </label>
