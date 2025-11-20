@@ -39,6 +39,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setPreTestList,
     repeatTest,
     setRepeatTest,
+    setIsVietNamese,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -70,6 +71,9 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [arrayOfErrPreWords, setArrayOfErrPreWords] = useState<string[]>([]);
   const { hydrated, setHydrated } = useHydrate();
 
+  const VN_REGEX =
+    /[ăâđêôơưáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệóòỏõọốồổỗộớờởỡợúùủũụứừửữựíìỉĩịýỳỷỹỵ]/i;
+
   const handleOnChange = (e: any) => {
     if (!hideOverlay) {
       setHideOverlay(true);
@@ -81,6 +85,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     )
       return;
     setValue(e.target.value);
+    setIsVietNamese(VN_REGEX.test(e.target.value));
   };
   const { handleOnKeyDown } = useKeyDownV2(
     types,
