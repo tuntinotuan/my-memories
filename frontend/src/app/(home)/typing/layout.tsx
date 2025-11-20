@@ -8,6 +8,7 @@ import TypingCapsLockBtn from "./modules/components/TypingCapsLockBtn";
 import TypingFullScreenBtn from "./modules/components/TypingFullScreenBtn";
 import PopupTypingSetting from "@/components/popup/typing-setting/PopupTypingSetting";
 import { useLayoutStates } from "@/contexts/layoutStates";
+import TypingDetectVietnameseBtn from "./modules/components/TypingDetectVietnameseBtn";
 
 export default function TypingLayout({
   children,
@@ -39,6 +40,7 @@ const BodyLocal = ({ children }: { children: React.ReactNode }) => {
             onClose={() => setShowTypingSetting(false)}
           ></PopupTypingSetting>
           <TypingCapsLockBtn />
+          <TypingDetectVietnameseBtn />
           <TypingFullScreenBtn />
           {children}
         </HomeContentCover>

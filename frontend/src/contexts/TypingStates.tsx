@@ -71,6 +71,8 @@ type defaltValuesType = {
   effectHoveredFontFamily: string;
   preTestList: typingWordsTypes[];
   repeatTest: boolean;
+  isVietNamese: boolean;
+  setIsVietNamese: (val: boolean) => void;
   setRepeatTest: (val: boolean) => void;
   setPreTestList: (val: typingWordsTypes[]) => void;
   setEffectHoveredFontFamily: (val: string) => void;
@@ -131,6 +133,8 @@ const defaultValues: defaltValuesType = {
   resetTyping: true,
   preTestList: [],
   repeatTest: false,
+  isVietNamese: false,
+  setIsVietNamese: () => {},
   setRepeatTest: () => {},
   setPreTestList: () => {},
   setResetTyping: () => {},
@@ -197,6 +201,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [wordApi, setWordApi] = useState<[]>([]);
 
   const [isCaplock, setIsCaplock] = useState<boolean>(false);
+  const [isVietNamese, setIsVietNamese] = useState<boolean>(false);
   const [textIsLowercase, setTextIsLowercase] = useState<boolean>(false);
   const [typingFullScreen, setTypingFullScreen] = useState<boolean>(false);
 
@@ -374,6 +379,8 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
         resetTyping,
         preTestList,
         repeatTest,
+        isVietNamese,
+        setIsVietNamese,
         setRepeatTest,
         setPreTestList,
         setResetTyping,
