@@ -69,41 +69,8 @@ type MenuListItems = {
 };
 
 const MenuListItems = ({ lists }: MenuListItems) => {
-  const pathname = usePathname();
-  const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
-  const MainComponent = ({ item }: any) => {
-    return (
-      <div
-        className={`home-menu-items flex flex-col gap-1 items-center text-primaryColor cursor-pointer ${
-          item.href ? "py-3 px-2" : "my-3 mx-2"
-        }`}
-        onClick={item.href ? () => {} : handleShowHomeSidebar}
-      >
-        <div
-          className={`w-10 h-10 flex items-center justify-center text-3xl rounded-lg transition-all ${
-            pathname === item.href
-              ? "bg-primaryColor bg-opacity-10"
-              : "hover:bg-primaryColor hover:bg-opacity-5"
-          }`}
-        >
-          {pathname === item.href || (!item.href && showHomeSidebar)
-            ? item.iconActive
-            : item.iconNormal}
-        </div>
-        {item.text && (
-          <p
-            className={`min-w-[55px] text-[11px] text-center text-primaryColor tracking-wide ${
-              pathname === item.href
-                ? "font-semibold"
-                : "font-normal contrast-50"
-            }`}
-          >
-            {item.text}
-          </p>
-        )}
-      </div>
-    );
-  };
+  const { showHomeSidebar } = useLayoutStates();
+
   return (
     <>
       {lists.map((item, index) =>
@@ -130,6 +97,40 @@ const MenuListItems = ({ lists }: MenuListItems) => {
         )
       )}
     </>
+  );
+};
+
+const MainComponent = ({ item }: any) => {
+  const pathname = usePathname();
+  const { showHomeSidebar, handleShowHomeSidebar } = useLayoutStates();
+  return (
+    <div
+      className={`home-menu-items flex flex-col gap-1 items-center text-primaryColor cursor-pointer ${
+        item.href ? "py-3 px-2" : "my-3 mx-2"
+      }`}
+      onClick={item.href ? () => {} : handleShowHomeSidebar}
+    >
+      <div
+        className={`w-10 h-10 flex items-center justify-center text-3xl rounded-lg transition-all ${
+          pathname === item.href
+            ? "bg-primaryColor bg-opacity-10"
+            : "hover:bg-primaryColor hover:bg-opacity-5"
+        }`}
+      >
+        {pathname === item.href || (!item.href && showHomeSidebar)
+          ? item.iconActive
+          : item.iconNormal}
+      </div>
+      {item.text && (
+        <p
+          className={`min-w-[55px] text-[11px] text-center text-primaryColor tracking-wide ${
+            pathname === item.href ? "font-semibold" : "font-normal contrast-50"
+          }`}
+        >
+          {item.text}
+        </p>
+      )}
+    </div>
   );
 };
 
