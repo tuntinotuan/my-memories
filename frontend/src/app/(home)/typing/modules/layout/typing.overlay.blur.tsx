@@ -14,7 +14,7 @@ const TypingOverlayBlur = ({ htmlFor }: { htmlFor: string }) => {
       ref={labelRef}
       tabIndex={0}
       htmlFor={htmlFor}
-      className={`absolute left-0 right-0 bottom-0 h-96 flex items-start justify-center gap-3 text-typingTextNormal bg-opacity-20 backdrop-blur-[9px] cursor-pointer -translate-y-[20px] transition-all focus:border-none z-10 pt-16 ${
+      className={`absolute -top-[5px] -right-[5px] -left-[5px] h-[430px] flex items-start justify-center gap-3 text-typingTextNormal bg-opacity-20 backdrop-blur-[9px] cursor-pointer -translate-y-[20px] transition-all focus:border-none z-10 pt-16 ${
         hideOverlay ? "opacity-0 invisible" : "opacity-100 visible"
       }`}
       onClick={() => setHideOverlay(true)}

@@ -190,7 +190,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       >
         <div
           ref={containerRef}
-          className={`flex flex-wrap transition-all `}
+          className={`flex flex-wrap transition-all relative`}
           style={{
             transform: `translateY(-${heightFlexible}px)`,
             gap: wordGap,
@@ -208,11 +208,14 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
               textSizeX={typingFontsizeX}
             ></TypingWordNew>
           ))}
+          {!showResults && (
+            <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
+          )}
         </div>
       </div>
-      {!showResults && (
+      {/* {!showResults && (
         <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
-      )}
+      )} */}
     </>
   );
 };
