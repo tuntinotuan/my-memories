@@ -104,17 +104,19 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
         transitionY={0}
         blockTextSize="text-4xl"
       ></TypingCursorNew>
-      <TypingWordNew
-        setRect={setRect}
-        typingWordIndex={refNextWord.current}
-        wordIndex={refNextWord.current}
-        currentTyping={currentTyping}
-        text={value}
-        defaultSize={36}
-        setCursorPosition={setCursorPosition}
-      ></TypingWordNew>
-      <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
-      <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
+      <div className="relative w-full flex flex-col items-center">
+        <TypingWordNew
+          setRect={setRect}
+          typingWordIndex={refNextWord.current}
+          wordIndex={refNextWord.current}
+          currentTyping={currentTyping}
+          text={value}
+          defaultSize={36}
+          setCursorPosition={setCursorPosition}
+        ></TypingWordNew>
+        <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
+        <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
+      </div>
     </>
   );
 };
