@@ -14,6 +14,7 @@ import { useResetTypingStatesAfterWordOrTimeSettingChangeV2 } from "../../func/w
 import { useKeyDownV2 } from "../../func/wordV2/handleOnKeyDownV2";
 import { useUpdateCursorPosition } from "../../func/wordV2/updateCursorPosition";
 import { useAutoAnimateTyping } from "../../func/wordOlderV1/autoAnimateTyping";
+import { VN_REGEX } from "@/utils/RegexFs";
 
 type TypingManyWordsV2Props = {
   types: TypeOfTypingManyWordProps;
@@ -70,9 +71,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
   const [cursorPreWidth, setCursorPreWidth] = useState(0);
   const [arrayOfErrPreWords, setArrayOfErrPreWords] = useState<string[]>([]);
   const { hydrated, setHydrated } = useHydrate();
-
-  const VN_REGEX =
-    /[ăâđêôơưáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệóòỏõọốồổỗộớờởỡợúùủũụứừửữựíìỉĩịýỳỷỹỵ]/i;
 
   const handleOnChange = (e: any) => {
     if (!hideOverlay) {
@@ -213,9 +211,6 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
           )}
         </div>
       </div>
-      {/* {!showResults && (
-        <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
-      )} */}
     </>
   );
 };

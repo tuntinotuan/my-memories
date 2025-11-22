@@ -11,6 +11,7 @@ import TypingCursorNew from "../components/TypingCursorNew";
 import { calculatePositionForCursor } from "../../func/wordOlderV1/calculatePositionForCursor";
 import { useTyping } from "@/contexts/TypingStates";
 import { useUpdateCursorPosition } from "../../func/wordV2/updateCursorPosition";
+import { VN_REGEX } from "@/utils/RegexFs";
 
 export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
   const {
@@ -20,6 +21,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     typingSettingLocal,
     hideOverlay,
     fontFamily,
+    setIsVietNamese,
   } = useTyping();
 
   const [value, setValue] = useState<string>("");
@@ -38,6 +40,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
     setValue(e.target.value.trim());
+    setIsVietNamese(VN_REGEX.test(e.target.value));
   };
   const handleOnKeyDown = (e: any) => {
     setCursorIsTyping(true);
