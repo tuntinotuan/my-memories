@@ -8,6 +8,7 @@ import { CreateBoardProvider } from "@/contexts/createBoardStates";
 import { NotifyProvider } from "@/contexts/notifyStates";
 import { TypingThemeProvider } from "@/contexts/typingThemeStates";
 import { BlurOnClickOutside } from "./(home)/typing/func/BlurOnClickOutside";
+import { HoverGlobalProvider } from "@/contexts/hoverGlobalStates";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
@@ -128,13 +129,15 @@ export default function RootLayout({
       <body className={`fixed inset-0 text-primaryBlack`}>
         <CreateBoardProvider>
           <NotifyProvider>
-            <TypingThemeProvider>
-              <LayoutProvider>
-                <div id="myportal" />
-                <BlurOnClickOutside />
-                {children}
-              </LayoutProvider>
-            </TypingThemeProvider>
+            <HoverGlobalProvider>
+              <TypingThemeProvider>
+                <LayoutProvider>
+                  <div id="myportal" />
+                  <BlurOnClickOutside />
+                  {children}
+                </LayoutProvider>
+              </TypingThemeProvider>
+            </HoverGlobalProvider>
           </NotifyProvider>
         </CreateBoardProvider>
       </body>

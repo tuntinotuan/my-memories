@@ -2,8 +2,11 @@ import Image from "next/image";
 import React from "react";
 
 const EmptyTypingList = () => {
+
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center gap-2 text-xs text-center">
+    <div
+      className="h-full w-full flex flex-col items-center justify-center gap-2 text-xs text-center"
+    >
       <Image
         src={"/cat-empty-paper.png"}
         alt="cat empty paper image"
