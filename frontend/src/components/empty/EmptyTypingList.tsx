@@ -1,10 +1,18 @@
+import { useHoverGlobal } from "@/contexts/hoverGlobalStates";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { useHover } from "usehooks-ts";
 
 const EmptyTypingList = () => {
-
+  const { setTypingEmptyListHover, typingEmptyListHover } = useHoverGlobal();
+  const hoverRef = useRef<HTMLDivElement>(null);
+  const isHovered = useHover(hoverRef);
+  useEffect(() => {
+    setTypingEmptyListHover(isHovered);
+  }, [isHovered]);
   return (
     <div
+      ref={hoverRef}
       className="h-full w-full flex flex-col items-center justify-center gap-2 text-xs text-center"
     >
       <Image
@@ -19,6 +27,7 @@ const EmptyTypingList = () => {
       <p className="text-[10px]">
         Start creating resources by clicking on 'Create a typing list' below
       </p>
+      <p>{`${typingEmptyListHover}`}</p>
     </div>
   );
 };
