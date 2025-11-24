@@ -23,9 +23,9 @@ const EmptyTypingList = () => {
         className="rounded mb-4"
         unoptimized
       ></Image>
-      <h2 className="font-bold">You don't have any lists yet</h2>
+      <h2 className="font-bold">{"You don't have any lists yet"}</h2>
       <p className="text-[10px]">
-        Start creating resources by clicking on 'Create a typing list' below
+        {"Start creating resources by clicking on 'Create a typing list' below"}
       </p>
       <p>{`${typingEmptyListHover}`}</p>
     </div>
