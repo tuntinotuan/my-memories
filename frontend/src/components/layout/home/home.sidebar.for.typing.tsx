@@ -33,11 +33,12 @@ const HomeSidebarForTyping = () => {
         {loadingTypingWordList && <TypingCreateButtonSkeleton />}
         {!loadingTypingWordList && (
           <ButtonCreate
-            className="bg-typingBg !text-typingTextNormal !w-full my-2"
+            className="relative bg-typingBg !text-typingTextNormal !w-full"
             styles="primary"
             onClick={() => setShowPopupCreate(true)}
           >
             <PlusIcon />
+            <div className="absolute -inset-1 border-2 border-dashed border-red-500 rounded-lg z-[999] animate-pulse"></div>
             Create a typing list
           </ButtonCreate>
         )}
