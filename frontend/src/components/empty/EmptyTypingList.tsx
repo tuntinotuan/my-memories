@@ -27,7 +27,7 @@ const EmptyTypingList = () => {
       <p className="text-[10px]">
         {"Start creating resources by clicking on 'Create a typing list' below"}
       </p>
-      <p>{`${typingEmptyListHover}`}</p>
+      {/* <p>{`${typingEmptyListHover}`}</p> */}
     </div>
   );
 };

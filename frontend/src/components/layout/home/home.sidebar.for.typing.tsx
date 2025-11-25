@@ -17,6 +17,7 @@ import HomeSidebarTypingList from "./components/HomeSidebarTypingList";
 import SidebarListSkeleton from "@/components/skeleton/SidebarListSkeleton";
 import TypingCreateButtonSkeleton from "@/components/skeleton/TypingCreateButtonSkeleton";
 import BorderNotifyOverlay from "@/components/overlay/border.notify.overlay";
+import { useHoverGlobal } from "@/contexts/hoverGlobalStates";
 
 const HomeSidebarForTyping = () => {
   const {
@@ -26,6 +27,7 @@ const HomeSidebarForTyping = () => {
     currentlyPickedSetting,
     loadingTypingWordList,
   } = useTyping();
+  const { setTypingEmptyListHover, typingEmptyListHover } = useHoverGlobal();
 
   return (
     <HomeSidebar>
@@ -33,9 +35,9 @@ const HomeSidebarForTyping = () => {
         <HomeSidebarTop />
         {loadingTypingWordList && <TypingCreateButtonSkeleton />}
         {!loadingTypingWordList && (
-          <BorderNotifyOverlay visible>
+          <BorderNotifyOverlay visible={typingEmptyListHover}>
             <ButtonCreate
-              className="bg-typingBg !text-typingTextNormal !w-full"
+              className="bg-typingBg !text-typingTextNormal !w-full my-2"
               styles="primary"
               onClick={() => setShowPopupCreate(true)}
             >
