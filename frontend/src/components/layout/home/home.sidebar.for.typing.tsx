@@ -16,6 +16,7 @@ import HomeSidebarTop from "./components/HomeSidebarTop";
 import HomeSidebarTypingList from "./components/HomeSidebarTypingList";
 import SidebarListSkeleton from "@/components/skeleton/SidebarListSkeleton";
 import TypingCreateButtonSkeleton from "@/components/skeleton/TypingCreateButtonSkeleton";
+import BorderNotifyOverlay from "@/components/overlay/border.notify.overlay";
 
 const HomeSidebarForTyping = () => {
   const {
@@ -32,15 +33,16 @@ const HomeSidebarForTyping = () => {
         <HomeSidebarTop />
         {loadingTypingWordList && <TypingCreateButtonSkeleton />}
         {!loadingTypingWordList && (
-          <ButtonCreate
-            className="relative bg-typingBg !text-typingTextNormal !w-full"
-            styles="primary"
-            onClick={() => setShowPopupCreate(true)}
-          >
-            <PlusIcon />
-            <div className="absolute -inset-1 border-2 border-dashed border-red-500 rounded-lg z-[999] animate-pulse"></div>
-            Create a typing list
-          </ButtonCreate>
+          <BorderNotifyOverlay visible>
+            <ButtonCreate
+              className="bg-typingBg !text-typingTextNormal !w-full"
+              styles="primary"
+              onClick={() => setShowPopupCreate(true)}
+            >
+              <PlusIcon />
+              Create a typing list
+            </ButtonCreate>
+          </BorderNotifyOverlay>
         )}
         <ButtonCreate className="!w-full" styles="secondary" disable>
           <CrownIcon />
