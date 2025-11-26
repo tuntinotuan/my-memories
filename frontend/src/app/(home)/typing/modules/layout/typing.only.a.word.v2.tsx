@@ -20,6 +20,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     hideOverlay,
     fontFamily,
     setIsVietNamese,
+    typingFontsize,
     typingFontsizeX,
   } = useTyping();
 
@@ -54,7 +55,12 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
       refNextWord.current = refNextWord.current + 1;
     }
     const { cursorPositionIncrease, cursorPositionDecrease } =
-      calculatePositionForCursor(currentTyping, value, "36px", fontFamily);
+      calculatePositionForCursor(
+        currentTyping,
+        value,
+        `${typingFontsize * typingFontsizeX}px`,
+        fontFamily
+      );
     if (value.length >= 0 && e.key === "Backspace") {
       value.length > 0 &&
         setCursorPosition((pre: any) => pre - cursorPositionDecrease);
