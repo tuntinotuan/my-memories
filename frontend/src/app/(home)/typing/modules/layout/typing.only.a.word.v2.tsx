@@ -1,10 +1,8 @@
 import TypingMeaning from "../components/TypingMeaning";
-import TypingWord from "../components/TypingWord";
 import TypingOverlayBlur from "./typing.overlay.blur";
 import { useEffect, useRef, useState } from "react";
 import { shuffleArray } from "@/api/card/utils/f";
 import { typingWordsTypes } from "@/api/typing/typing.type";
-import { useOnlyHandleOnKeyDown } from "../../func/onlyAWord/onlyHandleOnKeyDown";
 import TypingWordNew from "../components/TypingWordNew";
 import TypingKeyboardInput from "../components/TypingKeyboard";
 import TypingCursorNew from "../components/TypingCursorNew";
@@ -22,6 +20,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     hideOverlay,
     fontFamily,
     setIsVietNamese,
+    typingFontsizeX,
   } = useTyping();
 
   const [value, setValue] = useState<string>("");
@@ -116,10 +115,13 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
           wordIndex={refNextWord.current}
           currentTyping={currentTyping}
           text={value}
-          defaultSize={36}
+          defaultSize={24}
           setCursorPosition={setCursorPosition}
+          textSizeX={typingFontsizeX}
         ></TypingWordNew>
-        <TypingMeaning>{currentTyping.meaning}</TypingMeaning>
+        <TypingMeaning textSizeX={typingFontsizeX} defaultSize={16}>
+          {currentTyping.meaning}
+        </TypingMeaning>
         <TypingOverlayBlur htmlFor={`typingKeyboardId`}></TypingOverlayBlur>
       </div>
     </>
