@@ -12,6 +12,16 @@ type ButtonCreateProps = {
 };
 
 const ButtonCreate = (props: ButtonCreateProps) => {
+  if (props.href) {
+    return (
+      <Link href={props.href}>
+        <Main props={props} />
+      </Link>
+    );
+  } else return <Main props={props} />;
+};
+
+const Main = ({ props }: any) => {
   const { styles, children, href, className, disable, onClick, ...rest } =
     props;
   const { setTitle, setActiveNormal } = useNotify();
@@ -27,36 +37,27 @@ const ButtonCreate = (props: ButtonCreateProps) => {
     default:
       break;
   }
-  const Main = () => {
-    return (
-      <button
-        className={`rounded-lg text-center flex items-center justify-center gap-2 py-2 text-sm font-semibold transition-all ${newStyles} ${
-          disable
-            ? "cursor-wait brightness-75 text-opacity-25 bg-opacity-100"
-            : ""
-        }
-          ${className}`}
-        onClick={
-          !disable
-            ? onClick
-            : () => {
-                setTitle("Unfortunately, this feature is under development"),
-                  setActiveNormal(true);
-              }
-        }
-        {...rest}
-      >
-        {children}
-      </button>
-    );
-  };
-  if (href) {
-    return (
-      <Link href={href}>
-        <Main />
-      </Link>
-    );
-  } else return <Main />;
+  return (
+    <button
+      className={`rounded-lg text-center flex items-center justify-center gap-2 py-2 text-sm font-semibold transition-all ${newStyles} ${
+        disable
+          ? "cursor-wait brightness-75 text-opacity-25 bg-opacity-100"
+          : ""
+      }
+        ${className}`}
+      onClick={
+        !disable
+          ? onClick
+          : () => {
+              setTitle("Unfortunately, this feature is under development"),
+                setActiveNormal(true);
+            }
+      }
+      {...rest}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default ButtonCreate;
