@@ -38,7 +38,12 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
   const [currentText, setCurrentText] = useState("");
 
   const handleOnChange = (e: any) => {
-    if (e.target.value === " ") return;
+    if (
+      e.target.value === " " ||
+      e.target.value.length === currentTyping.word.length + 1
+    ) {
+      return;
+    }
     setValue(e.target.value.trim());
     setIsVietNamese(VN_REGEX.test(e.target.value));
   };
