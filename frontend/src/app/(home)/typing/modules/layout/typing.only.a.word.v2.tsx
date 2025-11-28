@@ -10,6 +10,7 @@ import { calculatePositionForCursor } from "../../func/wordOlderV1/calculatePosi
 import { useTyping } from "@/contexts/TypingStates";
 import { useUpdateCursorPosition } from "../../func/wordV2/updateCursorPosition";
 import { VN_REGEX } from "@/utils/RegexFs";
+import { getTextWidth } from "@/utils/stringFs";
 
 export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
   const {
@@ -89,6 +90,16 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     setCurrentText(currentTyping.word.split("")[0]);
   }, [rect, typingSettingLocal]);
 
+  useEffect(() => {
+    setCursorWidth(
+      getTextWidth(
+        currentTyping.word[0],
+        `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+      )
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rect]);
+
   return (
     <>
       <TypingKeyboardInput
@@ -114,7 +125,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
         transitionY={0}
         blockTextSize="text-4xl"
       ></TypingCursorNew>
-      <div className="relative w-full flex flex-col items-center">
+      <div className="relative w-full flex flex-col items-center gap-2">
         <TypingWordNew
           setRect={setRect}
           typingWordIndex={refNextWord.current}
