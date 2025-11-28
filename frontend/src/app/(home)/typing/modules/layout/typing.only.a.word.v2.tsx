@@ -62,6 +62,15 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
         `${typingFontsize * typingFontsizeX}px`,
         fontFamily
       );
+    const cursorWidthIncrease = getTextWidth(
+      currentTyping?.word[value ? value.length + 1 : 1],
+      `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+    );
+    const cursorWidthDecrease = getTextWidth(
+      currentTyping?.word[value ? value.length - 1 : 1],
+      `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+    );
+
     if (value.length >= 0 && e.key === "Backspace") {
       value.length > 0 &&
         setCursorPosition((pre: any) => pre - cursorPositionDecrease);
@@ -75,7 +84,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     ) {
       if (e.key !== "Backspace" && value.length < currentTyping.word.length) {
         setCursorPosition(cursorPosition + cursorPositionIncrease);
-        setCursorWidth(cursorPositionIncrease);
+        setCursorWidth(cursorWidthIncrease);
         setCurrentText(currentTyping.word.split("")[value.length + 1]);
       }
     }
