@@ -51,11 +51,15 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
   };
   const handleOnKeyDown = (e: any) => {
     setCursorIsTyping(true);
+
+    // Value is => better than length 0 & spacing
     if (value.length > 0 && e.key === " ") {
       setCurrentTyping(newData.current[refNextWord.current + 1]);
       setValue("");
       refNextWord.current = refNextWord.current + 1;
     }
+
+    // caculate cursor position & width
     const { cursorPositionIncrease, cursorPositionDecrease } =
       calculatePositionForCursor(
         currentTyping,
@@ -75,12 +79,15 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
     );
 
+    // Value is => value >= 0 & "Backspace"
     if (value.length >= 0 && e.key === "Backspace") {
       if (value.length > 0) {
         setCursorPosition((pre: any) => pre - cursorPositionDecrease);
         setCursorWidth(cursorWidthDecrease);
       }
     }
+
+    // Value is text: abcdegf...
     if (
       e.key.length === 1 &&
       !e.ctrlKey &&
@@ -95,15 +102,13 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
       }
     }
   };
+
   useUpdateCursorPosition(
     currentTyping,
     rect,
     setCurrentText,
     setCursorPosition
   );
-  useEffect(() => {
-    setCurrentText(currentTyping.word.split("")[0]);
-  }, [rect, typingSettingLocal]);
 
   useEffect(() => {
     setCursorWidth(
@@ -112,8 +117,9 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
         `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
       )
     );
+    setCurrentText(currentTyping.word.split("")[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect]);
+  }, [rect, typingSettingLocal]);
 
   return (
     <>
