@@ -23,6 +23,7 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     setIsVietNamese,
     typingFontsize,
     typingFontsizeX,
+    wordGap,
   } = useTyping();
 
   const [value, setValue] = useState<string>("");
@@ -62,10 +63,13 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
         `${typingFontsize * typingFontsizeX}px`,
         fontFamily
       );
-    const cursorWidthIncrease = getTextWidth(
-      currentTyping?.word[value ? value.length + 1 : 1],
-      `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
-    );
+    const cursorWidthIncrease =
+      currentTyping.word.length === value.length + 1
+        ? wordGap
+        : getTextWidth(
+            currentTyping?.word[value ? value.length + 1 : 1],
+            `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
+          );
     const cursorWidthDecrease = getTextWidth(
       currentTyping?.word[value ? value.length - 1 : 1],
       `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
