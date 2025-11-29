@@ -76,8 +76,10 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     );
 
     if (value.length >= 0 && e.key === "Backspace") {
-      value.length > 0 &&
+      if (value.length > 0) {
         setCursorPosition((pre: any) => pre - cursorPositionDecrease);
+        setCursorWidth(cursorWidthDecrease);
+      }
     }
     if (
       e.key.length === 1 &&
