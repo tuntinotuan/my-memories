@@ -11,6 +11,7 @@ import { useTyping } from "@/contexts/TypingStates";
 import { useUpdateCursorPosition } from "../../func/wordV2/updateCursorPosition";
 import { VN_REGEX } from "@/utils/RegexFs";
 import { getTextWidth } from "@/utils/stringFs";
+import { useUpdateTextAndWidthIntoCursor } from "../../func/wordV2/updateTextAndWidthIntoCursor";
 
 export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
   const {
@@ -109,17 +110,12 @@ export const TypingOnlyAWordV2 = ({ data }: { data: typingWordsTypes[] }) => {
     setCurrentText,
     setCursorPosition
   );
-
-  useEffect(() => {
-    setCursorWidth(
-      getTextWidth(
-        currentTyping.word[0],
-        `${typingFontsize * typingFontsizeX}px ${fontFamily?.name}`
-      )
-    );
-    setCurrentText(currentTyping.word.split("")[0]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect, typingSettingLocal]);
+  useUpdateTextAndWidthIntoCursor(
+    currentTyping,
+    rect,
+    setCurrentText,
+    setCursorWidth
+  );
 
   return (
     <>
