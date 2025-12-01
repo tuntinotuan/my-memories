@@ -35,6 +35,7 @@ const BtnThemeDropdown = ({ changeFor = "global" }: any) => {
       name={
         theme.charAt(0).toUpperCase() + theme.slice(1) || "Choose your theme"
       }
+      otherNameBeside={<p>hello</p>}
       className="border border-transparent bg-typingBgControlMenu text-white"
       activeClassName="border-b-typingColorActive"
       isActive={isActive}

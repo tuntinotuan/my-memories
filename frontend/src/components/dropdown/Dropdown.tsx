@@ -9,6 +9,7 @@ const Dropdown = ({
   name,
   isActive,
   setIsActive,
+  otherNameBeside,
 }: {
   children: React.ReactNode;
   className?: string;
@@ -16,6 +17,7 @@ const Dropdown = ({
   name: string;
   isActive: boolean;
   setIsActive: (val: boolean) => void;
+  otherNameBeside?: React.ReactNode;
 }) => {
   const hoverRef = useRef<HTMLDivElement>(null);
   const [rect, setRect] = useState<DOMRect>();
@@ -37,6 +39,7 @@ const Dropdown = ({
         }`}
       >
         {name}
+        {otherNameBeside && otherNameBeside}
         <ArrowDownIcon
           className={`text-white transition-all opacity-100 ${
             isHovered ? "-rotate-180" : ""
