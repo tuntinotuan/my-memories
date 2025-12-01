@@ -313,7 +313,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
   //
   useEffect(() => {
-    if (wordList.length <= 0) return;
+    // if (wordList.length <= 0) return;
     localStorage.setItem("wordList", JSON.stringify(wordList));
   }, [wordList]);
 
