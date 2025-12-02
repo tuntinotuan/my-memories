@@ -24,6 +24,7 @@ import BtnFontFamilyDropdown from "./BtnFontFamilyDropdown";
 import { useTypingTheme } from "@/contexts/typingThemeStates";
 import { Id } from "@/app/(home)/project/[slug]/modules/types";
 import BtnThemeDropdown from "./BtnThemeDropdown";
+import ToggleDarkMode from "@/components/toggle/ToggleDarkmode";
 
 const TextAppearance = ({ show }: any) => {
   const {
@@ -122,6 +123,8 @@ const TextAppearance = ({ show }: any) => {
   const [resetComponents, setResetComponents] = useState(true);
 
   const [fontsizeValue, setFontsizeValue] = useState<number>(typingFontsizeX);
+
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleOnChange = (e: any) => {
     if (e.target.value === " ") return;
@@ -270,6 +273,10 @@ const TextAppearance = ({ show }: any) => {
           Themes:
           <BtnThemeDropdown />
         </TextAndContentOverlay>
+        <ToggleDarkMode
+          on={darkMode}
+          onClick={() => setDarkMode(!darkMode)}
+        ></ToggleDarkMode>
       </div>
     </TextBoxBorderOverlay>
   );
