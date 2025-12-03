@@ -8,9 +8,10 @@ import SearchMenuHeader from "../../search/SearchMenuHeader";
 import SettingIcon from "@/components/icons/SettingIcon";
 import NotificationIcon from "@/components/icons/NotificationIcon";
 import ToggleDarkMode from "@/components/toggle/ToggleDarkMode";
+import { useLayoutStates } from "@/contexts/layoutStates";
 
 const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, setDarkMode } = useLayoutStates();
 
   return (
     <div
