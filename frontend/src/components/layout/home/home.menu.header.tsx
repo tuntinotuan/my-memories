@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@/components/button/Button";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import Image from "next/image";
@@ -7,8 +7,11 @@ import { scrollTypes } from "@/app/(home)/project/layout";
 import SearchMenuHeader from "../../search/SearchMenuHeader";
 import SettingIcon from "@/components/icons/SettingIcon";
 import NotificationIcon from "@/components/icons/NotificationIcon";
+import ToggleDarkMode from "@/components/toggle/ToggleDarkMode";
 
 const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
     <div
       className={`flex items-center justify-end w-full h-[8%] gap-2 py-2 bg-white bg-opacity-50 backdrop-blur-sm will-change-transform rounded-t-xl px-6 z-10 ${
@@ -40,6 +43,10 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
       <Button disable>
         <NotificationIcon fontSize="small" className="cursor-wait" />
       </Button>
+      <ToggleDarkMode
+        on={darkMode}
+        onClick={() => setDarkMode(!darkMode)}
+      ></ToggleDarkMode>
       <Button className="py-1" disable>
         <Image
           src="/avatar-black-umbrella.jpg"

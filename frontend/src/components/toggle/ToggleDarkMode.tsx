@@ -16,8 +16,7 @@ const ToggleDarkMode = ({
         type="checkbox"
         checked={on}
         onClick={onClick}
-        className="hidden-input"
-        onChange={() => {}}
+        className="hidden-input hidden"
       />
       <div
         className={`inline-block w-[70px] h-[42px] relative cursor-pointer rounded-full p-1 transition-all ease-in-out duration-[2s] ${
