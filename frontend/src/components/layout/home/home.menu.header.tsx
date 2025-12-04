@@ -15,7 +15,7 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
 
   return (
     <div
-      className={`flex items-center justify-end w-full h-[8%] gap-2 py-2 bg-white bg-opacity-50 backdrop-blur-sm will-change-transform rounded-t-xl px-6 z-10 ${
+      className={`flex items-center justify-end w-full gap-2 py-2 bg-white bg-opacity-50 backdrop-blur-sm will-change-transform rounded-t-xl px-6 z-10 ${
         scroll?.scrollTop > 0 ? "shadow-lg" : ""
       }`}
     >
@@ -44,10 +44,10 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
       <Button disable>
         <NotificationIcon fontSize="small" className="cursor-wait" />
       </Button>
-      <ToggleDarkMode
+      {/* <ToggleDarkMode
         on={darkMode}
         onClick={() => setDarkMode(!darkMode)}
-      ></ToggleDarkMode>
+      ></ToggleDarkMode> */}
       <Button className="py-1" disable>
         <Image
           src="/avatar-black-umbrella.jpg"
