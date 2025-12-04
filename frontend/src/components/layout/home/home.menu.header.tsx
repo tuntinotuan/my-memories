@@ -44,10 +44,10 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
       <Button disable>
         <NotificationIcon fontSize="small" className="cursor-wait" />
       </Button>
-      {/* <ToggleDarkMode
+      <ToggleDarkMode
         on={darkMode}
         onClick={() => setDarkMode(!darkMode)}
-      ></ToggleDarkMode> */}
+      ></ToggleDarkMode>
       <Button className="py-1" disable>
         <Image
           src="/avatar-black-umbrella.jpg"
