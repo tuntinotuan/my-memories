@@ -9,7 +9,7 @@ import BoardMenu from "@/components/layout/board/board.menu";
 const BoardMainPage = ({ params }: any) => {
   useFetchSingleBoard(params);
   return (
-    <div className="flex w-full h-full overflow-hidden">
+    <div className="flex w-full h-full overflow-auto">
       <LocalBody></LocalBody>
       <BoardSidebar />
     </div>
