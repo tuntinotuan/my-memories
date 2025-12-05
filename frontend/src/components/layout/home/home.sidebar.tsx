@@ -23,7 +23,7 @@ const HomeSidebar = ({ children }: { children: React.ReactNode }) => {
       {showHomeSidebar && (
         <div className={`home-sidebar relative shrink-0 w-[260px]`}>
           {children}
-          <div className="bg-f2Color absolute bottom-2 left-0 right-0 px-4">
+          <div className="dark:bg-darkMode03 bg-f2Color absolute bottom-2 left-0 right-0 px-4">
             <Button
               href="/trash"
               className={`!justify-start gap-3 w-full hover:bg-primaryHover ${

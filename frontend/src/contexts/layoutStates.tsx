@@ -23,7 +23,7 @@ const layoutStatesDefaultValues: LayoutStatesType = {
   pageBoardSidebar: "menu",
   resetAllInputRequired: false,
   showTypingSetting: false,
-  darkMode: false,
+  darkMode: true,
   setDarkMode: () => {},
   setShowTypingSetting: () => {},
   setResetAllInputRequired: () => {},
@@ -39,7 +39,7 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const [showHomeSidebar, setShowHomeSidebar] = useState(true);
   const [showTypingSetting, setShowTypingSetting] = useState(false);
   const [resetAllInputRequired, setResetAllInputRequired] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [pageBoardSidebar, setPageBoardSidebar] =
     useState<PageBoardSidebarType>("menu");
   const handleShowMenuboard = () => {

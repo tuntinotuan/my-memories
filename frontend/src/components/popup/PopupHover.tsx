@@ -80,7 +80,7 @@ const PopupHover = ({
   return (
     <PortalOverlay>
       <div
-        className={`fixed flex flex-col gap-[2px] bg-black text-white rounded transition-all z-50 ${newSize} ${
+        className={`fixed flex flex-col gap-[2px] bg-black text-white dark:bg-efColor dark:text-gray-300 rounded transition-all z-50 ${newSize} ${
           isHovered
             ? "opacity-100 visible -translate-y-1"
             : "opacity-0 translate-y-0 invisible"

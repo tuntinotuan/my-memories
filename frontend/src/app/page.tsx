@@ -15,11 +15,11 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 export const dynamic = "force-dynamic";
 
 export default function Home() {
-  const { darkMode, setDarkMode } = useLayoutStates();
+  const { darkMode } = useLayoutStates();
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div
-        className={`flex h-full w-full bg-efColor dark:bg-red-500 overflow-hidden`}
+        className={`flex h-full w-full bg-efColor dark:bg-darkMode03 overflow-hidden`}
       >
         <NotifyNormal />
         <NotifyComeBack />
@@ -27,7 +27,7 @@ export default function Home() {
         <HomeMenuSidebar></HomeMenuSidebar>
         <HomeSidebarCover>
           <HomeSidebarForBoard />
-          <HomeContentCover className="flex-col gap-2 px-6 pb-6">
+          <HomeContentCover className="flex flex-col gap-2 px-6 pb-6">
             <MainContent />
           </HomeContentCover>
         </HomeSidebarCover>

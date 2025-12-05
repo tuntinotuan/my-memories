@@ -22,7 +22,7 @@ const HomeSidebarTop = () => {
         <div>
           <CloseIcon
             onClick={() => handleShowHomeSidebar()}
-            className="homesidebar-close-icon opacity-0"
+            className="homesidebar-close-icon opacity-0 dark:bg-primaryColor dark:border-none "
             border
           ></CloseIcon>
         </div>

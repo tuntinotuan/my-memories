@@ -31,6 +31,7 @@ const config: Config = {
         typingTextWrong: "var(--text-wrong)",
         typingBgControlMenu: "var(--bg-control)",
         typingTextHover: "var(--text-hover)",
+        darkMode03: "#030613",
       },
       keyframes: {
         popupGrow: {
