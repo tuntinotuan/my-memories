@@ -60,15 +60,9 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       setDarkMode(false);
     }
   }, []);
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("darkmode", "light");
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("darkmode", "dark");
-    }
-  }, [darkMode]);
+  // useEffect(() => {
+
+  // }, [darkMode]);
 
   return (
     <LayoutStates.Provider

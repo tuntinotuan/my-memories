@@ -12,7 +12,16 @@ import { useLayoutStates } from "@/contexts/layoutStates";
 
 const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
   const { darkMode, setDarkMode } = useLayoutStates();
-
+  const handleClickDarkMode = () => {
+    setDarkMode(!darkMode);
+    if (darkMode) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkmode", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkmode", "dark");
+    }
+  };
   return (
     <div
       className={`flex items-center justify-end w-full h-[8vh] gap-2 py-2 bg-white bg-opacity-50 backdrop-blur-sm will-change-transform rounded-t-xl px-6 z-10 ${
@@ -45,8 +54,8 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
         <NotificationIcon fontSize="small" className="cursor-wait" />
       </Button>
       <ToggleDarkMode
-        on={!darkMode}
-        onClick={() => setDarkMode(!darkMode)}
+        on={darkMode}
+        onClick={handleClickDarkMode}
       ></ToggleDarkMode>
       <Button className="py-1" disable>
         <Image
