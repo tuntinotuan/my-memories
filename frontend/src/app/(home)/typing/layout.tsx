@@ -32,7 +32,7 @@ const BodyLocal = ({ children }: { children: React.ReactNode }) => {
         <HomeSidebarForTyping />
         <HomeContentCover
           className={`${fontFamily?.code} ${
-            typingFullScreen ? "!fixed inset-0 h-screen" : ""
+            typingFullScreen ? "!fixed inset-0 !h-screen z-[999]" : ""
           }`}
         >
           <PopupTypingSetting

@@ -17,7 +17,7 @@ export default function TypingPage() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full gap-2 px-4 pt-2 bg-typingBg text-white">
+    <div className="flex flex-col w-full h-full gap-2 px-4 pt-2 bg-typingBg text-white">
       {loadingTypingWordList && <TypingPageSkeleton></TypingPageSkeleton>}
       {!showResults && !loadingTypingWordList && (
         <TypingHeaderMenu></TypingHeaderMenu>

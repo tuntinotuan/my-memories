@@ -24,6 +24,7 @@ const config: Config = {
         primaryText: "#4c5156",
         primaryHover: "#e7e6f3",
         primaryBlack: "#0d1216",
+        darkMode03: "#030613",
         typingBg: "var(--bg-primary)",
         typingColorActive: "var(--color-active)",
         typingTextNormal: "var(--text-normal)",
@@ -31,7 +32,6 @@ const config: Config = {
         typingTextWrong: "var(--text-wrong)",
         typingBgControlMenu: "var(--bg-control)",
         typingTextHover: "var(--text-hover)",
-        darkMode03: "#030613",
       },
       keyframes: {
         popupGrow: {
