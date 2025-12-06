@@ -22,6 +22,7 @@ export function useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     resetCountDownIsInitial,
     setTypingWordIndex,
     setHideOverlay,
+    typingFullScreen,
   } = useTyping();
   useEffect(() => {
     document.getElementById("typingKeyboardId")?.focus();
@@ -62,4 +63,9 @@ export function useResetTypingStatesAfterWordOrTimeSettingChangeV2(
     resetCountDownIsInitial();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordTime]);
+  useEffect(() => {
+    document.getElementById("typingKeyboardId")?.focus();
+    setHideOverlay(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typingFullScreen]);
 }

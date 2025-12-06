@@ -23,6 +23,7 @@ export function useUpdateCursorPosition(
     typingFontsizeX,
     setTypingWordIndex,
     fontFamily,
+    typingFullScreen,
   } = useTyping();
   useEffect(() => {
     typingWordIndex < newArrWords.length &&
@@ -40,7 +41,7 @@ export function useUpdateCursorPosition(
       setCursorPosition(rect.left + (moreCursorPosition || 0));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect, typingSettingLocal]);
+  }, [rect, typingSettingLocal, typingFullScreen]);
   useEffect(() => {
     setHydrated &&
       resetTypingStatesV2({
@@ -51,5 +52,5 @@ export function useUpdateCursorPosition(
         setHeightFlexible,
         setRowTyped,
       });
-  }, [typingFontsizeX, fontFamily]);
+  }, [typingFontsizeX, fontFamily, typingFullScreen]);
 }
