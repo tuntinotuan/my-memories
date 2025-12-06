@@ -1,6 +1,6 @@
 "use client";
 import { PageBoardSidebarType } from "@/components/layout/board/board.sidebar";
-import { useContext, useState, createContext } from "react";
+import { useContext, useState, createContext, useEffect } from "react";
 
 type LayoutStatesType = {
   showMenuboard: boolean;
@@ -49,6 +49,27 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const handleShowHomeSidebar = () => {
     setShowHomeSidebar(!showHomeSidebar);
   };
+
+  // load darkmode
+  useEffect(() => {
+    const saved = localStorage.getItem("darkmode");
+    if (saved === "dark") {
+      document.documentElement.classList.add("dark");
+      setDarkMode(true);
+    } else {
+      setDarkMode(false);
+    }
+  }, []);
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkmode", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkmode", "dark");
+    }
+  }, [darkMode]);
+
   return (
     <LayoutStates.Provider
       value={{

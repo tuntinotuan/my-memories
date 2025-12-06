@@ -17,7 +17,8 @@ export const dynamic = "force-dynamic";
 export default function Home() {
   const { darkMode } = useLayoutStates();
   return (
-    <div className={`${darkMode ? "dark" : ""}`}>
+    // ${darkMode ? "dark" : ""}
+    <div className={``}>
       <div
         className={`flex h-full w-full bg-efColor dark:bg-darkMode03 overflow-hidden`}
       >

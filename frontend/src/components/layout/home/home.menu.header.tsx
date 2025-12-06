@@ -45,7 +45,7 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
         <NotificationIcon fontSize="small" className="cursor-wait" />
       </Button>
       <ToggleDarkMode
-        on={darkMode}
+        on={!darkMode}
         onClick={() => setDarkMode(!darkMode)}
       ></ToggleDarkMode>
       <Button className="py-1" disable>
