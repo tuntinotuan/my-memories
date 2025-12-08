@@ -86,7 +86,7 @@ const MenuListItems = ({ lists }: MenuListItems) => {
             radius="sm"
             delay={100}
             closeDelay={100}
-            className="!px-2 !py-[2px]"
+            className="!px-2 !py-[2px] dark:text-white"
             shadow="sm"
             key={index}
           >

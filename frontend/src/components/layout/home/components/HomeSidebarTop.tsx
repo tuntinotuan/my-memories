@@ -16,8 +16,13 @@ const HomeSidebarTop = () => {
         radius="sm"
         delay={200}
         closeDelay={200}
-        className="!px-2 !py-[2px]"
+        className="!px-2 !py-[2px] dark:text-white"
         shadow="sm"
+        classNames={{
+          content: "bg-white text-black dark:bg-neutral-800 dark:text-black",
+          arrow: "bg-white dark:before:bg-white",
+          base: "dark:border-neutral-700",
+        }}
       >
         <div>
           <CloseIcon
