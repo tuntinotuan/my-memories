@@ -25,6 +25,7 @@ const config: Config = {
         primaryHover: "#e7e6f3",
         primaryBlack: "#0d1216",
         darkMode03: "#030613",
+        darkMode0A: "#0A1928",
         typingBg: "var(--bg-primary)",
         typingColorActive: "var(--color-active)",
         typingTextNormal: "var(--text-normal)",

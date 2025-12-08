@@ -40,7 +40,7 @@ const GradientImage = ({
         ></div>
       ))}
       <div
-        className={`flex items-center justify-center w-full h-10 bg-primaryHover text-primaryText hover:text-black hover:shadow-md hover:-translate-y-[1px] rounded shadow-sm cursor-pointer transition-all`}
+        className={`flex items-center justify-center w-full h-10 bg-primaryHover text-primaryText dark:bg-darkMode0A hover:text-black hover:shadow-md hover:-translate-y-[1px] rounded shadow-sm cursor-pointer transition-all`}
         ref={ref}
         onClick={() => setShowPopup(true)}
       >
