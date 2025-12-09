@@ -12,7 +12,7 @@ type ButtonProps = {
 };
 
 const Button = (props: ButtonProps) => {
-  const { hover = "hover:bg-f2Color" } = props;
+  const { hover = "hover:bg-f2Color dark:hover:bg-darkMode0A" } = props;
   const { setTitle, setActiveNormal } = useNotify();
   const Main = () => {
     return (

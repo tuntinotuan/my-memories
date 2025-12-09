@@ -22,7 +22,7 @@ export const MySketchPicker = ({
       <SketchPicker
         color={color}
         onChange={(updatedColor) => setColor(updatedColor.hex)}
-        className="w-full"
+        className="w-full dark:bg-darkMode03"
         styles={{
           default: {
             picker: {

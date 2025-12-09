@@ -24,7 +24,7 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
   };
   return (
     <div
-      className={`flex items-center justify-end w-full h-[8vh] gap-2 py-2 bg-white bg-opacity-50 backdrop-blur-sm will-change-transform rounded-t-xl px-6 z-10 ${
+      className={`flex items-center justify-end w-full h-[8vh] gap-2 py-2 bg-white dark:bg-darkMode03 bg-opacity-50 backdrop-blur-sm will-change-transform rounded-t-xl px-6 z-10 ${
         scroll?.scrollTop > 0 ? "shadow-lg" : ""
       }`}
     >
@@ -41,7 +41,7 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
         radius="sm"
         delay={200}
         closeDelay={200}
-        className="!px-2 !py-[2px]"
+        className="!px-2 !py-[2px] dark:text-white"
         shadow="sm"
       >
         <div>

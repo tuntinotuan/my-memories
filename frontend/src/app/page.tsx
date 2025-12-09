@@ -28,7 +28,7 @@ export default function Home() {
         <HomeMenuSidebar></HomeMenuSidebar>
         <HomeSidebarCover>
           <HomeSidebarForBoard />
-          <HomeContentCover className="flex flex-col gap-2 px-6 pb-6">
+          <HomeContentCover className="flex flex-col gap-2 px-6 pb-6 dark:bg-darkMode03">
             <MainContent />
           </HomeContentCover>
         </HomeSidebarCover>

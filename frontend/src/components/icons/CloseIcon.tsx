@@ -14,7 +14,7 @@ const CloseIcon = ({
 }: CloseIconProps) => {
   return (
     <div
-      className={`w-7 h-7 flex items-center justify-center rounded-lg hover:bg-primaryHover transition-all cursor-pointer ${
+      className={`w-7 h-7 flex items-center justify-center rounded-lg hover:bg-primaryHover dark:hover:bg-darkMode0A transition-all cursor-pointer ${
         border ? "border border-gray-200" : ""
       } ${className}`}
       {...rest}
