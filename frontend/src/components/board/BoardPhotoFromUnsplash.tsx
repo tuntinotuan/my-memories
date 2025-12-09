@@ -32,7 +32,7 @@ const BoardPhotoFromUnsplash = ({ update }: any) => {
 
   return (
     <div className="h-auto pb-4">
-      <div className="bg-white sticky top-0 z-[1] py-2">
+      <div className="bg-white dark:bg-darkMode03 sticky top-0 z-[1] py-2">
         <SearchMenuHeader
           placeholder="Photos"
           width="auto"

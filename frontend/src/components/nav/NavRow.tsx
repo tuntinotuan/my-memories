@@ -81,7 +81,7 @@ function NavItem({
   return (
     <div
       ref={ref}
-      className={`text-sm hover:bg-gray-100 rounded-lg cursor-pointer transition-all px-2 py-[10px] mt-2 ${
+      className={`text-sm hover:bg-gray-100 dark:hover:bg-darkMode0A rounded-lg cursor-pointer transition-all px-2 py-[10px] mt-2 ${
         currentPage === title ? "font-bold hover:bg-transparent" : ""
       }`}
       onClick={() => setCurrentPage(title)}
