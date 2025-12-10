@@ -46,7 +46,7 @@ const InputValidation = ({
         value={value}
         placeholder={placeholder}
         className={`border rounded w-full px-3 py-2 transition-all ${
-          nonBorder ? "border-transparent" : "border-gray-200"
+          nonBorder ? "border-transparent" : "border-gray-200 "
         } ${
           value === ""
             ? "focus:border-red-400"

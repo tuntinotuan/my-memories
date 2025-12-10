@@ -57,7 +57,7 @@ const PopupFlexibleOverlay = ({
   return show ? (
     <PortalOverlay>
       <div
-        className="fixed h-[50vh] max-h-auto bg-white dark:bg-darkMode03 dark:text-white border border-gray-200 shadow-md rounded-lg p-2 overflow-hidden pb-10 z-50"
+        className="fixed h-[50vh] max-h-auto bg-white dark:bg-darkMode03 dark:text-white border border-gray-200 dark:border-darkMode0A shadow-md rounded-lg p-2 overflow-hidden pb-10 z-50"
         style={{ ...currentPosition, width: width, height: height }}
         ref={ref}
       >

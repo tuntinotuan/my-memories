@@ -51,7 +51,9 @@ const HomeMenuSidebar = () => {
   return (
     <ul
       className={`h-auto ${
-        showHomeSidebar ? "home-menu-ul border-r-d7Color" : ""
+        showHomeSidebar
+          ? "home-menu-ul border-r-d7Color dark:border-darkMode0A"
+          : ""
       }`}
     >
       <MenuListItems lists={menuLists}></MenuListItems>
