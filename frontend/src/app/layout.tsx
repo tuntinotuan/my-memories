@@ -126,7 +126,7 @@ export default function RootLayout({
           rel="stylesheet"
         ></link>
       </head>
-      <body className={`fixed inset-0 text-primaryBlack`}>
+      <body className={`fixed inset-0 text-primaryBlack dark:bg-darkMode03`}>
         <CreateBoardProvider>
           <NotifyProvider>
             <HoverGlobalProvider>

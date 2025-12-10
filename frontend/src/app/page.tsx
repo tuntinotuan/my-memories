@@ -11,28 +11,23 @@ import NotifyComeBack from "@/components/notify/NotifyComeBack";
 import ButtonGridOrListView from "@/components/button/ButtonGridOrListView";
 import HomeSidebarForBoard from "@/components/layout/home/home.sidebar.for.board";
 import NotifySaved from "@/components/notify/NotifySaved";
-import { useLayoutStates } from "@/contexts/layoutStates";
 export const dynamic = "force-dynamic";
 
 export default function Home() {
-  const { darkMode } = useLayoutStates();
   return (
-    // ${darkMode ? "dark" : ""}
-    <div className={``}>
-      <div
-        className={`flex h-full w-full bg-efColor dark:bg-darkMode03 overflow-hidden`}
-      >
-        <NotifyNormal />
-        <NotifyComeBack />
-        <NotifySaved />
-        <HomeMenuSidebar></HomeMenuSidebar>
-        <HomeSidebarCover>
-          <HomeSidebarForBoard />
-          <HomeContentCover className="flex flex-col gap-2 px-6 pb-6 dark:bg-darkMode03">
-            <MainContent />
-          </HomeContentCover>
-        </HomeSidebarCover>
-      </div>
+    <div
+      className={`flex h-full w-full bg-efColor dark:bg-darkMode03 overflow-hidden`}
+    >
+      <NotifyNormal />
+      <NotifyComeBack />
+      <NotifySaved />
+      <HomeMenuSidebar></HomeMenuSidebar>
+      <HomeSidebarCover>
+        <HomeSidebarForBoard />
+        <HomeContentCover className="flex flex-col gap-2 px-6 pb-6 dark:bg-darkMode03">
+          <MainContent />
+        </HomeContentCover>
+      </HomeSidebarCover>
     </div>
   );
 }
