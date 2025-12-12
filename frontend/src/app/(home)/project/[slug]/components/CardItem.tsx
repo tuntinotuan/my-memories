@@ -23,7 +23,7 @@ const CardItem = ({ task, className, updateTask, handleDeleteTask }: any) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`flex items-center gap-2 group bg-gray-100 p-2 rounded-lg cursor-grab ${className} ${
+      className={`flex items-center gap-2 group bg-gray-100 dark:bg-darkMode0A  p-2 rounded-lg cursor-grab ${className} ${
         isDragging
           ? "blur-[0.5px] bg-opacity-75 border-2 border-secondaryColor"
           : ""

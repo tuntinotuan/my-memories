@@ -64,8 +64,10 @@ const List = ({
       }`}
     >
       <div
-        className={`flex flex-col gap-2 bg-white max-h-full text-primaryText rounded p-2 shadow-md border border-gray-200 ${
-          isDragging ? "bg-opacity-60 border-2 border-secondaryColor" : ""
+        className={`flex flex-col gap-2 bg-white  max-h-full text-primaryText rounded p-2 shadow-md border border-gray-200  ${
+          isDragging
+            ? "bg-opacity-60 border-2 border-secondaryColor"
+            : "dark:bg-darkMode03 dark:text-white dark:border-darkMode0A"
         }`}
       >
         <div className="group flex items-center text-sm font-bold box-border">
