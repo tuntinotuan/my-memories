@@ -10,7 +10,7 @@ const SettingRootPage = ({
 }: any) => {
   return (
     <>
-      <div className="flex flex-col border border-transparent border-b-gray-200 p-3">
+      <div className="flex flex-col border border-transparent border-b-gray-200 dark:border-darkMode0A p-3">
         <InputPencilEdit
           title={title}
           id={id}

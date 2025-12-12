@@ -14,7 +14,7 @@ export const SettingItem = ({
   const Main = () => {
     return (
       <div
-        className="flex items-center gap-2 w-full text-primaryText hover:bg-gray-100 px-3 py-2 transition-all cursor-pointer"
+        className="flex items-center gap-2 w-full text-primaryText hover:bg-gray-100 dark:hover:bg-darkMode0A px-3 py-2 transition-all cursor-pointer"
         onClick={onClick}
       >
         {icon}

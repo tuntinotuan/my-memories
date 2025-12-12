@@ -22,7 +22,7 @@ export const PopupDotsSetting = ({
     <PortalOverlay>
       <div
         ref={ref}
-        className={`fixed w-[300px] h-auto bg-white shadow-popup-rect rounded-xl z-50 border border-gray-200 overflow-hidden`}
+        className={`fixed w-[300px] h-auto bg-white dark:bg-darkMode03 dark:text-white shadow-popup-rect rounded-xl z-50 border border-gray-200 dark:border-darkMode0A overflow-hidden`}
         style={
           rect
             ? {
