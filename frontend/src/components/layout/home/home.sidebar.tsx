@@ -28,7 +28,7 @@ const HomeSidebar = ({ children }: { children: React.ReactNode }) => {
               href="/trash"
               className={`!justify-start gap-3 w-full hover:bg-primaryHover ${
                 pathname === "/trash/"
-                  ? "bg-primaryHover text-primaryColor"
+                  ? "bg-primaryHover text-primaryColor dark:bg-primaryColor dark:bg-opacity-10"
                   : "text-primaryText"
               }`}
             >
