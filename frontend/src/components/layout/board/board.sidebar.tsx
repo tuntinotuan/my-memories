@@ -20,7 +20,7 @@ const BoardSidebar = () => {
     <div
       className={`relative shadow-md text-sm transition-all shrink-0 overflow-hidden pb-10 ${
         showMenuboard
-          ? "h-full w-[300px] border border-gray-200 opacity-100 px-2 py-3 "
+          ? "h-full w-[300px] border border-gray-200 dark:border-darkMode0A opacity-100 px-2 py-3 "
           : "w-0 h-0 overflow-hidden translate-x-[300px]"
       }`}
     >
@@ -80,7 +80,7 @@ const BoardTopControl = ({ handleShowMenuboard }: any) => {
 };
 const Body = ({ page }: PageProps) => {
   return (
-    <div className="h-full overflow-auto border border-transparent border-y-gray-200 pb-2">
+    <div className="h-full overflow-auto border border-transparent border-y-gray-200 dark:border-y-darkMode0A pb-2">
       {page === "menu" && <BoardMenu />}
       {page === "background" && <BoardChangeBackground />}
       {page === "unsplash" && <BoardPhotoFromUnsplash />}

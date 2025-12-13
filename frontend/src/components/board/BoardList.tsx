@@ -11,7 +11,7 @@ const BoardList = ({
 }) => {
   return (
     <div
-      className={`flex flex-col gap-1 border border-transparent border-b-gray-200 py-2 ${
+      className={`flex flex-col gap-1 border border-transparent border-b-gray-200 dark:border-b-darkMode0A py-2 ${
         lastItem ? "border-none" : ""
       }`}
     >
