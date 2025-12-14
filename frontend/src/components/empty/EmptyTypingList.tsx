@@ -13,7 +13,7 @@ const EmptyTypingList = () => {
   return (
     <div
       ref={hoverRef}
-      className="h-full w-full flex flex-col items-center justify-center gap-2 text-xs text-center"
+      className="h-full w-full flex flex-col items-center justify-center dark:text-white gap-2 text-xs text-center"
     >
       <Image
         src={"/cat-empty-paper.png"}
