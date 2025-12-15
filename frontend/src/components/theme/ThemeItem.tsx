@@ -37,7 +37,7 @@ const ThemeItem = ({
       className={`${item} flex items-center justify-between gap-1 bg-typingBg hover:scale-105 focus:scale-105 rounded-full transition-all ${
         item === currentTheme
           ? "border-primaryColor shadow-sm focus:outline-none shadow-primaryColor scale-105"
-          : "border-gray-200 cursor-pointer"
+          : "border-gray-200 dark:border-darkMode0A cursor-pointer"
       } ${className}`}
       style={{ padding: size / 2, borderWidth: size / 8 }}
       onClick={onClick}

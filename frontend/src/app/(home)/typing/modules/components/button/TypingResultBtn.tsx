@@ -27,7 +27,7 @@ const TypingResultBtn = ({
       radius="sm"
       delay={200}
       closeDelay={200}
-      className="cursor-pointer !px-2 !py-[2px]"
+      className="cursor-pointer !px-2 !py-[2px] dark:text-white"
       shadow="sm"
     >
       <label

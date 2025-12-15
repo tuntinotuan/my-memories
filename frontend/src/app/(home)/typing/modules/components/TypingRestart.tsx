@@ -35,7 +35,7 @@ const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
         radius="sm"
         delay={200}
         closeDelay={200}
-        className="!px-2 !py-[2px]"
+        className="!px-2 !py-[2px] dark:text-white"
         shadow="sm"
       >
         <label

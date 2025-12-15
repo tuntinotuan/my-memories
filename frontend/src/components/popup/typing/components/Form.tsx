@@ -71,7 +71,7 @@ export const Form = ({
         ></InputValidation>
         <Button
           className="bg-typingBgControlMenu"
-          hover=" hover:bg-typingColorActive"
+          hover=" hover:bg-typingColorActive dark:hover:bg-darkMode0A"
           onClick={handleAddAPairOfWord}
         >
           <PlusIcon></PlusIcon>Add a pair of word

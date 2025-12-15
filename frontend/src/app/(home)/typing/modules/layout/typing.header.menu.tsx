@@ -36,7 +36,7 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
         radius="sm"
         delay={200}
         closeDelay={200}
-        className="!px-2 !py-[2px]"
+        className="!px-2 !py-[2px] dark:text-white"
         shadow="sm"
       >
         <h1 className="flex items-center gap-1 cursor-default">
