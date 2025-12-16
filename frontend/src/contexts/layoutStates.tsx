@@ -50,6 +50,14 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     setShowHomeSidebar(!showHomeSidebar);
   };
 
+  useEffect(() => {
+    const saved = localStorage.getItem("darkmode");
+    if (saved) return;
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
   // load darkmode
   useEffect(() => {
     const saved = localStorage.getItem("darkmode");
