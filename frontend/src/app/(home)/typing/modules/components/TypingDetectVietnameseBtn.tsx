@@ -6,7 +6,7 @@ const TypingDetectVietnameseBtn = () => {
   const { isVietNamese } = useTyping();
   return (
     <div
-      className={`absolute top-[20%] right-2 flex items-center gap-1 bg-typingColorActive p-2 rounded-lg z-50 text-xs ${
+      className={`absolute top-[20%] right-2 flex items-center gap-1 bg-typingColorActive text-shadow-lg p-2 rounded-lg z-50 text-xs ${
         isVietNamese ? "visible backdrop-blur-sm" : "invisible"
       }`}
     >

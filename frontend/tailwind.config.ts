@@ -115,20 +115,35 @@ const config: Config = {
         firaCode: ["Fira Code", "sans-serif"],
         courierPrime: ["Courier Prime", "sans-serif"],
       },
-    },
-    plugins: [
-      function ({ addUtilities }: any) {
-        addUtilities({
-          "transition-typingCursor": {
-            transitionProperty: "opacity, transform, background-color",
-            transitionDuration: "200ms",
-            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-          },
-        });
+      textShadow: {
+        sm: "1px 1px 2px rgba(0,0,0,0.25)",
+        DEFAULT: "2px 2px 4px rgba(0,0,0,0.3)",
+        lg: "3px 3px 6px rgba(0,0,0,0.4)",
       },
-    ],
+    },
   },
+  plugins: [
+    function ({ addUtilities }: any) {
+      addUtilities({
+        "transition-typingCursor": {
+          transitionProperty: "opacity, transform, background-color",
+          transitionDuration: "200ms",
+          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        },
+      });
+    },
+    function ({ matchUtilities, theme }: any) {
+      matchUtilities(
+        {
+          "text-shadow": (value: any) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") }
+      );
+    },
+  ],
   darkMode: "class",
-  plugins: [nextui()],
+  // plugins: [nextui()],
 };
 export default config;
