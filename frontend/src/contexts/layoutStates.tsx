@@ -55,6 +55,11 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     if (saved) return;
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       document.documentElement.classList.add("dark");
+      setDarkMode(true);
+      localStorage.setItem("darkmode", "dark");
+    } else {
+      setDarkMode(false);
+      localStorage.setItem("darkmode", "light");
     }
   }, []);
 
