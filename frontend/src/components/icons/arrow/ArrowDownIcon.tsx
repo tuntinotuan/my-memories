@@ -3,10 +3,10 @@ import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 
 const ArrowDownIcon = ({
   className,
-  fontSize,
+  fontSize = "inherit",
 }: {
   className?: string;
-  fontSize?: "small" | "medium" | "large";
+  fontSize?: "small" | "medium" | "large" | "inherit";
 }) => {
   return (
     <ExpandMoreRoundedIcon
