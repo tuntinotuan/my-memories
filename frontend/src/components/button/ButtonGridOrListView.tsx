@@ -23,7 +23,7 @@ const ButtonGridOrListView = ({
       shadow="sm"
     >
       <div
-        className="w-10 h-10 flex items-center justify-center text-primaryText border border-gray-300 rounded-lg hover:bg-efColor active:border-gray-400 active:bg-gray-300 active:shadow-inner cursor-pointer transition-all"
+        className="w-10 h-10 flex items-center justify-center text-primaryText dark:text-white border border-gray-300 dark:border-darkMode0A rounded-lg hover:bg-efColor dark:hover:bg-darkMode0A active:border-gray-400 active:bg-gray-300 active:shadow-inner cursor-pointer transition-all"
         onClick={handleViewListOrGrid}
       >
         {listOrGrid === "list" ? (
