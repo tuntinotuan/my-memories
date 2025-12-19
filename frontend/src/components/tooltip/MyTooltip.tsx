@@ -25,7 +25,7 @@ const MyTooltip = ({
   leaveDelay = 300,
   isTruncated = true,
 }: MyToolipProps) => {
-  const { ref, isHovered } = useHoverDelay<HTMLDivElement>({
+  const { ref, isHovered, setIsHovered } = useHoverDelay<HTMLDivElement>({
     enterDelay: enterDelay,
     leaveDelay: leaveDelay,
   });
@@ -42,7 +42,12 @@ const MyTooltip = ({
           {contents}
         </PopupHover>
       )}
-      <div ref={ref} className={`w-fit cursor-default ${className}`}>
+      <div
+        ref={ref}
+        onFocus={() => setIsHovered(true)}
+        onBlur={() => setIsHovered(false)}
+        className={`w-fit cursor-default ${className}`}
+      >
         {children}
       </div>
     </>

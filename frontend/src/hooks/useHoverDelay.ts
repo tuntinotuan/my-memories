@@ -48,5 +48,5 @@ export function useHoverDelay<T extends HTMLElement>({
     };
   }, [handleMouseEnter, handleMouseLeave]);
 
-  return { ref, isHovered };
+  return { ref, isHovered, setIsHovered };
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import SettingsBackupRestoreRoundedIcon from "@mui/icons-material/SettingsBackupRestoreRounded";
 import { Tooltip } from "@nextui-org/tooltip";
 import { useTyping } from "@/contexts/TypingStates";
+import MyTooltip from "@/components/tooltip/MyTooltip";
 
 type TypingRestartProps = {
   onRestart?: () => void;
@@ -28,7 +29,7 @@ const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
           : ""
       } ${typingFontsizeX > 3 ? "absolute top-20" : ""} ${className}`}
     >
-      <Tooltip
+      {/* <Tooltip
         showArrow
         content="Restart test"
         placement="top"
@@ -37,6 +38,11 @@ const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
         closeDelay={200}
         className="!px-2 !py-[2px] dark:text-white"
         shadow="sm"
+      > */}
+      <MyTooltip
+        contents={<p className="max-w-[200px] text-center">Restart test</p>}
+        size="small"
+        arrowRounded
       >
         <label
           tabIndex={0}
@@ -53,7 +59,8 @@ const TypingRestart = ({ onRestart, className }: TypingRestartProps) => {
             onClick={onRestart}
           ></SettingsBackupRestoreRoundedIcon>
         </label>
-      </Tooltip>
+      </MyTooltip>
+      {/* </Tooltip> */}
     </div>
   );
 };
