@@ -1,3 +1,4 @@
+import MyTooltip from "@/components/tooltip/MyTooltip";
 import { Tooltip } from "@nextui-org/tooltip";
 import React, { useEffect, useRef } from "react";
 
@@ -20,15 +21,21 @@ const TypingResultBtn = ({
     }
   }, []);
   return (
-    <Tooltip
-      showArrow
-      content={tooltipTitle}
-      placement="top"
-      radius="sm"
-      delay={200}
-      closeDelay={200}
-      className="cursor-pointer !px-2 !py-[2px] dark:text-white"
-      shadow="sm"
+    // <Tooltip
+    //   showArrow
+    //   content={tooltipTitle}
+    //   placement="top"
+    //   radius="sm"
+    //   delay={200}
+    //   closeDelay={200}
+    //   className="cursor-pointer !px-2 !py-[2px] dark:text-white"
+    //   shadow="sm"
+    // >
+    <MyTooltip
+      contents={<p className="max-w-[200px] text-center">{tooltipTitle}</p>}
+      size="small"
+      arrowRounded
+      className="flex"
     >
       <label
         tabIndex={tableIndex}
@@ -43,7 +50,7 @@ const TypingResultBtn = ({
       >
         {children}
       </label>
-    </Tooltip>
+    </MyTooltip>
   );
 };
 

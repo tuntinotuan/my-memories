@@ -24,9 +24,8 @@ const PopupOverlay = ({
   return (
     <PortalOverlay>
       <div
-        className={`fixed inset-0 z-50 ${
-          show ? "visible backdrop-blur-sm" : "invisible"
-        }`}
+        className={`fixed inset-0 z-[999
+          ] ${show ? "visible backdrop-blur-sm" : "invisible"}`}
       >
         <div
           className={`overlay-blur absolute inset-0 bg-gray-500 opacity-25 blur-sm ${
