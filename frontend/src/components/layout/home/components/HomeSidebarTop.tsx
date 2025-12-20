@@ -1,5 +1,6 @@
 import CloseIcon from "@/components/icons/CloseIcon";
 import HeaderLogo from "@/components/logo/header.logo";
+import MyTooltip from "@/components/tooltip/MyTooltip";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { Tooltip } from "@nextui-org/tooltip";
 import React from "react";
@@ -9,7 +10,7 @@ const HomeSidebarTop = () => {
   return (
     <div className="flex items-center justify-between">
       <HeaderLogo></HeaderLogo>
-      <Tooltip
+      {/* <Tooltip
         showArrow
         content="Close menu"
         placement="bottom"
@@ -23,6 +24,13 @@ const HomeSidebarTop = () => {
           arrow: "bg-white dark:before:bg-white",
           base: "dark:border-neutral-700",
         }}
+      > */}
+      <MyTooltip
+        contents={<p className="max-w-[200px] text-center">Close menu</p>}
+        size="small"
+        arrowRounded
+        className="flex"
+        placement="bottom"
       >
         <div>
           <CloseIcon
@@ -31,7 +39,8 @@ const HomeSidebarTop = () => {
             border
           ></CloseIcon>
         </div>
-      </Tooltip>
+      </MyTooltip>
+      {/* </Tooltip> */}
     </div>
   );
 };

@@ -14,6 +14,7 @@ import KeyboardOutlinedIcon from "@mui/icons-material/KeyboardOutlined";
 import KeyboardRoundedIcon from "@mui/icons-material/KeyboardRounded";
 import { useLayoutStates } from "@/contexts/layoutStates";
 import { Tooltip } from "@nextui-org/tooltip";
+import MyTooltip from "@/components/tooltip/MyTooltip";
 const HomeMenuSidebar = () => {
   const { showHomeSidebar } = useLayoutStates();
   const menuLists = [
@@ -81,21 +82,30 @@ const MenuListItems = ({ lists }: MenuListItems) => {
             <MainComponent item={item} />
           </Link>
         ) : (
-          <Tooltip
-            showArrow
-            content={showHomeSidebar ? "Close menu" : "Open menu"}
-            placement="bottom-start"
-            radius="sm"
-            delay={100}
-            closeDelay={100}
-            className="!px-2 !py-[2px] dark:text-white"
-            shadow="sm"
-            key={index}
+          // <Tooltip
+          //   showArrow
+          //   content={showHomeSidebar ? "Close menu" : "Open menu"}
+          //   placement="bottom-start"
+          //   radius="sm"
+          //   delay={100}
+          //   closeDelay={100}
+          //   className="!px-2 !py-[2px] dark:text-white"
+          //   shadow="sm"
+          //   key={index}
+          // >
+          <MyTooltip
+            contents={
+              <p className="">{showHomeSidebar ? "Close menu" : "Open menu"}</p>
+            }
+            size="small"
+            arrowRounded
+            className="w-full"
+            placement="bottom"
           >
-            <div>
-              <MainComponent item={item} />
-            </div>
-          </Tooltip>
+            {/* <div> */}
+            <MainComponent item={item} />
+            {/* </div> */}
+          </MyTooltip>
         )
       )}
     </>
