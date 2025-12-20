@@ -3,6 +3,7 @@ import React from "react";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import { ListOrGrid } from "@/app/page";
+import MyTooltip from "../tooltip/MyTooltip";
 
 const ButtonGridOrListView = ({
   listOrGrid,
@@ -12,15 +13,26 @@ const ButtonGridOrListView = ({
   handleViewListOrGrid: () => void;
 }) => {
   return (
-    <Tooltip
-      showArrow
-      content={listOrGrid === "list" ? "View as Grid" : "View as List"}
+    // <Tooltip
+    //   showArrow
+    //   content={listOrGrid === "list" ? "View as Grid" : "View as List"}
+    //   placement="bottom"
+    //   radius="sm"
+    //   delay={200}
+    //   closeDelay={200}
+    //   className="!px-2 !py-[2px] dark:text-white"
+    //   shadow="sm"
+    // >
+    <MyTooltip
+      contents={
+        <p className="w-auto text-center">
+          {listOrGrid === "list" ? "View as Grid" : "View as List"}
+        </p>
+      }
+      size="small"
+      arrowRounded
+      className="flex"
       placement="bottom"
-      radius="sm"
-      delay={200}
-      closeDelay={200}
-      className="!px-2 !py-[2px] dark:text-white"
-      shadow="sm"
     >
       <div
         className="w-10 h-10 flex items-center justify-center text-primaryText dark:text-white
@@ -33,7 +45,7 @@ const ButtonGridOrListView = ({
           <FormatListBulletedRoundedIcon />
         )}
       </div>
-    </Tooltip>
+    </MyTooltip>
   );
 };
 

@@ -13,6 +13,7 @@ import { ListBtnTypingStyles } from "../components/header/ListBtnTypingStyles";
 import { BtnChangeTheme } from "../components/header/BtnChangeTheme";
 import SettingIcon from "@/components/icons/SettingIcon";
 import { useLayoutStates } from "@/contexts/layoutStates";
+import MyTooltip from "@/components/tooltip/MyTooltip";
 
 export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
   const {
@@ -29,7 +30,7 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
         show={showPopupCreate}
         onClose={() => setShowPopupCreate(false)}
       ></PopupCreateTypingList>
-      <Tooltip
+      {/* <Tooltip
         showArrow
         content="Practice with your typing skill and remember your keyword"
         placement="bottom"
@@ -38,12 +39,24 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
         closeDelay={200}
         className="!px-2 !py-[2px] dark:text-white"
         shadow="sm"
+      > */}
+      <MyTooltip
+        contents={
+          <p className="max-w-[200px] text-center">
+            Practice with your typing skill and remember your keyword
+          </p>
+        }
+        size="small"
+        arrowRounded
+        className="flex"
+        placement="bottom"
       >
         <h1 className="flex items-center gap-1 cursor-default">
           <KeyboardIcon />
           Typing
         </h1>
-      </Tooltip>
+        {/* </Tooltip> */}
+      </MyTooltip>
       <SplitElement />
       <ListBtnTypingStyles />
       {typingSettingLocal?.typingStyles === "words" && (

@@ -9,6 +9,7 @@ import SettingIcon from "@/components/icons/SettingIcon";
 import NotificationIcon from "@/components/icons/NotificationIcon";
 import ToggleDarkMode from "@/components/toggle/ToggleDarkMode";
 import { useLayoutStates } from "@/contexts/layoutStates";
+import MyTooltip from "@/components/tooltip/MyTooltip";
 
 const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
   const { darkMode, setDarkMode } = useLayoutStates();
@@ -34,7 +35,7 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
         width={350}
       />
       {/* {scroll.scrollTop} | {scroll.scrollLeft} */}
-      <Tooltip
+      {/* <Tooltip
         showArrow
         content="Settings"
         placement="bottom"
@@ -43,13 +44,21 @@ const HomeMenuHeader = ({ scroll }: { scroll: scrollTypes }) => {
         closeDelay={200}
         className="!px-2 !py-[2px] dark:text-white"
         shadow="sm"
+      > */}
+      <MyTooltip
+        contents={<p className="max-w-[200px] text-center">Settings</p>}
+        size="small"
+        arrowRounded
+        className="flex"
+        placement="bottom"
       >
         <div>
           <Button disable>
             <SettingIcon fontSize="small" className="cursor-wait" />
           </Button>
         </div>
-      </Tooltip>
+      </MyTooltip>
+      {/* </Tooltip> */}
       <Button disable>
         <NotificationIcon fontSize="small" className="cursor-wait" />
       </Button>
