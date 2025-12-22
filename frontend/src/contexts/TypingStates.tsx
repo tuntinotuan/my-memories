@@ -335,6 +335,15 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      console.log("X:", e.clientX, "Y:", e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
   // get api from Random-Word-Api
   // useEffect(() => {
   //   async function fetchData() {
