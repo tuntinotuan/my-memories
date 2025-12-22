@@ -9,7 +9,7 @@ import { useTypingTheme } from "@/contexts/typingThemeStates";
 import TypingPageSkeleton from "@/components/skeleton/TypingPageSkeleton";
 
 export default function TypingPage() {
-  const { showResults, loadingTypingWordList } = useTyping();
+  const { showResults, loadingTypingWordList, cursorIsTyping } = useTyping();
   const { setSingleTheme } = useTypingTheme();
   useEffect(() => {
     setSingleTheme("");
@@ -17,7 +17,11 @@ export default function TypingPage() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-full gap-2 px-4 pt-2 bg-typingBg text-white">
+    <div
+      className={`flex flex-col w-full h-full gap-2 px-4 pt-2 bg-typingBg text-white ${
+        cursorIsTyping ? "hover:cursor-none cursor-none" : ""
+      }`}
+    >
       {loadingTypingWordList && <TypingPageSkeleton></TypingPageSkeleton>}
       {!showResults && !loadingTypingWordList && (
         <TypingHeaderMenu></TypingHeaderMenu>
