@@ -346,7 +346,7 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
       if (!cursorIsTyping) return;
-      console.log("X:", e.clientX, "Y:", e.clientY);
+      // console.log("X:", e.clientX, "Y:", e.clientY);
       setCursorIsTyping(false);
     };
     // document.documentElement.classList.add("cursor-none");

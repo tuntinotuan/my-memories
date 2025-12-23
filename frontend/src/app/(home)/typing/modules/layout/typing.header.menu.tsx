@@ -22,10 +22,15 @@ export const TypingHeaderMenu = ({ changeFor }: { changeFor?: changeFor }) => {
     setShowPopupCreate,
     typingSettingLocal,
     setTypingStyles,
+    cursorIsTyping,
   } = useTyping();
   const { setShowTypingSetting } = useLayoutStates();
   return (
-    <div className="flex items-center flex-wrap gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-2 z-20">
+    <div
+      className={`flex items-center flex-wrap gap-3 !w-auto mx-auto bg-typingBgControlMenu text-typingTextNormal rounded-lg px-5 py-2 z-20 ${
+        cursorIsTyping ? "opacity-0" : "opacity-100"
+      }`}
+    >
       <PopupCreateTypingList
         show={showPopupCreate}
         onClose={() => setShowPopupCreate(false)}
