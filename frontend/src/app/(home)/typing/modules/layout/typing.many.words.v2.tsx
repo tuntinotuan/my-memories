@@ -41,6 +41,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     repeatTest,
     setRepeatTest,
     setIsVietNamese,
+    setSecondsOfManyWords,
+    setIsCountDown,
   } = useTyping();
 
   const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -145,6 +147,16 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
       setRepeatTest(false);
     }
   }, [repeatTest]);
+
+  useEffect(() => {
+    if (cursorIsTyping) {
+      if (types === "words") setSecondsOfManyWords(true);
+      if (types === "time") setIsCountDown(true);
+    } else {
+      if (types === "words") setSecondsOfManyWords(false);
+      if (types === "time") setIsCountDown(false);
+    }
+  }, [cursorIsTyping]);
 
   const caculateHeightWordBox =
     typingFontsizeX * typingFontsize * 3 + wordGap * 2;
