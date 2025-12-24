@@ -2,6 +2,7 @@ import { useTyping } from "@/contexts/TypingStates";
 import { getTextWidth } from "@/utils/stringFs";
 import { useEffect } from "react";
 import { resetTypingStatesV2 } from "./resetTypingStates";
+import { useLayoutStates } from "@/contexts/layoutStates";
 
 export function useUpdateCursorPosition(
   newArrWords: any,
@@ -25,6 +26,7 @@ export function useUpdateCursorPosition(
     fontFamily,
     typingFullScreen,
   } = useTyping();
+  const { showHomeSidebar } = useLayoutStates();
   useEffect(() => {
     typingWordIndex < newArrWords.length &&
       setCurrentText(newArrWords[typingWordIndex].word.split("")[0]);
@@ -41,7 +43,7 @@ export function useUpdateCursorPosition(
       setCursorPosition(rect.left + (moreCursorPosition || 0));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect, typingSettingLocal, typingFullScreen]);
+  }, [rect, typingSettingLocal, typingFullScreen, showHomeSidebar]);
   useEffect(() => {
     setHydrated &&
       resetTypingStatesV2({
@@ -52,5 +54,5 @@ export function useUpdateCursorPosition(
         setHeightFlexible,
         setRowTyped,
       });
-  }, [typingFontsizeX, fontFamily, typingFullScreen]);
+  }, [typingFontsizeX, fontFamily, typingFullScreen, showHomeSidebar]);
 }
