@@ -335,25 +335,6 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (cursorIsTyping) {
-      document.body.style.cursor = "none";
-    } else {
-      document.body.style.cursor = "default";
-    }
-  }, [cursorIsTyping]);
-
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      if (!cursorIsTyping) return;
-      // console.log("X:", e.clientX, "Y:", e.clientY);
-      setCursorIsTyping(false);
-    };
-    // document.documentElement.classList.add("cursor-none");
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, [cursorIsTyping]);
-
   // get api from Random-Word-Api
   // useEffect(() => {
   //   async function fetchData() {
