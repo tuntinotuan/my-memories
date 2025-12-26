@@ -54,12 +54,20 @@ export function useKeyDownV2(
     if (!hideOverlay) {
       return null;
     }
-    startTyping(
-      types,
-      setCursorIsTyping,
-      setSecondsOfManyWords,
-      setIsCountDown
-    );
+    if (
+      e.key.length === 1 &&
+      !e.ctrlKey &&
+      !e.metaKey &&
+      !e.altKey &&
+      e.key !== " "
+    ) {
+      startTyping(
+        types,
+        setCursorIsTyping,
+        setSecondsOfManyWords,
+        setIsCountDown
+      );
+    }
 
     setAutoAnimateState(true);
     resetSecondsOfAutoAnimate();
