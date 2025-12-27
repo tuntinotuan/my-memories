@@ -139,15 +139,7 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setHydrated
   );
   useCursorIsTypingChange(types);
-
-  usePreTestList(newArrWords);
-
-  useEffect(() => {
-    if (repeatTest) {
-      preTestList && setNewArrWords(preTestList);
-      setRepeatTest(false);
-    }
-  }, [repeatTest]);
+  usePreTestList(newArrWords, setNewArrWords);
 
   const caculateHeightWordBox =
     typingFontsizeX * typingFontsize * 3 + wordGap * 2;
