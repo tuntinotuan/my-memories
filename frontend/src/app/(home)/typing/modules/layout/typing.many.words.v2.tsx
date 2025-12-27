@@ -16,6 +16,7 @@ import { useUpdateCursorPosition } from "../../func/wordV2/updateCursorPosition"
 import { useAutoAnimateTyping } from "../../func/wordOlderV1/autoAnimateTyping";
 import { VN_REGEX } from "@/utils/RegexFs";
 import { useCursorIsTypingChange } from "../../func/wordV2/cursorIsTypingChange";
+import { usePreTestList } from "../../func/wordV2/preTestList";
 
 type TypingManyWordsV2Props = {
   types: TypeOfTypingManyWordProps;
@@ -138,10 +139,8 @@ export const TypingManyWordsV2 = ({ types, data }: TypingManyWordsV2Props) => {
     setHydrated
   );
   useCursorIsTypingChange(types);
-  useEffect(() => {
-    showResults && setPreTestList(newArrWords);
-    console.log("pre test list", preTestList);
-  }, [showResults]);
+
+  usePreTestList(newArrWords);
 
   useEffect(() => {
     if (repeatTest) {
