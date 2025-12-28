@@ -9,7 +9,7 @@ const NotifySaved = () => {
     <Notify
       active={activeSaved}
       setActive={setActiveSaved}
-      className="!bg-green-400 text-white font-bold"
+      className="!bg-green-400 text-white dark:text-white font-bold"
     >
       {title}
       <CloseIcon
