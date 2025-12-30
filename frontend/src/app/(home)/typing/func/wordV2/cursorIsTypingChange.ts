@@ -21,7 +21,6 @@ export function useCursorIsTypingChange(types: any) {
 
     const handleMove = (e: MouseEvent) => {
       if (!cursorIsTyping) return;
-      // console.log("X:", e.clientX, "Y:", e.clientY);
       setCursorIsTyping(false);
     };
     // document.documentElement.classList.add("cursor-none");
