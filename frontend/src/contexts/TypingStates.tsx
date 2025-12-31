@@ -218,8 +218,6 @@ export const TypingProvider = ({ children }: { children: React.ReactNode }) => {
   const [typingFontsizeX, setTypingFontsizeX] = useState<FontSizeTypes>(
     makeFraction(1)
   );
-  const [cursorSize, setCursorSize] = useState();
-  const [wordSpace, setWordSpace] = useState();
   const [wordGap, setWordGap] = useState<number>(14);
   const [fontFamily, setFontFamily] = useState({
     name: "monospace",
